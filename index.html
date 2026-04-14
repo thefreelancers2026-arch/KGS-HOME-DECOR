@@ -717,6 +717,8 @@ body { -webkit-font-smoothing: antialiased; }
   </div>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/fuse.js/dist/fuse.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
 <script>
 function openDrw(){
   document.getElementById('mobile-drawer').style.transform='translateX(0)';
@@ -762,10 +764,8 @@ function doSearch(q){
   const hint=document.getElementById('search-hint');
   if(!q.trim()){res.innerHTML='';hint.style.display='';return;}
   hint.style.display='none';
-  const matches=kgsProducts.filter(p=>
-    p.name.toLowerCase().includes(q.toLowerCase())||
-    p.cat.toLowerCase().includes(q.toLowerCase())
-  );
+  if(!window.kgsFuse) window.kgsFuse = new Fuse(kgsProducts, {keys:['name','cat'], threshold:0.3});
+  const matches = window.kgsFuse.search(q).map(r => r.item);
   if(matches.length===0){
     res.innerHTML='<p style="color:rgba(255,255,255,.4);font-size:13px;padding:12px 16px;">No results. <a href="product-listing.html" style="color:#C5A880;text-decoration:underline;">Browse all 500+ products →</a></p>';
   }else{
@@ -803,6 +803,11 @@ const io = new IntersectionObserver(es=>{
   es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('on'); io.unobserve(e.target); } });
 },{threshold:.1});
 document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+
+/* ─── SMOOTH SCROLL (Lenis) ──────────────── */
+const lenis = new Lenis();
+function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+requestAnimationFrame(raf);
 </script>
 </body>
 </html>

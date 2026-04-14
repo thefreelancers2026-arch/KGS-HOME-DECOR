@@ -420,7 +420,13 @@ body{-webkit-font-smoothing:antialiased;}
   </div>
 </footer>
 
+<script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
 <script>
+/* ─── SMOOTH SCROLL (Lenis) ──────────────── */
+const lenis = new Lenis();
+function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+requestAnimationFrame(raf);
+
 function openDrw(){document.getElementById('mobile-drawer').style.transform='translateX(0)';document.getElementById('drw-ov').classList.remove('hidden');document.body.style.overflow='hidden';}
 function closeDrw(){document.getElementById('mobile-drawer').style.transform='translateX(-100%)';document.getElementById('drw-ov').classList.add('hidden');document.body.style.overflow='';}
 function openFilter(){document.getElementById('filter-drawer').style.transform='translateY(0)';document.getElementById('filter-ov').classList.remove('hidden');document.body.style.overflow='hidden';}
