@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Account — KGS Home Décors | Virudhachalam</title>
+<meta name="description" content="Manage your orders, wishlist and account at KGS Home Décors, Virudhachalam.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: { extend: {
+    colors: { base:'#FAF8F4', tint:'#F3EDE4', surface:'#FFFFFF', ink:'#1A1A1A', muted:'#767270', gold:'#C5A880', warm:'#C97840', border:'#E4DDD4' },
+    fontFamily: { sans:['"DM Sans"','sans-serif'], serif:['"Cormorant Garamond"','serif'] }
+  }}
+}
+</script>
+<style>
+*,*::before,*::after{box-sizing:border-box;}
+body{-webkit-font-smoothing:antialiased;}
+::selection{background:#C5A880;color:#fff;}
+.material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 200,'GRAD' 0,'opsz' 24;}
+.btn-primary{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 28px;background:#C97840;color:#fff;font-family:"DM Sans",sans-serif;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;border:1.5px solid #C97840;cursor:pointer;transition:background .22s;}
+.btn-primary:hover{background:#a8612d;}
+.btn-secondary{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 24px;background:transparent;color:#1A1A1A;font-family:"DM Sans",sans-serif;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;border:1.5px solid #1A1A1A;cursor:pointer;transition:background .22s,color .22s;}
+.btn-secondary:hover{background:#1A1A1A;color:#FAF8F4;}
+.nav-link{position:relative;color:#767270;font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;transition:color .2s;}
+.nav-link::after{content:'';position:absolute;left:0;bottom:-3px;width:0;height:1px;background:#C5A880;transition:width .3s;}
+.nav-link:hover{color:#1A1A1A;}
+.nav-link:hover::after{width:100%;}
+.form-input{width:100%;padding:12px 14px;border:1px solid #E4DDD4;background:#fff;font-family:"DM Sans",sans-serif;font-size:14px;color:#1A1A1A;outline:none;transition:border-color .2s;}
+.form-input:focus{border-color:#C97840;}
+.form-input::placeholder{color:#B0ADAA;}
+.form-label{display:block;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#767270;margin-bottom:6px;}
+/* Tab nav */
+.tab-link{position:relative;padding:10px 16px;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#767270;cursor:pointer;transition:color .2s;background:none;border:none;border-bottom:2px solid transparent;}
+.tab-link:hover{color:#1A1A1A;}
+.tab-link.active{color:#C97840;border-bottom-color:#C97840;}
+/* Order status badge */
+.badge{display:inline-block;padding:3px 10px;font-size:9.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;}
+.badge-done{background:#ECFDF5;color:#059669;}
+.badge-pending{background:#FEF3C7;color:#D97706;}
+.badge-shipped{background:#EEF2FF;color:#4338CA;}
+#mobile-drawer{transition:transform .42s cubic-bezier(.77,0,.18,1);}
+</style>
+</head>
+<body class="bg-base text-ink font-sans">
+
+<!-- MOBILE DRAWER -->
+<div id="drw-ov" class="fixed inset-0 bg-black/40 z-50 hidden" onclick="closeDrw()"></div>
+<div id="mobile-drawer" class="fixed inset-y-0 left-0 z-50 w-[290px] bg-surface flex flex-col -translate-x-full shadow-2xl">
+  <div class="flex items-center justify-between px-6 py-5 border-b border-border">
+    <a href="index.html" class="font-serif font-medium text-xl tracking-[.35em] text-ink">KGS</a>
+    <button onclick="closeDrw()"><span class="material-symbols-outlined">close</span></button>
+  </div>
+  <nav class="flex flex-col px-6 pt-8 gap-7">
+    <a href="index.html#collections" class="nav-link text-[13px] normal-case font-medium tracking-normal">Collections</a>
+    <a href="product-listing.html" class="nav-link text-[13px] normal-case font-medium tracking-normal">Shop All</a>
+    <a href="index.html#about" class="nav-link text-[13px] normal-case font-medium tracking-normal">Our Story</a>
+    <a href="index.html#showroom" class="nav-link text-[13px] normal-case font-medium tracking-normal">Showroom</a>
+  </nav>
+  <div class="mt-auto px-6 py-7 border-t border-border space-y-4">
+    <a href="customer-account.html" class="flex items-center gap-3 text-sm text-muted hover:text-ink"><span class="material-symbols-outlined text-[18px]">person</span> My Account</a>
+    <a href="cart-checkout.html" class="flex items-center gap-3 text-sm text-muted hover:text-ink"><span class="material-symbols-outlined text-[18px]">local_mall</span> Cart</a>
+    <a href="tel:+919789182921" class="flex items-center gap-3 text-sm text-muted hover:text-ink"><span class="material-symbols-outlined text-[18px]">call</span> +91 97891 82921</a>
+  </div>
+</div>
+
+<!-- ANNOUNCEMENT -->
+<div class="hidden sm:block bg-ink text-white/50 text-[10px] font-medium tracking-[.25em] uppercase text-center py-2.5">
+  Free Delivery in Virudhachalam &nbsp;·&nbsp; Cash on Delivery &nbsp;·&nbsp; Open 10 AM – 10 PM, Every Day
+</div>
+
+<!-- NAVBAR -->
+<nav class="sticky top-0 z-40 bg-surface border-b border-border">
+  <div class="max-w-7xl mx-auto px-5 md:px-10 flex items-center justify-between h-16">
+    <button onclick="openDrw()" class="md:hidden text-muted p-1"><span class="material-symbols-outlined">menu</span></button>
+    <a href="index.html" class="font-serif font-medium tracking-[.38em] text-[1.3rem] text-ink hover:text-gold transition-colors">KGS</a>
+    <div class="hidden md:flex items-center gap-10">
+      <a href="index.html#collections" class="nav-link">Collections</a>
+      <a href="product-listing.html" class="nav-link">Shop All</a>
+      <a href="index.html#about" class="nav-link">Our Story</a>
+      <a href="index.html#showroom" class="nav-link">Showroom</a>
+    </div>
+    <div class="flex items-center gap-4 text-muted">
+      <a href="product-listing.html" class="hover:text-ink transition-colors"><span class="material-symbols-outlined text-[20px]">search</span></a>
+      <a href="customer-account.html" class="hover:text-ink transition-colors" style="color:#1A1A1A;"><span class="material-symbols-outlined text-[20px]">person</span></a>
+      <a href="cart-checkout.html" class="relative hover:text-ink transition-colors">
+        <span class="material-symbols-outlined text-[20px]">local_mall</span>
+        <span class="absolute -top-1.5 -right-2 w-4 h-4 bg-warm text-white text-[8px] rounded-full flex items-center justify-center font-bold">2</span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="bg-tint border-b border-border py-8">
+  <div class="max-w-7xl mx-auto px-5 md:px-10">
+    <nav class="flex items-center gap-2 text-[11px] text-muted uppercase tracking-widest font-medium mb-3">
+      <a href="index.html" class="hover:text-ink transition-colors">Home</a>
+      <span class="opacity-40">/</span><span class="text-ink">My Account</span>
+    </nav>
+    <h1 class="font-serif font-medium text-ink" style="font-size:clamp(1.7rem,3vw,2.4rem);">My Account</h1>
+  </div>
+</div>
+
+<main class="max-w-7xl mx-auto px-5 md:px-10 py-10">
+  <div class="grid grid-cols-1 lg:grid-cols-[240px_1fr] gap-10">
+
+    <!-- Sidebar -->
+    <aside class="space-y-2">
+      <!-- User Card -->
+      <div class="bg-surface border border-border p-5 mb-4">
+        <div class="flex items-center gap-4">
+          <div class="w-12 h-12 bg-tint border border-border rounded-full flex items-center justify-center">
+            <span class="material-symbols-outlined text-muted text-[22px]">person</span>
+          </div>
+          <div>
+            <p class="font-semibold text-ink text-[15px]">Welcome back</p>
+            <p class="text-muted text-[12px]">Virudhachalam, TN</p>
+          </div>
+        </div>
+      </div>
+      <!-- Nav -->
+      <button class="tab-link active w-full text-left flex items-center gap-3" onclick="showTab('orders',this)">
+        <span class="material-symbols-outlined text-[17px]">shopping_bag</span>My Orders
+      </button>
+      <button class="tab-link w-full text-left flex items-center gap-3" onclick="showTab('wishlist',this)">
+        <span class="material-symbols-outlined text-[17px]">favorite</span>Wishlist
+      </button>
+      <button class="tab-link w-full text-left flex items-center gap-3" onclick="showTab('profile',this)">
+        <span class="material-symbols-outlined text-[17px]">manage_accounts</span>Profile Settings
+      </button>
+      <button class="tab-link w-full text-left flex items-center gap-3" onclick="showTab('address',this)">
+        <span class="material-symbols-outlined text-[17px]">location_on</span>Saved Addresses
+      </button>
+      <div class="border-t border-border mt-4 pt-4">
+        <a href="https://wa.me/919789182921" target="_blank" class="flex items-center gap-3 text-[11px] font-semibold tracking-wide uppercase text-muted hover:text-ink transition-colors py-2">
+          <svg viewBox="0 0 24 24" fill="#767270" class="w-4 h-4"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          WhatsApp Support
+        </a>
+        <a href="product-listing.html" class="block mt-3"><button class="btn-primary w-full text-[10px] py-3">Shop Now</button></a>
+      </div>
+    </aside>
+
+    <!-- Tab Content -->
+    <div>
+
+      <!-- ORDERS TAB -->
+      <div id="tab-orders">
+        <h2 class="font-serif font-medium text-ink text-xl mb-7 pb-4 border-b border-border">My Orders</h2>
+        <div class="space-y-4">
+
+          <!-- Order card -->
+          <div class="bg-surface border border-border p-5">
+            <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-5">
+              <div>
+                <p class="font-semibold text-ink text-[15px] mb-1">Order #KGS-2024-089</p>
+                <p class="text-muted text-[12px]">Placed on 10 April 2026</p>
+              </div>
+              <div class="flex flex-wrap gap-2">
+                <span class="badge badge-done">Delivered</span>
+                <span class="badge badge-shipped">COD Paid</span>
+              </div>
+            </div>
+            <!-- Order item -->
+            <div class="flex items-center gap-4 border-t border-border pt-4">
+              <div class="w-16 h-20 bg-tint overflow-hidden shrink-0"><img src="assets/images/sofa.jpg" alt="" class="w-full h-full object-cover"></div>
+              <div class="flex-grow">
+                <p class="font-serif font-medium text-ink text-[1rem] leading-snug mb-1">Premium 3-Seater Sofa</p>
+                <p class="text-muted text-[12px] mb-2">Qty: 1</p>
+                <p class="font-semibold text-warm">&#8377;18,500</p>
+              </div>
+              <a href="product-detail.html" class="btn-secondary text-[10px] py-2 px-4 hidden sm:flex" style="width:auto;">Reorder</a>
+            </div>
+          </div>
+
+          <!-- Order card 2 -->
+          <div class="bg-surface border border-border p-5">
+            <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-5">
+              <div>
+                <p class="font-semibold text-ink text-[15px] mb-1">Order #KGS-2024-063</p>
+                <p class="text-muted text-[12px]">Placed on 28 Feb 2026</p>
+              </div>
+              <div class="flex flex-wrap gap-2">
+                <span class="badge badge-done">Delivered</span>
+              </div>
+            </div>
+            <div class="flex items-center gap-4 border-t border-border pt-4">
+              <div class="w-16 h-20 bg-tint overflow-hidden shrink-0"><img src="assets/images/clock.jpg" alt="" class="w-full h-full object-cover"></div>
+              <div class="flex-grow">
+                <p class="font-serif font-medium text-ink text-[1rem] leading-snug mb-1">Antique Brass Wall Clock</p>
+                <p class="text-muted text-[12px] mb-2">Qty: 2</p>
+                <p class="font-semibold text-warm">&#8377;2,598</p>
+              </div>
+              <a href="product-detail.html" class="btn-secondary text-[10px] py-2 px-4 hidden sm:flex" style="width:auto;">Reorder</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- WISHLIST TAB -->
+      <div id="tab-wishlist" class="hidden">
+        <h2 class="font-serif font-medium text-ink text-xl mb-7 pb-4 border-b border-border">My Wishlist</h2>
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+          <div class="border border-border bg-surface">
+            <div class="aspect-[4/5] overflow-hidden bg-tint"><img src="assets/images/fountain.jpg" alt="" class="w-full h-full object-cover"></div>
+            <div class="p-4">
+              <p class="text-[9.5px] font-semibold tracking-widest uppercase text-muted mb-1">Fountains</p>
+              <h3 class="font-serif font-medium text-ink text-[1.02rem] mb-2">Indoor Tabletop Fountain</h3>
+              <p class="font-semibold text-warm mb-3">&#8377;2,850</p>
+              <a href="cart-checkout.html" class="btn-primary w-full text-[10px] py-2.5">Add to Cart</a>
+            </div>
+          </div>
+          <div class="border border-border bg-surface">
+            <div class="aspect-[4/5] overflow-hidden bg-tint"><img src="assets/images/wall_decor.jpg" alt="" class="w-full h-full object-cover"></div>
+            <div class="p-4">
+              <p class="text-[9.5px] font-semibold tracking-widest uppercase text-muted mb-1">Wall Décor</p>
+              <h3 class="font-serif font-medium text-ink text-[1.02rem] mb-2">Botanical Wall Art</h3>
+              <p class="font-semibold text-warm mb-3">&#8377;1,850</p>
+              <a href="cart-checkout.html" class="btn-primary w-full text-[10px] py-2.5">Add to Cart</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROFILE TAB -->
+      <div id="tab-profile" class="hidden">
+        <h2 class="font-serif font-medium text-ink text-xl mb-7 pb-4 border-b border-border">Profile Settings</h2>
+        <form class="space-y-5 max-w-lg" onsubmit="return false;">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="form-label">First Name</label>
+              <input type="text" class="form-input" placeholder="First name">
+            </div>
+            <div>
+              <label class="form-label">Last Name</label>
+              <input type="text" class="form-input" placeholder="Last name">
+            </div>
+          </div>
+          <div>
+            <label class="form-label">Phone / WhatsApp</label>
+            <input type="tel" class="form-input" placeholder="+91 98765 43210">
+          </div>
+          <div>
+            <label class="form-label">Email (optional)</label>
+            <input type="email" class="form-input" placeholder="your@email.com">
+          </div>
+          <button type="submit" class="btn-primary" style="width:auto;">Save Changes</button>
+        </form>
+      </div>
+
+      <!-- ADDRESS TAB -->
+      <div id="tab-address" class="hidden">
+        <h2 class="font-serif font-medium text-ink text-xl mb-7 pb-4 border-b border-border">Saved Addresses</h2>
+        <div class="border border-warm bg-warm/5 p-5 mb-5 max-w-md">
+          <div class="flex items-start justify-between">
+            <div>
+              <span class="text-[9.5px] font-semibold tracking-widest uppercase text-warm mb-2 block">Default</span>
+              <p class="font-semibold text-ink text-[14px] mb-1">Home</p>
+              <p class="text-muted text-[13px] leading-relaxed">45, Gandhi Nagar, Near Bus Stand,<br>Virudhachalam, Tamil Nadu – 606 001</p>
+            </div>
+            <button class="text-muted hover:text-ink transition-colors"><span class="material-symbols-outlined text-[18px]">edit</span></button>
+          </div>
+        </div>
+        <button class="btn-secondary flex items-center gap-2 text-[10px]" style="width:auto;">
+          <span class="material-symbols-outlined text-[16px]">add</span> Add New Address
+        </button>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<!-- FOOTER (minimal) -->
+<footer class="bg-ink pt-10 pb-8 mt-12">
+  <div class="max-w-7xl mx-auto px-5 md:px-10 flex flex-col md:flex-row justify-between items-center gap-4">
+    <a href="index.html" class="font-serif font-medium tracking-[.38em] text-[1.3rem] text-white hover:text-gold transition-colors">KGS</a>
+    <p class="text-[10px] tracking-[.14em] uppercase text-white/25">&copy; 2026 KGS Home Décors, Virudhachalam · All Rights Reserved</p>
+    <a href="tel:+919789182921" class="text-white/40 hover:text-white text-[13px] transition-colors">+91 97891 82921</a>
+  </div>
+</footer>
+
+<script>
+function openDrw(){document.getElementById('mobile-drawer').style.transform='translateX(0)';document.getElementById('drw-ov').classList.remove('hidden');document.body.style.overflow='hidden';}
+function closeDrw(){document.getElementById('mobile-drawer').style.transform='translateX(-100%)';document.getElementById('drw-ov').classList.add('hidden');document.body.style.overflow='';}
+
+function showTab(name, btn){
+  ['orders','wishlist','profile','address'].forEach(t=>{
+    const el = document.getElementById('tab-'+t);
+    if(el) el.classList.add('hidden');
+  });
+  const tab = document.getElementById('tab-'+name);
+  if(tab) tab.classList.remove('hidden');
+  document.querySelectorAll('.tab-link').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>
