@@ -61,9 +61,13 @@ body { -webkit-font-smoothing: antialiased; }
   font-family: "DM Sans", sans-serif; font-size: 11px; font-weight: 600;
   letter-spacing: .14em; text-transform: uppercase; text-decoration: none;
   border: 1.5px solid #C97840; cursor: pointer;
-  transition: background .22s, border-color .22s;
+  transition: background .25s, border-color .25s, box-shadow .3s ease, transform .35s cubic-bezier(.25,1,.5,1);
 }
-.btn-primary:hover { background: #a8612d; border-color: #a8612d; }
+.btn-primary:hover { 
+  background: #a8612d; border-color: #a8612d; 
+  transform: translateY(-2px) scale(1.01); 
+  box-shadow: 0 8px 24px rgba(201,120,64,0.35);
+}
 
 .btn-secondary {
   display: inline-flex; align-items: center; justify-content: center; gap: 8px;
@@ -71,9 +75,13 @@ body { -webkit-font-smoothing: antialiased; }
   font-family: "DM Sans", sans-serif; font-size: 11px; font-weight: 600;
   letter-spacing: .14em; text-transform: uppercase; text-decoration: none;
   border: 1.5px solid #1A1A1A; cursor: pointer;
-  transition: background .22s, color .22s;
+  transition: background .25s, color .25s, box-shadow .3s ease, transform .35s cubic-bezier(.25,1,.5,1);
 }
-.btn-secondary:hover { background: #1A1A1A; color: #FAF8F4; }
+.btn-secondary:hover { 
+  background: #1A1A1A; color: #FAF8F4; 
+  transform: translateY(-2px); 
+  box-shadow: 0 8px 24px rgba(26,26,26,0.2); 
+}
 
 .btn-whatsapp {
   display: inline-flex; align-items: center; justify-content: center; gap: 8px;
@@ -81,9 +89,13 @@ body { -webkit-font-smoothing: antialiased; }
   font-family: "DM Sans", sans-serif; font-size: 11px; font-weight: 600;
   letter-spacing: .14em; text-transform: uppercase; text-decoration: none;
   border: 1.5px solid #25D366; cursor: pointer;
-  transition: background .22s;
+  transition: background .25s, box-shadow .3s ease, transform .35s cubic-bezier(.25,1,.5,1);
 }
-.btn-whatsapp:hover { background: #1db954; }
+.btn-whatsapp:hover { 
+  background: #1db954; 
+  transform: translateY(-2px); 
+  box-shadow: 0 8px 20px rgba(37,211,102,0.3); 
+}
 
 /* â”€â”€â”€ NAV LINK â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .nav-link {
@@ -436,7 +448,7 @@ body { -webkit-font-smoothing: antialiased; }
         <span class="cat-label">Fountains</span>
       </a>
       <a href="product-listing.html" class="cat-pill">
-        <div class="cat-circle"><img src="assets/images/wall_decor.jpg" alt="Wall Art &amp; Décor"></div>
+        <div class="cat-circle"><img src="assets/images/wall_decor.jpg" alt="Wall Art & Décor"></div>
         <span class="cat-label">Wall Art</span>
       </a>
       <a href="product-listing.html" class="cat-pill">
