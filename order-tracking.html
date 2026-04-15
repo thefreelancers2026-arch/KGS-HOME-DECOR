@@ -6,8 +6,6 @@
 <title>Track My Order — KGS Home Décors | Virudhachalam</title>
 <meta name="description" content="Track your KGS Home Décors order. Enter your Order ID to see real-time delivery status.">
 <meta name="robots" content="noindex">
-<meta name="author" content="KGS Home D?cors">
-<link rel="canonical" href="https://kgshomedecors.in/order-tracking.html">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -56,16 +54,11 @@ body{-webkit-font-smoothing:antialiased;}
 /* Result card slide in */
 #result-card{transition:opacity .5s ease,transform .5s ease;}
 </style>
-
-<meta property="og:title" content="Track My Order — KGS Home Décors | Virudhachalam">
-<meta property="og:description" content="Track your KGS Home Décors order. Enter your Order ID to see real-time delivery status.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://kgshomedecors.in/order-tracking.html">
-<meta name="twitter:card" content="summary_large_image"></head>
+</head>
 <body class="bg-base text-ink font-sans">
 
 <!-- ANNOUNCEMENT -->
-<div class="hidden sm:block bg-ink text-white/50 text-[11px] font-medium tracking-[.18em] uppercase text-center py-2.5">
+<div class="hidden sm:block bg-ink text-white/50 text-[10px] font-medium tracking-[.25em] uppercase text-center py-2.5">
   Cash on Delivery · Free Delivery in Virudhachalam · Open 10 AM – 10 PM Every Day
 </div>
 
@@ -90,7 +83,7 @@ body{-webkit-font-smoothing:antialiased;}
 <!-- PAGE HEADER -->
 <div class="bg-tint border-b border-border py-12">
   <div class="max-w-2xl mx-auto px-5 text-center">
-    <p class="text-[11px] font-semibold tracking-[.18em] uppercase text-gold mb-4">Order Status</p>
+    <p class="text-[10px] font-semibold tracking-[.18em] uppercase text-gold mb-4">Order Status</p>
     <h1 class="font-serif font-medium text-ink mb-3" style="font-size:clamp(1.9rem,4vw,3rem);">Track My Order</h1>
     <p class="text-muted text-[14px] leading-relaxed">Enter the Order ID sent to your WhatsApp when we confirmed your order.</p>
   </div>
@@ -103,7 +96,7 @@ body{-webkit-font-smoothing:antialiased;}
   <div class="bg-surface border border-border p-6 md:p-8 mb-8">
     <div class="flex flex-col sm:flex-row gap-3">
       <div class="flex-grow">
-        <label class="block text-[11px] font-semibold tracking-[.14em] uppercase text-muted mb-2">Order ID</label>
+        <label class="block text-[10px] font-semibold tracking-[.14em] uppercase text-muted mb-2">Order ID</label>
         <input id="order-id-input" type="text" class="form-input" placeholder="e.g. KGS0001"
                oninput="this.value=this.value.toUpperCase()" onkeydown="if(event.key==='Enter')trackOrder()">
       </div>
@@ -133,11 +126,11 @@ body{-webkit-font-smoothing:antialiased;}
     <!-- Order Info Header -->
     <div class="bg-surface border border-border px-6 py-5 flex items-start justify-between mb-1">
       <div>
-        <p class="text-[11px] font-semibold tracking-[.18em] uppercase text-muted mb-1">Order ID</p>
+        <p class="text-[10px] font-semibold tracking-[.18em] uppercase text-muted mb-1">Order ID</p>
         <p id="res-id" class="font-serif font-medium text-ink text-xl"></p>
       </div>
       <div class="text-right">
-        <p class="text-[11px] font-semibold tracking-[.18em] uppercase text-muted mb-1">Ordered On</p>
+        <p class="text-[10px] font-semibold tracking-[.18em] uppercase text-muted mb-1">Ordered On</p>
         <p id="res-date" class="text-[13px] text-ink font-medium"></p>
       </div>
     </div>
@@ -150,7 +143,7 @@ body{-webkit-font-smoothing:antialiased;}
 
     <!-- Items Summary -->
     <div class="bg-surface border border-border p-6 mb-6">
-      <p class="text-[11px] font-semibold tracking-[.18em] uppercase text-muted mb-4">Items Ordered</p>
+      <p class="text-[10px] font-semibold tracking-[.18em] uppercase text-muted mb-4">Items Ordered</p>
       <div id="res-items" class="space-y-3"></div>
       <div class="flex justify-between items-center border-t border-border pt-4 mt-4">
         <span class="text-[12px] font-semibold text-muted uppercase tracking-wide">Total Paid</span>
@@ -160,13 +153,13 @@ body{-webkit-font-smoothing:antialiased;}
 
     <!-- Timeline -->
     <div class="bg-surface border border-border p-6 mb-6">
-      <p class="text-[11px] font-semibold tracking-[.18em] uppercase text-muted mb-6">Delivery Progress</p>
+      <p class="text-[10px] font-semibold tracking-[.18em] uppercase text-muted mb-6">Delivery Progress</p>
       <div id="timeline" class="space-y-5 pl-1"></div>
     </div>
 
     <!-- Delivery Address -->
     <div class="bg-surface border border-border p-6 mb-6">
-      <p class="text-[11px] font-semibold tracking-[.18em] uppercase text-muted mb-3">Delivery Address</p>
+      <p class="text-[10px] font-semibold tracking-[.18em] uppercase text-muted mb-3">Delivery Address</p>
       <div class="flex items-start gap-3">
         <span class="material-symbols-outlined text-gold text-[20px] mt-0.5">location_on</span>
         <p id="res-address" class="text-[14px] text-ink leading-relaxed"></p>
@@ -200,7 +193,7 @@ body{-webkit-font-smoothing:antialiased;}
 <footer class="bg-ink pt-10 pb-8 mt-12">
   <div class="max-w-7xl mx-auto px-5 md:px-10 flex flex-col md:flex-row justify-between items-center gap-4">
     <a href="index.html" class="font-serif font-medium tracking-[.38em] text-[1.3rem] text-white hover:text-gold transition-colors">KGS</a>
-    <p class="text-[11px] tracking-[.14em] uppercase text-white/25">&copy; 2026 KGS Home Décors, Virudhachalam</p>
+    <p class="text-[10px] tracking-[.14em] uppercase text-white/25">&copy; 2026 KGS Home Décors, Virudhachalam</p>
     <a href="tel:+919789182921" class="text-white/40 hover:text-white text-[13px] transition-colors">+91 97891 82921</a>
   </div>
 </footer>
@@ -346,7 +339,7 @@ function renderOrder(o){
       <div class="pt-0.5 pb-5">
         <p class="text-[13.5px] font-semibold text-ink leading-tight">${s.label}</p>
         <p class="text-[11.5px] text-muted mt-1">${s.date}</p>
-        ${s.active?'<span class="inline-block mt-1.5 text-[11px] font-semibold tracking-wide uppercase px-2 py-0.5" style="background:#FDF5EE;color:#C97840;">In Progress</span>':''}
+        ${s.active?'<span class="inline-block mt-1.5 text-[10px] font-semibold tracking-wide uppercase px-2 py-0.5" style="background:#FDF5EE;color:#C97840;">In Progress</span>':''}
       </div>
     </div>`}).join('');
 
