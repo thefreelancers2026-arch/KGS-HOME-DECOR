@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
 <meta charset="UTF-8">
@@ -33,10 +33,7 @@ body{-webkit-font-smoothing:antialiased;}
 .nav-link::after{content:'';position:absolute;left:0;bottom:-3px;width:0;height:1px;background:#C5A880;transition:width .35s;}
 .nav-link:hover{color:#1A1A1A;}
 .nav-link:hover::after{width:100%;}
-/* Trust bar */
-.trust-bar{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;}
-.trust-item{display:flex;flex-direction:column;align-items:center;text-align:center;padding:14px 28px;}
-.trust-sep{width:1px;height:36px;background:#E4DDD4;flex-shrink:0;align-self:center;}
+/* Trust snippet removed to favor utility classes */
 /* Product card */
 .prod-card{background:#fff;border:1px solid #E4DDD4;transition:box-shadow .4s ease,transform .4s ease;}
 .prod-card:hover{box-shadow:0 8px 32px rgba(0,0,0,.08);transform:translateY(-2px);}
@@ -158,17 +155,17 @@ body{-webkit-font-smoothing:antialiased;}
   </div>
 </nav>
 
-<!-- TRUST BAR -->
-<div class="bg-surface border-b border-border py-5">
-  <div class="max-w-5xl mx-auto px-5">
-    <div class="trust-bar">
-      <div class="trust-item"><span class="material-symbols-outlined text-[22px] text-gold mb-2">payments</span><p class="text-[12.5px] text-ink font-semibold">Cash on Delivery</p><p class="text-muted text-[11px] mt-0.5">Pay when received</p></div>
-      <div class="trust-sep"></div>
-      <div class="trust-item"><span class="material-symbols-outlined text-[22px] text-gold mb-2">local_shipping</span><p class="text-[12.5px] text-ink font-semibold">Free Delivery</p><p class="text-muted text-[11px] mt-0.5">In Virudhachalam</p></div>
-      <div class="trust-sep hidden sm:block"></div>
-      <div class="trust-item hidden sm:flex"><span class="material-symbols-outlined text-[22px] text-gold mb-2">support_agent</span><p class="text-[12.5px] text-ink font-semibold">WhatsApp Support</p><p class="text-muted text-[11px] mt-0.5">+91 97891 82921</p></div>
-      <div class="trust-sep hidden md:block"></div>
-      <div class="trust-item hidden md:flex"><span class="material-symbols-outlined text-[22px] text-gold mb-2">storefront</span><p class="text-[12.5px] text-ink font-semibold">Visit Our Store</p><p class="text-muted text-[11px] mt-0.5">Junction Road, VDC</p></div>
+<!-- PREMIUM TRUST HOOK -->
+<div class="bg-surface border-b border-border py-2.5">
+  <div class="max-w-7xl mx-auto px-5">
+    <div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-2 text-[10px] md:text-[10.5px] font-medium tracking-[.14em] uppercase text-ink">
+      <div class="flex items-center gap-2"><span class="material-symbols-outlined text-[13px] text-gold">payments</span> Cash on Delivery</div>
+      <div class="hidden sm:block w-px h-2.5 bg-border"></div>
+      <div class="flex items-center gap-2"><span class="material-symbols-outlined text-[13px] text-gold">local_shipping</span> Free Delivery in Virudhachalam</div>
+      <div class="hidden md:block w-px h-2.5 bg-border"></div>
+      <div class="hidden md:flex items-center gap-2"><span class="material-symbols-outlined text-[13px] text-gold">support_agent</span> WhatsApp: +91 97891 82921</div>
+      <div class="hidden lg:block w-px h-2.5 bg-border"></div>
+      <div class="hidden lg:flex items-center gap-2"><span class="material-symbols-outlined text-[13px] text-gold">storefront</span> 185/G Junction Road</div>
     </div>
   </div>
 </div>
@@ -527,6 +524,32 @@ function updateBadges() {
 document.addEventListener('DOMContentLoaded', function() {
   updateBadges();
   updateCartBadge();
+  
+  // Read category parameter from URL and apply filter
+  const catParam = new URLSearchParams(window.location.search).get('cat');
+  if (catParam) {
+    const paramMap = {
+      'sofas': 'sofas',
+      'wall-clocks': 'wall clocks',
+      'fountains': 'fountains',
+      'wall-art': 'wall art',
+      'photo-frames': 'photo frames',
+      'led-lights': 'led lights',
+      'plants': 'plants',
+      'gift-items': 'gift items'
+    };
+    const targetLabel = paramMap[catParam] || catParam;
+    
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      if (btn.textContent.trim().toLowerCase() === targetLabel) {
+        btn.click();
+        // Scroll the pill into view if necessary on mobile
+        setTimeout(() => {
+          btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        }, 100);
+      }
+    });
+  }
 });
 
 /* ADD TO CART */
