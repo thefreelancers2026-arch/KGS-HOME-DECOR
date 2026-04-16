@@ -474,7 +474,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid #C5A880; outline-offs
         <p class="text-[11px] font-semibold tracking-[.18em] uppercase text-gold mb-3">Shop by Category</p>
         <h2 class="font-serif font-medium text-ink" style="font-size:clamp(1.8rem,3.2vw,2.8rem);">Our Collections</h2>
       </div>
-      <a href="product-listing.html" class="text-[11px] font-medium tracking-[.08em] uppercase text-muted hover:text-ink border-b border-current pb-0.5 transition-colors duration-300 hidden md:block">View All â†’</a>
+      <a href="product-listing.html" class="text-[11px] font-medium tracking-[.08em] uppercase text-muted hover:text-ink border-b border-current pb-0.5 transition-colors duration-300 hidden md:block">View All &rarr;</a>
     </div>
 
     <!-- Asymmetric: 1 tall left + 4 right -->
@@ -539,7 +539,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid #C5A880; outline-offs
         <p class="text-[11px] font-semibold tracking-[.18em] uppercase text-gold mb-3">Handpicked for You</p>
         <h2 class="font-serif font-medium text-ink" style="font-size:clamp(1.8rem,3.2vw,2.8rem);">Best Sellers</h2>
       </div>
-      <a href="product-listing.html" class="text-[11px] font-medium tracking-[.08em] uppercase text-muted hover:text-ink border-b border-current pb-0.5 transition-colors duration-300 hidden md:block">View All â†’</a>
+      <a href="product-listing.html" class="text-[11px] font-medium tracking-[.08em] uppercase text-muted hover:text-ink border-b border-current pb-0.5 transition-colors duration-300 hidden md:block">View All &rarr;</a>
     </div>
 
     <!-- Featured-first variation: card 1 spans 2 cols on desktop -->
@@ -662,7 +662,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid #C5A880; outline-offs
         <p class="text-gold text-xs mb-1.5">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
         <p class="font-serif text-[13px] font-medium leading-snug">"Top-quality d&eacute;cor, amazing service"</p>
         <p class="text-muted text-[11px] mt-1.5">&mdash; Meena R., Customer</p>
-        <a href="https://search.google.com/local/reviews?placeid=ChIJ" target="_blank" rel="noopener noreferrer" class="text-gold text-[11px] font-medium mt-2 block hover:underline">View on Google Reviews â†’</a>
+        <a href="https://search.google.com/local/reviews?placeid=ChIJ" target="_blank" rel="noopener noreferrer" class="text-gold text-[11px] font-medium mt-2 block hover:underline">View on Google Reviews &rarr;</a>
       </div>
     </div>
 
@@ -762,7 +762,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid #C5A880; outline-offs
         <p class="text-[11px] font-semibold tracking-[.18em] uppercase text-gold mb-3">See It In Your Home</p>
         <h2 class="font-serif font-medium text-white" style="font-size:clamp(1.8rem,3.2vw,2.8rem);">Styled. Curated. Yours.</h2>
       </div>
-      <a href="product-listing.html" class="text-[11px] font-medium tracking-[.08em] uppercase text-white/40 hover:text-white border-b border-current pb-0.5 transition-colors hidden md:block">Shop All â†’</a>
+      <a href="product-listing.html" class="text-[11px] font-medium tracking-[.08em] uppercase text-white/40 hover:text-white border-b border-current pb-0.5 transition-colors hidden md:block">Shop All &rarr;</a>
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 rv">
       <div class="reel-card" style="height:380px;">
@@ -1000,7 +1000,7 @@ function doSearch(q){
   if(!window.kgsFuse) window.kgsFuse = new Fuse(kgsProducts, {keys:['name','cat'], threshold:0.3});
   const matches = window.kgsFuse.search(q).map(r=>r.item);
   if(matches.length===0){
-    res.innerHTML='<p style="color:rgba(255,255,255,.4);font-size:13px;padding:12px 16px;">No results. <a href="product-listing.html" style="color:#C5A880;text-decoration:underline;">Browse all 500+ products â†’</a></p>';
+    res.innerHTML='<p style="color:rgba(255,255,255,.4);font-size:13px;padding:12px 16px;">No results. <a href="product-listing.html" style="color:#C5A880;text-decoration:underline;">Browse all 500+ products &rarr;</a></p>';
   }else{
     res.innerHTML=matches.map(p=>`
       <a href="product-listing.html" class="search-result-item">
