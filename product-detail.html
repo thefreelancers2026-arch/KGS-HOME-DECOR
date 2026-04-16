@@ -23,27 +23,40 @@ tailwind.config = {
 body{-webkit-font-smoothing:antialiased;}
 ::selection{background:#C5A880;color:#fff;}
 .material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 200,'GRAD' 0,'opsz' 24;}
-.btn-primary{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px 32px;background:#C97840;color:#fff;font-family:"DM Sans",sans-serif;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;border:1.5px solid #C97840;cursor:pointer;transition:background .22s;width:100%;}
-.btn-primary:hover{background:#a8612d;}
+.btn-primary{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px 32px;background:#C97840;color:#fff;font-family:"DM Sans",sans-serif;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;border:1.5px solid #C97840;cursor:pointer;transition:background .22s,transform .3s,box-shadow .3s;width:100%;}
+.btn-primary:hover{background:#a8612d;transform:translateY(-2px);box-shadow:0 8px 24px rgba(201,120,64,.35);}
 .btn-secondary{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 28px;background:transparent;color:#1A1A1A;font-family:"DM Sans",sans-serif;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;border:1.5px solid #1A1A1A;cursor:pointer;transition:background .22s,color .22s;width:100%;}
 .btn-secondary:hover{background:#1A1A1A;color:#FAF8F4;}
 .btn-whatsapp{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 28px;background:#25D366;color:#fff;font-family:"DM Sans",sans-serif;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;border:1.5px solid #25D366;cursor:pointer;transition:background .22s;width:100%;}
 .btn-whatsapp:hover{background:#1db954;}
 .nav-link{position:relative;color:#767270;font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;transition:color .2s;}
 .nav-link::after{content:'';position:absolute;left:0;bottom:-3px;width:0;height:1px;background:#C5A880;transition:width .3s;}
-.nav-link:hover{color:#1A1A1A;}
-.nav-link:hover::after{width:100%;}
+.nav-link:hover{color:#1A1A1A;}.nav-link:hover::after{width:100%;}
 .thumb{cursor:pointer;border:2px solid transparent;transition:border-color .2s;overflow:hidden;}
 .thumb.active{border-color:#C97840;}
 .thumb:hover{border-color:#C5A880;}
-/* Related card */
-.rel-card{border:1px solid #E4DDD4;background:#fff;overflow:hidden;}
+.rel-card{border:1px solid #E4DDD4;background:#fff;overflow:hidden;transition:box-shadow .4s,transform .4s;}
+.rel-card:hover{box-shadow:0 8px 32px rgba(0,0,0,.08);transform:translateY(-2px);}
 .rel-img img{transition:transform 1.2s;display:block;}
 .rel-card:hover .rel-img img{transform:scale(1.04);}
 #mobile-drawer{transition:transform .42s cubic-bezier(.77,0,.18,1);}
+.tab-btn{padding:16px 24px;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;border:none;background:none;cursor:pointer;color:#767270;border-bottom:2px solid transparent;transition:color .2s,border-color .2s;}
+.tab-btn.active{color:#C97840;border-bottom-color:#C97840;}
+.tab-btn:hover{color:#1A1A1A;}
+.tab-panel{display:none;}.tab-panel.active{display:block;}
+#cart-toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);background:#1A1A1A;color:#fff;padding:14px 28px;z-index:100;font-family:"DM Sans",sans-serif;font-size:13px;font-weight:500;display:flex;align-items:center;gap:10px;box-shadow:0 8px 32px rgba(0,0,0,.25);opacity:0;pointer-events:none;transition:opacity .35s ease,transform .35s ease;}
+#cart-toast.show{opacity:1;pointer-events:auto;transform:translateX(-50%) translateY(0);}
+#cart-toast .toast-icon{color:#25D366;font-variation-settings:'FILL' 1,'wght' 400;}
 </style>
 </head>
 <body class="bg-base text-ink font-sans">
+
+<!-- Toast -->
+<div id="cart-toast">
+  <span class="material-symbols-outlined toast-icon">check_circle</span>
+  <span id="toast-text">Added to cart</span>
+  <a href="cart-checkout.html" style="color:#C5A880;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;margin-left:8px;">View Cart &rarr;</a>
+</div>
 
 <!-- MOBILE DRAWER -->
 <div id="drw-ov" class="fixed inset-0 bg-black/40 z-50 hidden" onclick="closeDrw()"></div>
@@ -56,7 +69,6 @@ body{-webkit-font-smoothing:antialiased;}
     <a href="index.html#collections" class="nav-link text-[13px] normal-case font-medium tracking-normal">Collections</a>
     <a href="product-listing.html" class="nav-link text-[13px] normal-case font-medium tracking-normal">Shop All</a>
     <a href="index.html#about" class="nav-link text-[13px] normal-case font-medium tracking-normal">Our Story</a>
-    <a href="index.html#showroom" class="nav-link text-[13px] normal-case font-medium tracking-normal">Showroom</a>
   </nav>
   <div class="mt-auto px-6 py-7 border-t border-border space-y-4">
     <a href="customer-account.html" class="flex items-center gap-3 text-sm text-muted hover:text-ink"><span class="material-symbols-outlined text-[18px]">person</span> My Account</a>
@@ -65,20 +77,20 @@ body{-webkit-font-smoothing:antialiased;}
   </div>
 </div>
 
-<!-- MOBILE STICKY BOTTOM BAR -->
-<div class="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-surface border-t border-border px-4 py-3 flex items-center justify-between gap-3" style="box-shadow:0 -2px 16px rgba(0,0,0,.08);">
+<!-- MOBILE STICKY BOTTOM BAR (single instance, functional) -->
+<div id="mobile-sticky" class="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-surface border-t border-border px-4 py-3 flex items-center justify-between gap-3" style="box-shadow:0 -2px 16px rgba(0,0,0,.08);">
   <div>
     <p class="text-[10px] text-muted uppercase tracking-wide font-medium">Price</p>
     <p class="font-serif font-semibold text-warm text-xl">&#8377;18,500</p>
   </div>
   <div class="flex gap-2 flex-1">
-    <a href="cart-checkout.html" class="btn-primary text-[10px] py-3 flex-1" style="width:auto;">Add to Cart</a>
+    <button onclick="addToCart('Premium 3-Seater Sofa', 18500, 'assets/images/sofa.jpg', 'Sofas')" class="btn-primary text-[10px] py-3 flex-1" style="width:auto;">Add to Cart</button>
     <a href="https://wa.me/919789182921?text=I'm%20interested%20in%20Premium%203-Seater%20Sofa%20-%20%E2%82%B918%2C500" target="_blank" class="btn-whatsapp text-[10px] py-3 flex-1" style="width:auto;">WhatsApp</a>
   </div>
 </div>
 
 <!-- ANNOUNCEMENT -->
-<div class="hidden sm:block bg-ink text-white/50 text-[10px] font-medium tracking-[.25em] uppercase text-center py-2.5">
+<div class="bg-ink text-white/50 text-[10px] font-medium tracking-[.25em] uppercase text-center py-2.5">
   Free Delivery in Virudhachalam &nbsp;·&nbsp; Cash on Delivery &nbsp;·&nbsp; Open 10 AM – 10 PM, Every Day
 </div>
 
@@ -91,14 +103,13 @@ body{-webkit-font-smoothing:antialiased;}
       <a href="index.html#collections" class="nav-link">Collections</a>
       <a href="product-listing.html" class="nav-link">Shop All</a>
       <a href="index.html#about" class="nav-link">Our Story</a>
-      <a href="index.html#showroom" class="nav-link">Showroom</a>
     </div>
     <div class="flex items-center gap-4 text-muted">
       <a href="product-listing.html" class="hover:text-ink transition-colors"><span class="material-symbols-outlined text-[20px]">search</span></a>
       <a href="customer-account.html" class="hidden md:block hover:text-ink transition-colors"><span class="material-symbols-outlined text-[20px]">person</span></a>
       <a href="cart-checkout.html" class="relative hover:text-ink transition-colors">
         <span class="material-symbols-outlined text-[20px]">local_mall</span>
-        <span class="absolute -top-1.5 -right-2 w-4 h-4 bg-warm text-white text-[8px] rounded-full flex items-center justify-center font-bold">1</span>
+        <span id="cart-badge" class="absolute -top-1.5 -right-2 w-4 h-4 bg-warm text-white text-[8px] rounded-full flex items-center justify-center font-bold" style="display:none;">0</span>
       </a>
     </div>
   </div>
@@ -120,30 +131,24 @@ body{-webkit-font-smoothing:antialiased;}
 
     <!-- LEFT: Image Gallery -->
     <div class="flex gap-4">
-
-      <!-- Thumbnails -->
       <div class="hidden md:flex flex-col gap-3 flex-shrink-0">
         <div class="thumb active w-20 h-24 bg-tint" onclick="switchImg(this, 'assets/images/sofa.jpg')">
-          <img src="assets/images/sofa.jpg" alt="" class="w-full h-full object-cover">
+          <img src="assets/images/sofa.jpg" alt="Sofa front view" class="w-full h-full object-cover">
         </div>
         <div class="thumb w-20 h-24 bg-tint" onclick="switchImg(this, 'assets/images/why_us.jpg')">
-          <img src="assets/images/why_us.jpg" alt="" class="w-full h-full object-cover">
+          <img src="assets/images/why_us.jpg" alt="Sofa detail" class="w-full h-full object-cover">
         </div>
         <div class="thumb w-20 h-24 bg-tint" onclick="switchImg(this, 'assets/images/showroom.jpg')">
-          <img src="assets/images/showroom.jpg" alt="" class="w-full h-full object-cover">
+          <img src="assets/images/showroom.jpg" alt="In showroom" class="w-full h-full object-cover">
         </div>
       </div>
-
-      <!-- Main Image -->
       <div class="flex-grow aspect-[4/5] bg-tint overflow-hidden">
         <img id="main-img" src="assets/images/sofa.jpg" alt="Premium 3-Seater Sofa" class="w-full h-full object-cover">
       </div>
-
     </div>
 
     <!-- RIGHT: Product Info -->
     <div>
-
       <p class="text-[11px] font-semibold tracking-[.18em] uppercase text-gold mb-4">Sofas &amp; Furniture</p>
       <h1 class="font-serif font-medium text-ink leading-tight mb-4" style="font-size:clamp(1.8rem,3.5vw,2.8rem);">
         Premium 3-Seater Sofa
@@ -200,13 +205,13 @@ body{-webkit-font-smoothing:antialiased;}
       </div>
 
       <!-- CTA Buttons (desktop) -->
-      <div class="space-y-3 mb-8 hidden md:block">
-        <a href="cart-checkout.html" class="btn-primary flex w-full w-auto">Add to Cart</a>
+      <div class="space-y-3 mb-8 hidden md:block" id="cta-area">
+        <button onclick="addToCart('Premium 3-Seater Sofa', 18500, 'assets/images/sofa.jpg', 'Sofas')" class="btn-primary flex w-full">Add to Cart</button>
         <a href="https://wa.me/919789182921?text=I'm%20interested%20in%20Premium%203-Seater%20Sofa%20-%20%E2%82%B918%2C500" target="_blank" class="btn-whatsapp">
           <svg viewBox="0 0 24 24" fill="white" class="w-4 h-4 shrink-0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
           Order on WhatsApp
         </a>
-        <a href="cart-checkout.html" class="btn-secondary">Buy Now</a>
+        <button onclick="buyNow('Premium 3-Seater Sofa', 18500, 'assets/images/sofa.jpg', 'Sofas')" class="btn-secondary">Buy Now</button>
       </div>
 
       <!-- Trust mini strip -->
@@ -228,18 +233,19 @@ body{-webkit-font-smoothing:antialiased;}
           <div><p class="text-[13px] font-semibold text-ink">WhatsApp Help</p><p class="text-[11px] text-muted">+91 97891 82921</p></div>
         </div>
       </div>
-
     </div>
   </div>
 
-  <!-- PRODUCT DETAILS TAB-LIKE -->
+  <!-- PRODUCT DETAILS TABS (functional) -->
   <div class="mt-16 border-t border-border">
     <div class="flex gap-0 border-b border-border">
-      <button class="py-4 px-6 text-[11px] font-semibold tracking-wide uppercase border-b-2 border-warm text-warm">Description</button>
-      <button class="py-4 px-6 text-[11px] font-semibold tracking-wide uppercase text-muted hover:text-ink transition-colors">Specifications</button>
-      <button class="py-4 px-6 text-[11px] font-semibold tracking-wide uppercase text-muted hover:text-ink transition-colors">Delivery</button>
+      <button class="tab-btn active" onclick="switchTab(0)">Description</button>
+      <button class="tab-btn" onclick="switchTab(1)">Specifications</button>
+      <button class="tab-btn" onclick="switchTab(2)">Delivery</button>
     </div>
-    <div class="py-8 max-w-2xl">
+
+    <!-- Tab 0: Description -->
+    <div class="tab-panel active py-8 max-w-2xl">
       <p class="text-muted leading-[1.85]" style="font-size:15px;">
         The KGS Premium 3-Seater Sofa is crafted from solid teak wood sourced sustainably. The frame is built for decades of use. The linen-blend cushions are plush, breathable, and easy to clean — perfect for Indian homes. Colors: Beige, Walnut Brown, Charcoal Grey.
       </p>
@@ -251,15 +257,42 @@ body{-webkit-font-smoothing:antialiased;}
         <li class="flex items-start gap-2"><span class="text-warm font-bold mt-0.5">✓</span> Cash on Delivery available across Tamil Nadu</li>
       </ul>
     </div>
-  </div>
 
-  <!-- MOBILE STICKY CART BAR -->
-  <div id="sticky-cart" class="fixed bottom-0 left-0 w-full bg-surface border-t border-border p-3 px-5 flex items-center justify-between z-40 transition-transform duration-300 translate-y-full md:hidden" style="box-shadow:0 -4px 14px rgba(0,0,0,0.05);">
-    <div>
-      <p class="font-serif font-medium text-ink leading-tight" style="font-size:14px;">Premium 3-Seater Sofa</p>
-      <p class="font-sans font-semibold text-warm" style="font-size:13px;">&#8377;18,500</p>
+    <!-- Tab 1: Specifications -->
+    <div class="tab-panel py-8 max-w-2xl">
+      <table class="w-full text-[14px]">
+        <tbody>
+          <tr class="border-b border-border"><td class="py-3 text-muted font-medium w-1/3">Dimensions</td><td class="py-3 text-ink">190 cm × 75 cm × 82 cm (L×D×H)</td></tr>
+          <tr class="border-b border-border"><td class="py-3 text-muted font-medium">Weight</td><td class="py-3 text-ink">45 kg</td></tr>
+          <tr class="border-b border-border"><td class="py-3 text-muted font-medium">Frame Material</td><td class="py-3 text-ink">Solid Teak Wood</td></tr>
+          <tr class="border-b border-border"><td class="py-3 text-muted font-medium">Upholstery</td><td class="py-3 text-ink">Linen Blend Fabric</td></tr>
+          <tr class="border-b border-border"><td class="py-3 text-muted font-medium">Seating Capacity</td><td class="py-3 text-ink">3 Persons</td></tr>
+          <tr class="border-b border-border"><td class="py-3 text-muted font-medium">Colors Available</td><td class="py-3 text-ink">Beige, Walnut Brown, Charcoal Grey</td></tr>
+          <tr><td class="py-3 text-muted font-medium">Warranty</td><td class="py-3 text-ink">1 Year Manufacturing Warranty</td></tr>
+        </tbody>
+      </table>
     </div>
-    <a href="cart-checkout.html" class="btn-primary" style="padding:10px 18px;font-size:10px;">Add to Cart</a>
+
+    <!-- Tab 2: Delivery -->
+    <div class="tab-panel py-8 max-w-2xl">
+      <div class="space-y-4 text-[14px] text-muted leading-[1.85]">
+        <div class="flex items-start gap-3">
+          <span class="material-symbols-outlined text-warm text-[20px] mt-0.5">local_shipping</span>
+          <div><p class="font-semibold text-ink mb-1">Free Delivery in Virudhachalam</p>
+          <p>Orders within Virudhachalam city limits are delivered free of charge within 2-3 business days.</p></div>
+        </div>
+        <div class="flex items-start gap-3">
+          <span class="material-symbols-outlined text-warm text-[20px] mt-0.5">package_2</span>
+          <div><p class="font-semibold text-ink mb-1">Tamil Nadu Delivery</p>
+          <p>Delivery across Tamil Nadu within 5-7 business days. Shipping charges may apply based on location and weight.</p></div>
+        </div>
+        <div class="flex items-start gap-3">
+          <span class="material-symbols-outlined text-warm text-[20px] mt-0.5">payments</span>
+          <div><p class="font-semibold text-ink mb-1">Cash on Delivery</p>
+          <p>Pay when your order arrives at your doorstep. No advance payment required.</p></div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- YOU MAY ALSO LIKE -->
@@ -276,7 +309,10 @@ body{-webkit-font-smoothing:antialiased;}
         <div class="p-4 border-t border-border">
           <p class="text-[11px] font-semibold tracking-[.14em] uppercase text-muted mb-1">Clocks</p>
           <h3 class="font-serif font-medium text-ink text-[1.02rem] leading-snug mb-2">Antique Brass Wall Clock</h3>
-          <p class="font-semibold text-warm">&#8377;1,299</p>
+          <div class="flex items-center justify-between">
+            <p class="font-semibold text-warm">&#8377;1,299</p>
+            <button onclick="addToCart('Antique Brass Wall Clock', 1299, 'assets/images/clock.jpg', 'Clocks')" class="text-[10px] font-semibold text-warm hover:text-ink tracking-wide uppercase">+ Add</button>
+          </div>
         </div>
       </div>
       <div class="rel-card">
@@ -286,7 +322,10 @@ body{-webkit-font-smoothing:antialiased;}
         <div class="p-4 border-t border-border">
           <p class="text-[11px] font-semibold tracking-[.14em] uppercase text-muted mb-1">Fountains</p>
           <h3 class="font-serif font-medium text-ink text-[1.02rem] leading-snug mb-2">Indoor Tabletop Fountain</h3>
-          <p class="font-semibold text-warm">&#8377;2,850</p>
+          <div class="flex items-center justify-between">
+            <p class="font-semibold text-warm">&#8377;2,850</p>
+            <button onclick="addToCart('Indoor Tabletop Fountain', 2850, 'assets/images/fountain.jpg', 'Fountains')" class="text-[10px] font-semibold text-warm hover:text-ink tracking-wide uppercase">+ Add</button>
+          </div>
         </div>
       </div>
       <div class="rel-card">
@@ -296,7 +335,10 @@ body{-webkit-font-smoothing:antialiased;}
         <div class="p-4 border-t border-border">
           <p class="text-[11px] font-semibold tracking-[.14em] uppercase text-muted mb-1">Wall Décor</p>
           <h3 class="font-serif font-medium text-ink text-[1.02rem] leading-snug mb-2">Botanical Wall Art Panel</h3>
-          <p class="font-semibold text-warm">&#8377;1,850</p>
+          <div class="flex items-center justify-between">
+            <p class="font-semibold text-warm">&#8377;1,850</p>
+            <button onclick="addToCart('Botanical Wall Art Panel', 1850, 'assets/images/wall_decor.jpg', 'Wall Décor')" class="text-[10px] font-semibold text-warm hover:text-ink tracking-wide uppercase">+ Add</button>
+          </div>
         </div>
       </div>
       <div class="rel-card">
@@ -306,7 +348,10 @@ body{-webkit-font-smoothing:antialiased;}
         <div class="p-4 border-t border-border">
           <p class="text-[11px] font-semibold tracking-[.14em] uppercase text-muted mb-1">Lighting</p>
           <h3 class="font-serif font-medium text-ink text-[1.02rem] leading-snug mb-2">Pendant Ceiling Light</h3>
-          <p class="font-semibold text-warm">&#8377;2,400</p>
+          <div class="flex items-center justify-between">
+            <p class="font-semibold text-warm">&#8377;2,400</p>
+            <button onclick="addToCart('Pendant Ceiling Light', 2400, 'assets/images/lighting.jpg', 'Lighting')" class="text-[10px] font-semibold text-warm hover:text-ink tracking-wide uppercase">+ Add</button>
+          </div>
         </div>
       </div>
     </div>
@@ -345,33 +390,65 @@ body{-webkit-font-smoothing:antialiased;}
   </div>
 </footer>
 
-<script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
 <script>
+/* ═══════════════════════════════════════════════
+   KGS Product Detail — Full functionality
+═══════════════════════════════════════════════ */
 function openDrw(){document.getElementById('mobile-drawer').style.transform='translateX(0)';document.getElementById('drw-ov').classList.remove('hidden');document.body.style.overflow='hidden';}
 function closeDrw(){document.getElementById('mobile-drawer').style.transform='translateX(-100%)';document.getElementById('drw-ov').classList.add('hidden');document.body.style.overflow='';}
+
 function switchImg(el, src){
   document.getElementById('main-img').src = src;
-  document.querySelectorAll('.thumb').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.thumb').forEach(function(t){t.classList.remove('active');});
   el.classList.add('active');
 }
 
-/* ─── SMOOTH SCROLL (Lenis) ──────────────── */
-const lenis = new Lenis();
-function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
-requestAnimationFrame(raf);
+/* ─── TAB SWITCHING ──────────────────────────── */
+function switchTab(idx) {
+  document.querySelectorAll('.tab-btn').forEach(function(b, i) {
+    b.classList.toggle('active', i === idx);
+  });
+  document.querySelectorAll('.tab-panel').forEach(function(p, i) {
+    p.classList.toggle('active', i === idx);
+  });
+}
 
-/* ─── STICKY MOBILE CART ─────────────────── */
-const ctaArea = document.querySelector('.btn-primary');
-const stickyCart = document.getElementById('sticky-cart');
-const obs = new IntersectionObserver((entries)=>{
-  if(entries[0].boundingClientRect.top < 0 && !entries[0].isIntersecting) {
-    stickyCart.classList.remove('translate-y-full');
-  } else {
-    stickyCart.classList.add('translate-y-full');
-  }
-}, {threshold: 0, rootMargin: "-100px 0px 0px 0px"});
-obs.observe(ctaArea);
+/* ─── ADD TO CART ────────────────────────────── */
+function addToCart(name, price, img, cat) {
+  var cart = JSON.parse(localStorage.getItem('kgs_cart') || '[]');
+  var item = cart.find(function(i) { return i.name === name; });
+  if (item) { item.qty = (item.qty || 1) + 1; }
+  else { cart.push({ name: name, price: '\u20b9' + price.toLocaleString('en-IN'), priceNum: price, img: img, cat: cat, qty: 1 }); }
+  localStorage.setItem('kgs_cart', JSON.stringify(cart));
+  updateCartBadge();
+  showToast(name);
+}
 
+function buyNow(name, price, img, cat) {
+  addToCart(name, price, img, cat);
+  window.location.href = 'cart-checkout.html';
+}
+
+function updateCartBadge() {
+  try {
+    var cart = JSON.parse(localStorage.getItem('kgs_cart') || '[]');
+    var count = cart.reduce(function(s, i) { return s + (i.qty || 1); }, 0);
+    var badge = document.getElementById('cart-badge');
+    if (badge) { badge.textContent = count; badge.style.display = count ? 'flex' : 'none'; }
+  } catch(e) {}
+}
+
+var toastTimer;
+function showToast(name) {
+  var toast = document.getElementById('cart-toast');
+  document.getElementById('toast-text').textContent = name + ' added to cart';
+  toast.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(function() { toast.classList.remove('show'); }, 3000);
+}
+
+/* ─── INIT ────────────────────────────────────── */
+updateCartBadge();
 </script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
 <meta charset="UTF-8">
@@ -54,9 +54,19 @@ body{-webkit-font-smoothing:antialiased;}
 .heart-btn{position:absolute;top:10px;right:10px;z-index:10;background:#fff;border:none;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,0.06);transition:transform .2s;}
 .heart-btn:hover{transform:scale(1.1);}
 .heart-btn.active .material-symbols-outlined{font-variation-settings:'FILL' 1;color:#C97840;}
+#cart-toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);background:#1A1A1A;color:#fff;padding:14px 28px;z-index:100;font-family:"DM Sans",sans-serif;font-size:13px;font-weight:500;display:flex;align-items:center;gap:10px;box-shadow:0 8px 32px rgba(0,0,0,.25);opacity:0;pointer-events:none;transition:opacity .35s ease,transform .35s ease;}
+#cart-toast.show{opacity:1;pointer-events:auto;transform:translateX(-50%) translateY(0);}
+#cart-toast .toast-icon{color:#25D366;font-variation-settings:'FILL' 1,'wght' 400;}
 </style>
 </head>
 <body class="bg-base text-ink font-sans">
+
+<!-- Toast Notification -->
+<div id="cart-toast">
+  <span class="material-symbols-outlined toast-icon">check_circle</span>
+  <span id="toast-text">Added to cart</span>
+  <a href="cart-checkout.html" style="color:#C5A880;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;margin-left:8px;">View Cart &rarr;</a>
+</div>
 
 <!-- DRAWER OVERLAY + MOBILE DRAWER -->
 <div id="drw-ov" class="fixed inset-0 bg-black/40 z-50 hidden" onclick="closeDrw()"></div>
@@ -118,7 +128,7 @@ body{-webkit-font-smoothing:antialiased;}
 </a>
 
 <!-- ANNOUNCEMENT -->
-<div class="hidden sm:block bg-ink text-white/50 text-[10px] font-medium tracking-[.25em] uppercase text-center py-2.5">
+<div class="bg-ink text-white/50 text-[10px] font-medium tracking-[.25em] uppercase text-center py-2.5">
   Free Delivery in Virudhachalam &nbsp;·&nbsp; Cash on Delivery &nbsp;·&nbsp; Open 10 AM – 10 PM, Every Day
 </div>
 
@@ -180,11 +190,11 @@ body{-webkit-font-smoothing:antialiased;}
         <button onclick="openFilter()" class="flex items-center gap-2 border border-border bg-surface px-4 py-2.5 text-[11px] font-semibold tracking-wide uppercase hover:border-ink transition-colors">
           <span class="material-symbols-outlined text-[17px]">tune</span> Filter
         </button>
-        <select class="border border-border bg-surface px-4 py-2.5 text-[11px] font-semibold tracking-wide uppercase outline-none hover:border-ink transition-colors cursor-pointer">
-          <option>Best Selling</option>
-          <option>Price: Low to High</option>
-          <option>Price: High to Low</option>
-          <option>Newest First</option>
+        <select id="sort-select" class="border border-border bg-surface px-4 py-2.5 text-[11px] font-semibold tracking-wide uppercase outline-none hover:border-ink transition-colors cursor-pointer" onchange="sortProducts(this.value)">
+          <option value="best">Best Selling</option>
+          <option value="low">Price: Low to High</option>
+          <option value="high">Price: High to Low</option>
+          <option value="new">Newest First</option>
         </select>
       </div>
     </div>
@@ -225,7 +235,7 @@ body{-webkit-font-smoothing:antialiased;}
         <h3 class="font-serif font-medium text-ink text-[1.05rem] leading-snug mb-2">Premium 3-Seater Sofa</h3>
         <p class="font-sans font-semibold text-warm text-[1.1rem] mb-3">&#8377;18,500</p>
         <div class="card-cta space-y-2">
-          <a href="cart-checkout.html" class="btn-primary w-full text-[10px] py-2.5">Add to Cart</a>
+          <button onclick="addToCart('Premium 3-Seater Sofa', 18500, 'assets/images/sofa.jpg', 'Sofas')" class="btn-primary w-full text-[10px] py-2.5">Add to Cart</button>
           <a href="https://wa.me/919789182921?text=I'm%20interested%20in%20Premium%203-Seater%20Sofa%20-%20%E2%82%B918%2C500" target="_blank" class="btn-whatsapp w-full text-[10px] py-2.5">
             <svg viewBox="0 0 24 24" fill="white" class="w-3 h-3 shrink-0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
             WhatsApp Order
@@ -248,7 +258,7 @@ body{-webkit-font-smoothing:antialiased;}
         <h3 class="font-serif font-medium text-ink text-[1.05rem] leading-snug mb-2">Antique Brass Wall Clock</h3>
         <p class="font-sans font-semibold text-warm text-[1.1rem] mb-3">&#8377;1,299</p>
         <div class="card-cta space-y-2">
-          <a href="cart-checkout.html" class="btn-primary w-full text-[10px] py-2.5">Add to Cart</a>
+          <button onclick="addToCart('Antique Brass Wall Clock', 1299, 'assets/images/clock.jpg', 'Wall Clocks')" class="btn-primary w-full text-[10px] py-2.5">Add to Cart</button>
           <a href="https://wa.me/919789182921?text=I'm%20interested%20in%20Antique%20Brass%20Wall%20Clock%20-%20%E2%82%B91%2C299" target="_blank" class="btn-whatsapp w-full text-[10px] py-2.5">
             <svg viewBox="0 0 24 24" fill="white" class="w-3 h-3 shrink-0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
             WhatsApp Order
@@ -270,7 +280,7 @@ body{-webkit-font-smoothing:antialiased;}
         <h3 class="font-serif font-medium text-ink text-[1.05rem] leading-snug mb-2">Pendant Ceiling Light</h3>
         <p class="font-sans font-semibold text-warm text-[1.1rem] mb-3">&#8377;2,400</p>
         <div class="card-cta space-y-2">
-          <a href="cart-checkout.html" class="btn-primary w-full text-[10px] py-2.5">Add to Cart</a>
+          <button onclick="addToCart('Pendant Ceiling Light', 2400, 'assets/images/lighting.jpg', 'Lighting')" class="btn-primary w-full text-[10px] py-2.5">Add to Cart</button>
           <a href="https://wa.me/919789182921?text=I'm%20interested%20in%20Pendant%20Ceiling%20Light%20-%20%E2%82%B92%2C400" target="_blank" class="btn-whatsapp w-full text-[10px] py-2.5">
             <svg viewBox="0 0 24 24" fill="white" class="w-3 h-3 shrink-0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
             WhatsApp Order
@@ -293,7 +303,7 @@ body{-webkit-font-smoothing:antialiased;}
         <h3 class="font-serif font-medium text-ink text-[1.05rem] leading-snug mb-2">Indoor Tabletop Fountain</h3>
         <p class="font-sans font-semibold text-warm text-[1.1rem] mb-3">&#8377;2,850</p>
         <div class="card-cta space-y-2">
-          <a href="cart-checkout.html" class="btn-primary w-full text-[10px] py-2.5">Add to Cart</a>
+          <button onclick="addToCart('Indoor Tabletop Fountain', 2850, 'assets/images/fountain.jpg', 'Fountains')" class="btn-primary w-full text-[10px] py-2.5">Add to Cart</button>
           <a href="https://wa.me/919789182921?text=I'm%20interested%20in%20Indoor%20Tabletop%20Fountain%20-%20%E2%82%B92%2C850" target="_blank" class="btn-whatsapp w-full text-[10px] py-2.5">
             <svg viewBox="0 0 24 24" fill="white" class="w-3 h-3 shrink-0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
             WhatsApp Order
@@ -312,7 +322,7 @@ body{-webkit-font-smoothing:antialiased;}
         <h3 class="font-serif font-medium text-ink text-[1.05rem] leading-snug mb-2">Botanical Wall Art Panel</h3>
         <p class="font-sans font-semibold text-warm text-[1.1rem] mb-3">&#8377;1,850</p>
         <div class="card-cta space-y-2">
-          <a href="cart-checkout.html" class="btn-primary w-full text-[10px] py-2.5">Add to Cart</a>
+          <button onclick="addToCart('Botanical Wall Art Panel', 1850, 'assets/images/wall_decor.jpg', 'Wall Décor')" class="btn-primary w-full text-[10px] py-2.5">Add to Cart</button>
           <a href="https://wa.me/919789182921?text=I'm%20interested%20in%20Botanical%20Wall%20Art%20-%20%E2%82%B91%2C850" target="_blank" class="btn-whatsapp w-full text-[10px] py-2.5">
             <svg viewBox="0 0 24 24" fill="white" class="w-3 h-3 shrink-0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
             WhatsApp Order
@@ -332,7 +342,7 @@ body{-webkit-font-smoothing:antialiased;}
         <h3 class="font-serif font-medium text-ink text-[1.05rem] leading-snug mb-2">Large Artificial Banana Plant</h3>
         <p class="font-sans font-semibold text-warm text-[1.1rem] mb-3">&#8377;3,200</p>
         <div class="card-cta space-y-2">
-          <a href="cart-checkout.html" class="btn-primary w-full text-[10px] py-2.5">Add to Cart</a>
+          <button onclick="addToCart('Large Artificial Banana Plant', 3200, 'assets/images/plant.png', 'Artificial Plants')" class="btn-primary w-full text-[10px] py-2.5">Add to Cart</button>
           <a href="https://wa.me/919789182921?text=I'm%20interested%20in%20Large%20Artificial%20Banana%20Plant%20-%20%E2%82%B93%2C200" target="_blank" class="btn-whatsapp w-full text-[10px] py-2.5">
             <svg viewBox="0 0 24 24" fill="white" class="w-3 h-3 shrink-0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
             WhatsApp Order
@@ -351,7 +361,7 @@ body{-webkit-font-smoothing:antialiased;}
         <h3 class="font-serif font-medium text-ink text-[1.05rem] leading-snug mb-2">Vintage Round Wall Clock</h3>
         <p class="font-sans font-semibold text-warm text-[1.1rem] mb-3">&#8377;899</p>
         <div class="card-cta space-y-2">
-          <a href="cart-checkout.html" class="btn-primary w-full text-[10px] py-2.5">Add to Cart</a>
+          <button onclick="addToCart('Vintage Round Wall Clock', 899, 'assets/images/clock.jpg', 'Wall Clocks')" class="btn-primary w-full text-[10px] py-2.5">Add to Cart</button>
           <a href="https://wa.me/919789182921?text=I'm%20interested%20in%20Vintage%20Round%20Wall%20Clock%20-%20%E2%82%B9899" target="_blank" class="btn-whatsapp w-full text-[10px] py-2.5">
             <svg viewBox="0 0 24 24" fill="white" class="w-3 h-3 shrink-0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
             WhatsApp Order
@@ -371,7 +381,7 @@ body{-webkit-font-smoothing:antialiased;}
         <h3 class="font-serif font-medium text-ink text-[1.05rem] leading-snug mb-2">Mandala Metal Wall Art</h3>
         <p class="font-sans font-semibold text-warm text-[1.1rem] mb-3">&#8377;1,450</p>
         <div class="card-cta space-y-2">
-          <a href="cart-checkout.html" class="btn-primary w-full text-[10px] py-2.5">Add to Cart</a>
+          <button onclick="addToCart('Mandala Metal Wall Art', 1450, 'assets/images/wall_decor.jpg', 'Wall Décor')" class="btn-primary w-full text-[10px] py-2.5">Add to Cart</button>
           <a href="https://wa.me/919789182921?text=I'm%20interested%20in%20Mandala%20Metal%20Wall%20Art%20-%20%E2%82%B91%2C450" target="_blank" class="btn-whatsapp w-full text-[10px] py-2.5">
             <svg viewBox="0 0 24 24" fill="white" class="w-3 h-3 shrink-0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
             WhatsApp Order
@@ -412,7 +422,6 @@ body{-webkit-font-smoothing:antialiased;}
           @kgshomedecors_virudhachalam
         </a>
       </div>
-    </div>
     </div>
     <div class="md:col-span-3">
       <h4 class="text-white text-[11px] tracking-[.18em] uppercase font-semibold mb-5">Shop</h4>
@@ -491,7 +500,7 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
     });
 
     // Update count
-    const countEl = document.querySelector('main p.text-[12px]');
+    const countEl = document.querySelector('main .text-\\[12px\\]');
     if (countEl) countEl.textContent = `Showing ${visible} of 200+ Products`;
   });
 });
@@ -515,7 +524,53 @@ function updateBadges() {
     if(wl.find(i => fnText.includes(i.name))) btn.classList.add('active');
   });
 }
-document.addEventListener('DOMContentLoaded', updateBadges);
+document.addEventListener('DOMContentLoaded', function() {
+  updateBadges();
+  updateCartBadge();
+});
+
+/* ADD TO CART */
+function addToCart(name, price, img, cat) {
+  let cart = JSON.parse(localStorage.getItem('kgs_cart') || '[]');
+  let item = cart.find(i => i.name === name);
+  if (item) { item.qty = (item.qty || 1) + 1; }
+  else { cart.push({ name, price: '\u20b9' + price.toLocaleString('en-IN'), priceNum: price, img, cat, qty: 1 }); }
+  localStorage.setItem('kgs_cart', JSON.stringify(cart));
+  updateCartBadge();
+  showToast(name);
+}
+
+function updateCartBadge() {
+  try {
+    const cart = JSON.parse(localStorage.getItem('kgs_cart') || '[]');
+    const count = cart.reduce((s, i) => s + (i.qty || 1), 0);
+    const badge = document.getElementById('cart-badge');
+    if (badge) { badge.textContent = count; badge.style.display = count ? 'flex' : 'none'; }
+  } catch(e) {}
+}
+
+let toastTimer;
+function showToast(name) {
+  const toast = document.getElementById('cart-toast');
+  document.getElementById('toast-text').textContent = name + ' added to cart';
+  toast.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(function() { toast.classList.remove('show'); }, 3000);
+}
+
+/* SORT PRODUCTS */
+function sortProducts(val) {
+  const grid = document.querySelector('main .grid');
+  const cards = Array.from(grid.querySelectorAll('.prod-card'));
+  cards.sort(function(a, b) {
+    const priceA = parseInt(a.querySelector('.text-warm').textContent.replace(/[^\d]/g, '')) || 0;
+    const priceB = parseInt(b.querySelector('.text-warm').textContent.replace(/[^\d]/g, '')) || 0;
+    if (val === 'low') return priceA - priceB;
+    if (val === 'high') return priceB - priceA;
+    return 0;
+  });
+  cards.forEach(function(c) { grid.appendChild(c); });
+}
 </script>
 </body>
 </html>

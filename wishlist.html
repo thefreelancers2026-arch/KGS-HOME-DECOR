@@ -151,7 +151,7 @@ function initWishlist() {
           <h3 class="font-serif font-medium text-ink text-[1.05rem] leading-snug mb-2">${p.name}</h3>
           <p class="font-sans font-semibold text-warm text-[1.1rem] mb-3">${p.price}</p>
           <div class="card-cta space-y-2">
-            <button onclick="addToCart('${escapeHtml(p.name)}', '${p.price}', '${p.img}')" class="btn-primary flex w-full w-full text-[10px] py-2.5">Move to Cart</button>
+            <button onclick="addToCart(event, '${escapeHtml(p.name)}', '${p.price}', '${p.img}')" class="btn-primary flex w-full w-full text-[10px] py-2.5">Move to Cart</button>
           </div>
         </div>
       </div>
@@ -174,7 +174,7 @@ function toggleWish(btn, name, price, img, cat) {
   initWishlist(); // re-render
 }
 
-function addToCart(name, price, img) {
+function addToCart(event, name, price, img) {
   let cart = JSON.parse(localStorage.getItem('kgs_cart')||'[]');
   let item = cart.find(i => i.name === name);
   if(item) { item.qty++; }
@@ -185,8 +185,9 @@ function addToCart(name, price, img) {
   const btn = event.currentTarget;
   const originalText = btn.textContent;
   btn.textContent = 'Added ✓';
-  btn.style.background = '#15803d'; // green
+  btn.style.background = '#15803d';
   btn.style.borderColor = '#15803d';
+  btn.textContent = 'Added';
   
   // Remove from wishlist
   let wl = JSON.parse(localStorage.getItem('kgs_wishlist')||'[]');
@@ -194,6 +195,9 @@ function addToCart(name, price, img) {
   localStorage.setItem('kgs_wishlist', JSON.stringify(wl));
   
   setTimeout(() => {
+    btn.textContent = originalText;
+    btn.style.background = '';
+    btn.style.borderColor = '';
     updateBadges();
     initWishlist(); // re-render layout to remove item
   }, 600);
