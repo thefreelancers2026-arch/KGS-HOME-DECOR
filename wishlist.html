@@ -207,5 +207,91 @@ function addToCart(event, name, price, img) {
 updateBadges();
 initWishlist();
 </script>
+
+
+<!-- ══ SEARCH OVERLAY ═══════════════════════════════════════ -->
+<div id="search-overlay" onclick="if(event.target===this)closeSearch()" style="position:fixed; inset:0; z-index:90; background:rgba(20,18,16,.95); display:none; flex-direction:column; align-items:center; padding-top:100px; padding-left:20px; padding-right:20px; backdrop-filter: blur(8px);">
+  <div class="w-full max-w-2xl">
+    <div class="flex items-center gap-4 border-b pb-5 mb-6" style="border-color:rgba(255,255,255,.18);">
+      <span class="material-symbols-outlined text-[22px]" style="color:rgba(255,255,255,.4);">search</span>
+      <input id="search-input" type="text" placeholder="Search sofas, clocks, fountains..."
+             class="flex-grow bg-transparent text-white font-light placeholder-white/30"
+             style="font-size:20px; font-family:'DM Sans',sans-serif; border:none; outline:none;"
+             oninput="doSearch(this.value)" autocomplete="off">
+      <button onclick="closeSearch()" style="color:rgba(255,255,255,.4); background:none; border:none; cursor:pointer; line-height:1;" aria-label="Close search">
+        <span class="material-symbols-outlined text-[22px]">close</span>
+      </button>
+    </div>
+    <div id="search-hint" style="color:rgba(255,255,255,.3); font-size:13px; text-align:center; padding-top:20px;">
+      Type at least 2 characters to search over 500+ premium products.
+    </div>
+    <div id="search-results" class="flex flex-col"></div>
+  </div>
+</div>
+
+
+<style>
+.search-result-item { display:flex; align-items:center; justify-content:space-between; padding:12px 16px; border-bottom:1px solid rgba(255,255,255,.06); text-decoration:none; transition:background .2s; }
+.search-result-item:hover { background:rgba(255,255,255,.05); }
+.search-result-item:last-child { border-bottom:none; }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js/dist/fuse.min.js"></script>
+<script>
+const kgsProductsArr = [
+  { name:'Premium 3-Seater Sofa',        cat:'Sofas',       price:'₹18,500' },
+  { name:'Antique Brass Wall Clock',      cat:'Wall Clocks', price:'₹1,299'  },
+  { name:'Indoor Tabletop Fountain',      cat:'Fountains',   price:'₹2,850'  },
+  { name:'Botanical Wall Art Panel',      cat:'Wall Décor',  price:'₹1,850'  },
+  { name:'Large Artificial Banana Plant', cat:'Plants',      price:'₹3,200'  },
+  { name:'Pendant Ceiling Light',         cat:'Lighting',    price:'₹2,400'  },
+  { name:'Vintage Round Wall Clock',      cat:'Wall Clocks', price:'₹899'    },
+  { name:'Mandala Metal Wall Art',        cat:'Wall Décor',  price:'₹1,450'  },
+  { name:'Photo Frame Set',              cat:'Photo Frames',price:'₹699'    },
+  { name:'LED Strip Lights',             cat:'LED Lights',  price:'₹499'    },
+  { name:'Decorative Gift Hamper',       cat:'Gift Items',  price:'₹1,200'  },
+  { name:'Imported Armchair',            cat:'Furniture',   price:'₹12,000' },
+  { name:'Designer Ceramic Vase',        cat:'Vases',       price:'₹1,950'  },
+  { name:'Geometric Wall Shelf',         cat:'Shelves',     price:'₹2,750'  },
+  { name:'Artisan Table Lamp',           cat:'Lighting',    price:'₹3,400'  },
+  { name:'Ethnic Cushion Cover Set',     cat:'Textiles',    price:'₹1,299'  },
+  { name:'Sunburst Decorative Mirror',   cat:'Mirrors',     price:'₹4,200'  },
+  { name:'Aromatic Candle Gift Set',     cat:'Gift Items',  price:'₹899'    },
+];
+
+function openSearch(){
+  document.getElementById('search-overlay').style.display='flex';
+  document.getElementById('search-input').focus();
+  document.body.style.overflow='hidden';
+}
+function closeSearch(){
+  document.getElementById('search-overlay').style.display='none';
+  document.getElementById('search-input').value='';
+  document.getElementById('search-results').innerHTML='';
+  document.getElementById('search-hint').style.display='';
+  document.body.style.overflow='';
+}
+function doSearch(q){
+  const res=document.getElementById('search-results');
+  const hint=document.getElementById('search-hint');
+  if(!q.trim()){res.innerHTML='';hint.style.display='';return;}
+  hint.style.display='none';
+  if(!window.kgsFuse) window.kgsFuse = new Fuse(kgsProductsArr, {keys:['name','cat'], threshold:0.3});
+  const matches = window.kgsFuse.search(q).map(r=>r.item);
+  if(matches.length===0){
+    res.innerHTML='<p style="color:rgba(255,255,255,.4);font-size:13px;padding:12px 16px;">No results. <a href="product-listing.html" style="color:#C5A880;text-decoration:underline;">Browse all 500+ products &rarr;</a></p>';
+  }else{
+    res.innerHTML=matches.map(p=>`
+      <a href="product-listing.html" class="search-result-item">
+        <div>
+          <p style="color:#fff;font-size:14.5px;font-family:'DM Sans',sans-serif;font-weight:500;letter-spacing:-0.01em;">${p.name}</p>
+          <p style="color:rgba(255,255,255,.35);font-size:10px;letter-spacing:.14em;text-transform:uppercase;margin-top:3px;">${p.cat}</p>
+        </div>
+        <p style="color:#C97840;font-size:13px;font-weight:600;font-family:'DM Sans',sans-serif;">${p.price}</p>
+      </a>`).join('');
+  }
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape' && document.getElementById('search-overlay') && document.getElementById('search-overlay').style.display==='flex') closeSearch();});
+</script>
+
 </body>
 </html>
