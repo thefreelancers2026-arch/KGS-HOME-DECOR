@@ -19,6 +19,9 @@ tailwind.config = {
 }
 </script>
 <style>
+html.lenis,html.lenis body{height:auto;}
+.lenis.lenis-smooth{scroll-behavior:auto;}
+.lenis.lenis-smooth [data-lenis-prevent]{overscroll-behavior:contain;}
 *,*::before,*::after{box-sizing:border-box;}
 body{-webkit-font-smoothing:antialiased;}
 ::selection{background:#C5A880;color:#fff;}
@@ -131,7 +134,8 @@ body{-webkit-font-smoothing:antialiased;}
 
     <!-- LEFT: Image Gallery -->
     <div class="flex gap-4">
-      <div class="hidden md:flex flex-col gap-3 flex-shrink-0">
+      <!-- Thumbnails: hidden on mobile, vertical column on desktop -->
+      <div class="hidden md:flex flex-col gap-3 flex-shrink-0 pt-0">
         <div class="thumb active w-20 h-24 bg-tint" onclick="switchImg(this, 'assets/images/sofa.jpg')">
           <img src="assets/images/sofa.jpg" alt="Sofa front view" class="w-full h-full object-cover">
         </div>
@@ -142,7 +146,8 @@ body{-webkit-font-smoothing:antialiased;}
           <img src="assets/images/showroom.jpg" alt="In showroom" class="w-full h-full object-cover">
         </div>
       </div>
-      <div class="flex-grow aspect-[4/5] bg-tint overflow-hidden">
+      <!-- Main image -->
+      <div class="flex-grow bg-tint overflow-hidden" style="aspect-ratio:4/5; max-height:420px; min-height:260px;">
         <img id="main-img" src="assets/images/sofa.jpg" alt="Premium 3-Seater Sofa" class="w-full h-full object-cover">
       </div>
     </div>
@@ -262,15 +267,15 @@ body{-webkit-font-smoothing:antialiased;}
 
     <!-- Tab 1: Specifications -->
     <div class="tab-panel py-8 max-w-2xl">
-      <table class="w-full text-[14px]">
+      <table class="w-full">
         <tbody>
-          <tr class="border-b border-border"><td class="py-3 text-muted font-medium w-1/3">Dimensions</td><td class="py-3 text-ink">190 cm × 75 cm × 82 cm (L×D×H)</td></tr>
-          <tr class="border-b border-border"><td class="py-3 text-muted font-medium">Weight</td><td class="py-3 text-ink">45 kg</td></tr>
-          <tr class="border-b border-border"><td class="py-3 text-muted font-medium">Frame Material</td><td class="py-3 text-ink">Solid Teak Wood</td></tr>
-          <tr class="border-b border-border"><td class="py-3 text-muted font-medium">Upholstery</td><td class="py-3 text-ink">Linen Blend Fabric</td></tr>
-          <tr class="border-b border-border"><td class="py-3 text-muted font-medium">Seating Capacity</td><td class="py-3 text-ink">3 Persons</td></tr>
-          <tr class="border-b border-border"><td class="py-3 text-muted font-medium">Colors Available</td><td class="py-3 text-ink">Beige, Walnut Brown, Charcoal Grey</td></tr>
-          <tr><td class="py-3 text-muted font-medium">Warranty</td><td class="py-3 text-ink">1 Year Manufacturing Warranty</td></tr>
+          <tr class="border-b border-border"><td class="py-3 text-[11px] font-semibold uppercase tracking-wide text-muted w-2/5">Dimensions</td><td class="py-3 text-[13.5px] text-ink font-medium">190 cm × 75 cm × 82 cm</td></tr>
+          <tr class="border-b border-border"><td class="py-3 text-[11px] font-semibold uppercase tracking-wide text-muted">Weight</td><td class="py-3 text-[13.5px] text-ink font-medium">45 kg</td></tr>
+          <tr class="border-b border-border"><td class="py-3 text-[11px] font-semibold uppercase tracking-wide text-muted">Frame Material</td><td class="py-3 text-[13.5px] text-ink font-medium">Solid Teak Wood</td></tr>
+          <tr class="border-b border-border"><td class="py-3 text-[11px] font-semibold uppercase tracking-wide text-muted">Upholstery</td><td class="py-3 text-[13.5px] text-ink font-medium">Linen Blend Fabric</td></tr>
+          <tr class="border-b border-border"><td class="py-3 text-[11px] font-semibold uppercase tracking-wide text-muted">Seating Capacity</td><td class="py-3 text-[13.5px] text-ink font-medium">3 Persons</td></tr>
+          <tr class="border-b border-border"><td class="py-3 text-[11px] font-semibold uppercase tracking-wide text-muted">Colors Available</td><td class="py-3 text-[13.5px] text-ink font-medium">Beige, Walnut Brown, Charcoal Grey</td></tr>
+          <tr><td class="py-3 text-[11px] font-semibold uppercase tracking-wide text-muted">Warranty</td><td class="py-3 text-[13.5px] text-ink font-medium">1 Year Manufacturing</td></tr>
         </tbody>
       </table>
     </div>
@@ -476,6 +481,9 @@ updateCartBadge();
 
 
 <style>
+html.lenis,html.lenis body{height:auto;}
+.lenis.lenis-smooth{scroll-behavior:auto;}
+.lenis.lenis-smooth [data-lenis-prevent]{overscroll-behavior:contain;}
 .search-result-item { display:flex; align-items:center; justify-content:space-between; padding:12px 16px; border-bottom:1px solid rgba(255,255,255,.06); text-decoration:none; transition:background .2s; }
 .search-result-item:hover { background:rgba(255,255,255,.05); }
 .search-result-item:last-child { border-bottom:none; }
