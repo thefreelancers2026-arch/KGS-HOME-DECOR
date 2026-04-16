@@ -133,22 +133,22 @@ body{-webkit-font-smoothing:antialiased;}
   <div class="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-10 md:gap-16">
 
     <!-- LEFT: Image Gallery -->
-    <div class="flex gap-4">
-      <!-- Thumbnails: hidden on mobile, vertical column on desktop -->
-      <div class="hidden md:flex flex-col gap-3 flex-shrink-0 pt-0">
-        <div class="thumb active w-20 h-24 bg-tint" onclick="switchImg(this, 'assets/images/sofa.jpg')">
-          <img src="assets/images/sofa.jpg" alt="Sofa front view" class="w-full h-full object-cover">
+    <div>
+      <!-- Main image — explicit height, no aspect-ratio, no flex-grow -->
+      <div class="w-full bg-tint overflow-hidden mb-3" style="height:clamp(260px,52vw,500px);">
+        <img id="main-img" src="assets/images/sofa.jpg" alt="Premium 3-Seater Sofa" class="w-full h-full object-cover object-center">
+      </div>
+      <!-- Thumbnail strip — horizontal on mobile, hidden on very small -->
+      <div class="hidden sm:flex gap-2">
+        <div class="thumb active h-16 w-16 bg-tint flex-shrink-0 overflow-hidden cursor-pointer" onclick="switchImg(this,'assets/images/sofa.jpg')">
+          <img src="assets/images/sofa.jpg" alt="Sofa front" class="w-full h-full object-cover">
         </div>
-        <div class="thumb w-20 h-24 bg-tint" onclick="switchImg(this, 'assets/images/why_us.jpg')">
+        <div class="thumb h-16 w-16 bg-tint flex-shrink-0 overflow-hidden cursor-pointer" onclick="switchImg(this,'assets/images/why_us.jpg')">
           <img src="assets/images/why_us.jpg" alt="Sofa detail" class="w-full h-full object-cover">
         </div>
-        <div class="thumb w-20 h-24 bg-tint" onclick="switchImg(this, 'assets/images/showroom.jpg')">
+        <div class="thumb h-16 w-16 bg-tint flex-shrink-0 overflow-hidden cursor-pointer" onclick="switchImg(this,'assets/images/showroom.jpg')">
           <img src="assets/images/showroom.jpg" alt="In showroom" class="w-full h-full object-cover">
         </div>
-      </div>
-      <!-- Main image -->
-      <div class="flex-grow overflow-hidden bg-tint" style="height:clamp(280px,55vw,520px);">
-        <img id="main-img" src="assets/images/sofa.jpg" alt="Premium 3-Seater Sofa" class="w-full h-full object-cover object-center">
       </div>
     </div>
 
