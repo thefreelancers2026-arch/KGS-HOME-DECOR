@@ -3,6 +3,20 @@
    Single source of truth for all localStorage state.
 ═══════════════════════════════════════════════════════════ */
 
+let GLOBAL_PRODUCTS = [];
+
+async function initStore() {
+  if (GLOBAL_PRODUCTS.length > 0) return GLOBAL_PRODUCTS;
+  try {
+    const response = await fetch('assets/products.json');
+    GLOBAL_PRODUCTS = await response.json();
+    return GLOBAL_PRODUCTS;
+  } catch (e) {
+    console.error('Store init failed:', e);
+    return [];
+  }
+}
+
 /* ─── CART ────────────────────────────────────────────── */
 function getCart() {
   try { return JSON.parse(localStorage.getItem('kgs_cart')) || []; }
@@ -11,10 +25,13 @@ function getCart() {
 function saveCart(cart) {
   localStorage.setItem('kgs_cart', JSON.stringify(cart));
 }
-function addToCart(productId, quantity) {
+
+async function addToCart(productId, quantity) {
   quantity = quantity || 1;
-  const product = PRODUCTS.find(function(p){ return p.id === productId; });
+  const products = await initStore();
+  const product = products.find(function(p){ return p.id === productId; });
   if (!product) return;
+  
   const cart = getCart();
   const idx = cart.findIndex(function(i){ return i.id === productId; });
   if (idx > -1) {
@@ -25,6 +42,7 @@ function addToCart(productId, quantity) {
   }
   saveCart(cart);
   updateCartBadge();
+  
   /* toast */
   const toast = document.getElementById('cart-toast');
   if (toast) {

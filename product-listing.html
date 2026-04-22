@@ -56,8 +56,27 @@ body{-webkit-font-smoothing:antialiased;}
 .heart-btn:hover{transform:scale(1.1);}
 .heart-btn.active .material-symbols-outlined{font-variation-settings:'FILL' 1;color:#C97840;}
 #cart-toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);background:#1A1A1A;color:#fff;padding:14px 28px;z-index:100;font-family:"DM Sans",sans-serif;font-size:13px;font-weight:500;display:flex;align-items:center;gap:10px;box-shadow:0 8px 32px rgba(0,0,0,.25);opacity:0;pointer-events:none;transition:opacity .35s ease,transform .35s ease;}
-#cart-toast.show{opacity:1;pointer-events:auto;transform:translateX(-50%) translateY(0);}
-#cart-toast .toast-icon{color:#25D366;font-variation-settings:'FILL' 1,'wght' 400;}
+/* Skeleton Loader */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.skeleton {
+  background: linear-gradient(90deg, #E4DDD4 25%, #F3EDE4 50%, #E4DDD4 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite linear;
+}
+
+/* Pagination */
+.pag-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 40px; height: 40px; border: 1.5px solid #E4DDD4;
+  font-family: "DM Sans", sans-serif; font-size: 13px; font-weight: 500;
+  color: #767270; transition: all .3s; cursor: pointer;
+}
+.pag-btn:hover { border-color: #1A1A1A; color: #1A1A1A; }
+.pag-btn.active { background: #1A1A1A; border-color: #1A1A1A; color: #fff; }
+.pag-btn.disabled { opacity: .3; pointer-events: none; }
 
 /* ——— GLOBAL LAYOUT FIXES ————————————————————————— */
 html, body {
@@ -198,8 +217,31 @@ img {
 
 <!-- MAIN CONTENT -->
 <main class="max-w-7xl mx-auto px-5 md:px-10 py-12">
-  <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-5"></div>
+  <!-- Skeleton Grid (shown during load) -->
+  <div id="skeleton-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-5">
+    ${[...Array(8)].map(() => `
+      <div class="prod-card border border-border bg-white">
+        <div class="skeleton aspect-[4/5] w-full"></div>
+        <div class="p-4 space-y-3">
+          <div class="skeleton h-3 w-1/3"></div>
+          <div class="skeleton h-5 w-full"></div>
+          <div class="skeleton h-4 w-1/4"></div>
+          <div class="skeleton h-10 w-full mt-2"></div>
+        </div>
+      </div>
+    `).join('')}
+  </div>
+
+  <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-5" style="display:none;"></div>
+  
   <div id="no-products" style="display:none; text-align:center; padding:3rem; color:#888;">No products in this category.</div>
+
+  <!-- Pagination UI -->
+  <div id="pagination" class="mt-16 flex items-center justify-center gap-2" style="display:none;">
+    <button id="pag-prev" class="pag-btn"><span class="material-symbols-outlined">chevron_left</span></button>
+    <div id="pag-numbers" class="flex items-center gap-2"></div>
+    <button id="pag-next" class="pag-btn"><span class="material-symbols-outlined">chevron_right</span></button>
+  </div>
 </main>
 
 <!-- FOOTER -->
@@ -250,99 +292,158 @@ img {
 
 <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js/dist/fuse.min.js"></script>
-<script src="assets/js/products.js"></script>
-<script src="assets/js/store.js"></script>
-<style>
-.search-result-item{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.06);text-decoration:none;transition:background .2s;}
-.search-result-item:hover{background:rgba(255,255,255,.05);}
-.search-result-item:last-child{border-bottom:none;}
-</style>
 <script>
+let CURRENT_PAGE = 1;
+const ITEMS_PER_PAGE = 12;
+let ALL_PRODUCTS = [];
+let FILTERED_PRODUCTS = [];
 
-function getCart(){try{return JSON.parse(localStorage.getItem('kgs_cart'))||[];}catch{return[];}}
-function saveCart(c){localStorage.setItem('kgs_cart',JSON.stringify(c));updateCartBadges();}
-function addToCart(id){const c=getCart();const e=c.find(i=>i.id===id);if(e)e.qty++;else c.push({id,qty:1});saveCart(c);const t=document.getElementById('cart-toast');if(t){t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}}
-function updateCartBadges(){const n=getCart().reduce((s,i)=>s+i.qty,0);document.querySelectorAll('.cart-count').forEach(el=>{el.textContent=n;el.style.display=n>0?'inline-flex':'none';});}
-function getWishlist(){try{return JSON.parse(localStorage.getItem('kgs_wishlist'))||[];}catch{return[];}}
-function toggleWishlist(id){const l=getWishlist();const i=l.indexOf(id);if(i>-1)l.splice(i,1);else l.push(id);localStorage.setItem('kgs_wishlist',JSON.stringify(l));updateWishlistBadges();updateHearts();}
-function updateWishlistBadges(){const n=getWishlist().length;document.querySelectorAll('.wishlist-count').forEach(el=>{el.textContent=n;el.style.display=n>0?'inline-flex':'none';});}
-function updateHearts(){document.querySelectorAll('[data-wish-id]').forEach(el=>el.classList.toggle('wishlisted',getWishlist().includes(el.dataset.wishId)));}
+async function loadProducts() {
+  const skeleton = document.getElementById('skeleton-grid');
+  const grid = document.getElementById('product-grid');
+  const pag = document.getElementById('pagination');
+  
+  skeleton.style.display = 'grid';
+  grid.style.display = 'none';
+  pag.style.display = 'none';
 
-function renderGrid(list){
-  const grid=document.getElementById('product-grid');
-  const msg=document.getElementById('no-products');
-  if(!grid)return;
-  if(!list||!list.length){grid.innerHTML='';if(msg)msg.style.display='block';return;}
-  if(msg)msg.style.display='none';
-  grid.innerHTML=list.map(p=>`
-    <div class="prod-card relative hover-trigger">
-      <div class="prod-img block aspect-[4/5] relative">
-        ${p.badge?`<span class="absolute top-2.5 left-2.5 bg-gold text-white text-[9px] font-semibold tracking-wider uppercase px-2 py-1">${p.badge}</span>`:''}
-        <button class="heart-btn" data-wish-id="${p.id}" onclick="toggleWishlist('${p.id}')">
-          <span class="material-symbols-outlined text-[16px]">favorite</span>
-        </button>
-        <a href="product-detail.html?id=${p.id}">
-          <img src="${p.image}" alt="${p.name}" class="h-full object-cover">
-        </a>
-      </div>
-      <div class="p-4">
-        <span class="text-[11px] font-medium tracking-[.14em] uppercase text-muted mb-1">${p.category.replace(/-/g,' ')}</span>
-        <h3 class="font-sans font-medium tracking-tight text-ink text-[1.05rem] leading-snug mb-2"><a href="product-detail.html?id=${p.id}">${p.name}</a></h3>
-        <div class="font-sans font-semibold text-warm text-[1.1rem] mb-3">₹${p.price.toLocaleString('en-IN')}</div>
-        <div class="card-cta space-y-2">
-          <button onclick="addToCart('${p.id}')" class="btn-primary w-full text-[10px] py-2.5">Add to Cart</button>
-          <a href="https://wa.me/919789182921?text=${encodeURIComponent('Hi, I am interested in '+p.name+' - ₹'+p.price.toLocaleString('en-IN'))}" class="btn-whatsapp w-full text-[10px] py-2.5">WhatsApp Order</a>
-        </div>
-      </div>
-    </div>
-  `).join('');
-  updateHearts();
+  ALL_PRODUCTS = await initStore();
+  FILTERED_PRODUCTS = [...ALL_PRODUCTS];
+  
+  // Handle initial category from URL
+  const params = new URLSearchParams(window.location.search);
+  const cat = params.get('cat');
+  if (cat) {
+    FILTERED_PRODUCTS = ALL_PRODUCTS.filter(p => p.category === cat);
+    setActivePill(cat);
+  }
+
+  renderPage();
 }
 
-document.addEventListener('DOMContentLoaded',()=>{
-  updateCartBadges();
-  updateWishlistBadges();
-  updateHearts();
+function renderPage() {
+  const grid = document.getElementById('product-grid');
+  const skeleton = document.getElementById('skeleton-grid');
+  const pag = document.getElementById('pagination');
+  const msg = document.getElementById('no-products');
 
-  const params=new URLSearchParams(window.location.search);
-  const cat=params.get('cat');
-  let filtered=PRODUCTS;
+  const start = (CURRENT_PAGE - 1) * ITEMS_PER_PAGE;
+  const end = start + ITEMS_PER_PAGE;
+  const pageItems = FILTERED_PRODUCTS.slice(start, end);
 
-  if(cat){
-    filtered=PRODUCTS.filter(p=>p.category===cat);
-    document.querySelectorAll('.filter-btn, [data-cat]').forEach(el=>{
-      el.classList.toggle('active', el.dataset.cat===cat || el.textContent.toLowerCase().trim().replace(/ /g,'-')===cat);
-    });
+  if (pageItems.length === 0) {
+    grid.innerHTML = '';
+    msg.style.display = 'block';
+    pag.style.display = 'none';
   } else {
-    const allPill=document.querySelector('.filter-btn[data-cat="all"], .filter-btn:first-child');
-    if(allPill)allPill.classList.add('active');
+    msg.style.display = 'none';
+    grid.innerHTML = pageItems.map(p => `
+      <div class="prod-card relative hover-trigger">
+        <div class="prod-img block aspect-[4/5] relative">
+          ${p.badge ? `<span class="absolute top-2.5 left-2.5 bg-gold text-white text-[9px] font-semibold tracking-wider uppercase px-2 py-1">${p.badge}</span>` : ''}
+          <button class="heart-btn" data-product-id="${p.id}" onclick="toggleWishlist('${p.id}')">
+            <span class="material-symbols-outlined text-[16px]">favorite</span>
+          </button>
+          <a href="product-detail.html?id=${p.id}">
+            <img src="${p.image}" alt="${p.name}" class="h-full object-cover" loading="lazy">
+          </a>
+        </div>
+        <div class="p-4">
+          <span class="text-[11px] font-medium tracking-[.14em] uppercase text-muted mb-1">${p.category.replace(/-/g, ' ')}</span>
+          <h3 class="font-sans font-medium tracking-tight text-ink text-[1.05rem] leading-snug mb-2">
+            <a href="product-detail.html?id=${p.id}">${p.name}</a>
+          </h3>
+          <div class="font-sans font-semibold text-warm text-[1.1rem] mb-3">₹${p.price.toLocaleString('en-IN')}</div>
+          <div class="card-cta space-y-2">
+            <button onclick="addToCart('${p.id}')" class="btn-primary w-full text-[10px] py-2.5">Add to Cart</button>
+            <a href="https://wa.me/919789182921?text=${encodeURIComponent('Hi, I am interested in ' + p.name + ' - ₹' + p.price.toLocaleString('en-IN'))}" class="btn-whatsapp w-full text-[10px] py-2.5">WhatsApp Order</a>
+          </div>
+        </div>
+      </div>
+    `).join('');
+    
+    renderPagination();
+    grid.style.display = 'grid';
+    pag.style.display = 'flex';
   }
 
-  document.querySelectorAll('.filter-btn, [data-cat]').forEach(pill=>{
-    pill.addEventListener('click',function(e){
-      e.preventDefault();
-      document.querySelectorAll('.filter-btn, [data-cat]').forEach(p=>p.classList.remove('active'));
-      this.classList.add('active');
-      const c=this.dataset.cat;
-      renderGrid(c&&c!=='all'?PRODUCTS.filter(p=>p.category===c):PRODUCTS);
-    });
+  skeleton.style.display = 'none';
+  updateHeartIcons();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function renderPagination() {
+  const totalPages = Math.ceil(FILTERED_PRODUCTS.length / ITEMS_PER_PAGE);
+  const container = document.getElementById('pag-numbers');
+  const prevBtn = document.getElementById('pag-prev');
+  const nextBtn = document.getElementById('pag-next');
+
+  if (totalPages <= 1) {
+    document.getElementById('pagination').style.display = 'none';
+    return;
+  }
+
+  let html = '';
+  for (let i = 1; i <= totalPages; i++) {
+    html += `<button class="pag-btn ${i === CURRENT_PAGE ? 'active' : ''}" onclick="goToPage(${i})">${i}</button>`;
+  }
+  container.innerHTML = html;
+
+  prevBtn.classList.toggle('disabled', CURRENT_PAGE === 1);
+  nextBtn.classList.toggle('disabled', CURRENT_PAGE === totalPages);
+
+  prevBtn.onclick = () => goToPage(CURRENT_PAGE - 1);
+  nextBtn.onclick = () => goToPage(CURRENT_PAGE + 1);
+}
+
+function goToPage(p) {
+  CURRENT_PAGE = p;
+  renderPage();
+}
+
+function setActivePill(cat) {
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.cat === cat);
   });
+}
 
-  const sortEl=document.querySelector('select[name="sort"], .sort-select, select, #sort-select');
-  if(sortEl){
-    sortEl.addEventListener('change',function(){
-      const pills=document.querySelectorAll('.filter-btn.active, [data-cat].active');
-      const activeCat=pills.length?pills[0].dataset.cat:null;
-      let list=activeCat&&activeCat!=='all'?PRODUCTS.filter(p=>p.category===activeCat):[...PRODUCTS];
-      if(this.value.includes('low'))list.sort((a,b)=>a.price-b.price);
-      else if(this.value.includes('high'))list.sort((a,b)=>b.price-a.price);
-      else if(this.value.includes('new'))list.sort((a,b)=>(b.badge==='New'?1:0)-(a.badge==='New'?1:0));
-      renderGrid(list);
-    });
-  }
+function filterByCategory(cat) {
+  CURRENT_PAGE = 1;
+  setActivePill(cat);
+  FILTERED_PRODUCTS = cat === 'all' ? [...ALL_PRODUCTS] : ALL_PRODUCTS.filter(p => p.category === cat);
+  renderPage();
+}
 
-  renderGrid(filtered);
+function sortProducts(val) {
+  if (val === 'low') FILTERED_PRODUCTS.sort((a, b) => a.price - b.price);
+  else if (val === 'high') FILTERED_PRODUCTS.sort((a, b) => b.price - a.price);
+  else if (val === 'new') FILTERED_PRODUCTS.sort((a, b) => (b.badge === 'New' ? 1 : 0) - (a.badge === 'New' ? 1 : 0));
+  else FILTERED_PRODUCTS = [...ALL_PRODUCTS]; // Best selling / Default
+  
+  CURRENT_PAGE = 1;
+  renderPage();
+}
+
+// Initial Load
+document.addEventListener('DOMContentLoaded', () => {
+  loadProducts();
+  updateCartBadge();
+  updateWishlistBadge();
+
+  // Event Listeners for Filters
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => filterByCategory(btn.dataset.cat));
+  });
 });
+
+function openDrw(){ document.getElementById('mobile-drawer').style.transform='translateX(0)'; document.getElementById('drw-ov').classList.remove('hidden'); document.body.style.overflow='hidden'; }
+function closeDrw(){ document.getElementById('mobile-drawer').style.transform='translateX(-100%)'; document.getElementById('drw-ov').classList.add('hidden'); document.body.style.overflow=''; }
+function openSearch(){ document.getElementById('search-overlay').style.display='flex'; document.getElementById('search-input').focus(); document.body.style.overflow='hidden'; }
+function closeSearch(){ document.getElementById('search-overlay').style.display='none'; document.body.style.overflow=''; }
+
+const lenis = new Lenis();
+function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+requestAnimationFrame(raf);
 </script>
 
 </body>

@@ -364,12 +364,13 @@ img {
 </style>
 
 <script src="https://cdn.jsdelivr.net/npm/fuse.js/dist/fuse.min.js"></script>
-<script src="assets/js/products.js"></script>
 <script src="assets/js/store.js"></script>
 <script>
 /* ═══════════════════════════════════════════════
    KGS Product Detail — All page logic
 ═══════════════════════════════════════════════ */
+let ALL_PRODUCTS = [];
+
 function openDrw(){document.getElementById('mobile-drawer').style.transform='translateX(0)';document.getElementById('drw-ov').classList.remove('hidden');document.body.style.overflow='hidden';}
 function closeDrw(){document.getElementById('mobile-drawer').style.transform='translateX(-100%)';document.getElementById('drw-ov').classList.add('hidden');document.body.style.overflow='';}
 
@@ -385,12 +386,15 @@ function closeSearch(){
   document.getElementById('search-hint').style.display='';
   document.body.style.overflow='';
 }
-function doSearch(q){
+async function doSearch(q){
   const res=document.getElementById('search-results');
   const hint=document.getElementById('search-hint');
   if(!q.trim()){res.innerHTML='';hint.style.display='';return;}
   hint.style.display='none';
-  if(!window.kgsFuse) window.kgsFuse=new Fuse(PRODUCTS,{keys:['name','category'],threshold:0.3});
+  if(!window.kgsFuse) {
+    const products = await initStore();
+    window.kgsFuse=new Fuse(products,{keys:['name','category'],threshold:0.3});
+  }
   const matches=window.kgsFuse.search(q).map(r=>r.item);
   if(matches.length===0){
     res.innerHTML='<p style="color:rgba(255,255,255,.4);font-size:13px;padding:12px 16px;">No results. <a href="product-listing.html" style="color:#C5A880;text-decoration:underline;">Browse all products &rarr;</a></p>';
@@ -414,14 +418,15 @@ function switchTab(idx) {
 }
 
 /* ─── PAGE INIT ───────────────────────────────── */
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   updateCartBadge();
   if (typeof updateWishlistBadge === 'function') updateWishlistBadge();
 
   const prodId = new URLSearchParams(window.location.search).get('id');
   if (!prodId) { window.location.href = 'product-listing.html'; return; }
 
-  const p = PRODUCTS.find(x => x.id === prodId);
+  ALL_PRODUCTS = await initStore();
+  const p = ALL_PRODUCTS.find(x => x.id === prodId);
   if (!p) { window.location.href = 'product-listing.html'; return; }
 
   /* ── Meta ── */
@@ -470,9 +475,9 @@ document.addEventListener('DOMContentLoaded', () => {
   if (addMob) addMob.onclick = () => addToCart(p.id);
 
   /* ── Related Products ── */
-  const related = PRODUCTS.filter(x => x.category===p.category && x.id!==p.id).slice(0,4);
+  const related = ALL_PRODUCTS.filter(x => x.category===p.category && x.id!==p.id).slice(0,4);
   if (related.length < 4) {
-    const others = PRODUCTS.filter(x => x.category!==p.category && x.id!==p.id);
+    const others = ALL_PRODUCTS.filter(x => x.category!==p.category && x.id!==p.id);
     while (related.length < 4 && others.length > 0) {
       const r = others[Math.floor(Math.random()*others.length)];
       if (!related.find(x=>x.id===r.id)) related.push(r);
@@ -487,7 +492,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <img src="${r.image}" alt="${r.name}" class="w-full h-full object-cover">
         </a>
         <div class="p-4 border-t border-border">
-          <p class="text-[11px] font-semibold tracking-[.14em] uppercase text-muted mb-1">${r.category}</p>
+          <p class="text-[11px] font-semibold tracking-[.14em] uppercase text-muted mb-1">${r.category.replace(/-/g, ' ')}</p>
           <h3 class="font-sans font-medium tracking-tight text-ink text-[1.02rem] leading-snug mb-2 truncate">${r.name}</h3>
           <div class="flex items-center justify-between">
             <p class="font-semibold text-warm">&#8377;${r.price.toLocaleString('en-IN')}</p>
