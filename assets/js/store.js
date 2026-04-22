@@ -26,19 +26,28 @@ function saveCart(cart) {
   localStorage.setItem('kgs_cart', JSON.stringify(cart));
 }
 
-async function addToCart(productId, quantity) {
+function addToCart(productId, quantity) {
   quantity = quantity || 1;
-  const products = await initStore();
-  const product = products.find(function(p){ return p.id === productId; });
-  if (!product) return;
+  // Use already-cached products (populated by initStore on page load)
+  const product = GLOBAL_PRODUCTS.find(function(p){ return p.id === productId; });
+  if (!product) {
+    console.warn('addToCart: product not found in cache for id:', productId);
+    return;
+  }
   
   const cart = getCart();
   const idx = cart.findIndex(function(i){ return i.id === productId; });
   if (idx > -1) {
     cart[idx].quantity += quantity;
   } else {
-    cart.push({ id: product.id, name: product.name, price: product.price,
-                image: product.image, category: product.category, quantity: quantity });
+    cart.push({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      image: product.image,
+      category: product.category,
+      quantity: quantity
+    });
   }
   saveCart(cart);
   updateCartBadge();
