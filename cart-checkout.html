@@ -49,9 +49,22 @@ body{-webkit-font-smoothing:antialiased;}
 #mobile-drawer{transition:transform .42s cubic-bezier(.77,0,.18,1);}
 .qty-btn{width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;border:none;background:none;color:#767270;font-size:16px;font-weight:600;transition:color .2s;}
 .qty-btn:hover{color:#1A1A1A;}
+
+/* ——— GLOBAL LAYOUT FIXES ————————————————————————— */
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+img {
+  max-width: 100%;
+}
+
 </style>
 </head>
-<body class="bg-base text-ink font-sans">
+<body class="bg-base text-ink font-sans overflow-x-hidden">
 
 <!-- MOBILE DRAWER -->
 <div id="drw-ov" class="fixed inset-0 bg-black/40 z-50 hidden" onclick="closeDrw()"></div>
@@ -66,7 +79,7 @@ body{-webkit-font-smoothing:antialiased;}
     <a href="index.html#about" class="nav-link text-[13px] normal-case font-medium tracking-normal">Our Story</a>
   </nav>
   <div class="mt-auto px-6 py-7 border-t border-border space-y-4">
-    <a href="customer-account.html" class="flex items-center gap-3 text-sm text-muted hover:text-ink"><span class="material-symbols-outlined text-[18px]">person</span> My Account</a>
+    
     <a href="tel:+919789182921" class="flex items-center gap-3 text-sm text-muted hover:text-ink"><span class="material-symbols-outlined text-[18px]">call</span> +91 97891 82921</a>
   </div>
 </div>
@@ -87,10 +100,10 @@ body{-webkit-font-smoothing:antialiased;}
       <a href="index.html#about" class="nav-link">Our Story</a>
     </div>
     <div class="flex items-center gap-4 text-muted">
-      <a href="customer-account.html" class="hidden md:block hover:text-ink transition-colors"><span class="material-symbols-outlined text-[20px]">person</span></a>
+      
       <a href="cart-checkout.html" class="relative hover:text-ink transition-colors text-ink">
         <span class="material-symbols-outlined text-[20px]">local_mall</span>
-        <span id="cart-badge" class="absolute -top-1.5 -right-2 w-4 h-4 bg-warm text-white text-[8px] rounded-full flex items-center justify-center font-bold" style="display:none;">0</span>
+        <span id="cart-badge" class="cart-count absolute -top-1.5 -right-2 w-4 h-4 bg-warm text-white text-[8px] rounded-full flex items-center justify-center font-bold" style="display:none;">0</span>
       </a>
     </div>
   </div>
@@ -229,9 +242,6 @@ body{-webkit-font-smoothing:antialiased;}
           <p class="text-center text-[11px] text-muted font-medium tracking-wide mt-3">
             Our team will confirm your order via WhatsApp within 30 minutes.
           </p>
-          <p class="text-center text-[11px] mt-2">
-            <a href="order-tracking.html" class="text-gold hover:underline font-medium">Track My Order →</a>
-          </p>
         </form>
       </div>
     </div>
@@ -295,219 +305,7 @@ body{-webkit-font-smoothing:antialiased;}
   </div>
 </footer>
 
-<script>
-/* ═══════════════════════════════════════════════
-   KGS Cart & Checkout — Dynamic from localStorage
-═══════════════════════════════════════════════ */
 
-function openDrw(){document.getElementById('mobile-drawer').style.transform='translateX(0)';document.getElementById('drw-ov').classList.remove('hidden');document.body.style.overflow='hidden';}
-function closeDrw(){document.getElementById('mobile-drawer').style.transform='translateX(-100%)';document.getElementById('drw-ov').classList.add('hidden');document.body.style.overflow='';}
-
-function formatINR(value){ return '₹' + value.toLocaleString('en-IN'); }
-
-function getCart(){ return JSON.parse(localStorage.getItem('kgs_cart') || '[]'); }
-function saveCart(cart){ localStorage.setItem('kgs_cart', JSON.stringify(cart)); }
-
-/* ─── PARSE PRICE ────────────────────────────── */
-function parsePrice(item) {
-  if (item.priceNum) return item.priceNum;
-  return parseInt(String(item.price).replace(/[^\d]/g, ''), 10) || 0;
-}
-
-/* ─── RENDER CART ────────────────────────────── */
-function renderCart() {
-  const cart = getCart();
-  const emptyEl = document.getElementById('empty-cart');
-  const contentEl = document.getElementById('cart-content');
-  const cartItems = document.getElementById('cart-items');
-  const summaryItems = document.getElementById('summary-items');
-  const heading = document.getElementById('cart-heading');
-
-  if (cart.length === 0) {
-    emptyEl.style.display = 'block';
-    contentEl.style.display = 'none';
-    return;
-  }
-
-  emptyEl.style.display = 'none';
-  contentEl.style.display = 'grid';
-
-  const totalItems = cart.reduce((s, i) => s + (i.qty || 1), 0);
-  heading.textContent = 'Your Cart (' + totalItems + ' item' + (totalItems > 1 ? 's' : '') + ')';
-
-  // Render cart items
-  cartItems.innerHTML = cart.map((item, idx) => {
-    const price = parsePrice(item);
-    const qty = item.qty || 1;
-    return `
-    <div class="flex gap-5 bg-surface border border-border p-4" data-idx="${idx}">
-      <div class="w-24 h-28 flex-shrink-0 bg-tint overflow-hidden">
-        <img src="${item.img}" alt="${item.name}" class="w-full h-full object-cover">
-      </div>
-      <div class="flex-grow">
-        <p class="text-[11px] font-semibold tracking-[.14em] uppercase text-muted mb-1">${item.cat || 'Home Décor'}</p>
-        <h3 class="font-sans font-medium tracking-tight text-ink text-[1.05rem] leading-snug mb-2">${item.name}</h3>
-        <p class="font-semibold text-warm text-[1.1rem] mb-3">${formatINR(price)}</p>
-        <div class="flex items-center justify-between">
-          <div class="flex items-center border border-border">
-            <button class="qty-btn" onclick="changeQty(${idx}, -1)">−</button>
-            <span class="w-8 text-center text-sm font-semibold">${qty}</span>
-            <button class="qty-btn" onclick="changeQty(${idx}, 1)">+</button>
-          </div>
-          <button onclick="removeItem(${idx})" class="text-[11px] font-medium text-muted hover:text-red-500 transition-colors tracking-wide uppercase">Remove</button>
-        </div>
-      </div>
-    </div>`;
-  }).join('');
-
-  // Render summary
-  const subtotal = cart.reduce((s, item) => s + parsePrice(item) * (item.qty || 1), 0);
-  summaryItems.innerHTML = cart.map(item => {
-    const price = parsePrice(item);
-    const qty = item.qty || 1;
-    return `<div class="flex justify-between text-[13.5px]"><span class="text-muted">${item.name} × ${qty}</span><span class="font-medium">${formatINR(price * qty)}</span></div>`;
-  }).join('') +
-  `<div class="flex justify-between text-[13.5px] border-t border-border pt-3"><span class="text-muted">Subtotal</span><span class="font-medium">${formatINR(subtotal)}</span></div>` +
-  `<div class="flex justify-between text-[13.5px]"><span class="text-muted">Delivery</span><span class="font-semibold text-green-600">FREE</span></div>`;
-
-  // Update total
-  const net = subtotal - discountAmt;
-  document.getElementById('total-val').textContent = formatINR(net > 0 ? net : subtotal);
-
-  updateCartBadge();
-}
-
-/* ─── QTY CHANGE ─────────────────────────────── */
-function changeQty(idx, delta) {
-  let cart = getCart();
-  if (!cart[idx]) return;
-  cart[idx].qty = Math.max(1, (cart[idx].qty || 1) + delta);
-  saveCart(cart);
-  if (appliedCoupon) recalcDiscount();
-  renderCart();
-}
-
-/* ─── REMOVE ITEM ────────────────────────────── */
-function removeItem(idx) {
-  let cart = getCart();
-  cart.splice(idx, 1);
-  saveCart(cart);
-  if (appliedCoupon) recalcDiscount();
-  renderCart();
-}
-
-/* ─── QUICK ADD (cross-sell) ─────────────────── */
-function quickAdd(name, price, img, cat, btn) {
-  let cart = getCart();
-  let item = cart.find(i => i.name === name);
-  if (item) { item.qty = (item.qty || 1) + 1; }
-  else { cart.push({ name, price: formatINR(price), priceNum: price, img, cat, qty: 1 }); }
-  saveCart(cart);
-  renderCart();
-  if (btn) { const orig = btn.textContent; btn.textContent = 'Added ✓'; btn.style.background = '#15803d'; btn.style.color = '#fff'; btn.style.borderColor = '#15803d'; setTimeout(() => { btn.textContent = orig; btn.style.background = ''; btn.style.color = ''; btn.style.borderColor = ''; }, 800); }
-}
-
-function selectPay(el){
-  document.querySelectorAll('.pay-option').forEach(o=>o.classList.remove('selected'));
-  el.classList.add('selected'); el.querySelector('input').checked=true;
-}
-
-/* ─── COUPON SYSTEM ──────────────────────────── */
-const COUPONS = {
-  'WELCOME10' : { pct:10, label:'WELCOME10'  },
-  'KGSFIRST15': { pct:15, label:'KGSFIRST15' },
-  'INSTA20'   : { pct:20, label:'INSTA20'    },
-  'KGS5'      : { pct:5,  label:'KGS5'       },
-};
-let appliedCoupon = null, discountAmt = 0;
-
-function getSubtotal() {
-  return getCart().reduce((s, item) => s + parsePrice(item) * (item.qty || 1), 0);
-}
-
-function recalcDiscount() {
-  if (!appliedCoupon || !COUPONS[appliedCoupon]) { discountAmt = 0; return; }
-  discountAmt = Math.round(getSubtotal() * COUPONS[appliedCoupon].pct / 100);
-}
-
-function applyCoupon(){
-  const code = document.getElementById('coupon-input').value.trim();
-  const msg = document.getElementById('coupon-msg');
-  msg.style.display = 'block';
-  if(!code){ msg.textContent = 'Please enter a coupon code.'; msg.style.color = '#ef4444'; return; }
-  if(!COUPONS[code]){ msg.textContent = 'Invalid code. Please check and try again.'; msg.style.color = '#ef4444'; return; }
-  const c = COUPONS[code];
-  const subtotal = getSubtotal();
-  appliedCoupon = code;
-  discountAmt = Math.round(subtotal * c.pct / 100);
-  const net = subtotal - discountAmt;
-  document.getElementById('applied-code').textContent = '(' + c.label + ')';
-  document.getElementById('discount-val').textContent = '-' + formatINR(discountAmt);
-  document.getElementById('discount-row').style.display = 'flex';
-  document.getElementById('total-val').textContent = formatINR(net);
-  msg.textContent = '✓ You save ' + formatINR(discountAmt) + ' (' + c.pct + '% off)!';
-  msg.style.color = '#16a34a';
-  gtag('event','coupon_applied',{event_category:'checkout',event_label:code,value:discountAmt});
-}
-
-/* ─── PLACE ORDER ────────────────────────────── */
-function placeOrder(e){
-  e.preventDefault();
-  const cart = getCart();
-  if (cart.length === 0) { alert('Your cart is empty!'); return; }
-  const name  = document.getElementById('fname').value + ' ' + document.getElementById('lname').value;
-  const phone = document.getElementById('phone').value;
-  const addr  = document.getElementById('addr').value;
-  const city  = document.getElementById('city').value;
-  const pin   = document.getElementById('pin').value;
-  const pay   = document.querySelector('input[name="payment"]:checked').value;
-  const payTxt = pay==='cod' ? 'Cash on Delivery (COD)' : pay==='upi' ? 'UPI / Online Payment' : 'WhatsApp Order';
-  const subtotal = getSubtotal();
-  const net = subtotal - discountAmt;
-
-  // Build item list for WhatsApp
-  const itemLines = cart.map(item => {
-    const price = parsePrice(item);
-    const qty = item.qty || 1;
-    return '- ' + item.name + ' ' + formatINR(price) + ' × ' + qty;
-  }).join('\n');
-
-  const couponLine = appliedCoupon ? '\nCoupon: ' + appliedCoupon + ' (-' + formatINR(discountAmt) + ')' : '';
-
-  const finalMsg = `Hello KGS Team,
-
-I'd like to place an order:
-
-Items:
-${itemLines}
-
-Subtotal: ${formatINR(subtotal)}${couponLine}
-Total: ${formatINR(net)}
-Delivery: FREE
-
-Address: ${addr}, ${city} - ${pin}
-Phone: ${phone}
-Name: ${name}
-Payment: ${payTxt}
-
-Please confirm my order. Thank you!`;
-
-  gtag('event','purchase',{event_category:'conversion',currency:'INR',value:net,coupon:appliedCoupon||''});
-  window.open('https://wa.me/919789182921?text=' + encodeURIComponent(finalMsg), '_blank');
-}
-
-/* ─── CART BADGE ──────────────────────────────── */
-function updateCartBadge() {
-  const cart = getCart();
-  const count = cart.reduce((s, i) => s + (i.qty || 1), 0);
-  const badge = document.getElementById('cart-badge');
-  if (badge) { badge.textContent = count; badge.style.display = count ? 'flex' : 'none'; }
-}
-
-/* ─── INIT ────────────────────────────────────── */
-renderCart();
-gtag('event','begin_checkout',{event_category:'checkout',currency:'INR',value:getSubtotal()});
-</script>
 
 
 <!-- ══ SEARCH OVERLAY ═══════════════════════════════════════ -->
@@ -535,29 +333,23 @@ gtag('event','begin_checkout',{event_category:'checkout',currency:'INR',value:ge
 .search-result-item { display:flex; align-items:center; justify-content:space-between; padding:12px 16px; border-bottom:1px solid rgba(255,255,255,.06); text-decoration:none; transition:background .2s; }
 .search-result-item:hover { background:rgba(255,255,255,.05); }
 .search-result-item:last-child { border-bottom:none; }
+
+/* ——— GLOBAL LAYOUT FIXES ————————————————————————— */
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+img {
+  max-width: 100%;
+}
+
 </style>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js/dist/fuse.min.js"></script>
 <script>
-const kgsProductsArr = [
-  { name:'Premium 3-Seater Sofa',        cat:'Sofas',       price:'₹18,500' },
-  { name:'Antique Brass Wall Clock',      cat:'Wall Clocks', price:'₹1,299'  },
-  { name:'Indoor Tabletop Fountain',      cat:'Fountains',   price:'₹2,850'  },
-  { name:'Botanical Wall Art Panel',      cat:'Wall Décor',  price:'₹1,850'  },
-  { name:'Large Artificial Banana Plant', cat:'Plants',      price:'₹3,200'  },
-  { name:'Pendant Ceiling Light',         cat:'Lighting',    price:'₹2,400'  },
-  { name:'Vintage Round Wall Clock',      cat:'Wall Clocks', price:'₹899'    },
-  { name:'Mandala Metal Wall Art',        cat:'Wall Décor',  price:'₹1,450'  },
-  { name:'Photo Frame Set',              cat:'Photo Frames',price:'₹699'    },
-  { name:'LED Strip Lights',             cat:'LED Lights',  price:'₹499'    },
-  { name:'Decorative Gift Hamper',       cat:'Gift Items',  price:'₹1,200'  },
-  { name:'Imported Armchair',            cat:'Furniture',   price:'₹12,000' },
-  { name:'Designer Ceramic Vase',        cat:'Vases',       price:'₹1,950'  },
-  { name:'Geometric Wall Shelf',         cat:'Shelves',     price:'₹2,750'  },
-  { name:'Artisan Table Lamp',           cat:'Lighting',    price:'₹3,400'  },
-  { name:'Ethnic Cushion Cover Set',     cat:'Textiles',    price:'₹1,299'  },
-  { name:'Sunburst Decorative Mirror',   cat:'Mirrors',     price:'₹4,200'  },
-  { name:'Aromatic Candle Gift Set',     cat:'Gift Items',  price:'₹899'    },
-];
+
 
 function openSearch(){
   document.getElementById('search-overlay').style.display='flex';
@@ -576,22 +368,203 @@ function doSearch(q){
   const hint=document.getElementById('search-hint');
   if(!q.trim()){res.innerHTML='';hint.style.display='';return;}
   hint.style.display='none';
-  if(!window.kgsFuse) window.kgsFuse = new Fuse(kgsProductsArr, {keys:['name','cat'], threshold:0.3});
+  if(!window.kgsFuse) window.kgsFuse = new Fuse(PRODUCTS, {keys:['name','category'], threshold:0.3});
   const matches = window.kgsFuse.search(q).map(r=>r.item);
   if(matches.length===0){
     res.innerHTML='<p style="color:rgba(255,255,255,.4);font-size:13px;padding:12px 16px;">No results. <a href="product-listing.html" style="color:#C5A880;text-decoration:underline;">Browse all 500+ products &rarr;</a></p>';
   }else{
     res.innerHTML=matches.map(p=>`
-      <a href="product-listing.html" class="search-result-item">
+      <a href="product-detail.html?id=${p.id}" class="search-result-item">
         <div>
-          <p style="color:#fff;font-size:14.5px;font-family:'DM Sans',sans-serif;font-weight:500;letter-spacing:-0.01em;">${p.name}</p>
-          <p style="color:rgba(255,255,255,.35);font-size:10px;letter-spacing:.14em;text-transform:uppercase;margin-top:3px;">${p.cat}</p>
+          <p style="color:#fff;font-size:14.5px;font-family:\'DM Sans\',sans-serif;font-weight:500;letter-spacing:-0.01em;">${p.name}</p>
+          <p style="color:rgba(255,255,255,.35);font-size:10px;letter-spacing:.14em;text-transform:uppercase;margin-top:3px;">${p.category}</p>
         </div>
-        <p style="color:#C97840;font-size:13px;font-weight:600;font-family:'DM Sans',sans-serif;">${p.price}</p>
+        <p style="color:#C97840;font-size:13px;font-weight:600;font-family:\'DM Sans\',sans-serif;">₹${p.price.toLocaleString('en-IN')}</p>
       </a>`).join('');
   }
 }
 document.addEventListener('keydown',e=>{if(e.key==='Escape' && document.getElementById('search-overlay') && document.getElementById('search-overlay').style.display==='flex') closeSearch();});
+</script>
+
+
+<script src="assets/js/products.js"></script>
+<script src="assets/js/cart.js"></script>
+<script>
+function openDrw(){document.getElementById('mobile-drawer').style.transform='translateX(0)';document.getElementById('drw-ov').classList.remove('hidden');document.body.style.overflow='hidden';}
+function closeDrw(){document.getElementById('mobile-drawer').style.transform='translateX(-100%)';document.getElementById('drw-ov').classList.add('hidden');document.body.style.overflow='';}
+
+const formatINR = val => '₹' + parseInt(val, 10).toLocaleString('en-IN');
+
+let appliedCoupon = null;
+let discountAmt = 0;
+const COUPONS = {
+  'WELCOME10' : { pct:10, label:'WELCOME10'  },
+  'KGSFIRST15': { pct:15, label:'KGSFIRST15' },
+  'INSTA20'   : { pct:20, label:'INSTA20'    },
+  'KGS5'      : { pct:5,  label:'KGS5'       },
+};
+
+function selectPay(el){
+  document.querySelectorAll('.pay-option').forEach(o=>o.classList.remove('selected'));
+  el.classList.add('selected'); el.querySelector('input').checked=true;
+}
+
+function renderCheckout() {
+  updateCartBadge();
+  const cart = getCart();
+  const emptyEl = document.getElementById('empty-cart');
+  const contentEl = document.getElementById('cart-content');
+  const cartItemsContainer = document.getElementById('cart-items');
+  const summaryContainer = document.getElementById('summary-items');
+  const heading = document.getElementById('cart-heading');
+
+  if (cart.length === 0) {
+    emptyEl.style.display = 'block';
+    contentEl.style.display = 'none';
+    return;
+  }
+
+  emptyEl.style.display = 'none';
+  contentEl.style.display = 'grid';
+
+  const totalItems = getCartCount();
+  heading.textContent = 'Your Cart (' + totalItems + ' item' + (totalItems > 1 ? 's' : '') + ')';
+
+  cartItemsContainer.innerHTML = cart.map(item => `
+    <div class="flex gap-5 bg-surface border border-border p-4">
+      <div class="w-24 h-28 flex-shrink-0 bg-tint overflow-hidden">
+        <a href="product-detail.html?id=${item.id}">
+          <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover">
+        </a>
+      </div>
+      <div class="flex-grow">
+        <p class="text-[11px] font-semibold tracking-[.14em] uppercase text-muted mb-1">${item.category}</p>
+        <h3 class="font-sans font-medium tracking-tight text-ink text-[1.05rem] leading-snug mb-2">${item.name}</h3>
+        <p class="font-semibold text-warm text-[1.1rem] mb-3">${formatINR(item.price)}</p>
+        <div class="flex items-center justify-between">
+          <div class="flex items-center border border-border">
+            <button class="qty-btn" type="button" onclick="updateQty('${item.id}', ${item.quantity - 1}); renderCheckout();">−</button>
+            <span class="w-8 text-center text-sm font-semibold">${item.quantity}</span>
+            <button class="qty-btn" type="button" onclick="updateQty('${item.id}', ${item.quantity + 1}); renderCheckout();">+</button>
+          </div>
+          <button type="button" onclick="removeFromCart('${item.id}'); renderCheckout();" class="text-[11px] font-medium text-muted hover:text-red-500 transition-colors tracking-wide uppercase">Remove</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+
+  const subtotal = getCartTotal();
+  if (appliedCoupon && COUPONS[appliedCoupon]) {
+    discountAmt = Math.round(subtotal * COUPONS[appliedCoupon].pct / 100);
+  } else {
+    discountAmt = 0;
+  }
+
+  summaryContainer.innerHTML = cart.map(item => `
+    <div class="flex justify-between text-[13.5px]">
+      <span class="text-muted">${item.name} × ${item.quantity}</span>
+      <span class="font-medium">${formatINR(item.price * item.quantity)}</span>
+    </div>
+  `).join('') + `
+    <div class="flex justify-between text-[13.5px] border-t border-border pt-3 mt-3">
+      <span class="text-muted">Subtotal</span><span class="font-medium">${formatINR(subtotal)}</span>
+    </div>
+    <div class="flex justify-between text-[13.5px] mt-1">
+      <span class="text-muted">Delivery</span><span class="font-semibold text-green-600">FREE</span>
+    </div>
+  `;
+
+  document.getElementById('total-val').textContent = formatINR(subtotal - discountAmt);
+  
+  if (discountAmt > 0) {
+    document.getElementById('applied-code').textContent = '(' + COUPONS[appliedCoupon].label + ')';
+    document.getElementById('discount-val').textContent = '-' + formatINR(discountAmt);
+    document.getElementById('discount-row').style.display = 'flex';
+  } else {
+    document.getElementById('discount-row').style.display = 'none';
+  }
+}
+
+function applyCoupon() {
+  const code = document.getElementById('coupon-input').value.trim();
+  const msg = document.getElementById('coupon-msg');
+  msg.style.display = 'block';
+  if(!code){ msg.textContent = 'Please enter a coupon code.'; msg.style.color = '#ef4444'; return; }
+  if(!COUPONS[code]){ msg.textContent = 'Invalid code. Please check and try again.'; msg.style.color = '#ef4444'; return; }
+  
+  appliedCoupon = code;
+  msg.textContent = '✓ Coupon applied successfully!';
+  msg.style.color = '#16a34a';
+  renderCheckout();
+}
+
+function quickAdd(productId, btn) {
+  addToCart(productId);
+  renderCheckout();
+  if (btn) { 
+    const orig = btn.textContent; 
+    btn.textContent = 'Added ✓'; 
+    btn.style.background = '#15803d'; 
+    btn.style.color = '#fff'; 
+    btn.style.borderColor = '#15803d'; 
+    setTimeout(() => { 
+      btn.textContent = orig; 
+      btn.style.background = ''; 
+      btn.style.color = ''; 
+      btn.style.borderColor = ''; 
+    }, 800); 
+  }
+}
+
+function placeOrder(e) {
+  e.preventDefault();
+  const cart = getCart();
+  if (cart.length === 0) return alert('Your cart is empty!');
+
+  const name  = document.getElementById('fname').value + ' ' + document.getElementById('lname').value;
+  const phone = document.getElementById('phone').value;
+  const addr  = document.getElementById('addr').value;
+  const city  = document.getElementById('city').value;
+  const pin   = document.getElementById('pin').value;
+  const pay   = document.querySelector('input[name="payment"]:checked').value;
+  
+  const payTxt = pay==='cod' ? 'Cash on Delivery (COD)' : pay==='upi' ? 'UPI / Online Payment' : 'WhatsApp Order';
+  const subtotal = getCartTotal();
+  const net = subtotal - discountAmt;
+
+  const itemLines = cart.map(item => `- ${item.name} ${formatINR(item.price)} × ${item.quantity}`).join('
+');
+  const couponLine = appliedCoupon ? '
+Coupon: ' + appliedCoupon + ' (-' + formatINR(discountAmt) + ')' : '';
+
+  const finalMsg = `Hello KGS Team,
+
+I'd like to place an order:
+
+Items:
+${itemLines}
+
+Subtotal: ${formatINR(subtotal)}${couponLine}
+Total: ${formatINR(net)}
+Delivery: FREE
+
+Address: ${addr}, ${city} - ${pin}
+Phone: ${phone}
+Name: ${name}
+Payment: ${payTxt}
+
+Please confirm my order. Thank you!`;
+
+  window.open('https://wa.me/919789182921?text=' + encodeURIComponent(finalMsg), '_blank');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const oldQuickAdd = document.querySelector('button[onclick^="quickAdd"]');
+    if (oldQuickAdd) {
+        oldQuickAdd.setAttribute('onclick', "quickAdd('light-pendant', this)");
+    }
+    renderCheckout();
+});
 </script>
 
 </body>

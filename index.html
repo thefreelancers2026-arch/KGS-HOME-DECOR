@@ -241,9 +241,22 @@ a:focus-visible, button:focus-visible { outline: 2px solid #C5A880; outline-offs
   padding: 4px 10px; display: flex; align-items: center; gap: 4px;
 }
 .new-badge .material-symbols-outlined { font-size: 12px; font-variation-settings: 'FILL' 1, 'wght' 500; }
+
+/* ——— GLOBAL LAYOUT FIXES ————————————————————————— */
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+img {
+  max-width: 100%;
+}
+
 </style>
 </head>
-<body class="bg-base text-ink font-sans">
+<body class="bg-base text-ink font-sans overflow-x-hidden">
 
 <!-- ══ TOAST NOTIFICATION ═══════════════════════════════════ -->
 <div id="cart-toast">
@@ -271,9 +284,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid #C5A880; outline-offs
     <a href="wishlist.html" class="flex items-center gap-3 text-sm text-muted hover:text-ink transition-colors">
       <span class="material-symbols-outlined text-[18px]">favorite</span> Wishlist
     </a>
-    <a href="customer-account.html" class="flex items-center gap-3 text-sm text-muted hover:text-ink transition-colors">
-      <span class="material-symbols-outlined text-[18px]">person</span> My Account
-    </a>
+    
     <a href="cart-checkout.html" class="flex items-center gap-3 text-sm text-muted hover:text-ink transition-colors">
       <span class="material-symbols-outlined text-[18px]">local_mall</span> Cart
     </a>
@@ -336,14 +347,14 @@ a:focus-visible, button:focus-visible { outline: 2px solid #C5A880; outline-offs
     </div>
     <div class="flex items-center gap-4 text-muted">
       <button onclick="openSearch();gtag('event','search_open',{event_category:'engagement'})" aria-label="Search products" class="hover:text-ink transition-colors bg-transparent border-none cursor-pointer p-0"><span class="material-symbols-outlined text-[20px]">search</span></button>
-      <a href="customer-account.html" aria-label="Account" class="hidden md:block hover:text-ink transition-colors"><span class="material-symbols-outlined text-[20px]">person</span></a>
+      
       <a href="wishlist.html" aria-label="Wishlist" class="relative hover:text-ink transition-colors text-ink">
         <span class="material-symbols-outlined text-[20px]">favorite</span>
-        <span id="wishlist-badge" class="absolute -top-1.5 -right-2 w-4 h-4 bg-warm text-white text-[8px] rounded-full flex items-center justify-center font-bold" style="display:none;">0</span>
+        <span id="wishlist-badge" class="wishlist-count absolute -top-1.5 -right-2 w-4 h-4 bg-warm text-white text-[8px] rounded-full flex items-center justify-center font-bold" style="display:none;">0</span>
       </a>
       <a href="cart-checkout.html" aria-label="Cart" class="relative hover:text-ink transition-colors">
         <span class="material-symbols-outlined text-[20px]">local_mall</span>
-        <span id="cart-badge" class="absolute -top-1.5 -right-2 w-4 h-4 bg-warm text-white text-[8px] rounded-full flex items-center justify-center font-bold" style="display:none;">0</span>
+        <span id="cart-badge" class="cart-count absolute -top-1.5 -right-2 w-4 h-4 bg-warm text-white text-[8px] rounded-full flex items-center justify-center font-bold" style="display:none;">0</span>
       </a>
     </div>
   </div>
@@ -558,7 +569,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid #C5A880; outline-offs
       <div class="new-card relative">
         <div class="new-img aspect-[4/5] relative">
           <div class="new-badge"><span class="material-symbols-outlined">fiber_new</span> New</div>
-          <button onclick="toggleWish(this, 'Designer Ceramic Vase', '₹1,950', 'assets/images/ceramic_vase.png', 'Vases')" class="heart-btn" title="Save to wishlist">
+          <button data-product-id="vase-ceramic" onclick="toggleWishlist('vase-ceramic')" class="heart-btn" title="Save to wishlist">
             <span class="material-symbols-outlined text-[16px]">favorite</span>
           </button>
           <img src="assets/images/ceramic_vase.png" alt="Designer Ceramic Vase — New at KGS Home Décors" class="w-full h-full object-cover">
@@ -568,7 +579,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid #C5A880; outline-offs
           <h3 class="font-sans font-medium tracking-tight text-ink text-[1.08rem] leading-snug mb-2">Designer Ceramic Vase</h3>
           <p class="font-sans font-semibold text-warm text-lg mb-3">&#8377;1,950</p>
           <div class="flex gap-2">
-            <button onclick="addToCart('Designer Ceramic Vase', 1950, 'assets/images/ceramic_vase.png', 'Vases')" class="btn-primary flex-1 text-[10px] py-2.5">Add to Cart</button>
+            <button data-product-id="vase-ceramic" onclick="addToCart('vase-ceramic')" class="btn-primary flex-1 text-[10px] py-2.5">Add to Cart</button>
           </div>
         </div>
       </div>
@@ -577,7 +588,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid #C5A880; outline-offs
       <div class="new-card relative">
         <div class="new-img aspect-[4/5] relative">
           <div class="new-badge"><span class="material-symbols-outlined">fiber_new</span> New</div>
-          <button onclick="toggleWish(this, 'Geometric Wall Shelf', '₹2,750', 'assets/images/wall_shelf.png', 'Shelves')" class="heart-btn" title="Save to wishlist">
+          <button data-product-id="shelf-geometric" onclick="toggleWishlist('shelf-geometric')" class="heart-btn" title="Save to wishlist">
             <span class="material-symbols-outlined text-[16px]">favorite</span>
           </button>
           <img src="assets/images/wall_shelf.png" alt="Geometric Wall Shelf — New at KGS Home Décors" class="w-full h-full object-cover">
@@ -587,7 +598,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid #C5A880; outline-offs
           <h3 class="font-sans font-medium tracking-tight text-ink text-[1.08rem] leading-snug mb-2">Geometric Wall Shelf</h3>
           <p class="font-sans font-semibold text-warm text-lg mb-3">&#8377;2,750</p>
           <div class="flex gap-2">
-            <button onclick="addToCart('Geometric Wall Shelf', 2750, 'assets/images/wall_shelf.png', 'Shelves')" class="btn-primary flex-1 text-[10px] py-2.5">Add to Cart</button>
+            <button data-product-id="shelf-geometric" onclick="addToCart('shelf-geometric')" class="btn-primary flex-1 text-[10px] py-2.5">Add to Cart</button>
           </div>
         </div>
       </div>
@@ -596,7 +607,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid #C5A880; outline-offs
       <div class="new-card relative">
         <div class="new-img aspect-[4/5] relative">
           <div class="new-badge"><span class="material-symbols-outlined">fiber_new</span> New</div>
-          <button onclick="toggleWish(this, 'Artisan Table Lamp', '₹3,400', 'assets/images/table_lamp.png', 'Lighting')" class="heart-btn" title="Save to wishlist">
+          <button data-product-id="lamp-table" onclick="toggleWishlist('lamp-table')" class="heart-btn" title="Save to wishlist">
             <span class="material-symbols-outlined text-[16px]">favorite</span>
           </button>
           <img src="assets/images/table_lamp.png" alt="Artisan Table Lamp — New at KGS Home Décors" class="w-full h-full object-cover">
@@ -606,7 +617,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid #C5A880; outline-offs
           <h3 class="font-sans font-medium tracking-tight text-ink text-[1.08rem] leading-snug mb-2">Artisan Table Lamp</h3>
           <p class="font-sans font-semibold text-warm text-lg mb-3">&#8377;3,400</p>
           <div class="flex gap-2">
-            <button onclick="addToCart('Artisan Table Lamp', 3400, 'assets/images/table_lamp.png', 'Lighting')" class="btn-primary flex-1 text-[10px] py-2.5">Add to Cart</button>
+            <button data-product-id="lamp-table" onclick="addToCart('lamp-table')" class="btn-primary flex-1 text-[10px] py-2.5">Add to Cart</button>
           </div>
         </div>
       </div>
@@ -615,7 +626,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid #C5A880; outline-offs
       <div class="new-card relative">
         <div class="new-img aspect-[4/5] relative">
           <div class="new-badge"><span class="material-symbols-outlined">fiber_new</span> New</div>
-          <button onclick="toggleWish(this, 'Ethnic Cushion Cover Set', '₹1,299', 'assets/images/cushion_covers.png', 'Textiles')" class="heart-btn" title="Save to wishlist">
+          <button data-product-id="cushion-ethnic" onclick="toggleWishlist('cushion-ethnic')" class="heart-btn" title="Save to wishlist">
             <span class="material-symbols-outlined text-[16px]">favorite</span>
           </button>
           <img src="assets/images/cushion_covers.png" alt="Ethnic Cushion Cover Set — New at KGS Home Décors" class="w-full h-full object-cover">
@@ -625,7 +636,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid #C5A880; outline-offs
           <h3 class="font-sans font-medium tracking-tight text-ink text-[1.08rem] leading-snug mb-2">Ethnic Cushion Cover Set</h3>
           <p class="font-sans font-semibold text-warm text-lg mb-3">&#8377;1,299</p>
           <div class="flex gap-2">
-            <button onclick="addToCart('Ethnic Cushion Cover Set', 1299, 'assets/images/cushion_covers.png', 'Textiles')" class="btn-primary flex-1 text-[10px] py-2.5">Add to Cart</button>
+            <button data-product-id="cushion-ethnic" onclick="addToCart('cushion-ethnic')" class="btn-primary flex-1 text-[10px] py-2.5">Add to Cart</button>
           </div>
         </div>
       </div>
@@ -634,7 +645,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid #C5A880; outline-offs
       <div class="new-card relative">
         <div class="new-img aspect-[4/5] relative">
           <div class="new-badge"><span class="material-symbols-outlined">fiber_new</span> New</div>
-          <button onclick="toggleWish(this, 'Sunburst Decorative Mirror', '₹4,200', 'assets/images/decorative_mirror.png', 'Mirrors')" class="heart-btn" title="Save to wishlist">
+          <button data-product-id="mirror-sunburst" onclick="toggleWishlist('mirror-sunburst')" class="heart-btn" title="Save to wishlist">
             <span class="material-symbols-outlined text-[16px]">favorite</span>
           </button>
           <img src="assets/images/decorative_mirror.png" alt="Sunburst Decorative Mirror — New at KGS Home Décors" class="w-full h-full object-cover">
@@ -644,7 +655,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid #C5A880; outline-offs
           <h3 class="font-sans font-medium tracking-tight text-ink text-[1.08rem] leading-snug mb-2">Sunburst Decorative Mirror</h3>
           <p class="font-sans font-semibold text-warm text-lg mb-3">&#8377;4,200</p>
           <div class="flex gap-2">
-            <button onclick="addToCart('Sunburst Decorative Mirror', 4200, 'assets/images/decorative_mirror.png', 'Mirrors')" class="btn-primary flex-1 text-[10px] py-2.5">Add to Cart</button>
+            <button data-product-id="mirror-sunburst" onclick="addToCart('mirror-sunburst')" class="btn-primary flex-1 text-[10px] py-2.5">Add to Cart</button>
           </div>
         </div>
       </div>
@@ -653,7 +664,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid #C5A880; outline-offs
       <div class="new-card relative">
         <div class="new-img aspect-[4/5] relative">
           <div class="new-badge"><span class="material-symbols-outlined">fiber_new</span> New</div>
-          <button onclick="toggleWish(this, 'Aromatic Candle Gift Set', '₹899', 'assets/images/candle_set.png', 'Gift Items')" class="heart-btn" title="Save to wishlist">
+          <button data-product-id="candle-gift" onclick="toggleWishlist('candle-gift')" class="heart-btn" title="Save to wishlist">
             <span class="material-symbols-outlined text-[16px]">favorite</span>
           </button>
           <img src="assets/images/candle_set.png" alt="Aromatic Candle Gift Set — New at KGS Home Décors" class="w-full h-full object-cover">
@@ -663,7 +674,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid #C5A880; outline-offs
           <h3 class="font-sans font-medium tracking-tight text-ink text-[1.08rem] leading-snug mb-2">Aromatic Candle Gift Set</h3>
           <p class="font-sans font-semibold text-warm text-lg mb-3">&#8377;899</p>
           <div class="flex gap-2">
-            <button onclick="addToCart('Aromatic Candle Gift Set', 899, 'assets/images/candle_set.png', 'Gift Items')" class="btn-primary flex-1 text-[10px] py-2.5">Add to Cart</button>
+            <button data-product-id="candle-gift" onclick="addToCart('candle-gift')" class="btn-primary flex-1 text-[10px] py-2.5">Add to Cart</button>
           </div>
         </div>
       </div>
@@ -687,7 +698,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid #C5A880; outline-offs
       <div class="prod-card rv col-span-2 md:col-span-2 relative hover-trigger">
         <div class="flex flex-col md:flex-row">
           <div class="prod-img md:w-[55%] overflow-hidden relative" style="aspect-ratio:4/3;">
-            <button onclick="toggleWish(this, 'Premium 3-Seater Sofa', '₹18,500', 'assets/images/sofa.jpg', 'Sofas & Furniture')" class="heart-btn" title="Save to wishlist">
+            <button data-product-id="sofa-3seater" onclick="toggleWishlist('sofa-3seater')" class="heart-btn" title="Save to wishlist">
               <span class="material-symbols-outlined text-[16px]">favorite</span>
             </button>
             <img src="assets/images/sofa.jpg" alt="Premium 3-Seater Sofa — best-selling furniture at KGS Virudhachalam" class="w-full h-full object-cover">
@@ -699,7 +710,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid #C5A880; outline-offs
             <p class="text-muted text-[13px] mb-4" style="line-height:1.7;">Solid teak frame, linen-blend upholstery. Delivered fully assembled. Perfect for Indian living rooms.</p>
             <p class="font-sans font-semibold text-warm text-xl mb-4">&#8377;18,500</p>
             <div class="space-y-2">
-              <button onclick="addToCart('Premium 3-Seater Sofa', 18500, 'assets/images/sofa.jpg', 'Sofas & Furniture')" class="btn-primary w-full text-[10px] py-2.5">Add to Cart</button>
+              <button data-product-id="sofa-3seater" onclick="addToCart('sofa-3seater')" class="btn-primary w-full text-[10px] py-2.5">Add to Cart</button>
               <a href="https://wa.me/919789182921?text=I'm%20interested%20in%20Premium%203-Seater%20Sofa%20-%20%E2%82%B918%2C500" target="_blank" rel="noopener noreferrer" class="btn-whatsapp w-full text-[10px] py-2.5">
                 <svg viewBox="0 0 24 24" fill="white" class="w-3.5 h-3.5 shrink-0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
                 Order via WhatsApp
@@ -712,7 +723,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid #C5A880; outline-offs
       <!-- Card 2 -->
       <div class="prod-card rv d1 relative hover-trigger">
         <div class="prod-img aspect-[4/5] relative">
-          <button onclick="toggleWish(this, 'Antique Brass Wall Clock', '₹1,299', 'assets/images/clock.jpg', 'Wall Clocks')" class="heart-btn" title="Save to wishlist">
+          <button data-product-id="clock-brass" onclick="toggleWishlist('clock-brass')" class="heart-btn" title="Save to wishlist">
             <span class="material-symbols-outlined text-[16px]">favorite</span>
           </button>
           <img src="assets/images/clock.jpg" alt="Antique Brass Wall Clock" class="w-full h-full object-cover">
@@ -723,7 +734,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid #C5A880; outline-offs
           <h3 class="font-sans font-medium tracking-tight text-ink text-[1.08rem] leading-snug mb-2.5">Antique Brass Wall Clock</h3>
           <p class="font-sans font-semibold text-warm text-lg mb-3">&#8377;1,299</p>
           <div class="card-cta space-y-2">
-            <button onclick="addToCart('Antique Brass Wall Clock', 1299, 'assets/images/clock.jpg', 'Wall Clocks')" class="btn-primary w-full text-[10px] py-2.5">Add to Cart</button>
+            <button data-product-id="clock-brass" onclick="addToCart('clock-brass')" class="btn-primary w-full text-[10px] py-2.5">Add to Cart</button>
             <a href="https://wa.me/919789182921?text=I'm%20interested%20in%20Antique%20Brass%20Wall%20Clock%20-%20%E2%82%B91%2C299" target="_blank" rel="noopener noreferrer" class="btn-whatsapp w-full text-[10px] py-2.5">
               <svg viewBox="0 0 24 24" fill="white" class="w-3.5 h-3.5 shrink-0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
               Order via WhatsApp
@@ -735,7 +746,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid #C5A880; outline-offs
       <!-- Card 3 -->
       <div class="prod-card rv d2 relative hover-trigger">
         <div class="prod-img aspect-[4/5] relative">
-          <button onclick="toggleWish(this, 'Indoor Tabletop Fountain', '₹2,850', 'assets/images/fountain.jpg', 'Fountains')" class="heart-btn" title="Save to wishlist">
+          <button data-product-id="fountain-tabletop" onclick="toggleWishlist('fountain-tabletop')" class="heart-btn" title="Save to wishlist">
             <span class="material-symbols-outlined text-[16px]">favorite</span>
           </button>
           <img src="assets/images/fountain.jpg" alt="Indoor Tabletop Fountain" class="w-full h-full object-cover">
@@ -745,7 +756,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid #C5A880; outline-offs
           <h3 class="font-sans font-medium tracking-tight text-ink text-[1.08rem] leading-snug mb-2.5">Indoor Tabletop Fountain</h3>
           <p class="font-sans font-semibold text-warm text-lg mb-3">&#8377;2,850</p>
           <div class="card-cta space-y-2">
-            <button onclick="addToCart('Indoor Tabletop Fountain', 2850, 'assets/images/fountain.jpg', 'Fountains')" class="btn-primary w-full text-[10px] py-2.5">Add to Cart</button>
+            <button data-product-id="fountain-tabletop" onclick="addToCart('fountain-tabletop')" class="btn-primary w-full text-[10px] py-2.5">Add to Cart</button>
             <a href="https://wa.me/919789182921?text=I'm%20interested%20in%20Indoor%20Tabletop%20Fountain%20-%20%E2%82%B92%2C850" target="_blank" rel="noopener noreferrer" class="btn-whatsapp w-full text-[10px] py-2.5">
               <svg viewBox="0 0 24 24" fill="white" class="w-3.5 h-3.5 shrink-0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
               Order via WhatsApp
@@ -757,7 +768,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid #C5A880; outline-offs
       <!-- Card 4 -->
       <div class="prod-card rv d3 relative hover-trigger">
         <div class="prod-img aspect-[4/5] relative">
-          <button onclick="toggleWish(this, 'Botanical Wall Art Panel', '₹1,850', 'assets/images/wall_decor.jpg', 'Wall D&eacute;cor')" class="heart-btn" title="Save to wishlist">
+          <button data-product-id="wall-art-botanical" onclick="toggleWishlist('wall-art-botanical')" class="heart-btn" title="Save to wishlist">
             <span class="material-symbols-outlined text-[16px]">favorite</span>
           </button>
           <img src="assets/images/wall_decor.jpg" alt="Botanical Wall Art" class="w-full h-full object-cover">
@@ -768,7 +779,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid #C5A880; outline-offs
           <h3 class="font-sans font-medium tracking-tight text-ink text-[1.08rem] leading-snug mb-2.5">Botanical Wall Art Panel</h3>
           <p class="font-sans font-semibold text-warm text-lg mb-3">&#8377;1,850</p>
           <div class="card-cta space-y-2">
-            <button onclick="addToCart('Botanical Wall Art Panel', 1850, 'assets/images/wall_decor.jpg', 'Wall Décor')" class="btn-primary w-full text-[10px] py-2.5">Add to Cart</button>
+            <button data-product-id="wall-art-botanical" onclick="addToCart('wall-art-botanical')" class="btn-primary w-full text-[10px] py-2.5">Add to Cart</button>
             <a href="https://wa.me/919789182921?text=I'm%20interested%20in%20Botanical%20Wall%20Art%20-%20%E2%82%B91%2C850" target="_blank" rel="noopener noreferrer" class="btn-whatsapp w-full text-[10px] py-2.5">
               <svg viewBox="0 0 24 24" fill="white" class="w-3.5 h-3.5 shrink-0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
               Order via WhatsApp
@@ -795,7 +806,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid #C5A880; outline-offs
         <p class="text-gold text-xs mb-1.5">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
         <p class="font-serif text-[13px] font-medium leading-snug">"Top-quality d&eacute;cor, amazing service"</p>
         <p class="text-muted text-[11px] mt-1.5">&mdash; Meena R., Customer</p>
-        <a href="https://search.google.com/local/reviews?placeid=ChIJ" target="_blank" rel="noopener noreferrer" class="text-gold text-[11px] font-medium mt-2 block hover:underline">View on Google Reviews &rarr;</a>
+        <a href="https://www.google.com/maps/search/KGS+Home+Decors+Virudhachalam/" target="_blank" rel="noopener noreferrer" class="text-gold text-[11px] font-medium mt-2 block hover:underline">View on Google Reviews &rarr;</a>
       </div>
     </div>
     <div class="order-1 lg:order-2 rv d2">
@@ -915,28 +926,12 @@ a:focus-visible, button:focus-visible { outline: 2px solid #C5A880; outline-offs
 </section>
 
 <!-- ══ INSTAGRAM GRID ═══════════════════════════════════════ -->
-<section class="bg-base border-t border-border">
-  <div class="text-center pt-14 pb-6 rv">
-    <p class="text-[11px] font-semibold tracking-[.18em] uppercase text-gold mb-2">Follow Our Journey</p>
-    <a href="https://www.instagram.com/kgshomedecors_virudhachalam" target="_blank" rel="noopener noreferrer" class="font-serif font-medium text-ink hover:text-warm transition-colors" style="font-size:1.5rem;">@kgshomedecors_virudhachalam</a>
-  </div>
-  <a href="https://www.instagram.com/kgshomedecors_virudhachalam" target="_blank" rel="noopener noreferrer" class="block">
-    <div class="insta-grid">
-      <div class="insta-cell"><img src="assets/images/sofa.jpg" alt="KGS Instagram post" loading="lazy"><div class="insta-ov"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" class="w-7 h-7"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.01" stroke-width="3"/></svg></div></div>
-      <div class="insta-cell"><img src="assets/images/clock.jpg" alt="KGS Instagram post" loading="lazy"><div class="insta-ov"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" class="w-7 h-7"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.01" stroke-width="3"/></svg></div></div>
-      <div class="insta-cell"><img src="assets/images/fountain.jpg" alt="KGS Instagram post" loading="lazy"><div class="insta-ov"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" class="w-7 h-7"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.01" stroke-width="3"/></svg></div></div>
-      <div class="insta-cell"><img src="assets/images/wall_decor.jpg" alt="KGS Instagram post" loading="lazy"><div class="insta-ov"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" class="w-7 h-7"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.01" stroke-width="3"/></svg></div></div>
-      <div class="insta-cell"><img src="assets/images/lighting.jpg" alt="KGS Instagram post" loading="lazy"><div class="insta-ov"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" class="w-7 h-7"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.01" stroke-width="3"/></svg></div></div>
-      <div class="insta-cell" style="background:#0f0f0f;display:flex;align-items:center;justify-content:center;">
-        <div class="text-center px-4">
-          <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.2" class="w-8 h-8 mx-auto mb-2 opacity-50"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.01" stroke-width="3"/></svg>
-          <p class="text-white/50 text-[9px] font-semibold tracking-[.14em] uppercase">View More</p>
-        </div>
-      </div>
-    </div>
-  </a>
-  <div class="text-center py-8">
-    <a href="https://www.instagram.com/kgshomedecors_virudhachalam" target="_blank" rel="noopener noreferrer" class="btn-secondary">Follow on Instagram</a>
+<section class="bg-base border-t border-border py-16">
+  <div class="text-center rv">
+    <p class="text-[11px] font-semibold tracking-[.18em] uppercase text-gold mb-4">Follow Our Journey</p>
+    <a href="https://www.instagram.com/kgshomedecors_virudhachalam" target="_blank" rel="noopener noreferrer" class="btn-primary mt-2">
+      Follow us @kgshomedecors_virudhachalam
+    </a>
   </div>
 </section>
 
@@ -975,7 +970,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid #C5A880; outline-offs
         <li><a href="#new-arrivals" class="hover:text-white transition-colors">New Arrivals</a></li>
         <li><a href="#collections" class="hover:text-white transition-colors">Collections</a></li>
         <li><a href="cart-checkout.html" class="hover:text-white transition-colors">Cart &amp; Checkout</a></li>
-        <li><a href="customer-account.html" class="hover:text-white transition-colors">My Account</a></li>
+        <li></li>
       </ul>
       <h4 class="text-white text-[11px] tracking-[.18em] uppercase font-semibold mt-7 mb-4">Products</h4>
       <ul class="space-y-2.5 text-[12.5px] text-white/30">
@@ -995,18 +990,11 @@ a:focus-visible, button:focus-visible { outline: 2px solid #C5A880; outline-offs
       <ul class="space-y-3.5 text-[13px] text-white/40 mb-9">
         <li><a href="#about" class="hover:text-white transition-colors">Our Story</a></li>
         <li><a href="#showroom" class="hover:text-white transition-colors">Visit Showroom</a></li>
-        <li><a href="order-tracking.html" class="hover:text-white transition-colors">Track My Order</a></li>
+        
         <li><a href="https://wa.me/919789182921?text=Delivery%20policy%20query" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">Delivery Policy</a></li>
         <li><a href="https://wa.me/919789182921?text=Return%20or%20exchange%20query" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">Return & Exchange</a></li>
       </ul>
-      <h4 class="text-white text-[11px] tracking-[.18em] uppercase font-semibold mb-4">Stay Updated</h4>
-      <form class="flex border border-white/12 overflow-hidden" onsubmit="handleNewsletterSub(event)">
-        <input id="nl-email" type="email" placeholder="Your email" required class="flex-grow bg-transparent px-4 py-3 text-[12px] text-white/80 placeholder-white/25 outline-none min-w-0">
-        <button type="submit" class="px-4 bg-warm hover:bg-gold transition-colors text-white shrink-0">
-          <span class="material-symbols-outlined text-[17px]">arrow_forward</span>
-        </button>
-      </form>
-      <p id="nl-msg" class="text-gold text-[11px] mt-2 hidden">✓ Thank you! We'll keep you updated.</p>
+      
     </div>
   </div>
   <div class="max-w-7xl mx-auto px-5 md:px-10 border-t border-white/8 pt-7 flex flex-col sm:flex-row justify-between items-center gap-4">
@@ -1082,26 +1070,7 @@ function closeDrw(){
 }
 
 /* ——— SEARCH ———————————————————————————————— */
-const kgsProducts = [
-  { name:'Premium 3-Seater Sofa',        cat:'Sofas',       price:'₹18,500' },
-  { name:'Antique Brass Wall Clock',      cat:'Wall Clocks', price:'₹1,299'  },
-  { name:'Indoor Tabletop Fountain',      cat:'Fountains',   price:'₹2,850'  },
-  { name:'Botanical Wall Art Panel',      cat:'Wall Décor',  price:'₹1,850'  },
-  { name:'Large Artificial Banana Plant', cat:'Plants',      price:'₹3,200'  },
-  { name:'Pendant Ceiling Light',         cat:'Lighting',    price:'₹2,400'  },
-  { name:'Vintage Round Wall Clock',      cat:'Wall Clocks', price:'₹899'    },
-  { name:'Mandala Metal Wall Art',        cat:'Wall Décor',  price:'₹1,450'  },
-  { name:'Photo Frame Set',              cat:'Photo Frames',price:'₹699'    },
-  { name:'LED Strip Lights',             cat:'LED Lights',  price:'₹499'    },
-  { name:'Decorative Gift Hamper',       cat:'Gift Items',  price:'₹1,200'  },
-  { name:'Imported Armchair',            cat:'Furniture',   price:'₹12,000' },
-  { name:'Designer Ceramic Vase',        cat:'Vases',       price:'₹1,950'  },
-  { name:'Geometric Wall Shelf',         cat:'Shelves',     price:'₹2,750'  },
-  { name:'Artisan Table Lamp',           cat:'Lighting',    price:'₹3,400'  },
-  { name:'Ethnic Cushion Cover Set',     cat:'Textiles',    price:'₹1,299'  },
-  { name:'Sunburst Decorative Mirror',   cat:'Mirrors',     price:'₹4,200'  },
-  { name:'Aromatic Candle Gift Set',     cat:'Gift Items',  price:'₹899'    },
-];
+
 
 function openSearch(){
   document.getElementById('search-overlay').style.display='flex';
@@ -1120,68 +1089,28 @@ function doSearch(q){
   const hint=document.getElementById('search-hint');
   if(!q.trim()){res.innerHTML='';hint.style.display='';return;}
   hint.style.display='none';
-  if(!window.kgsFuse) window.kgsFuse = new Fuse(kgsProducts, {keys:['name','cat'], threshold:0.3});
+  if(!window.kgsFuse) window.kgsFuse = new Fuse(PRODUCTS, {keys:['name','category'], threshold:0.3});
   const matches = window.kgsFuse.search(q).map(r=>r.item);
   if(matches.length===0){
     res.innerHTML='<p style="color:rgba(255,255,255,.4);font-size:13px;padding:12px 16px;">No results. <a href="product-listing.html" style="color:#C5A880;text-decoration:underline;">Browse all 500+ products &rarr;</a></p>';
   }else{
     res.innerHTML=matches.map(p=>`
-      <a href="product-listing.html" class="search-result-item">
+      <a href="product-detail.html?id=${p.id}" class="search-result-item">
         <div>
           <p style="color:#fff;font-size:14.5px;font-family:'DM Sans',sans-serif;font-weight:500;letter-spacing:-0.01em;">${p.name}</p>
-          <p style="color:rgba(255,255,255,.35);font-size:10px;letter-spacing:.14em;text-transform:uppercase;margin-top:3px;">${p.cat}</p>
+          <p style="color:rgba(255,255,255,.35);font-size:10px;letter-spacing:.14em;text-transform:uppercase;margin-top:3px;">${p.category}</p>
         </div>
-        <p style="color:#C97840;font-size:13px;font-weight:600;font-family:'DM Sans',sans-serif;">${p.price}</p>
+        <p style="color:#C97840;font-size:13px;font-weight:600;font-family:'DM Sans',sans-serif;">₹${p.price.toLocaleString('en-IN')}</p>
       </a>`).join('');
   }
 }
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSearch();});
 
-/* ——— ADD TO CART (Global) ———————————————————— */
-function addToCart(name, price, img, cat) {
-  let cart = JSON.parse(localStorage.getItem('kgs_cart') || '[]');
-  let item = cart.find(i => i.name === name);
-  if (item) {
-    item.qty = (item.qty || 1) + 1;
-  } else {
-    const priceStr = typeof price === 'number' ? '₹' + price.toLocaleString('en-IN') : price;
-    cart.push({ name, price: priceStr, priceNum: typeof price === 'number' ? price : parseInt(String(price).replace(/[^\d]/g, ''), 10), img, cat, qty: 1 });
-  }
-  localStorage.setItem('kgs_cart', JSON.stringify(cart));
-  updateCartBadge();
-  showToast(name);
-  gtag('event', 'add_to_cart', { event_category: 'ecommerce', event_label: name, value: typeof price === 'number' ? price : 0 });
-}
 
-/* ——— TOAST ——————————————————————————————————— */
-let toastTimer;
-function showToast(name) {
-  const toast = document.getElementById('cart-toast');
-  document.getElementById('toast-text').textContent = name + ' added to cart';
-  toast.classList.add('show');
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => toast.classList.remove('show'), 3000);
-}
 
-/* ——— CART BADGE ——————————————————————————————— */
-function updateCartBadge() {
-  try {
-    const cart = JSON.parse(localStorage.getItem('kgs_cart') || '[]');
-    const count = cart.reduce((s, i) => s + (i.qty || 1), 0);
-    const badge = document.getElementById('cart-badge');
-    if (badge) { badge.textContent = count; badge.style.display = count ? 'flex' : 'none'; }
-  } catch(e) {}
-}
-updateCartBadge();
 
-/* ——— NEWSLETTER ——————————————————————————————— */
-function handleNewsletterSub(e){
-  e.preventDefault();
-  const msg=document.getElementById('nl-msg');
-  document.getElementById('nl-email').value='';
-  msg.classList.remove('hidden');
-  setTimeout(()=>msg.classList.add('hidden'),4000);
-}
+
+
 
 /* ——— REVEAL ON SCROLL ——————————————————————— */
 const io = new IntersectionObserver(es=>{
@@ -1193,27 +1122,18 @@ document.querySelectorAll('.rv').forEach(el=>io.observe(el));
 const lenis = new Lenis();
 function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
 requestAnimationFrame(raf);
+</script>
 
-/* ——— WISHLIST LOGIC ——————————————————————————— */
-function toggleWish(btn, name, price, img, cat) {
-  let wl = JSON.parse(localStorage.getItem('kgs_wishlist')||'[]');
-  const exists = wl.find(i => i.name === name);
-  if(exists) { wl = wl.filter(i => i.name !== name); btn.classList.remove('active'); }
-  else { wl.push({name, price, img, cat}); btn.classList.add('active'); }
-  localStorage.setItem('kgs_wishlist', JSON.stringify(wl));
-  updateBadges();
-}
-function updateBadges() {
-  const wl = JSON.parse(localStorage.getItem('kgs_wishlist')||'[]');
-  const wb = document.getElementById('wishlist-badge');
-  if(wb) { wb.textContent = wl.length; wb.style.display = wl.length ? 'flex' : 'none'; }
-  document.querySelectorAll('.heart-btn').forEach(btn => {
-    const fnText = btn.getAttribute('onclick')||'';
-    if(wl.find(i => fnText.includes(i.name))) btn.classList.add('active');
-  });
+<script src="assets/js/products.js"></script>
+<script src="assets/js/cart.js"></script>
+<script src="assets/js/wishlist.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
   updateCartBadge();
-}
-document.addEventListener('DOMContentLoaded', updateBadges);
+  updateWishlistBadge();
+  updateHeartIcons();
+});
+
 </script>
 </body>
 </html>

@@ -57,9 +57,22 @@ body{-webkit-font-smoothing:antialiased;}
 #cart-toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);background:#1A1A1A;color:#fff;padding:14px 28px;z-index:100;font-family:"DM Sans",sans-serif;font-size:13px;font-weight:500;display:flex;align-items:center;gap:10px;box-shadow:0 8px 32px rgba(0,0,0,.25);opacity:0;pointer-events:none;transition:opacity .35s ease,transform .35s ease;}
 #cart-toast.show{opacity:1;pointer-events:auto;transform:translateX(-50%) translateY(0);}
 #cart-toast .toast-icon{color:#25D366;font-variation-settings:'FILL' 1,'wght' 400;}
+
+/* ——— GLOBAL LAYOUT FIXES ————————————————————————— */
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+img {
+  max-width: 100%;
+}
+
 </style>
 </head>
-<body class="bg-base text-ink font-sans">
+<body class="bg-base text-ink font-sans overflow-x-hidden">
 
 <!-- Toast Notification -->
 <div id="cart-toast">
@@ -83,39 +96,13 @@ body{-webkit-font-smoothing:antialiased;}
     <a href="https://www.instagram.com/kgshomedecors_virudhachalam" target="_blank" class="nav-link text-[13px] normal-case font-medium tracking-normal">Instagram</a>
   </nav>
   <div class="mt-auto px-6 py-7 border-t border-border space-y-4">
-    <a href="customer-account.html" class="flex items-center gap-3 text-sm text-muted hover:text-ink transition-colors"><span class="material-symbols-outlined text-[18px]">person</span> My Account</a>
+    
     <a href="cart-checkout.html" class="flex items-center gap-3 text-sm text-muted hover:text-ink transition-colors"><span class="material-symbols-outlined text-[18px]">local_mall</span> Cart</a>
     <a href="tel:+919789182921" class="flex items-center gap-3 text-sm text-muted hover:text-ink transition-colors"><span class="material-symbols-outlined text-[18px]">call</span> +91 97891 82921</a>
   </div>
 </div>
 
-<!-- FILTER OVERLAY + DRAWER -->
-<div id="filter-ov" class="fixed inset-0 bg-black/40 z-40 hidden" onclick="closeFilter()"></div>
-<div id="filter-drawer" class="fixed bottom-0 left-0 right-0 z-50 bg-surface translate-y-full max-h-[80vh] overflow-y-auto shadow-2xl">
-  <div class="flex items-center justify-between px-6 py-5 border-b border-border">
-    <h2 class="font-serif font-medium text-xl">Filter &amp; Sort</h2>
-    <button onclick="closeFilter()" class="text-muted hover:text-ink"><span class="material-symbols-outlined">close</span></button>
-  </div>
-  <div class="p-6 space-y-8">
-    <div>
-      <h3 class="text-xs font-semibold tracking-[.14em] uppercase text-ink mb-5">Category</h3>
-      <ul class="space-y-3 text-[14px]">
-        <li><a href="#" class="text-warm font-medium flex justify-between"><span>All</span><span class="text-muted font-normal">200+</span></a></li>
-        <li><a href="#" class="text-muted hover:text-ink flex justify-between"><span>Sofas &amp; Furniture</span><span class="opacity-50">24</span></a></li>
-        <li><a href="#" class="text-muted hover:text-ink flex justify-between"><span>Wall Clocks</span><span class="opacity-50">36</span></a></li>
-        <li><a href="#" class="text-muted hover:text-ink flex justify-between"><span>Water Fountains</span><span class="opacity-50">18</span></a></li>
-        <li><a href="#" class="text-muted hover:text-ink flex justify-between"><span>Wall Art &amp; Paintings</span><span class="opacity-50">42</span></a></li>
-        <li><a href="#" class="text-muted hover:text-ink flex justify-between"><span>Photo Frames</span><span class="opacity-50">30</span></a></li>
-        <li><a href="#" class="text-muted hover:text-ink flex justify-between"><span>LED Décor Lights</span><span class="opacity-50">25</span></a></li>
-        <li><a href="#" class="text-muted hover:text-ink flex justify-between"><span>Artificial Plants</span><span class="opacity-50">22</span></a></li>
-        <li><a href="#" class="text-muted hover:text-ink flex justify-between"><span>Gift Items</span><span class="opacity-50">20</span></a></li>
-      </ul>
-    </div>
-    <div>
-      <h3 class="text-xs font-semibold tracking-[.14em] uppercase text-ink mb-5">Price Range</h3>
-      <input class="w-full accent-[#C97840] h-1 bg-border appearance-none cursor-pointer" max="50000" min="500" type="range" value="25000">
-      <div class="flex justify-between text-[12px] text-muted mt-2"><span>₹500</span><span>₹50,000+</span></div>
-    </div>
+
   </div>
   <div class="px-6 pb-6"><button onclick="closeFilter()" class="btn-primary w-full">Apply Filters</button></div>
 </div>
@@ -145,14 +132,14 @@ body{-webkit-font-smoothing:antialiased;}
     </div>
     <div class="flex items-center gap-4 text-muted">
       <button onclick="openSearch()" aria-label="Search products" class="hover:text-ink transition-colors bg-transparent border-none cursor-pointer p-0"><span class="material-symbols-outlined text-[20px]">search</span></button>
-      <a href="customer-account.html" aria-label="Account" class="hidden md:block hover:text-ink transition-colors"><span class="material-symbols-outlined text-[20px]">person</span></a>
+      
       <a href="wishlist.html" aria-label="Wishlist" class="relative hover:text-ink transition-colors text-ink">
         <span class="material-symbols-outlined text-[20px]">favorite</span>
-        <span id="wishlist-badge" class="absolute -top-1.5 -right-2 w-4 h-4 bg-warm text-white text-[8px] rounded-full flex items-center justify-center font-bold" style="display:none;">0</span>
+        <span id="wishlist-badge" class="wishlist-count absolute -top-1.5 -right-2 w-4 h-4 bg-warm text-white text-[8px] rounded-full flex items-center justify-center font-bold" style="display:none;">0</span>
       </a>
       <a href="cart-checkout.html" aria-label="Cart" class="relative hover:text-ink transition-colors">
         <span class="material-symbols-outlined text-[20px]">local_mall</span>
-        <span id="cart-badge" class="absolute -top-1.5 -right-2 w-4 h-4 bg-warm text-white text-[8px] rounded-full flex items-center justify-center font-bold" style="display:none;">0</span>
+        <span id="cart-badge" class="cart-count absolute -top-1.5 -right-2 w-4 h-4 bg-warm text-white text-[8px] rounded-full flex items-center justify-center font-bold" style="display:none;">0</span>
       </a>
     </div>
   </div>
@@ -187,9 +174,7 @@ body{-webkit-font-smoothing:antialiased;}
       </div>
       <!-- Sort + Filter -->
       <div class="flex items-center gap-3">
-        <button onclick="openFilter()" class="flex items-center gap-2 border border-border bg-surface px-4 py-2.5 text-[11px] font-semibold tracking-wide uppercase hover:border-ink transition-colors">
-          <span class="material-symbols-outlined text-[17px]">tune</span> Filter
-        </button>
+        
         <select id="sort-select" class="border border-border bg-surface px-4 py-2.5 text-[11px] font-semibold tracking-wide uppercase outline-none hover:border-ink transition-colors cursor-pointer" onchange="sortProducts(this.value)">
           <option value="best">Best Selling</option>
           <option value="low">Price: Low to High</option>
@@ -218,188 +203,8 @@ body{-webkit-font-smoothing:antialiased;}
 
 <!-- MAIN CONTENT -->
 <main class="max-w-7xl mx-auto px-5 md:px-10 py-12">
-  <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-5">
-
-    <!-- Product Card — reusable pattern -->
-    <!-- Card 1 -->
-    <div class="prod-card relative hover-trigger" data-category="sofas">
-      <button onclick="toggleWish(this, 'Premium 3-Seater Sofa', '₹18,500', 'assets/images/sofa.jpg', 'Sofas')" class="heart-btn" title="Save to wishlist">
-        <span class="material-symbols-outlined text-[16px]">favorite</span>
-      </button>
-      <a href="product-detail.html" class="prod-img block aspect-[4/5] relative">
-        <img src="assets/images/sofa.jpg" alt="Premium 3-Seater Sofa — KGS Home Décors Virudhachalam" class="h-full object-cover">
-        <span class="absolute top-2.5 left-2.5 bg-warm text-white text-[9px] font-semibold tracking-wider uppercase px-2 py-1">Best Seller</span>
-      </a>
-      <div class="p-4">
-        <p class="text-[11px] font-medium tracking-[.14em] uppercase text-muted mb-1">Sofas</p>
-        <h3 class="font-sans font-medium tracking-tight text-ink text-[1.05rem] leading-snug mb-2">Premium 3-Seater Sofa</h3>
-        <p class="font-sans font-semibold text-warm text-[1.1rem] mb-3">&#8377;18,500</p>
-        <div class="card-cta space-y-2">
-          <button onclick="addToCart('Premium 3-Seater Sofa', 18500, 'assets/images/sofa.jpg', 'Sofas')" class="btn-primary w-full text-[10px] py-2.5">Add to Cart</button>
-          <a href="https://wa.me/919789182921?text=I'm%20interested%20in%20Premium%203-Seater%20Sofa%20-%20%E2%82%B918%2C500" target="_blank" class="btn-whatsapp w-full text-[10px] py-2.5">
-            <svg viewBox="0 0 24 24" fill="white" class="w-3 h-3 shrink-0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-            WhatsApp Order
-          </a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Card 2 -->
-    <div class="prod-card relative hover-trigger" data-category="clocks">
-      <button onclick="toggleWish(this, 'Antique Brass Wall Clock', '₹1,299', 'assets/images/clock.jpg', 'Wall Clocks')" class="heart-btn" title="Save to wishlist">
-        <span class="material-symbols-outlined text-[16px]">favorite</span>
-      </button>
-      <a href="product-detail.html" class="prod-img block aspect-[4/5] relative">
-        <img src="assets/images/clock.jpg" alt="Antique Brass Wall Clock — KGS Home Décors Virudhachalam" class="h-full object-cover">
-        <span class="absolute top-2.5 left-2.5 bg-gold text-white text-[9px] font-semibold tracking-wider uppercase px-2 py-1">New</span>
-      </a>
-      <div class="p-4">
-        <p class="text-[11px] font-medium tracking-[.14em] uppercase text-muted mb-1">Wall Clocks</p>
-        <h3 class="font-sans font-medium tracking-tight text-ink text-[1.05rem] leading-snug mb-2">Antique Brass Wall Clock</h3>
-        <p class="font-sans font-semibold text-warm text-[1.1rem] mb-3">&#8377;1,299</p>
-        <div class="card-cta space-y-2">
-          <button onclick="addToCart('Antique Brass Wall Clock', 1299, 'assets/images/clock.jpg', 'Wall Clocks')" class="btn-primary w-full text-[10px] py-2.5">Add to Cart</button>
-          <a href="https://wa.me/919789182921?text=I'm%20interested%20in%20Antique%20Brass%20Wall%20Clock%20-%20%E2%82%B91%2C299" target="_blank" class="btn-whatsapp w-full text-[10px] py-2.5">
-            <svg viewBox="0 0 24 24" fill="white" class="w-3 h-3 shrink-0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-            WhatsApp Order
-          </a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Card 3 -->
-    <div class="prod-card relative hover-trigger" data-category="lighting">
-      <button onclick="toggleWish(this, 'Pendant Ceiling Light', '₹2,400', 'assets/images/lighting.jpg', 'Lighting')" class="heart-btn" title="Save to wishlist">
-        <span class="material-symbols-outlined text-[16px]">favorite</span>
-      </button>
-      <a href="product-detail.html" class="prod-img block aspect-[4/5] relative">
-        <img src="assets/images/lighting.jpg" alt="Pendant Ceiling Light — LED décor, KGS Virudhachalam" class="h-full object-cover">
-      </a>
-      <div class="p-4">
-        <p class="text-[11px] font-medium tracking-[.14em] uppercase text-muted mb-1">Lighting</p>
-        <h3 class="font-sans font-medium tracking-tight text-ink text-[1.05rem] leading-snug mb-2">Pendant Ceiling Light</h3>
-        <p class="font-sans font-semibold text-warm text-[1.1rem] mb-3">&#8377;2,400</p>
-        <div class="card-cta space-y-2">
-          <button onclick="addToCart('Pendant Ceiling Light', 2400, 'assets/images/lighting.jpg', 'Lighting')" class="btn-primary w-full text-[10px] py-2.5">Add to Cart</button>
-          <a href="https://wa.me/919789182921?text=I'm%20interested%20in%20Pendant%20Ceiling%20Light%20-%20%E2%82%B92%2C400" target="_blank" class="btn-whatsapp w-full text-[10px] py-2.5">
-            <svg viewBox="0 0 24 24" fill="white" class="w-3 h-3 shrink-0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-            WhatsApp Order
-          </a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Card 4 -->
-    <div class="prod-card relative hover-trigger" data-category="fountains">
-      <button onclick="toggleWish(this, 'Indoor Tabletop Water Fountain', '₹2,850', 'assets/images/fountain.jpg', 'Fountains')" class="heart-btn" title="Save to wishlist">
-        <span class="material-symbols-outlined text-[16px]">favorite</span>
-      </button>
-      <a href="product-detail.html" class="prod-img block aspect-[4/5] relative">
-        <img src="assets/images/fountain.jpg" alt="Indoor Tabletop Water Fountain — KGS Home Décors Virudhachalam" class="h-full object-cover">
-        <span class="absolute top-2.5 left-2.5 bg-ink text-white/80 text-[9px] font-semibold tracking-wider uppercase px-2 py-1">Staff Pick</span>
-      </a>
-      <div class="p-4">
-        <p class="text-[11px] font-medium tracking-[.14em] uppercase text-muted mb-1">Fountains</p>
-        <h3 class="font-sans font-medium tracking-tight text-ink text-[1.05rem] leading-snug mb-2">Indoor Tabletop Fountain</h3>
-        <p class="font-sans font-semibold text-warm text-[1.1rem] mb-3">&#8377;2,850</p>
-        <div class="card-cta space-y-2">
-          <button onclick="addToCart('Indoor Tabletop Fountain', 2850, 'assets/images/fountain.jpg', 'Fountains')" class="btn-primary w-full text-[10px] py-2.5">Add to Cart</button>
-          <a href="https://wa.me/919789182921?text=I'm%20interested%20in%20Indoor%20Tabletop%20Fountain%20-%20%E2%82%B92%2C850" target="_blank" class="btn-whatsapp w-full text-[10px] py-2.5">
-            <svg viewBox="0 0 24 24" fill="white" class="w-3 h-3 shrink-0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-            WhatsApp Order
-          </a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Card 5 -->
-    <div class="prod-card" data-category="wall-art">
-      <a href="product-detail.html" class="prod-img block aspect-[4/5] relative">
-        <img src="assets/images/wall_decor.jpg" alt="Botanical Wall Art Panel — premium wall décor, KGS Virudhachalam" class="h-full object-cover">
-      </a>
-      <div class="p-4">
-        <p class="text-[11px] font-medium tracking-[.14em] uppercase text-muted mb-1">Wall Décor</p>
-        <h3 class="font-sans font-medium tracking-tight text-ink text-[1.05rem] leading-snug mb-2">Botanical Wall Art Panel</h3>
-        <p class="font-sans font-semibold text-warm text-[1.1rem] mb-3">&#8377;1,850</p>
-        <div class="card-cta space-y-2">
-          <button onclick="addToCart('Botanical Wall Art Panel', 1850, 'assets/images/wall_decor.jpg', 'Wall Décor')" class="btn-primary w-full text-[10px] py-2.5">Add to Cart</button>
-          <a href="https://wa.me/919789182921?text=I'm%20interested%20in%20Botanical%20Wall%20Art%20-%20%E2%82%B91%2C850" target="_blank" class="btn-whatsapp w-full text-[10px] py-2.5">
-            <svg viewBox="0 0 24 24" fill="white" class="w-3 h-3 shrink-0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-            WhatsApp Order
-          </a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Card 6 -->
-    <div class="prod-card" data-category="plants">
-      <a href="product-detail.html" class="prod-img block aspect-[4/5] relative">
-        <img src="assets/images/plant.png" alt="Large Artificial Banana Plant — premium artificial plants, KGS Virudhachalam" class="h-full object-cover">
-        <span class="absolute top-2.5 left-2.5 bg-warm text-white text-[9px] font-semibold tracking-wider uppercase px-2 py-1">Popular</span>
-      </a>
-      <div class="p-4">
-        <p class="text-[11px] font-medium tracking-[.14em] uppercase text-muted mb-1">Artificial Plants</p>
-        <h3 class="font-sans font-medium tracking-tight text-ink text-[1.05rem] leading-snug mb-2">Large Artificial Banana Plant</h3>
-        <p class="font-sans font-semibold text-warm text-[1.1rem] mb-3">&#8377;3,200</p>
-        <div class="card-cta space-y-2">
-          <button onclick="addToCart('Large Artificial Banana Plant', 3200, 'assets/images/plant.png', 'Artificial Plants')" class="btn-primary w-full text-[10px] py-2.5">Add to Cart</button>
-          <a href="https://wa.me/919789182921?text=I'm%20interested%20in%20Large%20Artificial%20Banana%20Plant%20-%20%E2%82%B93%2C200" target="_blank" class="btn-whatsapp w-full text-[10px] py-2.5">
-            <svg viewBox="0 0 24 24" fill="white" class="w-3 h-3 shrink-0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-            WhatsApp Order
-          </a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Card 7 -->
-    <div class="prod-card" data-category="clocks">
-      <a href="product-detail.html" class="prod-img block aspect-[4/5] relative">
-        <img src="assets/images/clock.jpg" alt="Vintage Round Wall Clock — buy wall clocks in Virudhachalam" class="h-full object-cover">
-      </a>
-      <div class="p-4">
-        <p class="text-[11px] font-medium tracking-[.14em] uppercase text-muted mb-1">Wall Clocks</p>
-        <h3 class="font-sans font-medium tracking-tight text-ink text-[1.05rem] leading-snug mb-2">Vintage Round Wall Clock</h3>
-        <p class="font-sans font-semibold text-warm text-[1.1rem] mb-3">&#8377;899</p>
-        <div class="card-cta space-y-2">
-          <button onclick="addToCart('Vintage Round Wall Clock', 899, 'assets/images/clock.jpg', 'Wall Clocks')" class="btn-primary w-full text-[10px] py-2.5">Add to Cart</button>
-          <a href="https://wa.me/919789182921?text=I'm%20interested%20in%20Vintage%20Round%20Wall%20Clock%20-%20%E2%82%B9899" target="_blank" class="btn-whatsapp w-full text-[10px] py-2.5">
-            <svg viewBox="0 0 24 24" fill="white" class="w-3 h-3 shrink-0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-            WhatsApp Order
-          </a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Card 8 -->
-    <div class="prod-card" data-category="wall-art">
-      <a href="product-detail.html" class="prod-img block aspect-[4/5] relative">
-        <img src="assets/images/wall_decor.jpg" alt="Mandala Metal Wall Art — premium wall decor Virudhachalam Tamil Nadu" class="h-full object-cover">
-        <span class="absolute top-2.5 left-2.5 bg-gold text-white text-[9px] font-semibold tracking-wider uppercase px-2 py-1">New</span>
-      </a>
-      <div class="p-4">
-        <p class="text-[11px] font-medium tracking-[.14em] uppercase text-muted mb-1">Wall Décor</p>
-        <h3 class="font-sans font-medium tracking-tight text-ink text-[1.05rem] leading-snug mb-2">Mandala Metal Wall Art</h3>
-        <p class="font-sans font-semibold text-warm text-[1.1rem] mb-3">&#8377;1,450</p>
-        <div class="card-cta space-y-2">
-          <button onclick="addToCart('Mandala Metal Wall Art', 1450, 'assets/images/wall_decor.jpg', 'Wall Décor')" class="btn-primary w-full text-[10px] py-2.5">Add to Cart</button>
-          <a href="https://wa.me/919789182921?text=I'm%20interested%20in%20Mandala%20Metal%20Wall%20Art%20-%20%E2%82%B91%2C450" target="_blank" class="btn-whatsapp w-full text-[10px] py-2.5">
-            <svg viewBox="0 0 24 24" fill="white" class="w-3 h-3 shrink-0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-            WhatsApp Order
-          </a>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- Load More -->
-  <div class="mt-14 flex flex-col items-center gap-4">
-    <div class="w-full max-w-xs bg-border h-1 overflow-hidden">
-      <div class="bg-warm h-full w-1/4"></div>
-    </div>
-    <p class="text-[12px] text-muted uppercase tracking-[.14em] font-medium">Showing 8 of 200+ Products</p>
-    <button class="btn-secondary px-12">Load More Products</button>
-  </div>
+  <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-5"></div>
+  <div id="no-products" style="display:none; text-align:center; padding:3rem; color:#888;">No products in this category.</div>
 </main>
 
 <!-- FOOTER -->
@@ -429,7 +234,7 @@ body{-webkit-font-smoothing:antialiased;}
         <li><a href="product-listing.html" class="hover:text-white transition-colors">All Products</a></li>
         <li><a href="index.html#collections" class="hover:text-white transition-colors">Collections</a></li>
         <li><a href="cart-checkout.html" class="hover:text-white transition-colors">Cart &amp; Checkout</a></li>
-        <li><a href="customer-account.html" class="hover:text-white transition-colors">My Account</a></li>
+        <li></li>
       </ul>
     </div>
     <div class="md:col-span-4">
@@ -450,153 +255,35 @@ body{-webkit-font-smoothing:antialiased;}
 
 <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
 <script>
+
 /* ─── SMOOTH SCROLL (Lenis) ──────────────── */
 const lenis = new Lenis();
 function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
 requestAnimationFrame(raf);
 
-function openDrw(){document.getElementById('mobile-drawer').style.transform='translateX(0)';document.getElementById('drw-ov').classList.remove('hidden');document.body.style.overflow='hidden';}
-function closeDrw(){document.getElementById('mobile-drawer').style.transform='translateX(-100%)';document.getElementById('drw-ov').classList.add('hidden');document.body.style.overflow='';}
-function openFilter(){document.getElementById('filter-drawer').style.transform='translateY(0)';document.getElementById('filter-ov').classList.remove('hidden');document.body.style.overflow='hidden';}
-function closeFilter(){document.getElementById('filter-drawer').style.transform='translateY(100%)';document.getElementById('filter-ov').classList.add('hidden');document.body.style.overflow='';}
-
-// Category filtering with data-category attributes
-const filterMap = {
-  'all': null,
-  'sofas': 'sofas',
-  'wall clocks': 'clocks',
-  'fountains': 'fountains',
-  'wall art': 'wall-art',
-  'photo frames': 'photo-frames',
-  'led lights': 'lighting',
-  'plants': 'plants',
-  'gift items': 'gift-items'
-};
-
-document.querySelectorAll('.filter-btn').forEach(btn => {
-  btn.addEventListener('click', function() {
-    // Active state
-    document.querySelectorAll('.filter-btn').forEach(b => {
-      b.classList.remove('active');
-      b.style.background=''; b.style.color=''; b.style.borderColor='';
-    });
-    this.style.background='#C97840'; this.style.color='#fff'; this.style.borderColor='#C97840';
-
-    // Filter logic
-    const key = this.textContent.trim().toLowerCase();
-    const cat = filterMap[key] || null;
-    const cards = document.querySelectorAll('.prod-card');
-    let visible = 0;
-
-    cards.forEach(card => {
-      if (!cat || card.dataset.category === cat) {
-        card.classList.remove('hidden-filter');
-        card.style.display = '';
-        visible++;
-      } else {
-        card.classList.add('hidden-filter');
-        card.style.display = 'none';
-      }
-    });
-
-    // Update count
-    const countEl = document.querySelector('main .text-\\[12px\\]');
-    if (countEl) countEl.textContent = `Showing ${visible} of 200+ Products`;
-  });
-});
-
-/* ─── WISHLIST LOGIC ────────────────────────────── */
-function toggleWish(btn, name, price, img, cat) {
-  let wl = JSON.parse(localStorage.getItem('kgs_wishlist')||'[]');
-  const exists = wl.find(i => i.name === name);
-  if(exists) { wl = wl.filter(i => i.name !== name); btn.classList.remove('active'); } 
-  else { wl.push({name, price, img, cat}); btn.classList.add('active'); }
-  localStorage.setItem('kgs_wishlist', JSON.stringify(wl));
-  updateBadges();
+function openDrw(){
+  document.getElementById('mobile-drawer').style.transform='translateX(0)';
+  document.getElementById('drw-ov').classList.remove('hidden');
+  document.body.style.overflow='hidden';
+}
+function closeDrw(){
+  document.getElementById('mobile-drawer').style.transform='translateX(-100%)';
+  document.getElementById('drw-ov').classList.add('hidden');
+  document.body.style.overflow='';
+}
+function openSearch(){
+  document.getElementById('search-overlay').style.display='flex';
+  document.getElementById('search-input').focus();
+  document.body.style.overflow='hidden';
+}
+function closeSearch(){
+  document.getElementById('search-overlay').style.display='none';
+  document.getElementById('search-input').value='';
+  document.getElementById('search-results').innerHTML='';
+  document.getElementById('search-hint').style.display='';
+  document.body.style.overflow='';
 }
 
-function updateBadges() {
-  const wl = JSON.parse(localStorage.getItem('kgs_wishlist')||'[]');
-  const wb = document.getElementById('wishlist-badge');
-  if(wb) { wb.textContent = wl.length; wb.style.display = wl.length ? 'flex' : 'none'; }
-  document.querySelectorAll('.heart-btn').forEach(btn => {
-    const fnText = btn.getAttribute('onclick')||'';
-    if(wl.find(i => fnText.includes(i.name))) btn.classList.add('active');
-  });
-}
-document.addEventListener('DOMContentLoaded', function() {
-  updateBadges();
-  updateCartBadge();
-  
-  // Read category parameter from URL and apply filter
-  const catParam = new URLSearchParams(window.location.search).get('cat');
-  if (catParam) {
-    const paramMap = {
-      'sofas': 'sofas',
-      'wall-clocks': 'wall clocks',
-      'fountains': 'fountains',
-      'wall-art': 'wall art',
-      'photo-frames': 'photo frames',
-      'led-lights': 'led lights',
-      'plants': 'plants',
-      'gift-items': 'gift items'
-    };
-    const targetLabel = paramMap[catParam] || catParam;
-    
-    document.querySelectorAll('.filter-btn').forEach(btn => {
-      if (btn.textContent.trim().toLowerCase() === targetLabel) {
-        btn.click();
-        // Scroll the pill into view if necessary on mobile
-        setTimeout(() => {
-          btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-        }, 100);
-      }
-    });
-  }
-});
-
-/* ADD TO CART */
-function addToCart(name, price, img, cat) {
-  let cart = JSON.parse(localStorage.getItem('kgs_cart') || '[]');
-  let item = cart.find(i => i.name === name);
-  if (item) { item.qty = (item.qty || 1) + 1; }
-  else { cart.push({ name, price: '\u20b9' + price.toLocaleString('en-IN'), priceNum: price, img, cat, qty: 1 }); }
-  localStorage.setItem('kgs_cart', JSON.stringify(cart));
-  updateCartBadge();
-  showToast(name);
-}
-
-function updateCartBadge() {
-  try {
-    const cart = JSON.parse(localStorage.getItem('kgs_cart') || '[]');
-    const count = cart.reduce((s, i) => s + (i.qty || 1), 0);
-    const badge = document.getElementById('cart-badge');
-    if (badge) { badge.textContent = count; badge.style.display = count ? 'flex' : 'none'; }
-  } catch(e) {}
-}
-
-let toastTimer;
-function showToast(name) {
-  const toast = document.getElementById('cart-toast');
-  document.getElementById('toast-text').textContent = name + ' added to cart';
-  toast.classList.add('show');
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(function() { toast.classList.remove('show'); }, 3000);
-}
-
-/* SORT PRODUCTS */
-function sortProducts(val) {
-  const grid = document.querySelector('main .grid');
-  const cards = Array.from(grid.querySelectorAll('.prod-card'));
-  cards.sort(function(a, b) {
-    const priceA = parseInt(a.querySelector('.text-warm').textContent.replace(/[^\d]/g, '')) || 0;
-    const priceB = parseInt(b.querySelector('.text-warm').textContent.replace(/[^\d]/g, '')) || 0;
-    if (val === 'low') return priceA - priceB;
-    if (val === 'high') return priceB - priceA;
-    return 0;
-  });
-  cards.forEach(function(c) { grid.appendChild(c); });
-}
 </script>
 
 
@@ -625,29 +312,23 @@ function sortProducts(val) {
 .search-result-item { display:flex; align-items:center; justify-content:space-between; padding:12px 16px; border-bottom:1px solid rgba(255,255,255,.06); text-decoration:none; transition:background .2s; }
 .search-result-item:hover { background:rgba(255,255,255,.05); }
 .search-result-item:last-child { border-bottom:none; }
+
+/* ——— GLOBAL LAYOUT FIXES ————————————————————————— */
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+img {
+  max-width: 100%;
+}
+
 </style>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js/dist/fuse.min.js"></script>
 <script>
-const kgsProductsArr = [
-  { name:'Premium 3-Seater Sofa',        cat:'Sofas',       price:'₹18,500' },
-  { name:'Antique Brass Wall Clock',      cat:'Wall Clocks', price:'₹1,299'  },
-  { name:'Indoor Tabletop Fountain',      cat:'Fountains',   price:'₹2,850'  },
-  { name:'Botanical Wall Art Panel',      cat:'Wall Décor',  price:'₹1,850'  },
-  { name:'Large Artificial Banana Plant', cat:'Plants',      price:'₹3,200'  },
-  { name:'Pendant Ceiling Light',         cat:'Lighting',    price:'₹2,400'  },
-  { name:'Vintage Round Wall Clock',      cat:'Wall Clocks', price:'₹899'    },
-  { name:'Mandala Metal Wall Art',        cat:'Wall Décor',  price:'₹1,450'  },
-  { name:'Photo Frame Set',              cat:'Photo Frames',price:'₹699'    },
-  { name:'LED Strip Lights',             cat:'LED Lights',  price:'₹499'    },
-  { name:'Decorative Gift Hamper',       cat:'Gift Items',  price:'₹1,200'  },
-  { name:'Imported Armchair',            cat:'Furniture',   price:'₹12,000' },
-  { name:'Designer Ceramic Vase',        cat:'Vases',       price:'₹1,950'  },
-  { name:'Geometric Wall Shelf',         cat:'Shelves',     price:'₹2,750'  },
-  { name:'Artisan Table Lamp',           cat:'Lighting',    price:'₹3,400'  },
-  { name:'Ethnic Cushion Cover Set',     cat:'Textiles',    price:'₹1,299'  },
-  { name:'Sunburst Decorative Mirror',   cat:'Mirrors',     price:'₹4,200'  },
-  { name:'Aromatic Candle Gift Set',     cat:'Gift Items',  price:'₹899'    },
-];
+
 
 function openSearch(){
   document.getElementById('search-overlay').style.display='flex';
@@ -666,22 +347,138 @@ function doSearch(q){
   const hint=document.getElementById('search-hint');
   if(!q.trim()){res.innerHTML='';hint.style.display='';return;}
   hint.style.display='none';
-  if(!window.kgsFuse) window.kgsFuse = new Fuse(kgsProductsArr, {keys:['name','cat'], threshold:0.3});
+  if(!window.kgsFuse) window.kgsFuse = new Fuse(PRODUCTS, {keys:['name','category'], threshold:0.3});
   const matches = window.kgsFuse.search(q).map(r=>r.item);
   if(matches.length===0){
     res.innerHTML='<p style="color:rgba(255,255,255,.4);font-size:13px;padding:12px 16px;">No results. <a href="product-listing.html" style="color:#C5A880;text-decoration:underline;">Browse all 500+ products &rarr;</a></p>';
   }else{
     res.innerHTML=matches.map(p=>`
-      <a href="product-listing.html" class="search-result-item">
+      <a href="product-detail.html?id=${p.id}" class="search-result-item">
         <div>
-          <p style="color:#fff;font-size:14.5px;font-family:'DM Sans',sans-serif;font-weight:500;letter-spacing:-0.01em;">${p.name}</p>
-          <p style="color:rgba(255,255,255,.35);font-size:10px;letter-spacing:.14em;text-transform:uppercase;margin-top:3px;">${p.cat}</p>
+          <p style="color:#fff;font-size:14.5px;font-family:\'DM Sans\',sans-serif;font-weight:500;letter-spacing:-0.01em;">${p.name}</p>
+          <p style="color:rgba(255,255,255,.35);font-size:10px;letter-spacing:.14em;text-transform:uppercase;margin-top:3px;">${p.category}</p>
         </div>
-        <p style="color:#C97840;font-size:13px;font-weight:600;font-family:'DM Sans',sans-serif;">${p.price}</p>
+        <p style="color:#C97840;font-size:13px;font-weight:600;font-family:\'DM Sans\',sans-serif;">₹${p.price.toLocaleString('en-IN')}</p>
       </a>`).join('');
   }
 }
 document.addEventListener('keydown',e=>{if(e.key==='Escape' && document.getElementById('search-overlay') && document.getElementById('search-overlay').style.display==='flex') closeSearch();});
+</script>
+
+
+<script src="assets/js/products.js"></script>
+<script src="assets/js/cart.js"></script>
+<script src="assets/js/wishlist.js"></script>
+<script>
+let currentFilteredList = PRODUCTS;
+
+function renderProducts(productsList) {
+  const grid = document.getElementById('product-grid');
+  const noProd = document.getElementById('no-products');
+  grid.innerHTML = '';
+  
+  if (productsList.length === 0) {
+    noProd.style.display = 'block';
+  } else {
+    noProd.style.display = 'none';
+    productsList.forEach(product => {
+      const badgeHtml = product.badge ? `<span class="absolute top-2.5 left-2.5 bg-gold text-white text-[9px] font-semibold tracking-wider uppercase px-2 py-1">${product.badge}</span>` : '';
+      grid.innerHTML += `
+        <div class="prod-card relative hover-trigger">
+          <button data-product-id="${product.id}" onclick="toggleWishlist('${product.id}')" class="heart-btn" title="Save to wishlist">
+            <span class="material-symbols-outlined text-[16px]">favorite</span>
+          </button>
+          <a href="product-detail.html?id=${product.id}" class="prod-img block aspect-[4/5] relative">
+            <img src="${product.image}" alt="${product.name}" class="h-full object-cover">
+            ${badgeHtml}
+          </a>
+          <div class="p-4">
+            <p class="text-[11px] font-medium tracking-[.14em] uppercase text-muted mb-1">${product.category}</p>
+            <h3 class="font-sans font-medium tracking-tight text-ink text-[1.05rem] leading-snug mb-2">${product.name}</h3>
+            <p class="font-sans font-semibold text-warm text-[1.1rem] mb-3">&#8377;${product.price}</p>
+            <div class="card-cta space-y-2">
+              <button data-product-id="${product.id}" onclick="addToCart('${product.id}')" class="btn-primary w-full text-[10px] py-2.5">Add to Cart</button>
+              <a href="https://wa.me/919789182921?text=${encodeURIComponent(product.whatsappText)}" target="_blank" class="btn-whatsapp w-full text-[10px] py-2.5">
+                <svg viewBox="0 0 24 24" fill="white" class="w-3.5 h-3.5 shrink-0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                WhatsApp Order
+              </a>
+            </div>
+          </div>
+        </div>
+      `;
+    });
+  }
+  updateHeartIcons();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  updateCartBadge();
+  updateWishlistBadge();
+  
+  const catParam = new URLSearchParams(window.location.search).get('cat');
+  let activeCat = null;
+  
+  if (catParam) {
+    activeCat = catParam;
+    currentFilteredList = PRODUCTS.filter(p => p.category === catParam);
+  }
+  
+  // Set active class on pill
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.classList.remove('active');
+    btn.style.background=''; btn.style.color=''; btn.style.borderColor='';
+    
+    const txtMap = {
+      'Sofas': 'sofas', 'Wall Clocks': 'wall-clocks', 'Fountains': 'fountains',
+      'Wall Art': 'wall-art', 'Photo Frames': 'photo-frames', 'LED Lights': 'led-lights',
+      'Plants': 'plants', 'Gift Items': 'gift-items', 'All': null
+    };
+    if (txtMap[btn.innerText.trim()] === activeCat) {
+      btn.style.background='#C97840'; btn.style.color='#fff'; btn.style.borderColor='#C97840';
+      btn.classList.add('active');
+    }
+    
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => {
+        b.classList.remove('active');
+        b.style.background=''; b.style.color=''; b.style.borderColor='';
+      });
+      btn.style.background='#C97840'; btn.style.color='#fff'; btn.style.borderColor='#C97840';
+      btn.classList.add('active');
+      
+      const newCat = txtMap[btn.innerText.trim()];
+      if (newCat) {
+        currentFilteredList = PRODUCTS.filter(p => p.category === newCat);
+        window.history.pushState(null, '', '?cat=' + newCat);
+      } else {
+        currentFilteredList = PRODUCTS;
+        window.history.pushState(null, '', window.location.pathname);
+      }
+      
+      const sel = document.getElementById('sort-select');
+      if (sel) sortProducts(sel.value);
+      else renderProducts(currentFilteredList);
+    });
+  });
+  
+  const sel = document.getElementById('sort-select');
+  if (sel) sortProducts(sel.value);
+  else renderProducts(currentFilteredList);
+});
+
+function sortProducts(val) {
+  let list = [...currentFilteredList];
+  if (val === 'low') {
+    list.sort((a,b) => a.price - b.price);
+  } else if (val === 'high') {
+    list.sort((a,b) => b.price - a.price);
+  } else if (val === 'best') {
+    list.sort((a,b) => (a.badge ? -1 : 1));
+  } else if (val === 'new') {
+    list.sort((a,b) => (a.badge === 'New' ? -1 : (b.badge === 'New' ? 1 : 0)));
+  }
+  renderProducts(list);
+}
 </script>
 
 </body>
