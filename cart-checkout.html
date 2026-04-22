@@ -152,28 +152,8 @@ img {
       <!-- Cart Items -->
       <div>
         <h2 id="cart-heading" class="font-serif font-medium text-ink text-xl mb-6 pb-4 border-b border-border">Your Cart</h2>
-        <div id="cart-items" class="space-y-4"></div>
-
-        <!-- Cross-Sell -->
-        <div class="mt-8 border border-border bg-[#FDFBF9] p-5">
-          <p class="text-[10px] font-semibold tracking-[.18em] uppercase text-muted mb-4 flex items-center gap-2">
-            <span class="material-symbols-outlined text-[16px] text-warm">shopping_bag</span>
-            You may also like
-          </p>
-          <div class="flex items-center justify-between bg-surface border border-border p-3">
-            <div class="flex items-center gap-4">
-              <div class="w-14 h-14 bg-tint overflow-hidden flex-shrink-0">
-                <img src="assets/images/lighting.jpg" class="w-full h-full object-cover" alt="Pendant Ceiling Light">
-              </div>
-              <div>
-                <h4 class="font-sans font-medium tracking-tight text-ink text-[15px] leading-tight mb-1">Pendant Ceiling Light</h4>
-                <p class="font-sans font-semibold text-warm text-[13px]">&#8377;2,400</p>
-              </div>
-            </div>
-            <button onclick="quickAdd('Pendant Ceiling Light', 2400, 'assets/images/lighting.jpg', 'Lighting', this)" class="btn-secondary whitespace-nowrap bg-white hover:bg-tint text-ink border border-border font-semibold tracking-wide" style="padding:10px 16px; font-size:10px;">+ Add</button>
-          </div>
-        </div>
       </div>
+
 
       <!-- Delivery Details Form -->
       <div>
@@ -389,7 +369,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape' && document.getEleme
 
 
 <script src="assets/js/products.js"></script>
-<script src="assets/js/cart.js"></script>
+<script src="assets/js/store.js"></script>
 <script>
 function openDrw(){document.getElementById('mobile-drawer').style.transform='translateX(0)';document.getElementById('drw-ov').classList.remove('hidden');document.body.style.overflow='hidden';}
 function closeDrw(){document.getElementById('mobile-drawer').style.transform='translateX(-100%)';document.getElementById('drw-ov').classList.add('hidden');document.body.style.overflow='';}
@@ -405,7 +385,7 @@ const COUPONS = {
   'KGS5'      : { pct:5,  label:'KGS5'       },
 };
 
-function selectPay(el){
+function selectPay(el, val){
   document.querySelectorAll('.pay-option').forEach(o=>o.classList.remove('selected'));
   el.classList.add('selected'); el.querySelector('input').checked=true;
 }
@@ -560,11 +540,7 @@ Please confirm my order. Thank you!`;
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    const oldQuickAdd = document.querySelector('button[onclick^="quickAdd"]');
-    if (oldQuickAdd) {
-        oldQuickAdd.setAttribute('onclick', "quickAdd('light-pendant', this)");
-    }
-    renderCheckout();
+  renderCheckout();
 });
 </script>
 

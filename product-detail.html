@@ -146,14 +146,11 @@ img {
 
   <div class="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-10 md:gap-16">
 
-    <!-- LEFT: Image Gallery -->
-    <div>
-      <!-- Main image — explicit height, no aspect-ratio, no flex-grow -->
+      <!-- Main product image -->
       <div class="w-full bg-tint overflow-hidden mb-3" style="height:clamp(260px,52vw,500px);">
-        <img id="main-img" src="assets/images/sofa.jpg" alt="Premium 3-Seater Sofa" class="w-full h-full object-cover object-center">
+        <img id="main-img" src="assets/images/sofa.jpg" alt="Product" class="w-full h-full object-cover object-center">
       </div>
-      </div>
-</div>
+    </div>
 
     <!-- RIGHT: Product Info -->
     <div>
@@ -368,8 +365,7 @@ img {
 
 <script src="https://cdn.jsdelivr.net/npm/fuse.js/dist/fuse.min.js"></script>
 <script src="assets/js/products.js"></script>
-<script src="assets/js/cart.js"></script>
-<script src="assets/js/wishlist.js"></script>
+<script src="assets/js/store.js"></script>
 <script>
 /* ═══════════════════════════════════════════════
    KGS Product Detail — All page logic
