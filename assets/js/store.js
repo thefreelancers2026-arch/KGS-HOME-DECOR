@@ -67,10 +67,13 @@ function updateQty(productId, qty) {
   saveCart(cart);
 }
 function getCartCount() {
-  return getCart().reduce(function(t, i){ return t + i.quantity; }, 0);
+  return getCart().reduce(function(t, i){ return t + (Number(i.quantity) || 0); }, 0);
 }
 function getCartTotal() {
-  return getCart().reduce(function(t, i){ return t + (i.price * i.quantity); }, 0);
+  return getCart().reduce(function(t, i){
+    const price = typeof i.price === 'number' && !isNaN(i.price) ? i.price : 0;
+    return t + (price * (Number(i.quantity) || 0));
+  }, 0);
 }
 function clearCart() {
   localStorage.removeItem('kgs_cart');

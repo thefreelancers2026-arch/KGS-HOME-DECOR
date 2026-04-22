@@ -391,9 +391,17 @@ function selectPay(el, val){
   el.classList.add('selected'); el.querySelector('input').checked=true;
 }
 
+function sanitiseCart() {
+  // Remove any cart items that have corrupted data (from old sessions)
+  const clean = getCart().filter(i => i.id && i.name && typeof i.price === 'number' && !isNaN(i.price));
+  saveCart(clean);
+  updateCartBadge();
+  return clean;
+}
+
 function renderCheckout() {
   updateCartBadge();
-  const cart = getCart();
+  const cart = sanitiseCart();
   const emptyEl = document.getElementById('empty-cart');
   const contentEl = document.getElementById('cart-content');
   const cartItemsContainer = document.getElementById('cart-items');
@@ -514,8 +522,8 @@ function placeOrder(e) {
   const subtotal = getCartTotal();
   const net = subtotal - discountAmt;
 
-  const itemLines = cart.map(item => `- ${item.name} ${formatINR(item.price)} × ${item.quantity}`).join('\\n');
-  const couponLine = appliedCoupon ? '\\nCoupon: ' + appliedCoupon + ' (-' + formatINR(discountAmt) + ')' : '';
+  const itemLines = cart.map(item => `- ${item.name} ${formatINR(item.price)} x${item.quantity}`).join('\n');
+  const couponLine = appliedCoupon ? '\nCoupon: ' + appliedCoupon + ' (-' + formatINR(discountAmt) + ')' : '';
 
   const finalMsg = `Hello KGS Team,
 
