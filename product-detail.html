@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="theme-color" content="#1A1A1A">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Premium 3-Seater Sofa — KGS Home Décors | Virudhachalam</title>
 <meta name="description" content="Premium 3-Seater Sofa at KGS Home Décors. Cash on Delivery across Tamil Nadu. Free delivery in Virudhachalam. Shop online or visit our store.">
@@ -472,6 +473,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   
   document.title = currentProd.name + " — KGS Home Décors";
+  const metaDesc = document.querySelector('meta[name="description"]');
+  if (metaDesc) {
+    metaDesc.setAttribute('content', `${currentProd.name} at KGS Home Décors - ₹${currentProd.price.toLocaleString('en-IN')}. ${currentProd.description || ''} Shop now for free delivery in Virudhachalam.`);
+  }
   document.getElementById('pd-name').innerText = currentProd.name;
   document.getElementById('pd-crumb').innerText = currentProd.name;
   document.getElementById('pd-cat').innerText = currentProd.category;
