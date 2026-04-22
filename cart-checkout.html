@@ -514,10 +514,8 @@ function placeOrder(e) {
   const subtotal = getCartTotal();
   const net = subtotal - discountAmt;
 
-  const itemLines = cart.map(item => `- ${item.name} ${formatINR(item.price)} × ${item.quantity}`).join('
-');
-  const couponLine = appliedCoupon ? '
-Coupon: ' + appliedCoupon + ' (-' + formatINR(discountAmt) + ')' : '';
+  const itemLines = cart.map(item => `- ${item.name} ${formatINR(item.price)} × ${item.quantity}`).join('\\n');
+  const couponLine = appliedCoupon ? '\\nCoupon: ' + appliedCoupon + ' (-' + formatINR(discountAmt) + ')' : '';
 
   const finalMsg = `Hello KGS Team,
 
