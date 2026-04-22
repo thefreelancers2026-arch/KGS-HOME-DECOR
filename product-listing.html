@@ -103,11 +103,6 @@ img {
   </div>
 </div>
 
-
-  </div>
-  <div class="px-6 pb-6"><button onclick="closeFilter()" class="btn-primary w-full">Apply Filters</button></div>
-</div>
-
 <!-- WHATSAPP FAB -->
 <a href="https://wa.me/919789182921" target="_blank" aria-label="WhatsApp"
    class="fixed bottom-6 right-5 z-50 flex items-center gap-2 bg-[#25D366] text-white text-[11px] font-semibold tracking-wide px-4 py-3 rounded-full shadow-lg hover:bg-[#1db954] transition-colors">
@@ -255,81 +250,23 @@ img {
 </footer>
 
 <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js/dist/fuse.min.js"></script>
+<script src="assets/js/products.js"></script>
+<script src="assets/js/cart.js"></script>
+<script src="assets/js/wishlist.js"></script>
+<style>
+.search-result-item{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.06);text-decoration:none;transition:background .2s;}
+.search-result-item:hover{background:rgba(255,255,255,.05);}
+.search-result-item:last-child{border-bottom:none;}
+</style>
 <script>
-
-/* ─── SMOOTH SCROLL (Lenis) ──────────────── */
+/* ─── SMOOTH SCROLL (Lenis) ────────────── */
 const lenis = new Lenis();
-function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+function raf(time){lenis.raf(time);requestAnimationFrame(raf);}
 requestAnimationFrame(raf);
 
-function openDrw(){
-  document.getElementById('mobile-drawer').style.transform='translateX(0)';
-  document.getElementById('drw-ov').classList.remove('hidden');
-  document.body.style.overflow='hidden';
-}
-function closeDrw(){
-  document.getElementById('mobile-drawer').style.transform='translateX(-100%)';
-  document.getElementById('drw-ov').classList.add('hidden');
-  document.body.style.overflow='';
-}
-function openSearch(){
-  document.getElementById('search-overlay').style.display='flex';
-  document.getElementById('search-input').focus();
-  document.body.style.overflow='hidden';
-}
-function closeSearch(){
-  document.getElementById('search-overlay').style.display='none';
-  document.getElementById('search-input').value='';
-  document.getElementById('search-results').innerHTML='';
-  document.getElementById('search-hint').style.display='';
-  document.body.style.overflow='';
-}
-
-</script>
-
-
-<!-- ══ SEARCH OVERLAY ═══════════════════════════════════════ -->
-<div id="search-overlay" onclick="if(event.target===this)closeSearch()" style="position:fixed; inset:0; z-index:90; background:rgba(20,18,16,.95); display:none; flex-direction:column; align-items:center; padding-top:100px; padding-left:20px; padding-right:20px; backdrop-filter: blur(8px);">
-  <div class="w-full max-w-2xl">
-    <div class="flex items-center gap-4 border-b pb-5 mb-6" style="border-color:rgba(255,255,255,.18);">
-      <span class="material-symbols-outlined text-[22px]" style="color:rgba(255,255,255,.4);">search</span>
-      <input id="search-input" type="text" placeholder="Search sofas, clocks, fountains..."
-             class="flex-grow bg-transparent text-white font-light placeholder-white/30"
-             style="font-size:20px; font-family:'DM Sans',sans-serif; border:none; outline:none;"
-             oninput="doSearch(this.value)" autocomplete="off">
-      <button onclick="closeSearch()" style="color:rgba(255,255,255,.4); background:none; border:none; cursor:pointer; line-height:1;" aria-label="Close search">
-        <span class="material-symbols-outlined text-[22px]">close</span>
-      </button>
-    </div>
-    <div id="search-hint" style="color:rgba(255,255,255,.3); font-size:13px; text-align:center; padding-top:20px;">
-      Type at least 2 characters to search over 500+ premium products.
-    </div>
-    <div id="search-results" class="flex flex-col"></div>
-  </div>
-</div>
-
-
-<style>
-.search-result-item { display:flex; align-items:center; justify-content:space-between; padding:12px 16px; border-bottom:1px solid rgba(255,255,255,.06); text-decoration:none; transition:background .2s; }
-.search-result-item:hover { background:rgba(255,255,255,.05); }
-.search-result-item:last-child { border-bottom:none; }
-
-/* ——— GLOBAL LAYOUT FIXES ————————————————————————— */
-html, body {
-  overflow-x: hidden;
-  width: 100%;
-  position: relative;
-  margin: 0;
-  padding: 0;
-}
-img {
-  max-width: 100%;
-}
-
-</style>
-<script src="https://cdn.jsdelivr.net/npm/fuse.js/dist/fuse.min.js"></script>
-<script>
-
+function openDrw(){document.getElementById('mobile-drawer').style.transform='translateX(0)';document.getElementById('drw-ov').classList.remove('hidden');document.body.style.overflow='hidden';}
+function closeDrw(){document.getElementById('mobile-drawer').style.transform='translateX(-100%)';document.getElementById('drw-ov').classList.add('hidden');document.body.style.overflow='';}
 
 function openSearch(){
   document.getElementById('search-overlay').style.display='flex';
@@ -348,36 +285,29 @@ function doSearch(q){
   const hint=document.getElementById('search-hint');
   if(!q.trim()){res.innerHTML='';hint.style.display='';return;}
   hint.style.display='none';
-  if(!window.kgsFuse) window.kgsFuse = new Fuse(PRODUCTS, {keys:['name','category'], threshold:0.3});
-  const matches = window.kgsFuse.search(q).map(r=>r.item);
+  if(!window.kgsFuse) window.kgsFuse=new Fuse(PRODUCTS,{keys:['name','category'],threshold:0.3});
+  const matches=window.kgsFuse.search(q).map(r=>r.item);
   if(matches.length===0){
-    res.innerHTML='<p style="color:rgba(255,255,255,.4);font-size:13px;padding:12px 16px;">No results. <a href="product-listing.html" style="color:#C5A880;text-decoration:underline;">Browse all 500+ products &rarr;</a></p>';
+    res.innerHTML='<p style="color:rgba(255,255,255,.4);font-size:13px;padding:12px 16px;">No results. <a href="product-listing.html" style="color:#C5A880;text-decoration:underline;">Browse all products &rarr;</a></p>';
   }else{
     res.innerHTML=matches.map(p=>`
       <a href="product-detail.html?id=${p.id}" class="search-result-item">
         <div>
-          <p style="color:#fff;font-size:14.5px;font-family:\'DM Sans\',sans-serif;font-weight:500;letter-spacing:-0.01em;">${p.name}</p>
+          <p style="color:#fff;font-size:14.5px;font-family:'DM Sans',sans-serif;font-weight:500;">${p.name}</p>
           <p style="color:rgba(255,255,255,.35);font-size:10px;letter-spacing:.14em;text-transform:uppercase;margin-top:3px;">${p.category}</p>
         </div>
-        <p style="color:#C97840;font-size:13px;font-weight:600;font-family:\'DM Sans\',sans-serif;">₹${p.price.toLocaleString('en-IN')}</p>
+        <p style="color:#C97840;font-size:13px;font-weight:600;">₹${p.price.toLocaleString('en-IN')}</p>
       </a>`).join('');
   }
 }
-document.addEventListener('keydown',e=>{if(e.key==='Escape' && document.getElementById('search-overlay') && document.getElementById('search-overlay').style.display==='flex') closeSearch();});
-</script>
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&document.getElementById('search-overlay')?.style.display==='flex')closeSearch();});
 
-
-<script src="assets/js/products.js"></script>
-<script src="assets/js/cart.js"></script>
-<script src="assets/js/wishlist.js"></script>
-<script>
 let currentFilteredList = PRODUCTS;
 
 function renderProducts(productsList) {
   const grid = document.getElementById('product-grid');
   const noProd = document.getElementById('no-products');
   grid.innerHTML = '';
-  
   if (productsList.length === 0) {
     noProd.style.display = 'block';
   } else {
@@ -396,7 +326,7 @@ function renderProducts(productsList) {
           <div class="p-4">
             <p class="text-[11px] font-medium tracking-[.14em] uppercase text-muted mb-1">${product.category}</p>
             <h3 class="font-sans font-medium tracking-tight text-ink text-[1.05rem] leading-snug mb-2">${product.name}</h3>
-            <p class="font-sans font-semibold text-warm text-[1.1rem] mb-3">&#8377;${product.price}</p>
+            <p class="font-sans font-semibold text-warm text-[1.1rem] mb-3">&#8377;${product.price.toLocaleString('en-IN')}</p>
             <div class="card-cta space-y-2">
               <button data-product-id="${product.id}" onclick="addToCart('${product.id}')" class="btn-primary w-full text-[10px] py-2.5">Add to Cart</button>
               <a href="https://wa.me/919789182921?text=${encodeURIComponent(product.whatsappText)}" target="_blank" class="btn-whatsapp w-full text-[10px] py-2.5">
@@ -415,20 +345,19 @@ function renderProducts(productsList) {
 document.addEventListener('DOMContentLoaded', () => {
   updateCartBadge();
   updateWishlistBadge();
-  
+
   const catParam = new URLSearchParams(window.location.search).get('cat');
   let activeCat = null;
-  
+
   if (catParam) {
     activeCat = catParam;
     currentFilteredList = PRODUCTS.filter(p => p.category === catParam);
   }
-  
-  // Set active class on pill
+
   document.querySelectorAll('.filter-btn').forEach(btn => {
     btn.classList.remove('active');
     btn.style.background=''; btn.style.color=''; btn.style.borderColor='';
-    
+
     const txtMap = {
       'Sofas': 'sofas', 'Wall Clocks': 'wall-clocks', 'Fountains': 'fountains',
       'Wall Art': 'wall-art', 'Photo Frames': 'photo-frames', 'LED Lights': 'led-lights',
@@ -438,7 +367,7 @@ document.addEventListener('DOMContentLoaded', () => {
       btn.style.background='#C97840'; btn.style.color='#fff'; btn.style.borderColor='#C97840';
       btn.classList.add('active');
     }
-    
+
     btn.addEventListener('click', () => {
       document.querySelectorAll('.filter-btn').forEach(b => {
         b.classList.remove('active');
@@ -446,7 +375,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
       btn.style.background='#C97840'; btn.style.color='#fff'; btn.style.borderColor='#C97840';
       btn.classList.add('active');
-      
+
       const newCat = txtMap[btn.innerText.trim()];
       if (newCat) {
         currentFilteredList = PRODUCTS.filter(p => p.category === newCat);
@@ -455,13 +384,13 @@ document.addEventListener('DOMContentLoaded', () => {
         currentFilteredList = PRODUCTS;
         window.history.pushState(null, '', window.location.pathname);
       }
-      
+
       const sel = document.getElementById('sort-select');
       if (sel) sortProducts(sel.value);
       else renderProducts(currentFilteredList);
     });
   });
-  
+
   const sel = document.getElementById('sort-select');
   if (sel) sortProducts(sel.value);
   else renderProducts(currentFilteredList);
@@ -469,15 +398,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function sortProducts(val) {
   let list = [...currentFilteredList];
-  if (val === 'low') {
-    list.sort((a,b) => a.price - b.price);
-  } else if (val === 'high') {
-    list.sort((a,b) => b.price - a.price);
-  } else if (val === 'best') {
-    list.sort((a,b) => (a.badge ? -1 : 1));
-  } else if (val === 'new') {
-    list.sort((a,b) => (a.badge === 'New' ? -1 : (b.badge === 'New' ? 1 : 0)));
-  }
+  if (val === 'low') list.sort((a,b) => a.price - b.price);
+  else if (val === 'high') list.sort((a,b) => b.price - a.price);
+  else if (val === 'best') list.sort((a,b) => (a.badge ? -1 : 1));
+  else if (val === 'new') list.sort((a,b) => (a.badge === 'New' ? -1 : (b.badge === 'New' ? 1 : 0)));
   renderProducts(list);
 }
 </script>

@@ -1016,6 +1016,9 @@ img {
 
 <script src="https://cdn.jsdelivr.net/npm/fuse.js/dist/fuse.min.js"></script>
 <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
+<script src="assets/js/products.js"></script>
+<script src="assets/js/cart.js"></script>
+<script src="assets/js/wishlist.js"></script>
 <script>
 /* ——— ANNOUNCEMENT ROTATOR JS ——————————————— */
 (function(){
@@ -1071,8 +1074,6 @@ function closeDrw(){
 }
 
 /* ——— SEARCH ———————————————————————————————— */
-
-
 function openSearch(){
   document.getElementById('search-overlay').style.display='flex';
   document.getElementById('search-input').focus();
@@ -1093,7 +1094,7 @@ function doSearch(q){
   if(!window.kgsFuse) window.kgsFuse = new Fuse(PRODUCTS, {keys:['name','category'], threshold:0.3});
   const matches = window.kgsFuse.search(q).map(r=>r.item);
   if(matches.length===0){
-    res.innerHTML='<p style="color:rgba(255,255,255,.4);font-size:13px;padding:12px 16px;">No results. <a href="product-listing.html" style="color:#C5A880;text-decoration:underline;">Browse all 500+ products &rarr;</a></p>';
+    res.innerHTML='<p style="color:rgba(255,255,255,.4);font-size:13px;padding:12px 16px;">No results. <a href="product-listing.html" style="color:#C5A880;text-decoration:underline;">Browse all products &rarr;</a></p>';
   }else{
     res.innerHTML=matches.map(p=>`
       <a href="product-detail.html?id=${p.id}" class="search-result-item">
@@ -1101,17 +1102,11 @@ function doSearch(q){
           <p style="color:#fff;font-size:14.5px;font-family:'DM Sans',sans-serif;font-weight:500;letter-spacing:-0.01em;">${p.name}</p>
           <p style="color:rgba(255,255,255,.35);font-size:10px;letter-spacing:.14em;text-transform:uppercase;margin-top:3px;">${p.category}</p>
         </div>
-        <p style="color:#C97840;font-size:13px;font-weight:600;font-family:'DM Sans',sans-serif;">₹${p.price.toLocaleString('en-IN')}</p>
+        <p style="color:#C97840;font-size:13px;font-weight:600;font-family:'DM Sans',sans-serif;">&#8377;${p.price.toLocaleString('en-IN')}</p>
       </a>`).join('');
   }
 }
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSearch();});
-
-
-
-
-
-
 
 /* ——— REVEAL ON SCROLL ——————————————————————— */
 const io = new IntersectionObserver(es=>{
@@ -1123,19 +1118,13 @@ document.querySelectorAll('.rv').forEach(el=>io.observe(el));
 const lenis = new Lenis();
 function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
 requestAnimationFrame(raf);
-</script>
 
-<script src="assets/js/products.js"></script>
-<script src="assets/js/cart.js"></script>
-<script src="assets/js/wishlist.js"></script>
-<script>
+/* ——— BADGES & HEARTS ————————————————————————— */
 document.addEventListener('DOMContentLoaded', () => {
   updateCartBadge();
   updateWishlistBadge();
   updateHeartIcons();
 });
-
 </script>
 </body>
 </html>
-

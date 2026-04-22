@@ -5,3 +5,5 @@ test.js
 screenshot.png
 .DS_Store
 *.log
+package.json
+package-lock.json
