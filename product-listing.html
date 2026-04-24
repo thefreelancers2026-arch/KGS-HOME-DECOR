@@ -101,6 +101,19 @@ img {
   <a href="cart-checkout.html" style="color:#C5A880;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;margin-left:8px;">View Cart &rarr;</a>
 </div>
 
+<!-- SEARCH OVERLAY -->
+<div id="search-overlay" style="display:none;position:fixed;inset:0;z-index:60;background:rgba(26,26,26,.92);align-items:flex-start;justify-content:center;padding-top:15vh;">
+  <div style="width:90%;max-width:640px;position:relative;">
+    <input id="search-input" type="text" placeholder="Search products…" autocomplete="off"
+      style="width:100%;padding:18px 52px 18px 20px;background:#fff;border:none;font-family:'DM Sans',sans-serif;font-size:16px;color:#1A1A1A;outline:none;"
+      oninput="liveSearch(this.value)" onkeydown="if(event.key==='Escape')closeSearch()">
+    <button onclick="closeSearch()" style="position:absolute;right:16px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:#767270;">
+      <span class="material-symbols-outlined">close</span>
+    </button>
+  </div>
+  <div id="search-results" style="width:90%;max-width:640px;margin-top:8px;background:#fff;max-height:60vh;overflow-y:auto;"></div>
+</div>
+
 <!-- DRAWER OVERLAY + MOBILE DRAWER -->
 <div id="drw-ov" class="fixed inset-0 bg-black/40 z-50 hidden" onclick="closeDrw()"></div>
 <div id="mobile-drawer" class="fixed inset-y-0 left-0 z-50 w-[290px] bg-surface flex flex-col -translate-x-full shadow-2xl">
@@ -185,7 +198,7 @@ img {
     <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
       <div>
         <h1 class="font-serif font-medium text-ink" style="font-size:clamp(1.9rem,3.5vw,3rem);">All Products</h1>
-        <p class="text-muted text-[14px] mt-1">Sofas · Clocks · Fountains · Wall Art · Photo Frames · LED Lights · Plants · Gift Items</p>
+        <p class="text-muted text-[14px] mt-1">Furniture · Décor · Lighting · Botanicals · Gifting</p>
       </div>
       <!-- Sort + Filter -->
       <div class="flex items-center gap-3">
@@ -202,18 +215,14 @@ img {
 </div>
 
 <!-- CATEGORY PILLS -->
-<div class="bg-surface border-b border-border py-4 overflow-x-auto">
-    <button data-cat="all" class="filter-btn active text-[11px] font-semibold tracking-wide uppercase px-4 py-2 border border-border hover:border-warm transition-colors">All</button>
-    <button data-cat="sofas" class="filter-btn text-[11px] font-semibold tracking-wide uppercase px-4 py-2 border border-border text-muted hover:border-warm hover:text-ink transition-colors">Sofas</button>
-    <button data-cat="wall-clocks" class="filter-btn text-[11px] font-semibold tracking-wide uppercase px-4 py-2 border border-border text-muted hover:border-warm hover:text-ink transition-colors">Wall Clocks</button>
-    <button data-cat="fountains" class="filter-btn text-[11px] font-semibold tracking-wide uppercase px-4 py-2 border border-border text-muted hover:border-warm hover:text-ink transition-colors">Fountains</button>
-    <button data-cat="wall-art" class="filter-btn text-[11px] font-semibold tracking-wide uppercase px-4 py-2 border border-border text-muted hover:border-warm hover:text-ink transition-colors">Wall Art</button>
-    <button data-cat="photo-frames" class="filter-btn text-[11px] font-semibold tracking-wide uppercase px-4 py-2 border border-border text-muted hover:border-warm hover:text-ink transition-colors">Photo Frames</button>
-    <button data-cat="led-lights" class="filter-btn text-[11px] font-semibold tracking-wide uppercase px-4 py-2 border border-border text-muted hover:border-warm hover:text-ink transition-colors">LED Lights</button>
-    <button data-cat="plants" class="filter-btn text-[11px] font-semibold tracking-wide uppercase px-4 py-2 border border-border text-muted hover:border-warm hover:text-ink transition-colors">Plants</button>
-    <button data-cat="gift-items" class="filter-btn text-[11px] font-semibold tracking-wide uppercase px-4 py-2 border border-border text-muted hover:border-warm hover:text-ink transition-colors">Gift Items</button>
+<div class="bg-surface border-b border-border py-4 overflow-x-auto whitespace-nowrap px-5 md:px-10 space-x-2">
+    <button data-cat="all" class="filter-btn active text-[11px] font-semibold tracking-wide uppercase px-4 py-2 border border-border hover:border-warm transition-colors inline-block">All</button>
+    <button data-cat="furniture" class="filter-btn text-[11px] font-semibold tracking-wide uppercase px-4 py-2 border border-border text-muted hover:border-warm hover:text-ink transition-colors inline-block">Furniture</button>
+    <button data-cat="decor" class="filter-btn text-[11px] font-semibold tracking-wide uppercase px-4 py-2 border border-border text-muted hover:border-warm hover:text-ink transition-colors inline-block">Décor</button>
+    <button data-cat="lighting" class="filter-btn text-[11px] font-semibold tracking-wide uppercase px-4 py-2 border border-border text-muted hover:border-warm hover:text-ink transition-colors inline-block">Lighting</button>
+    <button data-cat="botanicals" class="filter-btn text-[11px] font-semibold tracking-wide uppercase px-4 py-2 border border-border text-muted hover:border-warm hover:text-ink transition-colors inline-block">Botanicals</button>
+    <button data-cat="gifting" class="filter-btn text-[11px] font-semibold tracking-wide uppercase px-4 py-2 border border-border text-muted hover:border-warm hover:text-ink transition-colors inline-block">Gifting</button>
   </div>
-</div>
 
 <!-- MAIN CONTENT -->
 <main class="max-w-7xl mx-auto px-5 md:px-10 py-12">
@@ -384,7 +393,7 @@ async function loadProducts() {
   const params = new URLSearchParams(window.location.search);
   const cat = params.get('cat');
   if (cat) {
-    FILTERED_PRODUCTS = ALL_PRODUCTS.filter(p => p.category === cat);
+    FILTERED_PRODUCTS = ALL_PRODUCTS.filter(p => p.parentCategory === cat || p.category === cat);
     setActivePill(cat);
   }
 
@@ -480,7 +489,7 @@ function setActivePill(cat) {
 function filterByCategory(cat) {
   CURRENT_PAGE = 1;
   setActivePill(cat);
-  FILTERED_PRODUCTS = cat === 'all' ? [...ALL_PRODUCTS] : ALL_PRODUCTS.filter(p => p.category === cat);
+  FILTERED_PRODUCTS = cat === 'all' ? [...ALL_PRODUCTS] : ALL_PRODUCTS.filter(p => p.parentCategory === cat || p.category === cat);
   renderPage();
 }
 
@@ -508,8 +517,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function openDrw(){ document.getElementById('mobile-drawer').style.transform='translateX(0)'; document.getElementById('drw-ov').classList.remove('hidden'); document.body.style.overflow='hidden'; }
 function closeDrw(){ document.getElementById('mobile-drawer').style.transform='translateX(-100%)'; document.getElementById('drw-ov').classList.add('hidden'); document.body.style.overflow=''; }
-function openSearch(){ document.getElementById('search-overlay').style.display='flex'; document.getElementById('search-input').focus(); document.body.style.overflow='hidden'; }
-function closeSearch(){ document.getElementById('search-overlay').style.display='none'; document.body.style.overflow=''; }
+function openSearch(){ const o=document.getElementById('search-overlay'); if(o){o.style.display='flex'; const i=document.getElementById('search-input'); if(i)i.focus(); document.body.style.overflow='hidden';} }
+function closeSearch(){ const o=document.getElementById('search-overlay'); if(o){o.style.display='none';} document.body.style.overflow=''; }
+function liveSearch(q){
+  const res=document.getElementById('search-results'); if(!res) return;
+  if(!q||q.length<2){res.innerHTML='';return;}
+  const fuse=new Fuse(GLOBAL_PRODUCTS,{keys:['name','category'],threshold:0.4});
+  const hits=fuse.search(q).slice(0,6);
+  if(!hits.length){res.innerHTML='<p style="padding:16px;font-family:DM Sans,sans-serif;color:#767270;font-size:13px;">No results found.</p>';return;}
+  res.innerHTML=hits.map(h=>`<a href="product-detail.html?id=${h.item.id}" style="display:flex;align-items:center;gap:12px;padding:12px 16px;text-decoration:none;border-bottom:1px solid #E4DDD4;" onclick="closeSearch()">
+    <img src="${h.item.image}" style="width:48px;height:48px;object-fit:cover;flex-shrink:0;">
+    <span style="font-family:'DM Sans',sans-serif;font-size:13px;color:#1A1A1A;">${h.item.name}<br><span style="color:#767270;font-size:11px;">₹${h.item.price.toLocaleString('en-IN')}</span></span>
+  </a>`).join('');
+}
 
 const lenis = new Lenis();
 function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }

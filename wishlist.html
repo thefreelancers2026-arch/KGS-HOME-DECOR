@@ -191,7 +191,7 @@ function doSearch(q){
   const hint=document.getElementById('search-hint');
   if(!q.trim()){res.innerHTML='';hint.style.display='';return;}
   hint.style.display='none';
-  if(!window.kgsFuse) window.kgsFuse = new Fuse(PRODUCTS, {keys:['name','category'], threshold:0.3});
+  if(!window.kgsFuse) window.kgsFuse = new Fuse(GLOBAL_PRODUCTS, {keys:['name','category'], threshold:0.3});
   const matches = window.kgsFuse.search(q).map(r=>r.item);
   if(matches.length===0){
     res.innerHTML='<p style="color:rgba(255,255,255,.4);font-size:13px;padding:12px 16px;">No results. <a href="product-listing.html" style="color:#C5A880;text-decoration:underline;">Browse all 500+ products &rarr;</a></p>';
@@ -210,7 +210,6 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape' && document.getEleme
 </script>
 
 
-<script src="assets/js/products.js"></script>
 <script src="assets/js/store.js"></script>
 <script>
 const lenis = new Lenis();
@@ -234,7 +233,7 @@ function renderWishlist() {
     emptyUI.style.display = 'none';
     gridUI.style.display = 'grid';
     
-    const wishlistProducts = wishlistIds.map(id => PRODUCTS.find(p => p.id === id)).filter(Boolean);
+    const wishlistProducts = wishlistIds.map(id => GLOBAL_PRODUCTS.find(p => p.id === id)).filter(Boolean);
     
     gridUI.innerHTML = wishlistProducts.map(p => `
       <div class="prod-card relative hover-trigger">
