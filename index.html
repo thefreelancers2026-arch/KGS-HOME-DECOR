@@ -198,18 +198,12 @@ body { -webkit-font-smoothing: antialiased; }
 .ann-arrow:hover { color:rgba(255,255,255,.8); }
 #ann-prev { left:0; } #ann-next { right:0; }
 
-/* ——— HERO SECTION ———————————————————————————— */
-.hero-wrapper { position:relative; min-height:90vh; display:flex; align-items:center; justify-content:center; background:#1A1A1A; overflow:hidden; }
-@keyframes kenBurns { 0%{transform:scale(1.05) translate(0,0);} 100%{transform:scale(1.18) translate(-2%,-1%);} }
-.hero-bg { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0.6; animation:kenBurns 16s ease-in-out infinite alternate; }
-.hero-overlay { position:absolute; inset:0; background:linear-gradient(to bottom, rgba(26,26,26,0.2) 0%, rgba(26,26,26,0.75) 100%); }
-.hero-content { position:relative; z-index:10; text-align:center; max-width:820px; padding:0 20px; }
-
-/* ——— TESTIMONIAL CARD ——————————————————————— */
-.testimonial-card { background:#fff; padding:2.5rem; border:1px solid #E4DDD4; display:flex; flex-direction:column; justify-content:space-between; transition:transform 200ms var(--ease-out-punch), box-shadow 250ms ease; }
-@media (hover: hover) and (pointer: fine) {
-  .testimonial-card:hover { transform:translateY(-4px); box-shadow:0 12px 40px rgba(0,0,0,0.08); }
-}
+/* ——— HERO SLIDER ———————————————————————————— */
+.hero-slider { position:relative; overflow:hidden; background:#1A1A1A; min-height:65vh; }
+.hero-slide { position:absolute; inset:0; opacity:0; transition:opacity 1s ease; pointer-events:none; }
+.hero-slide.active { opacity:1; pointer-events:auto; }
+.hero-dot { width:6px; height:6px; border-radius:50%; background:rgba(255,255,255,.3); cursor:pointer; transition:background .3s, transform .3s; border:none; padding:0; }
+.hero-dot.active { background:#C97840; transform:scale(1.4); }
 
 /* ——— CATEGORY ICONS STRIP ——————————————————— */
 .cat-strip { display:flex; gap:0; overflow-x:auto; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; scrollbar-width:none; padding:20px 16px; }
@@ -383,9 +377,11 @@ img {
     <button onclick="openDrw()" class="md:hidden text-muted p-1"><span class="material-symbols-outlined">menu</span></button>
     <a href="index.html" class="font-serif font-medium tracking-[.38em] text-[1.3rem] text-ink hover:text-gold transition-colors">KGS</a>
     <div class="hidden md:flex items-center gap-10">
+      <a href="#collections" class="nav-link">Collections</a>
       <a href="product-listing.html" class="nav-link">Shop All</a>
-      <a href="wishlist.html" class="nav-link">Wishlist</a>
-      <a href="cart-checkout.html" class="nav-link">Cart</a>
+      <a href="#new-arrivals" class="nav-link">New Arrivals</a>
+      <a href="#about" class="nav-link">Our Story</a>
+      <a href="#showroom" class="nav-link">Showroom</a>
     </div>
     <div class="flex items-center gap-4 text-muted">
       <button onclick="openSearch();gtag('event','search_open',{event_category:'engagement'})" aria-label="Search products" class="hover:text-ink transition-colors bg-transparent border-none cursor-pointer p-0"><span class="material-symbols-outlined text-[20px]">search</span></button>
@@ -402,28 +398,73 @@ img {
   </div>
 </nav>
 
-<!-- ══ HERO SECTION ════════════════════════════════════════════ -->
-<section id="hero" class="hero-wrapper">
-  <img src="assets/images/room_living.png" alt="Luxury Interior at KGS Home D&eacute;cors" class="hero-bg" loading="lazy">
-  <div class="hero-overlay"></div>
-  
-  <div class="hero-content rv d1 on">
-    <p class="text-gold text-[11px] md:text-[12px] font-semibold tracking-[.2em] uppercase mb-5">Premium Home D&eacute;cor</p>
-    <h1 class="font-serif font-medium text-white leading-[1.1] mb-6 mx-auto" style="font-size:clamp(2.8rem,6vw,5.5rem);">
-      Transform Your Home Into a Luxury Space
-    </h1>
-    <p class="text-white/70 mb-10 mx-auto" style="font-size:clamp(15px,2vw,18px);line-height:1.7;max-width:600px;">
-      Handpicked premium decor to elevate your living experience. Designed for modern lifestyles and unparalleled elegance.
-    </p>
-    <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-      <a href="https://wa.me/919789182921?text=Hi%2C+I%27d+like+to+chat+about+transforming+my+home" target="_blank" rel="noopener noreferrer" class="btn-whatsapp w-full sm:w-auto" style="padding:16px 36px;font-size:12px;">
-        <span class="material-symbols-outlined" style="font-size:18px;">chat</span> Chat on WhatsApp
-      </a>
-      <a href="product-listing.html" class="btn-secondary w-full sm:w-auto" style="padding:15px 36px;font-size:12px;color:#fff;border-color:rgba(255,255,255,0.3);">
-        Explore Collection
-      </a>
+<!-- ══ HERO SLIDER ═════════════════════════════════════════════ -->
+<section class="hero-slider" aria-label="KGS Home D&eacute;cors hero slider">
+
+  <!-- —— Slide 1: Sofas —— -->
+  <div class="hero-slide active">
+    <div class="absolute inset-0">
+      <img src="assets/images/sofa.jpg" alt="Premium Sofas at KGS Home D&eacute;cors Virudhachalam" class="w-full h-full object-cover" style="opacity:.78;" fetchpriority="high">
+      <div class="absolute inset-0" style="background:linear-gradient(to right,rgba(20,18,16,.88) 42%,rgba(20,18,16,.15) 100%);"></div>
+    </div>
+    <div class="relative z-10 max-w-7xl mx-auto px-6 md:px-12 flex flex-col justify-center" style="min-height:65vh;padding-top:4rem;padding-bottom:6.5rem;">
+      <div class="flex items-center gap-2 mb-7">
+        <div class="flex items-center gap-1.5 bg-white/10 backdrop-blur-sm px-3 py-1.5">
+          <svg class="w-3 h-3" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+          <span class="text-white/70 text-[11px] font-semibold">5.0 Google Rating &middot; Virudhachalam</span>
+        </div>
+      </div>
+      <p class="text-gold text-[11px] font-semibold tracking-[.18em] uppercase mb-4">Sofas &amp; Furniture</p>
+      <h1 class="font-serif font-medium text-white leading-[1.04] mb-6 max-w-xl" style="font-size:clamp(2.4rem,5vw,4.2rem);">The Sofa Your Living Room Deserves.</h1>
+      <p class="text-white/55 mb-9 max-w-md" style="font-size:15px;line-height:1.8;">Solid teak frames &middot; Linen-blend upholstery<br><span class="text-white/35 text-[13px]">Delivered fully assembled. Free in Virudhachalam.</span></p>
+      <div class="flex flex-wrap gap-3">
+        <a href="product-listing.html" class="btn-primary" onclick="gtag('event','hero_cta',{event_category:'conversion',event_label:'slide_sofas'})">Shop Sofas</a>
+        <a href="#showroom" style="display:inline-flex;align-items:center;gap:8px;padding:12px 28px;background:transparent;color:#fff;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;border:1.5px solid rgba(255,255,255,.35);cursor:pointer;transition:border-color .3s;" onmouseover="this.style.borderColor='rgba(255,255,255,.7)'" onmouseout="this.style.borderColor='rgba(255,255,255,.35)'">Visit Showroom</a>
+      </div>
     </div>
   </div>
+
+  <!-- —— Slide 2: Wall Clocks & Art —— -->
+  <div class="hero-slide">
+    <div class="absolute inset-0">
+      <img src="assets/images/clock.jpg" alt="Antique Wall Clocks at KGS Home D&eacute;cors" class="w-full h-full object-cover" style="opacity:.78;" loading="lazy">
+      <div class="absolute inset-0" style="background:linear-gradient(to right,rgba(20,18,16,.88) 42%,rgba(20,18,16,.15) 100%);"></div>
+    </div>
+    <div class="relative z-10 max-w-7xl mx-auto px-6 md:px-12 flex flex-col justify-center" style="min-height:65vh;padding-top:4rem;padding-bottom:6.5rem;">
+      <p class="text-gold text-[11px] font-semibold tracking-[.18em] uppercase mb-4">Wall Clocks &amp; D&eacute;cor</p>
+      <h1 class="font-serif font-medium text-white leading-[1.04] mb-6 max-w-xl" style="font-size:clamp(2.4rem,5vw,4.2rem);">Time, Elevated to Art.</h1>
+      <p class="text-white/55 mb-9 max-w-md" style="font-size:15px;line-height:1.8;">Antique brass &middot; Vintage round &middot; Modern minimal<br><span class="text-white/35 text-[13px]">Starting from &#8377;899. Free local delivery.</span></p>
+      <div class="flex flex-wrap gap-3">
+        <a href="product-listing.html" class="btn-primary" onclick="gtag('event','hero_cta',{event_category:'conversion',event_label:'slide_clocks'})">Shop Wall D&eacute;cor</a>
+        <a href="https://wa.me/919789182921?text=Hi%2C+I%27m+interested+in+Wall+Clocks" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:8px;padding:12px 28px;background:rgba(37,211,102,.12);color:#25D366;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;border:1.5px solid rgba(37,211,102,.4);cursor:pointer;">WhatsApp Order</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- —— Slide 3: Fountains & Plants —— -->
+  <div class="hero-slide">
+    <div class="absolute inset-0">
+      <img src="assets/images/fountain.jpg" alt="Indoor Fountains and Plants at KGS Home D&eacute;cors" class="w-full h-full object-cover" style="opacity:.78;" loading="lazy">
+      <div class="absolute inset-0" style="background:linear-gradient(to right,rgba(20,18,16,.88) 42%,rgba(20,18,16,.15) 100%);"></div>
+    </div>
+    <div class="relative z-10 max-w-7xl mx-auto px-6 md:px-12 flex flex-col justify-center" style="min-height:65vh;padding-top:4rem;padding-bottom:6.5rem;">
+      <p class="text-gold text-[11px] font-semibold tracking-[.18em] uppercase mb-4">Fountains &amp; Plants</p>
+      <h1 class="font-serif font-medium text-white leading-[1.04] mb-6 max-w-xl" style="font-size:clamp(2.4rem,5vw,4.2rem);">Bring Nature Inside.</h1>
+      <p class="text-white/55 mb-9 max-w-md" style="font-size:15px;line-height:1.8;">Tabletop fountains &middot; Artificial banana plants &middot; Succulents<br><span class="text-white/35 text-[13px]">Zero maintenance. Maximum beauty.</span></p>
+      <div class="flex flex-wrap gap-3">
+        <a href="product-listing.html" class="btn-primary" onclick="gtag('event','hero_cta',{event_category:'conversion',event_label:'slide_nature'})">Shop Nature</a>
+        <a href="#about" style="display:inline-flex;align-items:center;gap:8px;padding:12px 28px;background:transparent;color:#fff;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;border:1.5px solid rgba(255,255,255,.35);cursor:pointer;transition:border-color .3s;" onmouseover="this.style.borderColor='rgba(255,255,255,.7)'" onmouseout="this.style.borderColor='rgba(255,255,255,.35)'">Our Story</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dot indicators -->
+  <div class="absolute bottom-2 md:bottom-6 left-1/2 -translate-x-1/2 flex gap-3 z-20">
+    <button class="hero-dot active" data-slide="0" aria-label="Slide 1"></button>
+    <button class="hero-dot" data-slide="1" aria-label="Slide 2"></button>
+    <button class="hero-dot" data-slide="2" aria-label="Slide 3"></button>
+  </div>
+
 </section>
 
 <!-- ══ TICKER ═════════════════════════════════════════════════ -->
@@ -463,157 +504,368 @@ img {
   </div>
 </div>
 
-<!-- ══ SOCIAL PROOF ════════════════════════════════ -->
-<section class="bg-base py-16 md:py-24">
-  <div class="max-w-7xl mx-auto px-5 md:px-10">
-    <div class="text-center mb-14 rv">
-      <div class="flex items-center justify-center gap-1 text-gold mb-4" style="font-size:1.3rem;letter-spacing:4px;">
-        <span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span>
-      </div>
-      <h2 class="font-serif font-medium text-ink mb-3" style="font-size:clamp(1.8rem,3vw,2.6rem);">Trusted by 100+ happy customers</h2>
-      <p class="text-muted text-[11px] uppercase tracking-[.2em]">Across Tamil Nadu &middot; 5.0 Google Rating</p>
+<!-- ══ CATEGORY ICONS STRIP ══════════════════════════════════ -->
+<div class="bg-base border-b border-border">
+  <div class="max-w-7xl mx-auto">
+    <div class="cat-strip justify-center">
+      <a href="product-listing.html?cat=all" class="cat-pill">
+        <div class="cat-circle"><img src="assets/images/cat_all.png" alt="All"></div>
+        <span class="cat-label">All</span>
+      </a>
+      <a href="product-listing.html?cat=furniture" class="cat-pill">
+        <div class="cat-circle"><img src="assets/images/cat_furniture.png" alt="Furniture"></div>
+        <span class="cat-label">Furniture</span>
+      </a>
+      <a href="product-listing.html?cat=decor" class="cat-pill">
+        <div class="cat-circle"><img src="assets/images/cat_decor.png" alt="Décor"></div>
+        <span class="cat-label">Décor</span>
+      </a>
+      <a href="product-listing.html?cat=lighting" class="cat-pill">
+        <div class="cat-circle"><img src="assets/images/cat_lighting.png" alt="Lighting"></div>
+        <span class="cat-label">Lighting</span>
+      </a>
+      <a href="product-listing.html?cat=botanicals" class="cat-pill">
+        <div class="cat-circle"><img src="assets/images/cat_botanicals.png" alt="Botanicals"></div>
+        <span class="cat-label">Botanicals</span>
+      </a>
+      <a href="product-listing.html?cat=gifting" class="cat-pill">
+        <div class="cat-circle"><img src="assets/images/cat_gifting.png" alt="Gifting"></div>
+        <span class="cat-label">Gifting</span>
+      </a>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <div class="bg-white p-8 border border-border flex flex-col justify-between rv d1">
-        <div>
-          <div class="flex gap-0.5 text-gold mb-6" style="font-size:14px;letter-spacing:2px;">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-          <p class="text-ink leading-[1.9] mb-8 font-serif" style="font-size:16px;">&ldquo;Absolutely stunning decor pieces. The premium quality is evident in every detail. My living room feels like a luxury hotel now.&rdquo;</p>
+  </div>
+</div>
+
+<!-- ══ COLLECTIONS ════════════════════════════════ -->
+<section id="collections" class="bg-base py-16 md:py-24">
+  <div class="max-w-7xl mx-auto px-5 md:px-10">
+    <div class="flex items-end justify-between mb-10 rv">
+      <div>
+        <p class="text-[11px] font-semibold tracking-[.18em] uppercase text-gold mb-3">Curated Spaces</p>
+        <h2 class="font-serif font-medium text-ink" style="font-size:clamp(1.8rem,3.2vw,2.8rem);">Shop by Room</h2>
+      </div>
+      <a href="product-listing.html" class="text-[11px] font-medium tracking-[.08em] uppercase text-muted hover:text-ink border-b border-current pb-0.5 transition-colors duration-300 hidden md:block">View All &rarr;</a>
+    </div>
+    <!-- Asymmetric: 1 tall left + 4 right -->
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-3 rv">
+      <a href="product-listing.html?cat=sofas" class="col-tile col-span-2 md:col-span-1 md:row-span-2 block bg-tint" style="height:480px; min-height:300px;">
+        <img src="assets/images/room_living.png" alt="Sofas & Furniture — KGS Home D&eacute;cors" loading="lazy" style="object-position: center 85%;">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+        <div class="absolute bottom-0 left-0 right-0 p-6">
+          <p class="text-white/60 text-[11px] tracking-[.18em] uppercase mb-1">Living Room</p>
+          <h3 class="text-white font-serif font-medium" style="font-size:1.6rem;">The Living Room Edit</h3>
         </div>
-        <div class="flex items-center gap-3 pt-5 border-t border-border">
-          <div class="w-9 h-9 rounded-full bg-tint flex items-center justify-center font-serif text-warm font-medium text-sm">M</div>
-          <div><p class="font-bold text-ink text-sm">Meena R.</p><p class="text-muted text-[10px] uppercase tracking-widest mt-0.5">Verified Buyer</p></div>
+      </a>
+      <a href="product-listing.html?cat=wall-clocks" class="col-tile block bg-tint" style="height:230px;">
+        <img src="assets/images/room_study.png" alt="Decorative Wall Clocks" loading="lazy">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent"></div>
+        <div class="absolute bottom-0 left-0 right-0 p-5"><h3 class="text-white font-serif font-medium text-xl">The Study &amp; Office</h3></div>
+      </a>
+      <a href="product-listing.html?cat=led-lights" class="col-tile block bg-tint" style="height:230px;">
+        <img src="assets/images/room_bedroom.png" alt="Pendant & Decorative Lighting" loading="lazy">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent"></div>
+        <div class="absolute bottom-0 left-0 right-0 p-5"><h3 class="text-white font-serif font-medium text-xl">Bedroom Atmosphere</h3></div>
+      </a>
+      <a href="product-listing.html?cat=wall-art" class="col-tile block bg-tint" style="height:230px;">
+        <img src="assets/images/room_hallway.png" alt="Wall Art & D&eacute;cor Panels" loading="lazy">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent"></div>
+        <div class="absolute bottom-0 left-0 right-0 p-5"><h3 class="text-white font-serif font-medium text-xl">Hallway &amp; Entry</h3></div>
+      </a>
+      <a href="product-listing.html?cat=fountains" class="col-tile block bg-tint" style="height:230px;">
+        <img src="assets/images/room_zen.png" alt="Indoor Water Fountains" loading="lazy">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent"></div>
+        <div class="absolute bottom-0 left-0 right-0 p-5"><h3 class="text-white font-serif font-medium text-xl">The Zen Corner</h3></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ NEW ARRIVALS ════════════════════════════════ -->
+<section id="new-arrivals" class="bg-tint py-16 md:py-24 border-t border-border">
+  <div class="max-w-7xl mx-auto px-5 md:px-10">
+    <div class="flex items-end justify-between mb-10 rv">
+      <div>
+        <p class="text-[11px] font-semibold tracking-[.18em] uppercase text-warm mb-3 flex items-center gap-2">
+          <span class="material-symbols-outlined text-[14px]" style="font-variation-settings:'FILL' 1,'wght' 500;">new_releases</span>
+          Just In This Week
+        </p>
+        <h2 class="font-serif font-medium text-ink" style="font-size:clamp(1.8rem,3.2vw,2.8rem);">New Arrivals</h2>
+      </div>
+      <a href="product-listing.html" class="text-[11px] font-medium tracking-[.08em] uppercase text-muted hover:text-ink border-b border-current pb-0.5 transition-colors duration-300 hidden md:block">View All &rarr;</a>
+    </div>
+
+    <div class="new-arrivals-scroll rv">
+      <!-- New Card 1 -->
+      <div class="new-card relative">
+        <div class="new-img aspect-[4/5] relative">
+          <div class="new-badge"><span class="material-symbols-outlined">fiber_new</span> New</div>
+          <button data-product-id="vase-ceramic" onclick="toggleWishlist('vase-ceramic')" class="heart-btn" title="Save to wishlist">
+            <span class="material-symbols-outlined text-[16px]">favorite</span>
+          </button>
+          <img src="assets/images/ceramic_vase.png" alt="Designer Ceramic Vase — New at KGS Home Décors" class="w-full h-full object-cover">
+        </div>
+        <div class="p-4">
+          <p class="text-[11px] font-medium tracking-[.14em] uppercase text-muted mb-1">Vases</p>
+          <h3 class="font-sans font-medium tracking-tight text-ink text-[1.08rem] leading-snug mb-2">Designer Ceramic Vase</h3>
+          <p class="font-sans font-semibold text-warm text-lg mb-3">&#8377;1,950</p>
+          <div class="flex gap-2">
+            <button data-product-id="vase-ceramic" onclick="addToCart('vase-ceramic')" class="btn-primary flex-1 text-[10px] py-2.5">Add to Cart</button>
+          </div>
         </div>
       </div>
-      <div class="bg-white p-8 border border-border flex flex-col justify-between rv d2">
-        <div>
-          <div class="flex gap-0.5 text-gold mb-6" style="font-size:14px;letter-spacing:2px;">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-          <p class="text-ink leading-[1.9] mb-8 font-serif" style="font-size:16px;">&ldquo;The brass wall clock I bought is a masterpiece. The customer service and delivery were incredibly fast and professional.&rdquo;</p>
+
+      <!-- New Card 2 -->
+      <div class="new-card relative">
+        <div class="new-img aspect-[4/5] relative">
+          <div class="new-badge"><span class="material-symbols-outlined">fiber_new</span> New</div>
+          <button data-product-id="chair-velvet" onclick="toggleWishlist('chair-velvet')" class="heart-btn" title="Save to wishlist">
+            <span class="material-symbols-outlined text-[16px]">favorite</span>
+          </button>
+          <img src="assets/images/chairs_1777050959611.png" alt="Velvet Accent Chair — New at KGS Home Décors" class="w-full h-full object-cover">
         </div>
-        <div class="flex items-center gap-3 pt-5 border-t border-border">
-          <div class="w-9 h-9 rounded-full bg-tint flex items-center justify-center font-serif text-warm font-medium text-sm">K</div>
-          <div><p class="font-bold text-ink text-sm">Karthik S.</p><p class="text-muted text-[10px] uppercase tracking-widest mt-0.5">Verified Buyer</p></div>
+        <div class="p-4">
+          <p class="text-[11px] font-medium tracking-[.14em] uppercase text-muted mb-1">Chairs</p>
+          <h3 class="font-sans font-medium tracking-tight text-ink text-[1.08rem] leading-snug mb-2">Velvet Accent Chair</h3>
+          <p class="font-sans font-semibold text-warm text-lg mb-3">&#8377;4,200</p>
+          <div class="flex gap-2">
+            <button data-product-id="chair-velvet" onclick="addToCart('chair-velvet')" class="btn-primary flex-1 text-[10px] py-2.5">Add to Cart</button>
+          </div>
         </div>
       </div>
-      <div class="bg-white p-8 border border-border flex flex-col justify-between rv d3">
-        <div>
-          <div class="flex gap-0.5 text-gold mb-6" style="font-size:14px;letter-spacing:2px;">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-          <p class="text-ink leading-[1.9] mb-8 font-serif" style="font-size:16px;">&ldquo;KGS Home Decor completely transformed my space. Their curated collection is unlike anything else available locally.&rdquo;</p>
+
+      <!-- New Card 3 -->
+      <div class="new-card relative">
+        <div class="new-img aspect-[4/5] relative">
+          <div class="new-badge"><span class="material-symbols-outlined">fiber_new</span> New</div>
+          <button data-product-id="table-marble" onclick="toggleWishlist('table-marble')" class="heart-btn" title="Save to wishlist">
+            <span class="material-symbols-outlined text-[16px]">favorite</span>
+          </button>
+          <img src="assets/images/table_1777050909756.png" alt="Marble Coffee Table — New at KGS Home Décors" class="w-full h-full object-cover">
         </div>
-        <div class="flex items-center gap-3 pt-5 border-t border-border">
-          <div class="w-9 h-9 rounded-full bg-tint flex items-center justify-center font-serif text-warm font-medium text-sm">P</div>
-          <div><p class="font-bold text-ink text-sm">Priya V.</p><p class="text-muted text-[10px] uppercase tracking-widest mt-0.5">Verified Buyer</p></div>
+        <div class="p-4">
+          <p class="text-[11px] font-medium tracking-[.14em] uppercase text-muted mb-1">Tables</p>
+          <h3 class="font-sans font-medium tracking-tight text-ink text-[1.08rem] leading-snug mb-2">Marble Coffee Table</h3>
+          <p class="font-sans font-semibold text-warm text-lg mb-3">&#8377;12,500</p>
+          <div class="flex gap-2">
+            <button data-product-id="table-marble" onclick="addToCart('table-marble')" class="btn-primary flex-1 text-[10px] py-2.5">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- New Card 4 -->
+      <div class="new-card relative">
+        <div class="new-img aspect-[4/5] relative">
+          <div class="new-badge"><span class="material-symbols-outlined">fiber_new</span> New</div>
+          <button data-product-id="statue-marble" onclick="toggleWishlist('statue-marble')" class="heart-btn" title="Save to wishlist">
+            <span class="material-symbols-outlined text-[16px]">favorite</span>
+          </button>
+          <img src="assets/images/statue_1777050875433.png" alt="Abstract Marble Statue — New at KGS Home Décors" class="w-full h-full object-cover">
+        </div>
+        <div class="p-4">
+          <p class="text-[11px] font-medium tracking-[.14em] uppercase text-muted mb-1">Statues</p>
+          <h3 class="font-sans font-medium tracking-tight text-ink text-[1.08rem] leading-snug mb-2">Abstract Marble Statue</h3>
+          <p class="font-sans font-semibold text-warm text-lg mb-3">&#8377;8,900</p>
+          <div class="flex gap-2">
+            <button data-product-id="statue-marble" onclick="addToCart('statue-marble')" class="btn-primary flex-1 text-[10px] py-2.5">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- New Card 5 -->
+      <div class="new-card relative">
+        <div class="new-img aspect-[4/5] relative">
+          <div class="new-badge"><span class="material-symbols-outlined">fiber_new</span> New</div>
+          <button data-product-id="mirror-led" onclick="toggleWishlist('mirror-led')" class="heart-btn" title="Save to wishlist">
+            <span class="material-symbols-outlined text-[16px]">favorite</span>
+          </button>
+          <img src="assets/images/led_mirror_1777050891618.png" alt="Circular LED Wall Mirror — New at KGS Home Décors" class="w-full h-full object-cover">
+        </div>
+        <div class="p-4">
+          <p class="text-[11px] font-medium tracking-[.14em] uppercase text-muted mb-1">Mirrors</p>
+          <h3 class="font-sans font-medium tracking-tight text-ink text-[1.08rem] leading-snug mb-2">Circular LED Wall Mirror</h3>
+          <p class="font-sans font-semibold text-warm text-lg mb-3">&#8377;6,500</p>
+          <div class="flex gap-2">
+            <button data-product-id="mirror-led" onclick="addToCart('mirror-led')" class="btn-primary flex-1 text-[10px] py-2.5">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- New Card 6 -->
+      <div class="new-card relative">
+        <div class="new-img aspect-[4/5] relative">
+          <div class="new-badge"><span class="material-symbols-outlined">fiber_new</span> New</div>
+          <button data-product-id="candle-gift" onclick="toggleWishlist('candle-gift')" class="heart-btn" title="Save to wishlist">
+            <span class="material-symbols-outlined text-[16px]">favorite</span>
+          </button>
+          <img src="assets/images/candle_set.png" alt="Aromatic Candle Gift Set — New at KGS Home Décors" class="w-full h-full object-cover">
+        </div>
+        <div class="p-4">
+          <p class="text-[11px] font-medium tracking-[.14em] uppercase text-muted mb-1">Gift Items</p>
+          <h3 class="font-sans font-medium tracking-tight text-ink text-[1.08rem] leading-snug mb-2">Aromatic Candle Gift Set</h3>
+          <p class="font-sans font-semibold text-warm text-lg mb-3">&#8377;899</p>
+          <div class="flex gap-2">
+            <button data-product-id="candle-gift" onclick="addToCart('candle-gift')" class="btn-primary flex-1 text-[10px] py-2.5">Add to Cart</button>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ══ PRODUCT GRID ════════════════════════════════ -->
-<section class="bg-surface py-16 md:py-24 border-t border-border">
+<!-- ══ FEATURED PRODUCTS (Best Sellers) ══════════════════════ -->
+<section class="bg-surface py-16 md:py-24 border-t-4 border-gold">
   <div class="max-w-7xl mx-auto px-5 md:px-10">
-    <div class="text-center mb-14 rv">
-      <h2 class="font-serif font-medium text-ink" style="font-size:clamp(2rem,3.2vw,2.8rem);">Curated Collection</h2>
-      <p class="text-muted mt-3 tracking-wide">Minimal, elegant, and timeless pieces.</p>
+    <div class="flex items-end justify-between mb-10 rv">
+      <div>
+        <p class="text-[11px] font-semibold tracking-[.18em] uppercase text-gold mb-3">Handpicked for You</p>
+        <h2 class="font-serif font-medium text-ink" style="font-size:clamp(1.8rem,3.2vw,2.8rem);">Best Sellers</h2>
+      </div>
+      <a href="product-listing.html" class="text-[11px] font-medium tracking-[.08em] uppercase text-muted hover:text-ink border-b border-current pb-0.5 transition-colors duration-300 hidden md:block">View All &rarr;</a>
     </div>
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 rv d1">
-      <!-- Card 1 -->
-      <a href="product-listing.html" class="group block cursor-pointer">
-        <div class="overflow-hidden aspect-[4/5] bg-tint mb-5 relative">
-          <img src="assets/images/sofa.jpg" alt="Premium Sofa" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5">
+      <!-- Card 1 — FEATURED (2-col wide on desktop) -->
+      <div class="prod-card rv col-span-2 md:col-span-2 relative hover-trigger">
+        <div class="flex flex-col md:flex-row">
+          <div class="prod-img md:w-[55%] overflow-hidden relative" style="aspect-ratio:4/3;">
+            <button data-product-id="sofa-3seater" onclick="toggleWishlist('sofa-3seater')" class="heart-btn" title="Save to wishlist">
+              <span class="material-symbols-outlined text-[16px]">favorite</span>
+            </button>
+            <img src="assets/images/sofa.jpg" alt="Premium 3-Seater Sofa — best-selling furniture at KGS Virudhachalam" class="w-full h-full object-cover">
+          </div>
+          <div class="p-5 md:p-6 flex flex-col justify-center md:w-[45%]">
+            <span class="inline-block bg-warm text-white text-[9px] font-semibold tracking-wide uppercase px-2.5 py-1 mb-4 w-fit">Best Seller</span>
+            <p class="text-[11px] font-medium tracking-[.14em] uppercase text-muted mb-1.5">Sofas &amp; Furniture</p>
+            <h3 class="font-sans font-medium tracking-tight text-ink leading-snug mb-2" style="font-size:1.35rem;">Premium 3-Seater Sofa</h3>
+            <p class="text-muted text-[13px] mb-4" style="line-height:1.7;">Solid teak frame, linen-blend upholstery. Delivered fully assembled. Perfect for Indian living rooms.</p>
+            <p class="font-sans font-semibold text-warm text-xl mb-4">&#8377;18,500</p>
+            <div class="space-y-2">
+              <button data-product-id="sofa-3seater" onclick="addToCart('sofa-3seater')" class="btn-primary w-full text-[10px] py-2.5">Add to Cart</button>
+              <a href="https://wa.me/919789182921?text=I'm%20interested%20in%20Premium%203-Seater%20Sofa%20-%20%E2%82%B918%2C500" target="_blank" rel="noopener noreferrer" class="btn-whatsapp w-full text-[10px] py-2.5">
+                <svg viewBox="0 0 24 24" fill="white" class="w-3.5 h-3.5 shrink-0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                Order via WhatsApp
+              </a>
+            </div>
+          </div>
         </div>
-        <h3 class="font-sans font-medium text-ink text-[1.1rem] mb-1.5">Premium 3-Seater Sofa</h3>
-        <p class="font-sans font-semibold text-warm">&#8377;18,500</p>
-      </a>
+      </div>
+
       <!-- Card 2 -->
-      <a href="product-listing.html" class="group block cursor-pointer">
-        <div class="overflow-hidden aspect-[4/5] bg-tint mb-5 relative">
-          <img src="assets/images/clock.jpg" alt="Antique Clock" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+      <div class="prod-card rv d1 relative hover-trigger">
+        <div class="prod-img aspect-[4/5] relative">
+          <button data-product-id="clock-brass" onclick="toggleWishlist('clock-brass')" class="heart-btn" title="Save to wishlist">
+            <span class="material-symbols-outlined text-[16px]">favorite</span>
+          </button>
+          <img src="assets/images/clock.jpg" alt="Antique Brass Wall Clock" class="w-full h-full object-cover">
+          <span class="absolute top-2.5 left-2.5 bg-gold text-white text-[9px] font-semibold tracking-wider uppercase px-2 py-1">New Arrival</span>
         </div>
-        <h3 class="font-sans font-medium text-ink text-[1.1rem] mb-1.5">Antique Brass Wall Clock</h3>
-        <p class="font-sans font-semibold text-warm">&#8377;1,299</p>
-      </a>
+        <div class="p-4">
+          <p class="text-[11px] font-medium tracking-[.14em] uppercase text-muted mb-1">Wall Clocks</p>
+          <h3 class="font-sans font-medium tracking-tight text-ink text-[1.08rem] leading-snug mb-2.5">Antique Brass Wall Clock</h3>
+          <p class="font-sans font-semibold text-warm text-lg mb-3">&#8377;1,299</p>
+          <div class="card-cta space-y-2">
+            <button data-product-id="clock-brass" onclick="addToCart('clock-brass')" class="btn-primary w-full text-[10px] py-2.5">Add to Cart</button>
+            <a href="https://wa.me/919789182921?text=I'm%20interested%20in%20Antique%20Brass%20Wall%20Clock%20-%20%E2%82%B91%2C299" target="_blank" rel="noopener noreferrer" class="btn-whatsapp w-full text-[10px] py-2.5">
+              <svg viewBox="0 0 24 24" fill="white" class="w-3.5 h-3.5 shrink-0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Order via WhatsApp
+            </a>
+          </div>
+        </div>
+      </div>
+
       <!-- Card 3 -->
-      <a href="product-listing.html" class="group block cursor-pointer">
-        <div class="overflow-hidden aspect-[4/5] bg-tint mb-5 relative">
-          <img src="assets/images/fountain.jpg" alt="Tabletop Fountain" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+      <div class="prod-card rv d2 relative hover-trigger">
+        <div class="prod-img aspect-[4/5] relative">
+          <button data-product-id="fountain-tabletop" onclick="toggleWishlist('fountain-tabletop')" class="heart-btn" title="Save to wishlist">
+            <span class="material-symbols-outlined text-[16px]">favorite</span>
+          </button>
+          <img src="assets/images/fountain.jpg" alt="Indoor Tabletop Fountain" class="w-full h-full object-cover">
         </div>
-        <h3 class="font-sans font-medium text-ink text-[1.1rem] mb-1.5">Indoor Tabletop Fountain</h3>
-        <p class="font-sans font-semibold text-warm">&#8377;2,850</p>
-      </a>
+        <div class="p-4">
+          <p class="text-[11px] font-medium tracking-[.14em] uppercase text-muted mb-1">Fountains</p>
+          <h3 class="font-sans font-medium tracking-tight text-ink text-[1.08rem] leading-snug mb-2.5">Indoor Tabletop Fountain</h3>
+          <p class="font-sans font-semibold text-warm text-lg mb-3">&#8377;2,850</p>
+          <div class="card-cta space-y-2">
+            <button data-product-id="fountain-tabletop" onclick="addToCart('fountain-tabletop')" class="btn-primary w-full text-[10px] py-2.5">Add to Cart</button>
+            <a href="https://wa.me/919789182921?text=I'm%20interested%20in%20Indoor%20Tabletop%20Fountain%20-%20%E2%82%B92%2C850" target="_blank" rel="noopener noreferrer" class="btn-whatsapp w-full text-[10px] py-2.5">
+              <svg viewBox="0 0 24 24" fill="white" class="w-3.5 h-3.5 shrink-0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Order via WhatsApp
+            </a>
+          </div>
+        </div>
+      </div>
+
       <!-- Card 4 -->
-      <a href="product-listing.html" class="group block cursor-pointer">
-        <div class="overflow-hidden aspect-[4/5] bg-tint mb-5 relative">
-          <img src="assets/images/bed_combo_1777050994611.png" alt="Bed Combo" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+      <div class="prod-card rv d3 relative hover-trigger">
+        <div class="prod-img aspect-[4/5] relative">
+          <button data-product-id="bed-combo" onclick="toggleWishlist('bed-combo')" class="heart-btn" title="Save to wishlist">
+            <span class="material-symbols-outlined text-[16px]">favorite</span>
+          </button>
+          <img src="assets/images/bed_combo_1777050994611.png" alt="Premium Bed Combo" class="w-full h-full object-cover">
+          <span class="absolute top-2.5 left-2.5 bg-ink text-white/80 text-[9px] font-semibold tracking-wider uppercase px-2 py-1">Staff Pick</span>
         </div>
-        <h3 class="font-sans font-medium text-ink text-[1.1rem] mb-1.5">Premium Bed Combo</h3>
-        <p class="font-sans font-semibold text-warm">&#8377;45,000</p>
-      </a>
+        <div class="p-4">
+          <p class="text-[11px] font-medium tracking-[.14em] uppercase text-muted mb-1">Furniture</p>
+          <h3 class="font-sans font-medium tracking-tight text-ink text-[1.08rem] leading-snug mb-2.5">Premium Bed Combo</h3>
+          <p class="font-sans font-semibold text-warm text-lg mb-3">&#8377;45,000</p>
+          <div class="card-cta space-y-2">
+            <button data-product-id="bed-combo" onclick="addToCart('bed-combo')" class="btn-primary w-full text-[10px] py-2.5">Add to Cart</button>
+            <a href="https://wa.me/919789182921?text=I'm%20interested%20in%20Premium%20Bed%20Combo%20-%20%E2%82%B945%2C000" target="_blank" rel="noopener noreferrer" class="btn-whatsapp w-full text-[10px] py-2.5">
+              <svg viewBox="0 0 24 24" fill="white" class="w-3.5 h-3.5 shrink-0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Order via WhatsApp
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="text-center mt-14 rv d2">
-      <a href="product-listing.html" class="btn-secondary" style="padding:15px 40px;">View Entire Collection</a>
+
+    <div class="text-center mt-12 rv">
+      <a href="product-listing.html" class="btn-primary">See All Products</a>
     </div>
   </div>
 </section>
 
-<!-- ══ WHY CHOOSE US ═════════════════════════════ -->
-<section class="bg-tint py-16 md:py-24 border-t border-border">
-  <div class="max-w-7xl mx-auto px-5 md:px-10">
-    <div class="text-center mb-14 rv">
-      <p class="text-[11px] font-semibold tracking-[.2em] uppercase text-warm mb-3">Why KGS</p>
-      <h2 class="font-serif font-medium text-ink" style="font-size:clamp(1.8rem,3vw,2.6rem);">The KGS Difference</h2>
-    </div>
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-16 text-center">
-      <div class="flex flex-col items-center rv d1">
-        <div class="w-16 h-16 rounded-full bg-white border border-border flex items-center justify-center mb-6 shadow-sm">
-          <span class="material-symbols-outlined text-[28px] text-warm">diamond</span>
-        </div>
-        <h4 class="font-sans font-bold text-ink uppercase tracking-widest text-[11px] mb-3">Premium Quality</h4>
-        <p class="text-muted text-[13.5px] leading-[1.8] max-w-[200px]">Crafted with the finest materials for lasting elegance.</p>
+<!-- ══ ABOUT ═══════════════════════════════════════════════ -->
+<section id="about" class="bg-tint py-16 md:py-24 border-t border-border">
+  <div class="max-w-7xl mx-auto px-5 md:px-10 grid grid-cols-1 lg:grid-cols-2 gap-14 md:gap-20 items-center">
+    <div class="relative rv order-2 lg:order-1">
+      <div class="aspect-[4/5] overflow-hidden">
+        <img src="assets/images/why_us.jpg" alt="KGS Home D&eacute;cors — curated premium home d&eacute;cor in Virudhachalam" class="w-full h-full object-cover" loading="lazy">
       </div>
-      <div class="flex flex-col items-center rv d2">
-        <div class="w-16 h-16 rounded-full bg-white border border-border flex items-center justify-center mb-6 shadow-sm">
-          <span class="material-symbols-outlined text-[28px] text-warm">auto_awesome</span>
-        </div>
-        <h4 class="font-sans font-bold text-ink uppercase tracking-widest text-[11px] mb-3">Unique Designs</h4>
-        <p class="text-muted text-[13.5px] leading-[1.8] max-w-[200px]">Exclusive, handpicked pieces to elevate any space.</p>
-      </div>
-      <div class="flex flex-col items-center rv d3">
-        <div class="w-16 h-16 rounded-full bg-white border border-border flex items-center justify-center mb-6 shadow-sm">
-          <span class="material-symbols-outlined text-[28px] text-warm">local_shipping</span>
-        </div>
-        <h4 class="font-sans font-bold text-ink uppercase tracking-widest text-[11px] mb-3">Fast Delivery</h4>
-        <p class="text-muted text-[13.5px] leading-[1.8] max-w-[200px]">Free, secure delivery in Virudhachalam &amp; surrounding areas.</p>
-      </div>
-      <div class="flex flex-col items-center rv d4">
-        <div class="w-16 h-16 rounded-full bg-white border border-border flex items-center justify-center mb-6 shadow-sm">
-          <span class="material-symbols-outlined text-[28px] text-warm">support_agent</span>
-        </div>
-        <h4 class="font-sans font-bold text-ink uppercase tracking-widest text-[11px] mb-3">Customer Support</h4>
-        <p class="text-muted text-[13.5px] leading-[1.8] max-w-[200px]">Dedicated assistance via WhatsApp to design your dream home.</p>
+      <div class="absolute -left-4 md:-left-8 bottom-14 bg-surface px-6 py-5 max-w-[185px] z-10" style="box-shadow:0 6px 24px rgba(0,0,0,.1);">
+        <p class="text-gold text-xs mb-1.5">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
+        <p class="font-serif text-[13px] font-medium leading-snug">"Top-quality d&eacute;cor, amazing service"</p>
+        <p class="text-muted text-[11px] mt-1.5">&mdash; Meena R., Customer</p>
+        <a href="https://www.google.com/maps/search/KGS+Home+Decors+Virudhachalam/" target="_blank" rel="noopener noreferrer" class="text-gold text-[11px] font-medium mt-2 block hover:underline">View on Google Reviews &rarr;</a>
       </div>
     </div>
-  </div>
-</section>
-
-<!-- ══ LIFESTYLE ════════════════════════════════════ -->
-<section class="relative h-[70vh] md:h-[80vh] overflow-hidden flex items-center justify-center">
-  <img src="assets/images/showroom.jpg" alt="Designed for modern living" class="absolute inset-0 w-full h-full object-cover">
-  <div class="absolute inset-0 bg-black/40"></div>
-  <div class="relative z-10 text-center px-5 rv">
-    <h2 class="font-serif font-medium text-white text-4xl md:text-6xl lg:text-7xl tracking-wide">Designed for modern living</h2>
-  </div>
-</section>
-
-<!-- ══ CLOSING CTA ══════════════════════════════════ -->
-<section class="bg-ink py-20 md:py-32">
-  <div class="max-w-4xl mx-auto px-5 text-center rv">
-    <h2 class="font-serif font-medium text-white text-3xl md:text-5xl mb-6 leading-tight">Let's Design Your Dream Space</h2>
-    <p class="text-white/60 mb-10 text-[15px] md:text-[17px] max-w-xl mx-auto leading-relaxed">
-      Consult with our experts to find the perfect decor that matches your style and vision. Reach out today.
-    </p>
-    <a href="https://wa.me/919789182921?text=Hi%2C+I+would+like+a+free+home+decor+consultation" target="_blank" rel="noopener noreferrer" class="btn-whatsapp inline-flex mx-auto" style="padding:16px 40px;font-size:12px;">
-      <span class="material-symbols-outlined text-[18px]">chat</span> Get Free Consultation on WhatsApp
-    </a>
+    <div class="order-1 lg:order-2 rv d2">
+      <p class="text-[11px] font-semibold tracking-[.18em] uppercase text-gold mb-6">Our Story</p>
+      <h2 class="font-serif font-medium text-ink leading-[1.08] mb-7" style="font-size:clamp(1.9rem,3.5vw,3rem);">
+        Virudhachalam's Newest Premium Home D&eacute;cor Store
+      </h2>
+      <div class="w-12 h-[2px] bg-gold mb-8"></div>
+      <p class="text-muted leading-[1.85] mb-5" style="font-size:15px;">
+        At KGS, every piece is personally curated &mdash; from hand-picked sofas and antique-finish wall clocks to indoor fountains and botanical wall art. We bring premium home d&eacute;cor to Virudhachalam, so you don't have to travel to a metro to find it.
+      </p>
+      <p class="text-muted leading-[1.85] mb-10" style="font-size:15px;">
+        Cash on Delivery across Tamil Nadu. Free delivery within Virudhachalam. Visit our showroom on Junction Road &mdash; we'd love to help you transform your home.
+      </p>
+      <div class="grid grid-cols-3 gap-6 border-t border-border pt-8">
+        <div>
+          <p class="font-sans font-medium text-ink tracking-tight" style="font-size:1.9rem;">500<span class="text-warm ml-0.5" style="font-size:1.4rem;">+</span></p>
+          <p class="text-[10px] font-semibold text-muted tracking-[.18em] uppercase mt-0.5">Products</p>
+        </div>
+        <div>
+          <p class="font-sans font-medium text-ink tracking-tight" style="font-size:1.9rem;">5.0<span class="text-warm ml-1" style="font-size:1.4rem;">&#9733;</span></p>
+          <p class="text-[10px] font-semibold text-muted tracking-[.18em] uppercase mt-0.5">Google Rating</p>
+        </div>
+        <div>
+          <p class="font-sans font-medium text-ink tracking-tight flex items-center" style="font-size:1.9rem;">10<span class="text-warm mx-1" style="font-size:1.4rem;">&mdash;</span>10</p>
+          <p class="text-[10px] font-semibold text-muted tracking-[.18em] uppercase mt-0.5">Open Every Day</p>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -768,7 +1020,34 @@ img {
   document.getElementById('ann-prev').addEventListener('click',()=>{ clearInterval(autoPlay); showMsg((cur-1+msgs.length)%msgs.length); });
 })();
 
+/* ——— HERO SLIDER JS ——————————————————————— */
+(function(){
+  const slides = document.querySelectorAll('.hero-slide');
+  const dots   = document.querySelectorAll('.hero-dot');
+  let cur = 0, timer;
 
+  function goTo(idx){
+    slides[cur].classList.remove('active');
+    dots[cur].classList.remove('active');
+    cur = (idx + slides.length) % slides.length;
+    slides[cur].classList.add('active');
+    dots[cur].classList.add('active');
+  }
+
+  function autoPlay(){ timer = setInterval(()=>goTo(cur+1), 5000); }
+  autoPlay();
+
+  dots.forEach(d=>d.addEventListener('click',()=>{ clearInterval(timer); goTo(+d.dataset.slide); autoPlay(); }));
+
+  // Touch swipe support
+  let sx = 0;
+  const slider = document.querySelector('.hero-slider');
+  slider.addEventListener('touchstart',e=>{ sx = e.changedTouches[0].screenX; },{passive:true});
+  slider.addEventListener('touchend',e=>{
+    const dx = e.changedTouches[0].screenX - sx;
+    if(Math.abs(dx)>50){ clearInterval(timer); goTo(dx<0?cur+1:cur-1); autoPlay(); }
+  },{passive:true});
+})();
 
 function openDrw(){
   document.getElementById('mobile-drawer').style.transform='translateX(0)';
