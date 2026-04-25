@@ -49,6 +49,12 @@ tailwind.config = {
 }
 </script>
 <style>
+/* ——— EMIL DESIGN ENG VARIABLES ————————————————— */
+:root {
+  --ease-out-punch: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+}
+
 /* ——— LENIS REQUIRED ————————————————————————— */
 html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-smooth { scroll-behavior: auto; }
@@ -66,12 +72,17 @@ body { -webkit-font-smoothing: antialiased; }
   font-family: "DM Sans", sans-serif; font-size: 11px; font-weight: 600;
   letter-spacing: .14em; text-transform: uppercase; text-decoration: none;
   border: 1.5px solid #C97840; cursor: pointer;
-  transition: background .25s, border-color .25s, box-shadow .3s ease, transform .35s cubic-bezier(.25,1,.5,1);
+  transition: transform 160ms var(--ease-out-punch), background 160ms var(--ease-out-punch), border-color 160ms var(--ease-out-punch), box-shadow 200ms ease;
 }
-.btn-primary:hover { 
-  background: #a8612d; border-color: #a8612d; 
-  transform: translateY(-2px) scale(1.01); 
-  box-shadow: 0 8px 24px rgba(201,120,64,0.35);
+@media (hover: hover) and (pointer: fine) {
+  .btn-primary:hover { 
+    background: #a8612d; border-color: #a8612d; 
+    transform: translateY(-2px) scale(1.01); 
+    box-shadow: 0 8px 24px rgba(201,120,64,0.35);
+  }
+}
+.btn-primary:active {
+  transform: scale(0.97);
 }
 
 .btn-secondary {
@@ -80,12 +91,17 @@ body { -webkit-font-smoothing: antialiased; }
   font-family: "DM Sans", sans-serif; font-size: 11px; font-weight: 600;
   letter-spacing: .14em; text-transform: uppercase; text-decoration: none;
   border: 1.5px solid #1A1A1A; cursor: pointer;
-  transition: background .25s, color .25s, box-shadow .3s ease, transform .35s cubic-bezier(.25,1,.5,1);
+  transition: transform 160ms var(--ease-out-punch), background 160ms var(--ease-out-punch), color 160ms var(--ease-out-punch), box-shadow 200ms ease;
 }
-.btn-secondary:hover { 
-  background: #1A1A1A; color: #FAF8F4; 
-  transform: translateY(-2px); 
-  box-shadow: 0 8px 24px rgba(26,26,26,0.2); 
+@media (hover: hover) and (pointer: fine) {
+  .btn-secondary:hover { 
+    background: #1A1A1A; color: #FAF8F4; 
+    transform: translateY(-2px); 
+    box-shadow: 0 8px 24px rgba(26,26,26,0.2); 
+  }
+}
+.btn-secondary:active {
+  transform: scale(0.97);
 }
 
 .btn-whatsapp {
@@ -94,12 +110,17 @@ body { -webkit-font-smoothing: antialiased; }
   font-family: "DM Sans", sans-serif; font-size: 11px; font-weight: 600;
   letter-spacing: .14em; text-transform: uppercase; text-decoration: none;
   border: 1.5px solid #25D366; cursor: pointer;
-  transition: background .25s, box-shadow .3s ease, transform .35s cubic-bezier(.25,1,.5,1);
+  transition: transform 160ms var(--ease-out-punch), background 160ms var(--ease-out-punch), box-shadow 200ms ease;
 }
-.btn-whatsapp:hover { 
-  background: #1db954; 
-  transform: translateY(-2px); 
-  box-shadow: 0 8px 20px rgba(37,211,102,0.3); 
+@media (hover: hover) and (pointer: fine) {
+  .btn-whatsapp:hover { 
+    background: #1db954; 
+    transform: translateY(-2px); 
+    box-shadow: 0 8px 20px rgba(37,211,102,0.3); 
+  }
+}
+.btn-whatsapp:active {
+  transform: scale(0.97);
 }
 
 /* ——— NAV LINK ———————————————————————————————— */
@@ -107,37 +128,43 @@ body { -webkit-font-smoothing: antialiased; }
   position: relative; color: #767270;
   font-size: 11px; font-weight: 500; letter-spacing: .12em;
   text-transform: uppercase; text-decoration: none;
-  transition: color .2s;
+  transition: color 160ms var(--ease-out-punch);
 }
 .nav-link::after {
   content: ''; position: absolute; left: 0; bottom: -3px;
   width: 0; height: 1px; background: #C5A880;
-  transition: width .3s ease;
+  transition: width 200ms var(--ease-out-punch);
 }
-.nav-link:hover { color: #1A1A1A; }
-.nav-link:hover::after { width: 100%; }
+@media (hover: hover) and (pointer: fine) {
+  .nav-link:hover { color: #1A1A1A; }
+  .nav-link:hover::after { width: 100%; }
+}
 
 .trust-sep { width: 1px; height: 36px; background: #E4DDD4; flex-shrink: 0; align-self: center; }
 
 /* ——— COLLECTION TILE ———————————————————————— */
 .col-tile { position: relative; overflow: hidden; display: block; }
-.col-tile img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.4s ease; }
-.col-tile:hover img { transform: scale(1.05); }
+.col-tile img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s cubic-bezier(0.33, 1, 0.68, 1); }
+@media (hover: hover) and (pointer: fine) {
+  .col-tile:hover img { transform: scale(1.05); }
+}
 
 /* ——— PRODUCT CARD ——————————————————————————— */
-.prod-card { background: #fff; border: 1px solid #E4DDD4; transition: box-shadow .4s ease, transform .4s ease; }
-.prod-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,.08); transform: translateY(-2px); }
+.prod-card { background: #fff; border: 1px solid #E4DDD4; transition: box-shadow 250ms ease, transform 200ms var(--ease-out-punch); }
+@media (hover: hover) and (pointer: fine) {
+  .prod-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,.08); transform: translateY(-2px); }
+  .prod-card:hover .prod-img img { transform: scale(1.03); }
+  .prod-card:hover .card-cta { max-height: 100px; }
+}
 .prod-card .prod-img { overflow: hidden; }
-.prod-card .prod-img img { transition: transform 1.6s ease; display: block; width: 100%; }
-.prod-card:hover .prod-img img { transform: scale(1.03); }
+.prod-card .prod-img img { transition: transform 1.2s cubic-bezier(0.33, 1, 0.68, 1); display: block; width: 100%; }
 .prod-card .card-cta {
   max-height: 0; overflow: hidden;
-  transition: max-height .42s ease;
+  transition: max-height 250ms var(--ease-out-punch);
 }
-.prod-card:hover .card-cta { max-height: 100px; }
 
 /* ——— DRAWER ————————————————————————————————— */
-#mobile-drawer { transition: transform .42s cubic-bezier(.77,0,.18,1); }
+#mobile-drawer { transition: transform 400ms var(--ease-drawer); }
 
 /* ——— MARQUEE ———————————————————————————————— */
 @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
@@ -145,17 +172,22 @@ body { -webkit-font-smoothing: antialiased; }
 .ticker-inner:hover { animation-play-state: paused; }
 
 /* ——— REVEAL ————————————————————————————————— */
-.rv { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
-.rv.on { opacity: 1; transform: none; }
-.d1 { transition-delay: .1s; } .d2 { transition-delay: .2s; }
-.d3 { transition-delay: .3s; } .d4 { transition-delay: .4s; }
+.rv { opacity: 0; transform: translateY(18px) scale(0.96); transition: opacity 500ms var(--ease-out-punch), transform 500ms var(--ease-out-punch); }
+.rv.on { opacity: 1; transform: translateY(0) scale(1); }
+.d1 { transition-delay: 50ms; } .d2 { transition-delay: 100ms; }
+.d3 { transition-delay: 150ms; } .d4 { transition-delay: 200ms; }
 
 /* ——— SEARCH OVERLAY —————————————————————————— */
 #search-overlay { position:fixed; inset:0; z-index:90; background:rgba(20,18,16,.92); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); display:none; flex-direction:column; align-items:center; padding-top:100px; padding-left:20px; padding-right:20px; }
 #search-input:focus { outline:none; }
-.search-result-item:hover { background:rgba(255,255,255,.05); }
-.heart-btn{position:absolute;top:10px;right:10px;z-index:10;background:#fff;border:none;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,0.06);transition:transform .2s;}
-.heart-btn:hover{transform:scale(1.1);}
+@media (hover: hover) and (pointer: fine) {
+  .search-result-item:hover { background:rgba(255,255,255,.05); }
+}
+.heart-btn{position:absolute;top:10px;right:10px;z-index:10;background:#fff;border:none;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,0.06);transition:transform 160ms var(--ease-out-punch);}
+@media (hover: hover) and (pointer: fine) {
+  .heart-btn:hover{transform:scale(1.1);}
+}
+.heart-btn:active{transform:scale(0.9);}
 .heart-btn.active .material-symbols-outlined{font-variation-settings:'FILL' 1;color:#C97840;}
 
 /* ——— ANNOUNCEMENT ROTATOR ——————————————————— */
@@ -177,8 +209,11 @@ body { -webkit-font-smoothing: antialiased; }
 .cat-strip { display:flex; gap:0; overflow-x:auto; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; scrollbar-width:none; padding:20px 16px; }
 .cat-strip::-webkit-scrollbar { display:none; }
 .cat-pill { flex:0 0 auto; scroll-snap-align:start; display:flex; flex-direction:column; align-items:center; gap:9px; padding:0 12px; text-decoration:none; }
-.cat-circle { width:72px; height:72px; border-radius:50%; overflow:hidden; border:2px solid transparent; transition:border-color .25s, transform .25s; box-shadow:0 2px 10px rgba(0,0,0,.1); }
-.cat-pill:hover .cat-circle { border-color:#C97840; transform:scale(1.06); }
+.cat-circle { width:72px; height:72px; border-radius:50%; overflow:hidden; border:2px solid transparent; transition:border-color 160ms var(--ease-out-punch), transform 160ms var(--ease-out-punch); box-shadow:0 2px 10px rgba(0,0,0,.1); }
+@media (hover: hover) and (pointer: fine) {
+  .cat-pill:hover .cat-circle { border-color:#C97840; transform:scale(1.06); }
+}
+.cat-pill:active .cat-circle { transform:scale(0.95); }
 .cat-circle img { width:100%; height:100%; object-fit:cover; }
 .cat-label { font-size:11px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:#767270; white-space:nowrap; }
 
@@ -210,7 +245,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid #C5A880; outline-offs
   display: flex; align-items: center; gap: 10px;
   box-shadow: 0 8px 32px rgba(0,0,0,.25);
   opacity: 0; pointer-events: none;
-  transition: opacity .35s ease, transform .35s ease;
+  transition: opacity 300ms var(--ease-out-punch), transform 300ms var(--ease-out-punch);
 }
 #cart-toast.show {
   opacity: 1; pointer-events: auto;
@@ -228,13 +263,15 @@ a:focus-visible, button:focus-visible { outline: 2px solid #C5A880; outline-offs
 .new-card {
   flex: 0 0 260px; scroll-snap-align: start;
   background: #fff; border: 1px solid #E4DDD4;
-  transition: box-shadow .4s ease, transform .4s ease;
+  transition: box-shadow 250ms ease, transform 200ms var(--ease-out-punch);
 }
 @media(min-width:768px) { .new-card { flex: 0 0 280px; } }
-.new-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,.08); transform: translateY(-2px); }
+@media (hover: hover) and (pointer: fine) {
+  .new-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,.08); transform: translateY(-2px); }
+  .new-card:hover .new-img img { transform: scale(1.03); }
+}
 .new-card .new-img { overflow: hidden; }
-.new-card .new-img img { transition: transform 1.6s ease; display: block; width: 100%; }
-.new-card:hover .new-img img { transform: scale(1.03); }
+.new-card .new-img img { transition: transform 1.2s cubic-bezier(0.33, 1, 0.68, 1); display: block; width: 100%; }
 .new-badge {
   position: absolute; top: 10px; left: 10px; z-index: 5;
   background: linear-gradient(135deg, #C97840, #E8A860); color: #fff;
@@ -471,37 +508,25 @@ img {
 <div class="bg-base border-b border-border">
   <div class="max-w-7xl mx-auto">
     <div class="cat-strip justify-center">
-      <a href="product-listing.html?cat=sofas" class="cat-pill">
-        <div class="cat-circle"><img src="assets/images/sofa.jpg" alt="Sofas"></div>
-        <span class="cat-label">Sofas</span>
+      <a href="product-listing.html?cat=furniture" class="cat-pill">
+        <div class="cat-circle"><img src="assets/images/sofa.jpg" alt="Furniture"></div>
+        <span class="cat-label">Furniture</span>
       </a>
-      <a href="product-listing.html?cat=wall-clocks" class="cat-pill">
-        <div class="cat-circle"><img src="assets/images/clock.jpg" alt="Clocks"></div>
-        <span class="cat-label">Clocks</span>
+      <a href="product-listing.html?cat=decor" class="cat-pill">
+        <div class="cat-circle"><img src="assets/images/statue.png" alt="Décor"></div>
+        <span class="cat-label">Décor</span>
       </a>
-      <a href="product-listing.html?cat=ceiling-lights" class="cat-pill">
+      <a href="product-listing.html?cat=lighting" class="cat-pill">
         <div class="cat-circle"><img src="assets/images/lighting.jpg" alt="Lighting"></div>
         <span class="cat-label">Lighting</span>
       </a>
-      <a href="product-listing.html?cat=water-fountain" class="cat-pill">
-        <div class="cat-circle"><img src="assets/images/fountain.jpg" alt="Fountains"></div>
-        <span class="cat-label">Fountains</span>
+      <a href="product-listing.html?cat=botanicals" class="cat-pill">
+        <div class="cat-circle"><img src="assets/images/plant.png" alt="Botanicals"></div>
+        <span class="cat-label">Botanicals</span>
       </a>
-      <a href="product-listing.html?cat=statue" class="cat-pill">
-        <div class="cat-circle"><img src="assets/images/statue.png" alt="Statues"></div>
-        <span class="cat-label">Statues</span>
-      </a>
-      <a href="product-listing.html?cat=photo-frames" class="cat-pill">
-        <div class="cat-circle"><img src="assets/images/frames.jpg" alt="Frames"></div>
-        <span class="cat-label">Frames</span>
-      </a>
-      <a href="product-listing.html?cat=artificial-plants" class="cat-pill">
-        <div class="cat-circle"><img src="assets/images/plant.png" alt="Plants"></div>
-        <span class="cat-label">Plants</span>
-      </a>
-      <a href="product-listing.html?cat=gifts" class="cat-pill">
-        <div class="cat-circle"><img src="assets/images/candle_set.png" alt="Gifts"></div>
-        <span class="cat-label">Gifts</span>
+      <a href="product-listing.html?cat=gifting" class="cat-pill">
+        <div class="cat-circle"><img src="assets/images/candle_set.png" alt="Gifting"></div>
+        <span class="cat-label">Gifting</span>
       </a>
     </div>
   </div>
