@@ -2,10 +2,13 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+<link rel="icon" type="image/png" href="assets/images/favicon.png">
 <meta name="theme-color" content="#1A1A1A">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cart & Checkout — KGS Home Décors | Virudhachalam</title>
 <meta name="description" content="Review your cart and checkout at KGS Home Décors. Cash on Delivery available across Tamil Nadu. Fast delivery in Virudhachalam.">
+<link rel="canonical" href="https://kgshomedecors.in/cart-checkout.html">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -159,6 +162,7 @@ img {
       <!-- Delivery Details Form -->
       <div>
         <h2 class="font-serif font-medium text-ink text-xl mb-6 pb-4 border-b border-border">Delivery Details</h2>
+        <div id="cart-error-msg" style="display:none;background:#fef2f2;border:1px solid #fecaca;color:#b91c1c;padding:12px 16px;font-size:13px;font-family:'DM Sans',sans-serif;margin-bottom:16px;"></div>
         <form class="space-y-5" onsubmit="placeOrder(event)">
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
@@ -508,7 +512,11 @@ function quickAdd(productId, btn) {
 function placeOrder(e) {
   e.preventDefault();
   const cart = getCart();
-  if (cart.length === 0) return alert('Your cart is empty!');
+  if (cart.length === 0) {
+    const errEl = document.getElementById('cart-error-msg');
+    if (errEl) { errEl.textContent = 'Your cart is empty. Add items before placing an order.'; errEl.style.display = 'block'; }
+    return;
+  }
 
   const name  = document.getElementById('fname').value + ' ' + document.getElementById('lname').value;
   const phone = document.getElementById('phone').value;
@@ -549,6 +557,9 @@ document.addEventListener('DOMContentLoaded', () => {
   renderCheckout();
 });
 </script>
+
+<script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
+<script>const lenis=new Lenis();function raf(time){lenis.raf(time);requestAnimationFrame(raf);}requestAnimationFrame(raf);</script>
 
 </body>
 </html>
