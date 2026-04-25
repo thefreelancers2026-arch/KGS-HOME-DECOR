@@ -551,6 +551,8 @@ Payment: ${payTxt}
 Please confirm my order. Thank you!`;
 
   window.open('https://wa.me/919789182921?text=' + encodeURIComponent(finalMsg), '_blank');
+  // Redirect to confirmation page after a brief delay
+  setTimeout(() => { window.location.href = 'order-confirmation.html'; }, 800);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
