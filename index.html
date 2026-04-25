@@ -194,6 +194,36 @@ body { -webkit-font-smoothing: antialiased; }
 .heart-btn:active{transform:scale(0.9);}
 .heart-btn.active .material-symbols-outlined{font-variation-settings:'FILL' 1;color:#C97840;}
 
+/* ——— CARD QUICK-ADD OVERLAY ————————————————— */
+.card-overlay {
+  position:absolute; bottom:0; left:0; right:0;
+  background:rgba(26,26,26,.88);
+  padding:14px 16px;
+  transform:translateY(100%);
+  transition:transform 280ms var(--ease-out-punch);
+  display:flex; align-items:center; justify-content:space-between; gap:10px;
+  z-index:5;
+}
+@media (hover: hover) and (pointer: fine) {
+  .new-card:hover .card-overlay,
+  .bs-card:hover .card-overlay { transform:translateY(0); }
+}
+.card-overlay .qa-btn {
+  flex:1; display:inline-flex; align-items:center; justify-content:center; gap:6px;
+  background:#C97840; color:#fff; border:none; cursor:pointer;
+  font-family:"DM Sans",sans-serif; font-size:10px; font-weight:600;
+  letter-spacing:.14em; text-transform:uppercase; padding:10px 16px;
+  transition:background 160ms var(--ease-out-punch);
+}
+.card-overlay .qa-btn:hover { background:#a8612d; }
+.card-overlay .wa-btn {
+  display:inline-flex; align-items:center; justify-content:center;
+  background:#25D366; color:#fff; border:none; cursor:pointer;
+  width:38px; height:38px; flex-shrink:0;
+  transition:background 160ms var(--ease-out-punch);
+}
+.card-overlay .wa-btn:hover { background:#1db954; }
+
 /* ——— ANNOUNCEMENT ROTATOR ——————————————————— */
 #ann-bar { background:#1A1A1A; color:rgba(255,255,255,.65); font-size:11px; font-weight:500; letter-spacing:.16em; text-transform:uppercase; text-align:center; padding:10px 48px; position:relative; overflow:hidden; min-height:38px; display:flex; align-items:center; justify-content:center; }
 .ann-msg { position:absolute; opacity:0; transition:opacity .5s ease,transform .5s ease; transform:translateY(8px); white-space:nowrap; }
@@ -563,8 +593,9 @@ img {
   <div class="max-w-7xl mx-auto px-5 md:px-10">
     <div class="flex items-end justify-between mb-14 rv">
       <div>
-        <p class="text-[10px] font-semibold tracking-[.28em] uppercase mb-4" style="color:rgba(197,168,128,.65);">Just In This Week</p>
+        <p class="text-[10px] font-semibold tracking-[.28em] uppercase mb-4" style="color:rgba(197,168,128,.65);">Just Landed</p>
         <h2 class="font-serif font-medium text-ink" style="font-size:clamp(2rem,3.5vw,3.2rem);letter-spacing:-.01em;line-height:1.1;">New Arrivals</h2>
+        <p class="text-muted mt-3" style="font-size:.9rem;line-height:1.7;max-width:360px;">Fresh pieces from our Virudhachalam showroom — new additions every week. Don't miss what's in.</p>
       </div>
       <a href="product-listing.html" class="text-[10px] font-medium tracking-[.18em] uppercase text-muted hover:text-ink transition-colors duration-300 hidden md:block pb-0.5 border-b border-current">View All &rarr;</a>
     </div>
@@ -574,84 +605,81 @@ img {
         <div class="new-img aspect-[3/4] relative overflow-hidden bg-base">
           <button data-product-id="vase-ceramic" onclick="toggleWishlist('vase-ceramic')" class="heart-btn opacity-0 group-hover:opacity-100 transition-opacity duration-200" title="Save"><span class="material-symbols-outlined text-[15px]">favorite</span></button>
           <img src="assets/images/ceramic_vase.png" alt="Designer Ceramic Vase" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]">
+          <div class="card-overlay">
+            <button data-product-id="vase-ceramic" onclick="addToCart('vase-ceramic')" class="qa-btn"><span class="material-symbols-outlined text-[14px]">shopping_bag</span> Add to Cart</button>
+            <a href="https://wa.me/919789182921?text=I'm interested in Designer Ceramic Vase - ₹1,950" target="_blank" class="wa-btn"><svg viewBox="0 0 24 24" fill="white" width="16" height="16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+          </div>
         </div>
         <div class="pt-4 pb-2 px-1">
           <p class="text-[9.5px] font-medium tracking-[.2em] uppercase text-muted mb-2">Vases</p>
-          <h3 class="font-serif font-medium text-ink leading-snug mb-2" style="font-size:1.1rem;">Designer Ceramic Vase</h3>
-          <div class="flex items-center justify-between">
-            <p class="font-sans font-semibold text-warm" style="font-size:1rem;">&#8377;1,950</p>
-            <button data-product-id="vase-ceramic" onclick="addToCart('vase-ceramic')" class="text-[9px] font-semibold tracking-[.15em] uppercase text-muted hover:text-ink border-b border-current pb-px transition-colors">Add to Cart</button>
-          </div>
+          <h3 class="font-serif font-medium text-ink leading-snug mb-1" style="font-size:1.1rem;">Designer Ceramic Vase</h3>
+          <p class="font-sans font-semibold text-warm" style="font-size:1rem;">&#8377;1,950</p>
         </div>
       </div>
       <div class="new-card relative group">
         <div class="new-img aspect-[3/4] relative overflow-hidden bg-base">
           <button data-product-id="chair-velvet" onclick="toggleWishlist('chair-velvet')" class="heart-btn opacity-0 group-hover:opacity-100 transition-opacity duration-200" title="Save"><span class="material-symbols-outlined text-[15px]">favorite</span></button>
           <img src="assets/images/chairs_1777050959611.png" alt="Velvet Accent Chair" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]">
+          <div class="card-overlay">
+            <button data-product-id="chair-velvet" onclick="addToCart('chair-velvet')" class="qa-btn"><span class="material-symbols-outlined text-[14px]">shopping_bag</span> Add to Cart</button>
+            <a href="https://wa.me/919789182921?text=I'm interested in Velvet Accent Chair - ₹4,200" target="_blank" class="wa-btn"><svg viewBox="0 0 24 24" fill="white" width="16" height="16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+          </div>
         </div>
         <div class="pt-4 pb-2 px-1">
           <p class="text-[9.5px] font-medium tracking-[.2em] uppercase text-muted mb-2">Chairs</p>
-          <h3 class="font-serif font-medium text-ink leading-snug mb-2" style="font-size:1.1rem;">Velvet Accent Chair</h3>
-          <div class="flex items-center justify-between">
-            <p class="font-sans font-semibold text-warm" style="font-size:1rem;">&#8377;4,200</p>
-            <button data-product-id="chair-velvet" onclick="addToCart('chair-velvet')" class="text-[9px] font-semibold tracking-[.15em] uppercase text-muted hover:text-ink border-b border-current pb-px transition-colors">Add to Cart</button>
-          </div>
+          <h3 class="font-serif font-medium text-ink leading-snug mb-1" style="font-size:1.1rem;">Velvet Accent Chair</h3>
+          <p class="font-sans font-semibold text-warm" style="font-size:1rem;">&#8377;4,200</p>
         </div>
       </div>
       <div class="new-card relative group">
         <div class="new-img aspect-[3/4] relative overflow-hidden bg-base">
           <button data-product-id="table-marble" onclick="toggleWishlist('table-marble')" class="heart-btn opacity-0 group-hover:opacity-100 transition-opacity duration-200" title="Save"><span class="material-symbols-outlined text-[15px]">favorite</span></button>
           <img src="assets/images/table_1777050909756.png" alt="Marble Coffee Table" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]">
+          <div class="card-overlay">
+            <button data-product-id="table-marble" onclick="addToCart('table-marble')" class="qa-btn"><span class="material-symbols-outlined text-[14px]">shopping_bag</span> Add to Cart</button>
+            <a href="https://wa.me/919789182921?text=I'm interested in Marble Coffee Table - ₹12,500" target="_blank" class="wa-btn"><svg viewBox="0 0 24 24" fill="white" width="16" height="16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+          </div>
         </div>
         <div class="pt-4 pb-2 px-1">
           <p class="text-[9.5px] font-medium tracking-[.2em] uppercase text-muted mb-2">Tables</p>
-          <h3 class="font-serif font-medium text-ink leading-snug mb-2" style="font-size:1.1rem;">Marble Coffee Table</h3>
-          <div class="flex items-center justify-between">
-            <p class="font-sans font-semibold text-warm" style="font-size:1rem;">&#8377;12,500</p>
-            <button data-product-id="table-marble" onclick="addToCart('table-marble')" class="text-[9px] font-semibold tracking-[.15em] uppercase text-muted hover:text-ink border-b border-current pb-px transition-colors">Add to Cart</button>
-          </div>
+          <h3 class="font-serif font-medium text-ink leading-snug mb-1" style="font-size:1.1rem;">Marble Coffee Table</h3>
+          <p class="font-sans font-semibold text-warm" style="font-size:1rem;">&#8377;12,500</p>
         </div>
       </div>
       <div class="new-card relative group">
         <div class="new-img aspect-[3/4] relative overflow-hidden bg-base">
           <button data-product-id="statue-marble" onclick="toggleWishlist('statue-marble')" class="heart-btn opacity-0 group-hover:opacity-100 transition-opacity duration-200" title="Save"><span class="material-symbols-outlined text-[15px]">favorite</span></button>
           <img src="assets/images/statue_1777050875433.png" alt="Abstract Marble Statue" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]">
+          <div class="card-overlay"><button onclick="addToCart('statue-marble')" class="qa-btn">Add to Cart</button></div>
         </div>
         <div class="pt-4 pb-2 px-1">
           <p class="text-[9.5px] font-medium tracking-[.2em] uppercase text-muted mb-2">Statues</p>
-          <h3 class="font-serif font-medium text-ink leading-snug mb-2" style="font-size:1.1rem;">Abstract Marble Statue</h3>
-          <div class="flex items-center justify-between">
-            <p class="font-sans font-semibold text-warm" style="font-size:1rem;">&#8377;8,900</p>
-            <button data-product-id="statue-marble" onclick="addToCart('statue-marble')" class="text-[9px] font-semibold tracking-[.15em] uppercase text-muted hover:text-ink border-b border-current pb-px transition-colors">Add to Cart</button>
-          </div>
+          <h3 class="font-serif font-medium text-ink leading-snug mb-1" style="font-size:1.1rem;">Abstract Marble Statue</h3>
+          <p class="font-sans font-semibold text-warm" style="font-size:1rem;">&#8377;8,900</p>
         </div>
       </div>
       <div class="new-card relative group">
         <div class="new-img aspect-[3/4] relative overflow-hidden bg-base">
           <button data-product-id="mirror-led" onclick="toggleWishlist('mirror-led')" class="heart-btn opacity-0 group-hover:opacity-100 transition-opacity duration-200" title="Save"><span class="material-symbols-outlined text-[15px]">favorite</span></button>
           <img src="assets/images/led_mirror_1777050891618.png" alt="Circular LED Wall Mirror" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]">
+          <div class="card-overlay"><button onclick="addToCart('mirror-led')" class="qa-btn">Add to Cart</button></div>
         </div>
         <div class="pt-4 pb-2 px-1">
           <p class="text-[9.5px] font-medium tracking-[.2em] uppercase text-muted mb-2">Mirrors</p>
-          <h3 class="font-serif font-medium text-ink leading-snug mb-2" style="font-size:1.1rem;">Circular LED Wall Mirror</h3>
-          <div class="flex items-center justify-between">
-            <p class="font-sans font-semibold text-warm" style="font-size:1rem;">&#8377;6,500</p>
-            <button data-product-id="mirror-led" onclick="addToCart('mirror-led')" class="text-[9px] font-semibold tracking-[.15em] uppercase text-muted hover:text-ink border-b border-current pb-px transition-colors">Add to Cart</button>
-          </div>
+          <h3 class="font-serif font-medium text-ink leading-snug mb-1" style="font-size:1.1rem;">Circular LED Wall Mirror</h3>
+          <p class="font-sans font-semibold text-warm" style="font-size:1rem;">&#8377;6,500</p>
         </div>
       </div>
       <div class="new-card relative group">
         <div class="new-img aspect-[3/4] relative overflow-hidden bg-base">
           <button data-product-id="candle-gift" onclick="toggleWishlist('candle-gift')" class="heart-btn opacity-0 group-hover:opacity-100 transition-opacity duration-200" title="Save"><span class="material-symbols-outlined text-[15px]">favorite</span></button>
           <img src="assets/images/candle_set.png" alt="Aromatic Candle Gift Set" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]">
+          <div class="card-overlay"><button onclick="addToCart('candle-gift')" class="qa-btn">Add to Cart</button></div>
         </div>
         <div class="pt-4 pb-2 px-1">
           <p class="text-[9.5px] font-medium tracking-[.2em] uppercase text-muted mb-2">Gift Items</p>
-          <h3 class="font-serif font-medium text-ink leading-snug mb-2" style="font-size:1.1rem;">Aromatic Candle Gift Set</h3>
-          <div class="flex items-center justify-between">
-            <p class="font-sans font-semibold text-warm" style="font-size:1rem;">&#8377;899</p>
-            <button data-product-id="candle-gift" onclick="addToCart('candle-gift')" class="text-[9px] font-semibold tracking-[.15em] uppercase text-muted hover:text-ink border-b border-current pb-px transition-colors">Add to Cart</button>
-          </div>
+          <h3 class="font-serif font-medium text-ink leading-snug mb-1" style="font-size:1.1rem;">Aromatic Candle Gift Set</h3>
+          <p class="font-sans font-semibold text-warm" style="font-size:1rem;">&#8377;899</p>
         </div>
       </div>
     </div>
@@ -668,6 +696,7 @@ img {
       <div>
         <p class="text-[10px] font-semibold tracking-[.28em] uppercase mb-4" style="color:rgba(197,168,128,.65);">Handpicked for You</p>
         <h2 class="font-serif font-medium text-ink" style="font-size:clamp(2rem,3.5vw,3.2rem);letter-spacing:-.01em;line-height:1.1;">Best Sellers</h2>
+        <p class="text-muted mt-3" style="font-size:.9rem;line-height:1.7;max-width:360px;">The pieces Virudhachalam keeps coming back for. Loved by 200+ families.</p>
       </div>
       <a href="product-listing.html" class="text-[10px] font-medium tracking-[.18em] uppercase text-muted hover:text-ink transition-colors duration-300 hidden md:block pb-0.5 border-b border-current">View All &rarr;</a>
     </div>
@@ -677,6 +706,7 @@ img {
         <div class="aspect-[3/4] overflow-hidden bg-base mb-4">
           <button data-product-id="sofa-3seater" onclick="toggleWishlist('sofa-3seater')" class="heart-btn opacity-0 group-hover:opacity-100 transition-opacity duration-200" title="Save"><span class="material-symbols-outlined text-[15px]">favorite</span></button>
           <img src="assets/images/sofa.jpg" alt="Premium 3-Seater Sofa" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]">
+          <div class="card-overlay"><button onclick="addToCart('sofa-3seater')" class="qa-btn">Add to Cart</button></div>
         </div>
         <p class="text-[9.5px] font-medium tracking-[.2em] uppercase text-muted mb-2">Sofas</p>
         <h3 class="font-serif font-medium text-ink leading-snug mb-2" style="font-size:1.1rem;">Premium 3-Seater Sofa</h3>
@@ -690,6 +720,7 @@ img {
         <div class="aspect-[3/4] overflow-hidden bg-base mb-4">
           <button data-product-id="clock-brass" onclick="toggleWishlist('clock-brass')" class="heart-btn opacity-0 group-hover:opacity-100 transition-opacity duration-200" title="Save"><span class="material-symbols-outlined text-[15px]">favorite</span></button>
           <img src="assets/images/clock.jpg" alt="Antique Brass Wall Clock" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]">
+          <div class="card-overlay"><button onclick="addToCart('clock-brass')" class="qa-btn">Add to Cart</button></div>
         </div>
         <p class="text-[9.5px] font-medium tracking-[.2em] uppercase text-muted mb-2">Wall Clocks</p>
         <h3 class="font-serif font-medium text-ink leading-snug mb-2" style="font-size:1.1rem;">Antique Brass Wall Clock</h3>
@@ -703,6 +734,7 @@ img {
         <div class="aspect-[3/4] overflow-hidden bg-base mb-4">
           <button data-product-id="fountain-tabletop" onclick="toggleWishlist('fountain-tabletop')" class="heart-btn opacity-0 group-hover:opacity-100 transition-opacity duration-200" title="Save"><span class="material-symbols-outlined text-[15px]">favorite</span></button>
           <img src="assets/images/fountain.jpg" alt="Indoor Tabletop Fountain" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]">
+          <div class="card-overlay"><button onclick="addToCart('fountain-tabletop')" class="qa-btn">Add to Cart</button></div>
         </div>
         <p class="text-[9.5px] font-medium tracking-[.2em] uppercase text-muted mb-2">Fountains</p>
         <h3 class="font-serif font-medium text-ink leading-snug mb-2" style="font-size:1.1rem;">Indoor Tabletop Fountain</h3>
@@ -716,6 +748,7 @@ img {
         <div class="aspect-[3/4] overflow-hidden bg-base mb-4">
           <button data-product-id="bed-combo" onclick="toggleWishlist('bed-combo')" class="heart-btn opacity-0 group-hover:opacity-100 transition-opacity duration-200" title="Save"><span class="material-symbols-outlined text-[15px]">favorite</span></button>
           <img src="assets/images/bed_combo_1777050994611.png" alt="Premium Bed Combo" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]">
+          <div class="card-overlay"><button onclick="addToCart('bed-combo')" class="qa-btn">Add to Cart</button></div>
         </div>
         <p class="text-[9.5px] font-medium tracking-[.2em] uppercase text-muted mb-2">Furniture</p>
         <h3 class="font-serif font-medium text-ink leading-snug mb-2" style="font-size:1.1rem;">Premium Bed Combo</h3>
@@ -728,119 +761,6 @@ img {
 
     <div class="text-center mt-14 rv">
       <a href="product-listing.html" class="btn-secondary">See All Products</a>
-    </div>
-  </div>
-</section>
-
-<!-- ══ FEATURED PRODUCTS (Best Sellers) ══════════════════════ -->
-<section class="bg-surface py-20 md:py-28 border-t border-border">
-  <div class="max-w-7xl mx-auto px-5 md:px-10">
-    <div class="flex items-end justify-between mb-12 rv">
-      <div>
-        <p class="text-[10px] font-semibold tracking-[.28em] uppercase text-gold/80 mb-4">Handpicked for You</p>
-        <h2 class="font-serif font-medium text-ink" style="font-size:clamp(2rem,3.5vw,3.2rem);letter-spacing:-.01em;line-height:1.1;">Best Sellers</h2>
-      </div>
-      <a href="product-listing.html" class="text-[10px] font-medium tracking-[.14em] uppercase text-muted hover:text-ink border-b border-current pb-0.5 transition-colors duration-300 hidden md:block">View All &rarr;</a>
-    </div>
-
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5">
-      <!-- Card 1 — FEATURED (2-col wide on desktop) -->
-      <div class="prod-card rv col-span-2 md:col-span-2 relative hover-trigger">
-        <div class="flex flex-col md:flex-row">
-          <div class="prod-img md:w-[55%] overflow-hidden relative" style="aspect-ratio:4/3;">
-            <button data-product-id="sofa-3seater" onclick="toggleWishlist('sofa-3seater')" class="heart-btn" title="Save to wishlist">
-              <span class="material-symbols-outlined text-[16px]">favorite</span>
-            </button>
-            <img src="assets/images/sofa.jpg" alt="Premium 3-Seater Sofa — best-selling furniture at KGS Virudhachalam" class="w-full h-full object-cover">
-          </div>
-          <div class="p-5 md:p-6 flex flex-col justify-center md:w-[45%]">
-            <span class="inline-block bg-warm text-white text-[9px] font-semibold tracking-wide uppercase px-2.5 py-1 mb-4 w-fit">Best Seller</span>
-            <p class="text-[11px] font-medium tracking-[.14em] uppercase text-muted mb-1.5">Sofas &amp; Furniture</p>
-            <h3 class="font-sans font-medium tracking-tight text-ink leading-snug mb-2" style="font-size:1.35rem;">Premium 3-Seater Sofa</h3>
-            <p class="text-muted text-[13px] mb-4" style="line-height:1.7;">Solid teak frame, linen-blend upholstery. Delivered fully assembled. Perfect for Indian living rooms.</p>
-            <p class="font-sans font-semibold text-warm text-xl mb-4">&#8377;18,500</p>
-            <div class="space-y-2">
-              <button data-product-id="sofa-3seater" onclick="addToCart('sofa-3seater')" class="btn-primary w-full text-[10px] py-2.5">Add to Cart</button>
-              <a href="https://wa.me/919789182921?text=I'm%20interested%20in%20Premium%203-Seater%20Sofa%20-%20%E2%82%B918%2C500" target="_blank" rel="noopener noreferrer" class="btn-whatsapp w-full text-[10px] py-2.5">
-                <svg viewBox="0 0 24 24" fill="white" class="w-3.5 h-3.5 shrink-0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-                Order via WhatsApp
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Card 2 -->
-      <div class="prod-card rv d1 relative hover-trigger">
-        <div class="prod-img aspect-[4/5] relative">
-          <button data-product-id="clock-brass" onclick="toggleWishlist('clock-brass')" class="heart-btn" title="Save to wishlist">
-            <span class="material-symbols-outlined text-[16px]">favorite</span>
-          </button>
-          <img src="assets/images/clock.jpg" alt="Antique Brass Wall Clock" class="w-full h-full object-cover">
-          <span class="absolute top-2.5 left-2.5 bg-gold text-white text-[9px] font-semibold tracking-wider uppercase px-2 py-1">New Arrival</span>
-        </div>
-        <div class="p-4">
-          <p class="text-[11px] font-medium tracking-[.14em] uppercase text-muted mb-1">Wall Clocks</p>
-          <h3 class="font-sans font-medium tracking-tight text-ink text-[1.08rem] leading-snug mb-2.5">Antique Brass Wall Clock</h3>
-          <p class="font-sans font-semibold text-warm text-lg mb-3">&#8377;1,299</p>
-          <div class="card-cta space-y-2">
-            <button data-product-id="clock-brass" onclick="addToCart('clock-brass')" class="btn-primary w-full text-[10px] py-2.5">Add to Cart</button>
-            <a href="https://wa.me/919789182921?text=I'm%20interested%20in%20Antique%20Brass%20Wall%20Clock%20-%20%E2%82%B91%2C299" target="_blank" rel="noopener noreferrer" class="btn-whatsapp w-full text-[10px] py-2.5">
-              <svg viewBox="0 0 24 24" fill="white" class="w-3.5 h-3.5 shrink-0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-              Order via WhatsApp
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Card 3 -->
-      <div class="prod-card rv d2 relative hover-trigger">
-        <div class="prod-img aspect-[4/5] relative">
-          <button data-product-id="fountain-tabletop" onclick="toggleWishlist('fountain-tabletop')" class="heart-btn" title="Save to wishlist">
-            <span class="material-symbols-outlined text-[16px]">favorite</span>
-          </button>
-          <img src="assets/images/fountain.jpg" alt="Indoor Tabletop Fountain" class="w-full h-full object-cover">
-        </div>
-        <div class="p-4">
-          <p class="text-[11px] font-medium tracking-[.14em] uppercase text-muted mb-1">Fountains</p>
-          <h3 class="font-sans font-medium tracking-tight text-ink text-[1.08rem] leading-snug mb-2.5">Indoor Tabletop Fountain</h3>
-          <p class="font-sans font-semibold text-warm text-lg mb-3">&#8377;2,850</p>
-          <div class="card-cta space-y-2">
-            <button data-product-id="fountain-tabletop" onclick="addToCart('fountain-tabletop')" class="btn-primary w-full text-[10px] py-2.5">Add to Cart</button>
-            <a href="https://wa.me/919789182921?text=I'm%20interested%20in%20Indoor%20Tabletop%20Fountain%20-%20%E2%82%B92%2C850" target="_blank" rel="noopener noreferrer" class="btn-whatsapp w-full text-[10px] py-2.5">
-              <svg viewBox="0 0 24 24" fill="white" class="w-3.5 h-3.5 shrink-0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-              Order via WhatsApp
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Card 4 -->
-      <div class="prod-card rv d3 relative hover-trigger">
-        <div class="prod-img aspect-[4/5] relative">
-          <button data-product-id="bed-combo" onclick="toggleWishlist('bed-combo')" class="heart-btn" title="Save to wishlist">
-            <span class="material-symbols-outlined text-[16px]">favorite</span>
-          </button>
-          <img src="assets/images/bed_combo_1777050994611.png" alt="Premium Bed Combo" class="w-full h-full object-cover">
-          <span class="absolute top-2.5 left-2.5 bg-ink text-white/80 text-[9px] font-semibold tracking-wider uppercase px-2 py-1">Staff Pick</span>
-        </div>
-        <div class="p-4">
-          <p class="text-[11px] font-medium tracking-[.14em] uppercase text-muted mb-1">Furniture</p>
-          <h3 class="font-sans font-medium tracking-tight text-ink text-[1.08rem] leading-snug mb-2.5">Premium Bed Combo</h3>
-          <p class="font-sans font-semibold text-warm text-lg mb-3">&#8377;45,000</p>
-          <div class="card-cta space-y-2">
-            <button data-product-id="bed-combo" onclick="addToCart('bed-combo')" class="btn-primary w-full text-[10px] py-2.5">Add to Cart</button>
-            <a href="https://wa.me/919789182921?text=I'm%20interested%20in%20Premium%20Bed%20Combo%20-%20%E2%82%B945%2C000" target="_blank" rel="noopener noreferrer" class="btn-whatsapp w-full text-[10px] py-2.5">
-              <svg viewBox="0 0 24 24" fill="white" class="w-3.5 h-3.5 shrink-0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-              Order via WhatsApp
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="text-center mt-12 rv">
-      <a href="product-listing.html" class="btn-primary">See All Products</a>
     </div>
   </div>
 </section>
