@@ -1,134 +1,297 @@
 /* ═══════════════════════════════════════════════════════════
-   KGS Home Décors — Unified Store (Cart + Wishlist)
-   Single source of truth for all localStorage state.
-   Product data is embedded inline — no fetch required.
+   KGS Home Décors — Shopify Storefront API Integration
+   Vanilla JS GraphQL Client
 ═══════════════════════════════════════════════════════════ */
 
-const GLOBAL_PRODUCTS = [
-  // Furniture
-  { id: "sofa-3seater", parentCategory: "furniture", category: "sofas", name: "Premium 3-Seater Sofa", price: 18500, originalPrice: 22000, image: "assets/images/sofa.jpg", badge: "Best Seller", description: "Handcrafted from premium teak wood with soft linen-blend upholstery.", specs: { Material: "Premium Teak Wood", Seating: "3-Seater", Upholstery: "Soft Linen Blend" }, whatsappText: "Hi, I'm interested in Premium 3-Seater Sofa - ₹18,500" },
-  { id: "chair-velvet", parentCategory: "furniture", category: "chairs", name: "Velvet Accent Chair", price: 8500, originalPrice: 10000, image: "assets/images/chairs.png", badge: "New", description: "Dark luxury velvet accent chair for moody living rooms.", specs: { Material: "Velvet & Metal", Seating: "1-Seater", Color: "Dark Teal" }, whatsappText: "Hi, I'm interested in Velvet Accent Chair - ₹8,500" },
-  { id: "table-marble", parentCategory: "furniture", category: "table", name: "Marble Coffee Table", price: 12500, originalPrice: 15000, image: "assets/images/table.png", badge: null, description: "Minimalist dark wood and marble coffee table.", specs: { Material: "Marble & Dark Wood", Shape: "Round", Assembly: "Required" }, whatsappText: "Hi, I'm interested in Marble Coffee Table - ₹12,500" },
-  { id: "locker-safe", parentCategory: "furniture", category: "lockers", name: "Premium Safe Locker", price: 21000, originalPrice: null, image: "assets/images/locker.png", badge: "Popular", description: "Modern minimalist steel and wood safe locker.", specs: { Material: "Steel & Wood", Lock: "Digital + Key", Capacity: "40L" }, whatsappText: "Hi, I'm interested in Premium Safe Locker - ₹21,000" },
-  { id: "bed-combo", parentCategory: "furniture", category: "premium-bed-combo", name: "King Size Bed Combo", price: 45000, originalPrice: 52000, image: "assets/images/bed_combo.png", badge: "Premium", description: "King size bed with tufted headboard and matching side tables.", specs: { Material: "Engineered Wood", Size: "King Size", Includes: "Bed + 2 Side Tables" }, whatsappText: "Hi, I'm interested in King Size Bed Combo - ₹45,000" },
+const SHOPIFY_DOMAIN = "kgs-home-decors.myshopify.com";
+const STOREFRONT_TOKEN = "f88234851fd7abbbfb315676198349e7"; // <-- PASTE YOUR STOREFRONT API TOKEN HERE
+const API_URL = `https://${SHOPIFY_DOMAIN}/api/2024-01/graphql.json`;
 
-  // Décor
-  { id: "fountain-tabletop", parentCategory: "decor", category: "water-fountain", name: "Indoor Tabletop Fountain", price: 2850, originalPrice: null, image: "assets/images/fountain.jpg", badge: "Staff Pick", description: "Peaceful tabletop water fountain for home or office.", specs: { Type: "Tabletop", Power: "USB / Adapter", Material: "Resin" }, whatsappText: "Hi, I'm interested in Indoor Tabletop Fountain - ₹2,850" },
-  { id: "statue-marble", parentCategory: "decor", category: "statue", name: "Abstract Marble Statue", price: 4500, originalPrice: null, image: "assets/images/statue.png", badge: "New", description: "Premium dark luxury marble abstract art piece.", specs: { Material: "Marble", Finish: "Matte", Size: "14 inches" }, whatsappText: "Hi, I'm interested in Abstract Marble Statue - ₹4,500" },
-  { id: "clock-brass", parentCategory: "decor", category: "wall-clocks", name: "Antique Brass Wall Clock", price: 1299, originalPrice: null, image: "assets/images/clock.jpg", badge: null, description: "Elegant antique brass finish wall clock.", specs: { Finish: "Antique Brass", Diameter: "14 inches", Movement: "Quartz" }, whatsappText: "Hi, I'm interested in Antique Brass Wall Clock - ₹1,299" },
-  { id: "frame-photo", parentCategory: "decor", category: "photo-frames", name: "Decorative Photo Frame Set", price: 749, originalPrice: null, image: "assets/images/frames.jpg", badge: null, description: "Set of 3 decorative photo frames.", specs: { Quantity: "3 frames", Material: "Wood + Glass", Finish: "Mixed" }, whatsappText: "Hi, I'm interested in Photo Frame Set - ₹749" },
-  { id: "vase-ceramic", parentCategory: "decor", category: "flower-vase", name: "Designer Ceramic Vase", price: 1950, originalPrice: null, image: "assets/images/ceramic_vase.png", badge: "New", description: "Hand-painted designer ceramic vase.", specs: { Material: "Ceramic", Height: "10 inches", Use: "Decorative" }, whatsappText: "Hi, I'm interested in Designer Ceramic Vase - ₹1,950" },
-  { id: "horse-statue", parentCategory: "decor", category: "horse", name: "Metallic Horse Statue", price: 5200, originalPrice: null, image: "assets/images/horse.png", badge: "Premium", description: "Metallic horse head statue on a marble base.", specs: { Material: "Metal & Marble", Finish: "Antique Gold", Height: "16 inches" }, whatsappText: "Hi, I'm interested in Metallic Horse Statue - ₹5,200" },
-  { id: "decor-tray", parentCategory: "decor", category: "accessories", name: "Marble & Brass Decor Tray", price: 2100, originalPrice: null, image: "assets/images/accessories.png", badge: null, description: "Decorative tray for small accessories.", specs: { Material: "Marble & Brass", Size: "12x8 inches", Use: "Vanity / Table" }, whatsappText: "Hi, I'm interested in Marble & Brass Decor Tray - ₹2,100" },
-
-  // Lighting
-  { id: "light-pendant", parentCategory: "lighting", category: "ceiling-lights", name: "Pendant Ceiling Light", price: 2400, originalPrice: null, image: "assets/images/lighting.jpg", badge: null, description: "Decorative pendant ceiling light.", specs: { Type: "Pendant", Bulb: "E27 (not included)", Shade: "Metal" }, whatsappText: "Hi, I'm interested in Pendant Ceiling Light - ₹2,400" },
-  { id: "mirror-led", parentCategory: "lighting", category: "led-mirror", name: "Circular LED Wall Mirror", price: 6800, originalPrice: null, image: "assets/images/led_mirror.png", badge: "New", description: "Modern circular LED backlit wall mirror.", specs: { Diameter: "24 inches", Light: "Warm White", Power: "Plug-in" }, whatsappText: "Hi, I'm interested in Circular LED Wall Mirror - ₹6,800" },
-
-  // Botanicals
-  { id: "plant-banana", parentCategory: "botanicals", category: "artificial-plants", name: "Large Artificial Banana Plant", price: 3200, originalPrice: null, image: "assets/images/plant.png", badge: "Popular", description: "Lifelike large artificial banana plant.", specs: { Height: "5 feet", Type: "Artificial", Pot: "Included" }, whatsappText: "Hi, I'm interested in Artificial Banana Plant - ₹3,200" },
-
-  // Gifting
-  { id: "candle-gift", parentCategory: "gifting", category: "gifts", name: "Aromatic Candle Gift Set", price: 899, originalPrice: null, image: "assets/images/candle_set.png", badge: "New", description: "Premium aromatic candle gift set with 3 fragrances.", specs: { Quantity: "3 candles", Fragrance: "Rose, Jasmine, Sandalwood", Wax: "Soy blend" }, whatsappText: "Hi, I'm interested in Aromatic Candle Gift Set - ₹899" }
-];
-
-function initStore() {
-  // Data is already loaded inline — return immediately (kept async-compatible with Promise)
-  return Promise.resolve(GLOBAL_PRODUCTS);
-}
-
-
-/* ─── CART ────────────────────────────────────────────── */
-function getCart() {
-  try { return JSON.parse(localStorage.getItem('kgs_cart')) || []; }
-  catch(e) { return []; }
-}
-function saveCart(cart) {
-  localStorage.setItem('kgs_cart', JSON.stringify(cart));
-}
-
-function addToCart(productId, quantity) {
-  quantity = quantity || 1;
-  // Use already-cached products (populated by initStore on page load)
-  const product = GLOBAL_PRODUCTS.find(function(p){ return p.id === productId; });
-  if (!product) {
-    console.warn('addToCart: product not found in cache for id:', productId);
-    return;
-  }
-  
-  const cart = getCart();
-  const idx = cart.findIndex(function(i){ return i.id === productId; });
-  if (idx > -1) {
-    cart[idx].quantity += quantity;
-  } else {
-    cart.push({
-      id: product.id,
-      name: product.name,
-      price: product.price,
-      image: product.image,
-      category: product.category,
-      quantity: quantity
+/* ─── CORE FETCH UTILITY ────────────────────────────────── */
+async function shopifyFetch({ query, variables = {} }) {
+  try {
+    const response = await fetch(API_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Shopify-Storefront-Access-Token": STOREFRONT_TOKEN,
+      },
+      body: JSON.stringify({ query, variables }),
     });
+    const json = await response.json();
+    if (json.errors) {
+      console.error("Shopify API Errors:", json.errors);
+      return null;
+    }
+    return json.data;
+  } catch (error) {
+    console.error("Shopify Fetch failed:", error);
+    return null;
   }
-  saveCart(cart);
-  updateCartBadge();
-  
-  /* toast */
+}
+
+/* ─── PRODUCT CATALOG ───────────────────────────────────── */
+
+// Fetches all products (used for search and general listing)
+async function initStore() {
+  const query = `
+    query getProducts {
+      products(first: 250) {
+        edges {
+          node {
+            id
+            handle
+            title
+            description
+            productType
+            tags
+            priceRange {
+              minVariantPrice { amount }
+            }
+            images(first: 1) {
+              edges { node { url } }
+            }
+            variants(first: 1) {
+              edges { node { id } }
+            }
+          }
+        }
+      }
+    }
+  `;
+  const data = await shopifyFetch({ query });
+  if (!data) return [];
+
+  // Map Shopify data to our old UI structure
+  return data.products.edges.map(({ node }) => ({
+    id: node.variants.edges[0]?.node.id, // We use Variant ID for adding to cart
+    handle: node.handle,
+    name: node.title,
+    description: node.description,
+    category: node.productType,
+    tags: node.tags || [],
+    price: parseFloat(node.priceRange.minVariantPrice.amount),
+    image: node.images.edges[0]?.node.url || 'assets/images/placeholder.jpg'
+  }));
+}
+
+// Fetches products for a specific collection
+async function fetchCollectionProducts(handle) {
+  const query = `
+    query getCollection($handle: String!) {
+      collection(handle: $handle) {
+        products(first: 50) {
+          edges {
+            node {
+              id
+              handle
+              title
+              priceRange { minVariantPrice { amount } }
+              images(first: 1) { edges { node { url } } }
+              variants(first: 1) { edges { node { id } } }
+            }
+          }
+        }
+      }
+    }
+  `;
+  const data = await shopifyFetch({ query, variables: { handle } });
+  if (!data || !data.collection) return [];
+  return data.collection.products.edges.map(({ node }) => ({
+    id: node.variants.edges[0]?.node.id,
+    handle: node.handle,
+    name: node.title,
+    price: parseFloat(node.priceRange.minVariantPrice.amount),
+    image: node.images.edges[0]?.node.url || 'assets/images/placeholder.jpg'
+  }));
+}
+
+// Fetches a single product for the PDP (Product Detail Page)
+async function fetchProductByHandle(handle) {
+  const query = `
+    query getProduct($handle: String!) {
+      product(handle: $handle) {
+        id
+        title
+        descriptionHtml
+        productType
+        tags
+        priceRange { minVariantPrice { amount } }
+        compareAtPriceRange { minVariantPrice { amount } }
+        images(first: 5) { edges { node { url } } }
+        variants(first: 1) { edges { node { id availableForSale quantityAvailable } } }
+      }
+    }
+  `;
+  const data = await shopifyFetch({ query, variables: { handle } });
+  if (!data || !data.product) return null;
+  return data.product;
+}
+
+/* ─── SHOPIFY CART API ──────────────────────────────────── */
+
+// Gets or creates a Shopify Cart ID
+async function getOrCreateCart() {
+  let cartId = localStorage.getItem("shopify_cart_id");
+  if (cartId) return cartId;
+
+  const query = `
+    mutation createCart {
+      cartCreate {
+        cart { id }
+      }
+    }
+  `;
+  const data = await shopifyFetch({ query });
+  if (data && data.cartCreate.cart) {
+    cartId = data.cartCreate.cart.id;
+    localStorage.setItem("shopify_cart_id", cartId);
+    return cartId;
+  }
+  return null;
+}
+
+// Fetch current cart state to update badges and UI
+async function getCart() {
+  const cartId = await getOrCreateCart();
+  if (!cartId) return null;
+
+  const query = `
+    query getCart($cartId: ID!) {
+      cart(id: $cartId) {
+        id
+        checkoutUrl
+        totalQuantity
+        cost { totalAmount { amount } }
+        lines(first: 100) {
+          edges {
+            node {
+              id
+              quantity
+              merchandise {
+                ... on ProductVariant {
+                  id
+                  title
+                  product { title handle }
+                  image { url }
+                  price { amount }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  `;
+  const data = await shopifyFetch({ query, variables: { cartId } });
+  return data?.cart || null;
+}
+
+// Adds an item to the Shopify Cart
+async function addToCart(variantId, quantity = 1) {
+  const cartId = await getOrCreateCart();
+  const query = `
+    mutation cartLinesAdd($cartId: ID!, $lines: [CartLineInput!]!) {
+      cartLinesAdd(cartId: $cartId, lines: $lines) {
+        cart { id totalQuantity }
+      }
+    }
+  `;
+  const variables = {
+    cartId,
+    lines: [{ merchandiseId: variantId, quantity }]
+  };
+
+  await shopifyFetch({ query, variables });
+  await updateCartBadge();
+
+  // Show Toast
   const toast = document.getElementById('cart-toast');
   if (toast) {
     const txt = document.getElementById('toast-text');
-    if (txt) txt.innerText = 'Added ' + product.name + ' to cart';
+    if (txt) txt.innerText = 'Item added to secure cart';
     toast.classList.add('show');
-    setTimeout(function(){ toast.classList.remove('show'); }, 3000);
+    setTimeout(() => toast.classList.remove('show'), 3000);
   }
 }
-function removeFromCart(productId) {
-  saveCart(getCart().filter(function(i){ return i.id !== productId; }));
-  updateCartBadge();
+
+// Removes a line item from the Shopify Cart
+async function removeFromCart(lineId) {
+  const cartId = localStorage.getItem("shopify_cart_id");
+  if (!cartId) return;
+
+  const query = `
+    mutation cartLinesRemove($cartId: ID!, $lineIds: [ID!]!) {
+      cartLinesRemove(cartId: $cartId, lineIds: $lineIds) {
+        cart { id }
+      }
+    }
+  `;
+  await shopifyFetch({ query, variables: { cartId, lineIds: [lineId] } });
+  await updateCartBadge();
 }
-function updateQty(productId, qty) {
-  let cart = getCart();
-  if (qty <= 0) {
-    cart = cart.filter(function(i){ return i.id !== productId; });
+
+// Updates quantity of a line item
+async function updateCartLine(lineId, quantity) {
+  const cartId = localStorage.getItem("shopify_cart_id");
+  if (!cartId) return;
+
+  if (quantity <= 0) {
+    return removeFromCart(lineId);
+  }
+
+  const query = `
+    mutation cartLinesUpdate($cartId: ID!, $lines: [CartLineUpdateInput!]!) {
+      cartLinesUpdate(cartId: $cartId, lines: $lines) {
+        cart { id }
+      }
+    }
+  `;
+  const variables = {
+    cartId,
+    lines: [{ id: lineId, quantity }]
+  };
+  await shopifyFetch({ query, variables });
+  await updateCartBadge();
+}
+
+// Redirects to Shopify's secure checkout page
+async function proceedToCheckout() {
+  const cart = await getCart();
+  if (cart && cart.checkoutUrl) {
+    window.location.href = cart.checkoutUrl;
   } else {
-    const item = cart.find(function(i){ return i.id === productId; });
-    if (item) item.quantity = qty;
+    alert("Unable to process checkout. Please try again.");
   }
-  saveCart(cart);
 }
-function getCartCount() {
-  return getCart().reduce(function(t, i){ return t + (Number(i.quantity) || 0); }, 0);
-}
-function getCartTotal() {
-  return getCart().reduce(function(t, i){
-    const price = typeof i.price === 'number' && !isNaN(i.price) ? i.price : 0;
-    return t + (price * (Number(i.quantity) || 0));
-  }, 0);
-}
-function clearCart() {
-  localStorage.removeItem('kgs_cart');
-  updateCartBadge();
-}
-function updateCartBadge() {
-  const count = getCartCount();
-  document.querySelectorAll('.cart-count').forEach(function(el){
+
+// Updates the navigation cart badge
+async function updateCartBadge() {
+  const cartId = localStorage.getItem("shopify_cart_id");
+  if (!cartId) return;
+
+  const query = `query { cart(id: "${cartId}") { totalQuantity } }`;
+  const data = await shopifyFetch({ query });
+  const count = data?.cart?.totalQuantity || 0;
+
+  document.querySelectorAll('.cart-count').forEach(el => {
     el.textContent = count;
     el.style.display = count > 0 ? 'inline-flex' : 'none';
   });
 }
 
-/* ─── WISHLIST ────────────────────────────────────────── */
+/* ─── WISHLIST (Unchanged, uses localStorage) ───────────── */
 function getWishlist() {
   try { return JSON.parse(localStorage.getItem('kgs_wishlist')) || []; }
-  catch(e) { return []; }
+  catch (e) { return []; }
 }
 function saveWishlist(list) {
   localStorage.setItem('kgs_wishlist', JSON.stringify(list));
 }
 function toggleWishlist(productId) {
   let list = getWishlist();
-  if (list.indexOf(productId) > -1) {
-    list = list.filter(function(id){ return id !== productId; });
+  if (list.includes(productId)) {
+    list = list.filter(id => id !== productId);
   } else {
     list.push(productId);
   }
@@ -137,17 +300,17 @@ function toggleWishlist(productId) {
   updateHeartIcons();
 }
 function isWishlisted(productId) {
-  return getWishlist().indexOf(productId) > -1;
+  return getWishlist().includes(productId);
 }
 function updateWishlistBadge() {
   const count = getWishlist().length;
-  document.querySelectorAll('.wishlist-count').forEach(function(el){
+  document.querySelectorAll('.wishlist-count').forEach(el => {
     el.textContent = count;
     el.style.display = count > 0 ? 'inline-flex' : 'none';
   });
 }
 function updateHeartIcons() {
-  document.querySelectorAll('[data-product-id]').forEach(function(btn){
+  document.querySelectorAll('[data-product-id]').forEach(btn => {
     if (!btn.classList.contains('heart-btn')) return;
     const id = btn.getAttribute('data-product-id');
     if (isWishlisted(id)) {
@@ -157,3 +320,13 @@ function updateHeartIcons() {
     }
   });
 }
+
+/* ─── UTILS ─────────────────────────────────────────────── */
+const formatINR = val => '₹' + parseInt(val, 10).toLocaleString('en-IN');
+
+// Initial badge render
+document.addEventListener('DOMContentLoaded', () => {
+  updateCartBadge();
+  if (typeof updateWishlistBadge === 'function') updateWishlistBadge();
+  if (typeof updateHeartIcons === 'function') updateHeartIcons();
+});

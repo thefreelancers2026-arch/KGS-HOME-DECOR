@@ -87,7 +87,7 @@ img {
   <nav class="flex flex-col px-6 pt-8 gap-7">
     <a href="index.html#collections" class="nav-link text-[13px] normal-case font-medium tracking-normal">Collections</a>
     <a href="product-listing.html" class="nav-link text-[13px] normal-case font-medium tracking-normal">Shop All</a>
-    <a href="index.html#about" class="nav-link text-[13px] normal-case font-medium tracking-normal">Our Story</a>
+    <a href="about.html" class="nav-link text-[13px] normal-case font-medium tracking-normal">Our Story</a>
   </nav>
   <div class="mt-auto px-6 py-7 border-t border-border space-y-4">
     
@@ -121,7 +121,7 @@ img {
     <div class="hidden md:flex items-center gap-10">
       <a href="index.html#collections" class="nav-link">Collections</a>
       <a href="product-listing.html" class="nav-link">Shop All</a>
-      <a href="index.html#about" class="nav-link">Our Story</a>
+      <a href="about.html" class="nav-link">Our Story</a>
     </div>
     <div class="flex items-center gap-4 text-muted">
       <a href="product-listing.html" class="hover:text-ink transition-colors"><span class="material-symbols-outlined text-[20px]">search</span></a>
@@ -151,10 +151,12 @@ img {
   </nav>
 
   <div class="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-10 md:gap-16">
-
+    
+    <!-- LEFT: Images -->
+    <div>
       <!-- Main product image -->
-      <div class="w-full bg-tint overflow-hidden mb-3" style="height:clamp(260px,52vw,500px);">
-        <img id="main-img" src="assets/images/sofa.jpg" alt="Product" class="w-full h-full object-cover object-center">
+      <div class="w-full bg-tint overflow-hidden mb-3 flex items-center justify-center" style="height:clamp(260px,52vw,500px);">
+        <img id="main-img" src="assets/images/sofa.jpg" alt="Product" class="w-full h-full object-contain object-center">
       </div>
       <div id="thumb-strip" class="flex gap-2 mt-3" style="display:none!important;"></div>
     </div>
@@ -179,37 +181,21 @@ img {
       <!-- Price -->
       <div class="flex items-baseline gap-4 mb-7 pb-7 border-b border-border">
         <span id="pd-price" class="font-sans font-semibold text-warm" style="font-size:1.9rem;">...</span>
-        <span class="text-[12px] text-muted line-through">&#8377;22,000</span>
-        <span class="text-[11px] font-semibold text-green-600 bg-green-50 px-2 py-1">Save ₹3,500</span>
+        <span id="pd-compare" class="text-[12px] text-muted line-through" style="display:none;"></span>
+        <span id="pd-save" class="text-[11px] font-semibold text-green-600 bg-green-50 px-2 py-1" style="display:none;"></span>
       </div>
 
       <!-- Description -->
-      <p id="pd-desc" class="text-muted leading-[1.85] mb-8" style="font-size:15px;">...</p>
+      <div id="pd-desc" class="text-muted leading-[1.85] mb-8" style="font-size:15px;display:none;"></div>
 
       <!-- Key Details -->
-      <div class="grid grid-cols-2 gap-3 mb-8">
-        <div class="bg-tint px-4 py-3 border border-border">
-          <p class="text-[11px] font-semibold tracking-wide uppercase text-muted mb-1">Material</p>
-          <p class="text-[13px] font-medium text-ink">Premium Teak Wood</p>
-        </div>
-        <div class="bg-tint px-4 py-3 border border-border">
-          <p class="text-[11px] font-semibold tracking-wide uppercase text-muted mb-1">Seating</p>
-          <p class="text-[13px] font-medium text-ink">3-Seater</p>
-        </div>
-        <div class="bg-tint px-4 py-3 border border-border">
-          <p class="text-[11px] font-semibold tracking-wide uppercase text-muted mb-1">Upholstery</p>
-          <p class="text-[13px] font-medium text-ink">Soft Linen Blend</p>
-        </div>
-        <div class="bg-tint px-4 py-3 border border-border">
-          <p class="text-[11px] font-semibold tracking-wide uppercase text-muted mb-1">Assembly</p>
-          <p class="text-[13px] font-medium text-ink">Fully Assembled</p>
-        </div>
+      <div id="key-details-grid" class="grid grid-cols-2 gap-3 mb-8" style="display:none;">
       </div>
 
       <!-- SCARCITY FLAG -->
-      <div class="flex items-center gap-2.5 mb-5 p-3" style="background:#FFF5F5;border:1px solid #FFE4E4;">
+      <div id="scarcity-flag" class="flex items-center gap-2.5 mb-5 p-3" style="background:#FFF5F5;border:1px solid #FFE4E4;display:none;">
         <span class="material-symbols-outlined text-[18px] text-[#D92D20] animate-pulse">local_fire_department</span>
-        <p class="text-[12.5px] font-semibold text-[#D92D20] tracking-wide">High Demand: <span class="font-normal">Only 2 left in stock locally</span></p>
+        <p class="text-[12.5px] font-semibold text-[#D92D20] tracking-wide">High Demand: <span id="scarcity-text" class="font-normal"></span></p>
       </div>
 
       <!-- CTA Buttons (desktop) -->
@@ -253,31 +239,16 @@ img {
 
     <!-- Tab 0: Description -->
     <div class="tab-panel active py-8 max-w-2xl">
-      <p class="text-muted leading-[1.85]" style="font-size:15px;">
-        The KGS Premium 3-Seater Sofa is crafted from solid teak wood sourced sustainably. The frame is built for decades of use. The linen-blend cushions are plush, breathable, and easy to clean — perfect for Indian homes. Colors: Beige, Walnut Brown, Charcoal Grey.
-      </p>
-      <ul class="mt-6 space-y-3 text-[14px] text-muted">
-        <li class="flex items-start gap-2"><span class="text-warm font-bold mt-0.5">✓</span> Solid teak wood frame — extremely durable</li>
-        <li class="flex items-start gap-2"><span class="text-warm font-bold mt-0.5">✓</span> 3-seater — fits standard Indian living rooms</li>
-        <li class="flex items-start gap-2"><span class="text-warm font-bold mt-0.5">✓</span> Available in 3 upholstery colors</li>
-        <li class="flex items-start gap-2"><span class="text-warm font-bold mt-0.5">✓</span> Delivered fully assembled — no DIY required</li>
-        <li class="flex items-start gap-2"><span class="text-warm font-bold mt-0.5">✓</span> Cash on Delivery available across Tamil Nadu</li>
-      </ul>
+      <div id="tab-desc" class="text-muted leading-[1.85]" style="font-size:15px;"></div>
     </div>
 
     <!-- Tab 1: Specifications -->
     <div class="tab-panel py-8 max-w-2xl">
       <table class="w-full">
-        <tbody>
-          <tr class="border-b border-border"><td class="py-3 text-[11px] font-semibold uppercase tracking-wide text-muted w-2/5">Dimensions</td><td class="py-3 text-[13.5px] text-ink font-medium">190 cm × 75 cm × 82 cm</td></tr>
-          <tr class="border-b border-border"><td class="py-3 text-[11px] font-semibold uppercase tracking-wide text-muted">Weight</td><td class="py-3 text-[13.5px] text-ink font-medium">45 kg</td></tr>
-          <tr class="border-b border-border"><td class="py-3 text-[11px] font-semibold uppercase tracking-wide text-muted">Frame Material</td><td class="py-3 text-[13.5px] text-ink font-medium">Solid Teak Wood</td></tr>
-          <tr class="border-b border-border"><td class="py-3 text-[11px] font-semibold uppercase tracking-wide text-muted">Upholstery</td><td class="py-3 text-[13.5px] text-ink font-medium">Linen Blend Fabric</td></tr>
-          <tr class="border-b border-border"><td class="py-3 text-[11px] font-semibold uppercase tracking-wide text-muted">Seating Capacity</td><td class="py-3 text-[13.5px] text-ink font-medium">3 Persons</td></tr>
-          <tr class="border-b border-border"><td class="py-3 text-[11px] font-semibold uppercase tracking-wide text-muted">Colors Available</td><td class="py-3 text-[13.5px] text-ink font-medium">Beige, Walnut Brown, Charcoal Grey</td></tr>
-          <tr><td class="py-3 text-[11px] font-semibold uppercase tracking-wide text-muted">Warranty</td><td class="py-3 text-[13.5px] text-ink font-medium">1 Year Manufacturing</td></tr>
+        <tbody id="specs-table-body">
         </tbody>
       </table>
+      <p id="specs-fallback" class="text-muted text-[14px]" style="display:none;">No specifications available for this product.</p>
     </div>
 
     <!-- Tab 2: Delivery -->
@@ -332,9 +303,9 @@ img {
     <div class="md:col-span-4">
       <h4 class="text-white text-[11px] tracking-[.18em] uppercase font-semibold mb-5">Info</h4>
       <ul class="space-y-3 text-[13px] text-white/40">
-        <li><a href="index.html#about" class="hover:text-white transition-colors">Our Story</a></li>
-        <li><a href="index.html#showroom" class="hover:text-white transition-colors">Visit Showroom</a></li>
-        <li><a href="#" class="hover:text-white transition-colors">Delivery Policy</a></li>
+        <li><a href="about.html" class="hover:text-white transition-colors">Our Story</a></li>
+        <li><a href="contact.html" class="hover:text-white transition-colors">Visit Showroom</a></li>
+        <li><a href="shipping-policy.html" class="hover:text-white transition-colors">Shipping Policy</a></li>
       </ul>
     </div>
   </div>
@@ -429,27 +400,55 @@ document.addEventListener('DOMContentLoaded', async () => {
   updateCartBadge();
   if (typeof updateWishlistBadge === 'function') updateWishlistBadge();
 
-  const prodId = new URLSearchParams(window.location.search).get('id');
-  if (!prodId) { window.location.href = 'product-listing.html'; return; }
+  const params = new URLSearchParams(window.location.search);
+  const handle = params.get('handle') || params.get('id');
+  if (!handle) { window.location.href = 'product-listing.html'; return; }
 
-  ALL_PRODUCTS = await initStore();
-  const p = ALL_PRODUCTS.find(x => x.id === prodId);
-  if (!p) { window.location.href = 'product-listing.html'; return; }
+  const pData = await fetchProductByHandle(handle);
+  if (!pData) { window.location.href = 'product-listing.html'; return; }
+
+  // Map Shopify data
+  const p = {
+    id: pData.variants.edges[0]?.node.id, // Variant ID required for cart
+    handle: handle,
+    name: pData.title,
+    description: pData.descriptionHtml || '',
+    category: pData.productType,
+    price: parseFloat(pData.priceRange.minVariantPrice.amount),
+    compareAtPrice: parseFloat(pData.compareAtPriceRange?.minVariantPrice?.amount || 0),
+    images: pData.images.edges.map(e => e.node.url),
+    tags: pData.tags || [],
+    inventory: pData.variants.edges[0]?.node?.quantityAvailable || 0
+  };
+  p.image = p.images[0] || 'assets/images/placeholder.jpg';
 
   /* ── Meta ── */
   document.title = p.name + ' — KGS Home Décors';
   const metaDesc = document.querySelector('meta[name="description"]');
-  if (metaDesc) metaDesc.setAttribute('content', `${p.name} at KGS Home Décors — ₹${p.price.toLocaleString('en-IN')}. ${p.description||''} Free delivery in Virudhachalam.`);
+  if (metaDesc) metaDesc.setAttribute('content', `${p.name} at KGS Home Décors — ₹${p.price.toLocaleString('en-IN')}. Free delivery in Virudhachalam.`);
 
   /* ── Inject content ── */
   document.getElementById('pd-name').innerText  = p.name;
   document.getElementById('pd-crumb').innerText = p.name;
-  document.getElementById('pd-cat').innerText   = p.category;
+  document.getElementById('pd-cat').innerText   = p.category || '';
 
   const fmt = '&#8377;' + p.price.toLocaleString('en-IN');
   document.getElementById('pd-price').innerHTML = fmt;
   const mob = document.getElementById('pd-mobile-price');
   if (mob) mob.innerHTML = fmt;
+
+  // Compare Price & Save Badge
+  const compEl = document.getElementById('pd-compare');
+  const saveEl = document.getElementById('pd-save');
+  if (p.compareAtPrice > p.price) {
+    compEl.innerHTML = '&#8377;' + p.compareAtPrice.toLocaleString('en-IN');
+    compEl.style.display = 'inline';
+    saveEl.innerText = 'Save ₹' + (p.compareAtPrice - p.price).toLocaleString('en-IN');
+    saveEl.style.display = 'inline';
+  } else {
+    compEl.style.display = 'none';
+    saveEl.style.display = 'none';
+  }
 
   const img = document.getElementById('main-img');
   if (img) { img.src = p.image; img.alt = p.name; }
@@ -464,52 +463,111 @@ document.addEventListener('DOMContentLoaded', async () => {
       </button>`).join('');
   }
 
+  // Description
+  const d = document.getElementById('pd-desc');
+  const td = document.getElementById('tab-desc');
   if (p.description) {
-    const d = document.getElementById('pd-desc');
-    if (d) d.innerText = p.description;
-    const tp = document.querySelector('.tab-panel p');
-    if (tp) tp.innerText = p.description;
+    if (d) { d.innerHTML = p.description; d.style.display = 'block'; }
+    if (td) { td.innerHTML = p.description; }
+  } else {
+    if (d) d.style.display = 'none';
+    if (td) td.innerHTML = '<p>No description available.</p>';
+  }
+
+  // Key Details (mapped from tags like "Material:Teak")
+  const keyDetails = p.tags.filter(t => t.includes(':'));
+  const keyGrid = document.getElementById('key-details-grid');
+  if (keyDetails.length > 0 && keyGrid) {
+    keyGrid.innerHTML = keyDetails.map(t => {
+      const [key, val] = t.split(':');
+      return `
+        <div class="bg-tint px-4 py-3 border border-border">
+          <p class="text-[11px] font-semibold tracking-wide uppercase text-muted mb-1">${key.trim()}</p>
+          <p class="text-[13px] font-medium text-ink">${val.trim()}</p>
+        </div>
+      `;
+    }).join('');
+    keyGrid.style.display = 'grid';
+  } else if (keyGrid) {
+    keyGrid.style.display = 'none';
+  }
+
+  // Specifications Table
+  const specBody = document.getElementById('specs-table-body');
+  const specFallback = document.getElementById('specs-fallback');
+  if (keyDetails.length > 0 && specBody) {
+    specBody.innerHTML = keyDetails.map((t, i) => {
+      const [key, val] = t.split(':');
+      const borderClass = i === keyDetails.length - 1 ? '' : 'border-b border-border';
+      return `
+        <tr class="${borderClass}">
+          <td class="py-3 text-[11px] font-semibold uppercase tracking-wide text-muted w-2/5">${key.trim()}</td>
+          <td class="py-3 text-[13.5px] text-ink font-medium">${val.trim()}</td>
+        </tr>
+      `;
+    }).join('');
+    if (specFallback) specFallback.style.display = 'none';
+  } else {
+    if (specFallback) specFallback.style.display = 'block';
+  }
+
+  // Scarcity Flag
+  const scFlag = document.getElementById('scarcity-flag');
+  const scText = document.getElementById('scarcity-text');
+  if (p.inventory > 0 && p.inventory <= 10 && scFlag) {
+    scFlag.style.display = 'flex';
+    if (scText) scText.innerText = `Only ${p.inventory} left in stock locally`;
+  } else if (scFlag) {
+    scFlag.style.display = 'none';
   }
 
   /* ── WhatsApp URLs ── */
-  const waUrl = 'https://wa.me/919789182921?text=' + encodeURIComponent(p.whatsappText || "I'm interested in " + p.name);
+  const waUrl = 'https://wa.me/919789182921?text=' + encodeURIComponent("I'm interested in " + p.name);
   const waMob = document.getElementById('pd-wa-mobile');
   if (waMob) waMob.href = waUrl;
   const waDsk = document.getElementById('pd-wa');
-  if (waDsk) {
-    waDsk.href = waUrl;
-    waDsk.innerHTML = `<svg viewBox="0 0 24 24" fill="white" class="w-3.5 h-3.5 shrink-0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Order on WhatsApp`;
-  }
+  if (waDsk) waDsk.href = waUrl;
 
   /* ── CTA Buttons ── */
   const addBtn = document.getElementById('pd-add');
-  if (addBtn) addBtn.onclick = () => addToCart(p.id);
+  if (addBtn) {
+    addBtn.onclick = async () => {
+      addBtn.innerText = "Adding...";
+      await addToCart(p.id);
+      addBtn.innerText = "Add to Cart";
+    };
+  }
 
   const buyBtn = document.getElementById('pd-buy');
-  if (buyBtn) buyBtn.onclick = () => { addToCart(p.id); window.location.href = 'cart-checkout.html'; };
+  if (buyBtn) {
+    buyBtn.onclick = async () => {
+      buyBtn.innerText = "Processing...";
+      await addToCart(p.id);
+      window.location.href = 'cart-checkout.html';
+    };
+  }
 
   const addMob = document.getElementById('pd-add-mobile');
-  if (addMob) addMob.onclick = () => addToCart(p.id);
+  if (addMob) {
+    addMob.onclick = async () => {
+      addMob.innerText = "Adding...";
+      await addToCart(p.id);
+      addMob.innerText = "Add to Cart";
+    };
+  }
 
   /* ── Related Products ── */
-  const related = ALL_PRODUCTS.filter(x => x.category===p.category && x.id!==p.id).slice(0,4);
-  if (related.length < 4) {
-    const others = ALL_PRODUCTS.filter(x => x.category!==p.category && x.id!==p.id);
-    while (related.length < 4 && others.length > 0) {
-      const r = others[Math.floor(Math.random()*others.length)];
-      if (!related.find(x=>x.id===r.id)) related.push(r);
-      others.splice(others.indexOf(r), 1);
-    }
-  }
+  const related = await initStore(); // Fetch all products for simplicity
   const grid = document.getElementById('related-grid');
-  if (grid) {
-    grid.innerHTML = related.map(r => `
+  if (grid && related && related.length > 0) {
+    const filtered = related.filter(r => r.handle !== p.handle).slice(0, 4);
+    grid.innerHTML = filtered.map(r => `
       <div class="rel-card relative">
-        <a href="product-detail.html?id=${r.id}" class="rel-img block aspect-[4/5] overflow-hidden bg-tint">
+        <a href="product-detail.html?handle=${r.handle}" class="rel-img block aspect-[4/5] overflow-hidden bg-tint">
           <img src="${r.image}" alt="${r.name}" class="w-full h-full object-cover">
         </a>
         <div class="p-4 border-t border-border">
-          <p class="text-[11px] font-semibold tracking-[.14em] uppercase text-muted mb-1">${r.category.replace(/-/g, ' ')}</p>
+          <p class="text-[11px] font-semibold tracking-[.14em] uppercase text-muted mb-1">${r.category || ''}</p>
           <h3 class="font-sans font-medium tracking-tight text-ink text-[1.02rem] leading-snug mb-2 truncate">${r.name}</h3>
           <div class="flex items-center justify-between">
             <p class="font-semibold text-warm">&#8377;${r.price.toLocaleString('en-IN')}</p>

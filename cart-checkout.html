@@ -80,7 +80,7 @@ img {
   <nav class="flex flex-col px-6 pt-8 gap-7">
     <a href="index.html#collections" class="nav-link text-[13px] normal-case font-medium tracking-normal">Collections</a>
     <a href="product-listing.html" class="nav-link text-[13px] normal-case font-medium tracking-normal">Shop All</a>
-    <a href="index.html#about" class="nav-link text-[13px] normal-case font-medium tracking-normal">Our Story</a>
+    <a href="about.html" class="nav-link text-[13px] normal-case font-medium tracking-normal">Our Story</a>
   </nav>
   <div class="mt-auto px-6 py-7 border-t border-border space-y-4">
     
@@ -101,7 +101,7 @@ img {
     <div class="hidden md:flex items-center gap-10">
       <a href="index.html#collections" class="nav-link">Collections</a>
       <a href="product-listing.html" class="nav-link">Shop All</a>
-      <a href="index.html#about" class="nav-link">Our Story</a>
+      <a href="about.html" class="nav-link">Our Story</a>
     </div>
     <div class="flex items-center gap-4 text-muted">
       
@@ -149,133 +149,37 @@ img {
   <!-- CART CONTENT (dynamically populated) -->
   <div id="cart-content" class="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-10" style="display:none;">
 
-    <!-- LEFT: Cart Items + Form -->
+    <!-- LEFT: Cart Items -->
     <div class="space-y-10">
-
-      <!-- Cart Items -->
       <div>
         <h2 id="cart-heading" class="font-serif font-medium text-ink text-xl mb-6 pb-4 border-b border-border">Your Cart</h2>
         <div id="cart-items" class="space-y-4 mb-6"></div>
       </div>
-
-
-      <!-- Delivery Details Form -->
-      <div>
-        <h2 class="font-serif font-medium text-ink text-xl mb-6 pb-4 border-b border-border">Delivery Details</h2>
-        <div id="cart-error-msg" style="display:none;background:#fef2f2;border:1px solid #fecaca;color:#b91c1c;padding:12px 16px;font-size:13px;font-family:'DM Sans',sans-serif;margin-bottom:16px;"></div>
-        <form class="space-y-5" onsubmit="placeOrder(event)">
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label class="form-label" for="fname">First Name</label>
-              <input id="fname" type="text" class="form-input" placeholder="Your first name" required>
-            </div>
-            <div>
-              <label class="form-label" for="lname">Last Name</label>
-              <input id="lname" type="text" class="form-input" placeholder="Your last name" required>
-            </div>
-          </div>
-          <div>
-            <label class="form-label" for="phone">WhatsApp / Phone Number</label>
-            <input id="phone" type="tel" class="form-input" placeholder="+91 98765 43210" required>
-          </div>
-          <div>
-            <label class="form-label" for="addr">Full Address</label>
-            <textarea id="addr" rows="3" class="form-input resize-none" placeholder="House No., Street, Area" required></textarea>
-          </div>
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div class="sm:col-span-2">
-              <label class="form-label" for="city">City / Town</label>
-              <input id="city" type="text" class="form-input" placeholder="Virudhachalam" required value="Virudhachalam">
-            </div>
-            <div>
-              <label class="form-label" for="pin">PIN Code</label>
-              <input id="pin" type="text" class="form-input" placeholder="606 001" required>
-            </div>
-          </div>
-
-          <!-- Payment -->
-          <div class="pt-2">
-            <h3 class="text-[11px] font-semibold tracking-[.12em] uppercase text-muted mb-4">Payment Method</h3>
-            <div class="space-y-3">
-              <div class="pay-option selected" onclick="selectPay(this,'cod')">
-                <input type="radio" name="payment" value="cod" id="cod" checked class="accent-warm">
-                <label for="cod" class="flex-grow cursor-pointer">
-                  <p class="font-semibold text-[14px] text-ink">Cash on Delivery (COD)</p>
-                  <p class="text-[12px] text-muted mt-0.5">Pay when your order is delivered. No advance needed.</p>
-                </label>
-                <span class="material-symbols-outlined text-warm">payments</span>
-              </div>
-              <div class="pay-option" onclick="selectPay(this,'upi')">
-                <input type="radio" name="payment" value="upi" id="upi" class="accent-warm">
-                <label for="upi" class="flex-grow cursor-pointer">
-                  <p class="font-semibold text-[14px] text-ink">UPI / Online Payment</p>
-                  <p class="text-[12px] text-muted mt-0.5">Pay via GPay, PhonePe, Paytm, etc.</p>
-                </label>
-                <span class="material-symbols-outlined text-muted">account_balance_wallet</span>
-              </div>
-              <div class="pay-option" onclick="selectPay(this,'wa')">
-                <input type="radio" name="payment" value="wa" id="wa" class="accent-warm">
-                <label for="wa" class="flex-grow cursor-pointer">
-                  <p class="font-semibold text-[14px] text-ink">Order via WhatsApp</p>
-                  <p class="text-[12px] text-muted mt-0.5">Send order details directly to our team.</p>
-                </label>
-                <svg viewBox="0 0 24 24" fill="#25D366" class="w-5 h-5 shrink-0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-              </div>
-            </div>
-          </div>
-
-          <button type="submit" class="btn-primary w-full mt-4" style="padding:16px;">Confirm Order →</button>
-          <p class="text-center text-[11px] text-muted font-medium tracking-wide mt-3">
-            Our team will confirm your order via WhatsApp within 30 minutes.
-          </p>
-        </form>
-      </div>
     </div>
 
-    <!-- RIGHT: Order Summary (dynamically populated) -->
+    <!-- RIGHT: Order Summary -->
     <div>
       <div class="bg-surface border border-border p-6 sticky top-24">
         <h2 class="font-serif font-medium text-ink text-lg mb-6 pb-4 border-b border-border">Order Summary</h2>
         <div id="summary-items" class="space-y-3 mb-6"></div>
 
-        <!-- Coupon -->
-        <div class="border border-border p-4 mb-3" style="background:#F9F5EF;">
-          <p class="text-[10px] font-semibold tracking-[.14em] uppercase text-muted mb-3">Have a Coupon Code?</p>
-          <div class="flex gap-2">
-            <input id="coupon-input" type="text" placeholder="E.g. WELCOME10"
-                   class="form-input flex-grow" style="padding:14px 16px;font-size:16px;text-transform:uppercase;"
-                   oninput="this.value=this.value.toUpperCase()">
-            <button onclick="applyCoupon()" class="btn-primary shrink-0" style="padding:10px 18px;font-size:10px;">Apply</button>
-          </div>
-          <p id="coupon-msg" class="text-[11px] mt-2" style="display:none;"></p>
-          <p class="text-[10px] mt-2" style="color:#B0ADAA;">Try: WELCOME10 &bull; KGSFIRST15 &bull; INSTA20 &bull; KGS5</p>
-        </div>
-
-        <!-- Discount row -->
-        <div id="discount-row" class="flex justify-between text-[13.5px] mb-2" style="display:none;">
-          <span style="color:#16a34a;font-weight:500;">Discount <span id="applied-code"></span></span>
-          <span id="discount-val" style="color:#16a34a;font-weight:600;"></span>
-        </div>
-
         <div class="flex justify-between items-center border-t border-border pt-5 mb-6">
-          <span class="font-semibold text-ink">Total Amount</span>
+          <span class="font-semibold text-ink">Subtotal</span>
           <span id="total-val" class="font-sans font-bold text-warm text-[1.4rem]">&#8377;0</span>
         </div>
+        <p class="text-[12px] text-muted mb-6 text-center">Shipping, taxes, and discounts will be calculated at checkout.</p>
+
+        <button id="checkout-btn" onclick="proceedToCheckout()" class="btn-primary w-full" style="padding:16px;">
+          <span class="material-symbols-outlined text-[18px]">lock</span>
+          Proceed to Secure Checkout
+        </button>
 
         <!-- Trust items -->
-        <div class="space-y-3 border-t border-border pt-5">
-          <div class="flex items-center gap-2.5 text-[12px] text-muted"><span class="material-symbols-outlined text-warm text-[18px]">payments</span>Cash on Delivery — No advance payment</div>
+        <div class="space-y-3 border-t border-border pt-6 mt-6">
+          <div class="flex items-center gap-2.5 text-[12px] text-muted"><span class="material-symbols-outlined text-warm text-[18px]">payments</span>Cash on Delivery Available</div>
           <div class="flex items-center gap-2.5 text-[12px] text-muted"><span class="material-symbols-outlined text-warm text-[18px]">local_shipping</span>Free delivery in Virudhachalam</div>
           <div class="flex items-center gap-2.5 text-[12px] text-muted"><span class="material-symbols-outlined text-warm text-[18px]">verified</span>Genuine KGS quality guaranteed</div>
-          <div class="flex items-center gap-2.5 text-[12px] text-muted"><span class="material-symbols-outlined text-warm text-[18px]">support_agent</span>WhatsApp order confirmation</div>
         </div>
-
-        <!-- WhatsApp direct -->
-        <a href="https://wa.me/919789182921?text=I'd%20like%20to%20place%20an%20order" target="_blank" rel="noopener noreferrer"
-           class="mt-6 flex items-center justify-center gap-2 w-full py-3 bg-[#25D366] text-white text-[11px] font-semibold tracking-wide uppercase hover:bg-[#1db954] transition-colors">
-          <svg viewBox="0 0 24 24" fill="white" class="w-4 h-4"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-          Order Directly via WhatsApp
-        </a>
       </div>
     </div>
 
@@ -283,11 +187,37 @@ img {
 </main>
 
 <!-- FOOTER -->
-<footer class="bg-ink pt-10 pb-8 mt-12">
-  <div class="max-w-7xl mx-auto px-5 md:px-10 flex flex-col md:flex-row justify-between items-center gap-4">
-    <a href="index.html" class="font-serif font-medium tracking-[.38em] text-[1.3rem] text-white hover:text-gold transition-colors">KGS</a>
-    <p class="text-[10px] tracking-[.14em] uppercase text-white/25">&copy; 2026 KGS Home Décors, Virudhachalam · All Rights Reserved</p>
-    <a href="tel:+919789182921" class="text-white/40 hover:text-white text-[13px] transition-colors">+91 97891 82921</a>
+<footer class="bg-ink pt-16 pb-10 border-t border-white/5">
+  <div class="max-w-7xl mx-auto px-5 md:px-10 grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16 mb-12">
+    <div class="md:col-span-5">
+      <a href="index.html" class="font-serif font-medium tracking-[.38em] text-[1.4rem] text-white hover:text-gold transition-colors inline-block mb-5">KGS</a>
+      <p class="text-white/40 text-[13.5px] leading-[1.85] max-w-sm mb-5">Virudhachalam's most trusted home décor store. 500+ premium products. Open daily 10 AM – 10 PM.</p>
+      <div class="space-y-3 text-[13px]">
+        <a href="tel:+919789182921" class="flex items-center gap-2.5 text-white/40 hover:text-white transition-colors"><span class="material-symbols-outlined text-[14px] text-gold">call</span>+91 97891 82921</a>
+        <a href="https://wa.me/919789182921" class="flex items-center gap-2.5 text-white/40 hover:text-white transition-colors"><span class="material-symbols-outlined text-[14px] text-[#25D366]">chat</span>WhatsApp Us</a>
+      </div>
+    </div>
+    <div class="md:col-span-3">
+      <h4 class="text-white text-[11px] tracking-[.18em] uppercase font-semibold mb-5">Shop</h4>
+      <ul class="space-y-3 text-[13px] text-white/40">
+        <li><a href="product-listing.html" class="hover:text-white transition-colors">All Products</a></li>
+        <li><a href="index.html#collections" class="hover:text-white transition-colors">Collections</a></li>
+        <li><a href="wishlist.html" class="hover:text-white transition-colors">Wishlist</a></li>
+      </ul>
+    </div>
+    <div class="md:col-span-4">
+      <h4 class="text-white text-[11px] tracking-[.18em] uppercase font-semibold mb-5">Info</h4>
+      <ul class="space-y-3 text-[13px] text-white/40">
+        <li><a href="about.html" class="hover:text-white transition-colors">Our Story</a></li>
+        <li><a href="contact.html" class="hover:text-white transition-colors">Contact &amp; Showroom</a></li>
+        <li><a href="shipping-policy.html" class="hover:text-white transition-colors">Shipping Policy</a></li>
+        <li><a href="returns-policy.html" class="hover:text-white transition-colors">Returns &amp; Exchange</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="max-w-7xl mx-auto px-5 md:px-10 border-t border-white/8 pt-6 flex flex-col sm:flex-row justify-between items-center gap-3">
+    <p class="text-[11px] tracking-[.14em] uppercase text-white/25">© 2026 KGS Home Décors, Virudhachalam · All Rights Reserved</p>
+    <p class="text-[11px] text-white/15 font-serif italic">Made with care for Indian homes.</p>
   </div>
 </footer>
 
@@ -378,181 +308,111 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape' && document.getEleme
 function openDrw(){document.getElementById('mobile-drawer').style.transform='translateX(0)';document.getElementById('drw-ov').classList.remove('hidden');document.body.style.overflow='hidden';}
 function closeDrw(){document.getElementById('mobile-drawer').style.transform='translateX(-100%)';document.getElementById('drw-ov').classList.add('hidden');document.body.style.overflow='';}
 
-const formatINR = val => '₹' + parseInt(val, 10).toLocaleString('en-IN');
+let checkoutUrl = null;
 
-let appliedCoupon = null;
-let discountAmt = 0;
-const COUPONS = {
-  'WELCOME10' : { pct:10, label:'WELCOME10'  },
-  'KGSFIRST15': { pct:15, label:'KGSFIRST15' },
-  'INSTA20'   : { pct:20, label:'INSTA20'    },
-  'KGS5'      : { pct:5,  label:'KGS5'       },
-};
-
-function selectPay(el, val){
-  document.querySelectorAll('.pay-option').forEach(o=>o.classList.remove('selected'));
-  el.classList.add('selected'); el.querySelector('input').checked=true;
-}
-
-function sanitiseCart() {
-  // Remove any cart items that have corrupted data (from old sessions)
-  const clean = getCart().filter(i => i.id && i.name && typeof i.price === 'number' && !isNaN(i.price));
-  saveCart(clean);
-  updateCartBadge();
-  return clean;
-}
-
-function renderCheckout() {
-  updateCartBadge();
-  const cart = sanitiseCart();
+async function renderCheckout() {
   const emptyEl = document.getElementById('empty-cart');
   const contentEl = document.getElementById('cart-content');
   const cartItemsContainer = document.getElementById('cart-items');
   const summaryContainer = document.getElementById('summary-items');
   const heading = document.getElementById('cart-heading');
+  const totalVal = document.getElementById('total-val');
+  const btn = document.getElementById('checkout-btn');
 
-  if (cart.length === 0) {
+  // Disable button while loading
+  if (btn) btn.disabled = true;
+
+  // Get the cart from Shopify Storefront API
+  const cart = await getCart(); // From store.js
+
+  if (!cart || !cart.lines || cart.lines.edges.length === 0) {
     emptyEl.style.display = 'block';
     contentEl.style.display = 'none';
+    updateCartBadge();
     return;
   }
+
+  checkoutUrl = cart.checkoutUrl;
 
   emptyEl.style.display = 'none';
   contentEl.style.display = 'grid';
 
-  const totalItems = getCartCount();
+  const totalItems = cart.totalQuantity;
   heading.textContent = 'Your Cart (' + totalItems + ' item' + (totalItems > 1 ? 's' : '') + ')';
 
-  cartItemsContainer.innerHTML = cart.map(item => `
+  cartItemsContainer.innerHTML = cart.lines.edges.map(({node}) => {
+    const item = node.merchandise;
+    const qty = node.quantity;
+    const price = parseFloat(item.price.amount);
+    const title = item.product.title;
+    const variantTitle = item.title !== 'Default Title' ? item.title : '';
+    const imgUrl = item.image ? item.image.url : 'assets/images/placeholder.jpg';
+    
+    return `
     <div class="flex gap-5 bg-surface border border-border p-4">
       <div class="w-24 h-28 flex-shrink-0 bg-tint overflow-hidden">
-        <a href="product-detail.html?id=${item.id}">
-          <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover">
+        <a href="product-detail.html?handle=${item.product.handle}">
+          <img src="${imgUrl}" alt="${title}" class="w-full h-full object-cover">
         </a>
       </div>
       <div class="flex-grow">
-        <p class="text-[11px] font-semibold tracking-[.14em] uppercase text-muted mb-1">${item.category}</p>
-        <h3 class="font-sans font-medium tracking-tight text-ink text-[1.05rem] leading-snug mb-2">${item.name}</h3>
-        <p class="font-semibold text-warm text-[1.1rem] mb-3">${formatINR(item.price)}</p>
+        <h3 class="font-sans font-medium tracking-tight text-ink text-[1.05rem] leading-snug mb-1">${title}</h3>
+        ${variantTitle ? `<p class="text-[11px] font-medium text-muted mb-2">${variantTitle}</p>` : ''}
+        <p class="font-semibold text-warm text-[1.1rem] mb-3">${formatINR(price)}</p>
         <div class="flex items-center justify-between">
           <div class="flex items-center border border-border">
-            <button class="qty-btn" type="button" onclick="updateQty('${item.id}', ${item.quantity - 1}); renderCheckout();">−</button>
-            <span class="w-8 text-center text-sm font-semibold">${item.quantity}</span>
-            <button class="qty-btn" type="button" onclick="updateQty('${item.id}', ${item.quantity + 1}); renderCheckout();">+</button>
+            <button class="qty-btn" type="button" onclick="handleQtyUpdate('${node.id}', ${qty - 1})">−</button>
+            <span class="w-8 text-center text-sm font-semibold">${qty}</span>
+            <button class="qty-btn" type="button" onclick="handleQtyUpdate('${node.id}', ${qty + 1})">+</button>
           </div>
-          <button type="button" onclick="removeFromCart('${item.id}'); renderCheckout();" class="text-[11px] font-medium text-muted hover:text-red-500 transition-colors tracking-wide uppercase">Remove</button>
+          <button type="button" onclick="handleRemove('${node.id}')" class="text-[11px] font-medium text-muted hover:text-red-500 transition-colors tracking-wide uppercase">Remove</button>
         </div>
       </div>
     </div>
-  `).join('');
+    `;
+  }).join('');
 
-  const subtotal = getCartTotal();
-  if (appliedCoupon && COUPONS[appliedCoupon]) {
-    discountAmt = Math.round(subtotal * COUPONS[appliedCoupon].pct / 100);
-  } else {
-    discountAmt = 0;
-  }
-
-  summaryContainer.innerHTML = cart.map(item => `
+  summaryContainer.innerHTML = cart.lines.edges.map(({node}) => {
+    const item = node.merchandise;
+    const price = parseFloat(item.price.amount);
+    return `
     <div class="flex justify-between text-[13.5px]">
-      <span class="text-muted">${item.name} × ${item.quantity}</span>
-      <span class="font-medium">${formatINR(item.price * item.quantity)}</span>
+      <span class="text-muted">${item.product.title} × ${node.quantity}</span>
+      <span class="font-medium">${formatINR(price * node.quantity)}</span>
     </div>
-  `).join('') + `
-    <div class="flex justify-between text-[13.5px] border-t border-border pt-3 mt-3">
-      <span class="text-muted">Subtotal</span><span class="font-medium">${formatINR(subtotal)}</span>
-    </div>
-    <div class="flex justify-between text-[13.5px] mt-1">
-      <span class="text-muted">Delivery</span><span class="font-semibold text-green-600">FREE</span>
-    </div>
-  `;
+    `;
+  }).join('');
 
-  document.getElementById('total-val').textContent = formatINR(subtotal - discountAmt);
-  
-  if (discountAmt > 0) {
-    document.getElementById('applied-code').textContent = '(' + COUPONS[appliedCoupon].label + ')';
-    document.getElementById('discount-val').textContent = '-' + formatINR(discountAmt);
-    document.getElementById('discount-row').style.display = 'flex';
-  } else {
-    document.getElementById('discount-row').style.display = 'none';
+  const subtotal = parseFloat(cart.cost.totalAmount.amount);
+  totalVal.textContent = formatINR(subtotal);
+
+  if (btn) {
+    btn.disabled = false;
+    btn.innerHTML = `<span class="material-symbols-outlined text-[18px]">lock</span> Proceed to Secure Checkout`;
   }
+  updateCartBadge();
 }
 
-function applyCoupon() {
-  const code = document.getElementById('coupon-input').value.trim();
-  const msg = document.getElementById('coupon-msg');
-  msg.style.display = 'block';
-  if(!code){ msg.textContent = 'Please enter a coupon code.'; msg.style.color = '#ef4444'; return; }
-  if(!COUPONS[code]){ msg.textContent = 'Invalid code. Please check and try again.'; msg.style.color = '#ef4444'; return; }
-  
-  appliedCoupon = code;
-  msg.textContent = '✓ Coupon applied successfully!';
-  msg.style.color = '#16a34a';
+async function handleQtyUpdate(lineId, qty) {
+  // Show loading indicator on button or something if desired
+  await updateCartLine(lineId, qty);
   renderCheckout();
 }
 
-function quickAdd(productId, btn) {
-  addToCart(productId);
+async function handleRemove(lineId) {
+  await removeFromCart(lineId);
   renderCheckout();
-  if (btn) { 
-    const orig = btn.textContent; 
-    btn.textContent = 'Added ✓'; 
-    btn.style.background = '#15803d'; 
-    btn.style.color = '#fff'; 
-    btn.style.borderColor = '#15803d'; 
-    setTimeout(() => { 
-      btn.textContent = orig; 
-      btn.style.background = ''; 
-      btn.style.color = ''; 
-      btn.style.borderColor = ''; 
-    }, 800); 
-  }
 }
 
-function placeOrder(e) {
-  e.preventDefault();
-  const cart = getCart();
-  if (cart.length === 0) {
-    const errEl = document.getElementById('cart-error-msg');
-    if (errEl) { errEl.textContent = 'Your cart is empty. Add items before placing an order.'; errEl.style.display = 'block'; }
-    return;
+function proceedToCheckout() {
+  const btn = document.getElementById('checkout-btn');
+  if (btn) {
+    btn.disabled = true;
+    btn.innerHTML = 'Redirecting to secure server...';
   }
-
-  const name  = document.getElementById('fname').value + ' ' + document.getElementById('lname').value;
-  const phone = document.getElementById('phone').value;
-  const addr  = document.getElementById('addr').value;
-  const city  = document.getElementById('city').value;
-  const pin   = document.getElementById('pin').value;
-  const pay   = document.querySelector('input[name="payment"]:checked').value;
-  
-  const payTxt = pay==='cod' ? 'Cash on Delivery (COD)' : pay==='upi' ? 'UPI / Online Payment' : 'WhatsApp Order';
-  const subtotal = getCartTotal();
-  const net = subtotal - discountAmt;
-
-  const itemLines = cart.map(item => `- ${item.name} ${formatINR(item.price)} x${item.quantity}`).join('\n');
-  const couponLine = appliedCoupon ? '\nCoupon: ' + appliedCoupon + ' (-' + formatINR(discountAmt) + ')' : '';
-
-  const finalMsg = `Hello KGS Team,
-
-I'd like to place an order:
-
-Items:
-${itemLines}
-
-Subtotal: ${formatINR(subtotal)}${couponLine}
-Total: ${formatINR(net)}
-Delivery: FREE
-
-Address: ${addr}, ${city} - ${pin}
-Phone: ${phone}
-Name: ${name}
-Payment: ${payTxt}
-
-Please confirm my order. Thank you!`;
-
-  window.open('https://wa.me/919789182921?text=' + encodeURIComponent(finalMsg), '_blank');
-  // Redirect to confirmation page after a brief delay
-  setTimeout(() => { window.location.href = 'order-confirmation.html'; }, 800);
+  if (checkoutUrl) {
+    window.location.href = checkoutUrl;
+  }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
