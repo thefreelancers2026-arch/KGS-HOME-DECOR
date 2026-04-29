@@ -891,7 +891,7 @@ async function loadDynamicHome() {
     const newArrivals = products.slice(0, 5);
     newArrContainer.innerHTML = newArrivals.map(p => `
       <div class="new-card relative group">
-        <div class="new-img aspect-[3/4] relative overflow-hidden bg-base">
+        <div class="new-img aspect-[3/4] relative overflow-hidden bg-white">
           <button onclick="toggleWishlist('${p.id}')" class="heart-btn opacity-0 group-hover:opacity-100 transition-opacity duration-200" title="Save">
             <span class="material-symbols-outlined text-[15px]">favorite</span>
           </button>
@@ -919,7 +919,7 @@ async function loadDynamicHome() {
     if (bestSellers.length === 0) { if (skelBest) skelBest.style.display = 'none'; return; }
     bestSelContainer.innerHTML = bestSellers.map(p => `
       <div class="relative group rv">
-        <div class="aspect-[3/4] overflow-hidden bg-base mb-4">
+        <div class="aspect-[3/4] overflow-hidden bg-white mb-4">
           <button onclick="toggleWishlist('${p.id}')" class="heart-btn opacity-0 group-hover:opacity-100 transition-opacity duration-200" title="Save">
             <span class="material-symbols-outlined text-[15px]">favorite</span>
           </button>

@@ -265,7 +265,7 @@ input:focus { border-color: rgba(26, 26, 26, 0.25) !important; box-shadow: 0 10p
   <div id="skeleton-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-5">
     <!-- Skeleton Card 1 -->
     <div class="prod-card border border-border bg-surface">
-      <div class="skeleton aspect-[4/5] w-full"></div>
+      <div class="skeleton aspect-square w-full"></div>
       <div class="p-4 space-y-3">
         <div class="skeleton h-3 w-1/3"></div>
         <div class="skeleton h-5 w-full"></div>
@@ -275,7 +275,7 @@ input:focus { border-color: rgba(26, 26, 26, 0.25) !important; box-shadow: 0 10p
     </div>
     <!-- Skeleton Card 2 -->
     <div class="prod-card border border-border bg-surface">
-      <div class="skeleton aspect-[4/5] w-full"></div>
+      <div class="skeleton aspect-square w-full"></div>
       <div class="p-4 space-y-3">
         <div class="skeleton h-3 w-1/3"></div>
         <div class="skeleton h-5 w-full"></div>
@@ -285,7 +285,7 @@ input:focus { border-color: rgba(26, 26, 26, 0.25) !important; box-shadow: 0 10p
     </div>
     <!-- Skeleton Card 3 -->
     <div class="prod-card border border-border bg-surface">
-      <div class="skeleton aspect-[4/5] w-full"></div>
+      <div class="skeleton aspect-square w-full"></div>
       <div class="p-4 space-y-3">
         <div class="skeleton h-3 w-1/3"></div>
         <div class="skeleton h-5 w-full"></div>
@@ -295,7 +295,7 @@ input:focus { border-color: rgba(26, 26, 26, 0.25) !important; box-shadow: 0 10p
     </div>
     <!-- Skeleton Card 4 -->
     <div class="prod-card border border-border bg-surface">
-      <div class="skeleton aspect-[4/5] w-full"></div>
+      <div class="skeleton aspect-square w-full"></div>
       <div class="p-4 space-y-3">
         <div class="skeleton h-3 w-1/3"></div>
         <div class="skeleton h-5 w-full"></div>
@@ -305,7 +305,7 @@ input:focus { border-color: rgba(26, 26, 26, 0.25) !important; box-shadow: 0 10p
     </div>
     <!-- Skeleton Card 5 -->
     <div class="prod-card border border-border bg-surface">
-      <div class="skeleton aspect-[4/5] w-full"></div>
+      <div class="skeleton aspect-square w-full"></div>
       <div class="p-4 space-y-3">
         <div class="skeleton h-3 w-1/3"></div>
         <div class="skeleton h-5 w-full"></div>
@@ -315,7 +315,7 @@ input:focus { border-color: rgba(26, 26, 26, 0.25) !important; box-shadow: 0 10p
     </div>
     <!-- Skeleton Card 6 -->
     <div class="prod-card border border-border bg-surface">
-      <div class="skeleton aspect-[4/5] w-full"></div>
+      <div class="skeleton aspect-square w-full"></div>
       <div class="p-4 space-y-3">
         <div class="skeleton h-3 w-1/3"></div>
         <div class="skeleton h-5 w-full"></div>
@@ -325,7 +325,7 @@ input:focus { border-color: rgba(26, 26, 26, 0.25) !important; box-shadow: 0 10p
     </div>
     <!-- Skeleton Card 7 -->
     <div class="prod-card border border-border bg-surface">
-      <div class="skeleton aspect-[4/5] w-full"></div>
+      <div class="skeleton aspect-square w-full"></div>
       <div class="p-4 space-y-3">
         <div class="skeleton h-3 w-1/3"></div>
         <div class="skeleton h-5 w-full"></div>
@@ -335,7 +335,7 @@ input:focus { border-color: rgba(26, 26, 26, 0.25) !important; box-shadow: 0 10p
     </div>
     <!-- Skeleton Card 8 -->
     <div class="prod-card border border-border bg-surface">
-      <div class="skeleton aspect-[4/5] w-full"></div>
+      <div class="skeleton aspect-square w-full"></div>
       <div class="p-4 space-y-3">
         <div class="skeleton h-3 w-1/3"></div>
         <div class="skeleton h-5 w-full"></div>
@@ -460,13 +460,13 @@ function renderPage() {
     msg.style.display = 'none';
     grid.innerHTML = pageItems.map(p => `
       <div class="prod-card relative hover-trigger">
-        <div class="prod-img block aspect-[4/5] relative bg-tint">
+        <div class="prod-img block aspect-square relative bg-white">
           ${p.badge ? `<span class="absolute top-2.5 left-2.5 bg-gold text-white text-[9px] font-semibold tracking-wider uppercase px-2 py-1">${p.badge}</span>` : ''}
           <button class="heart-btn" data-product-id="${p.id}" onclick="toggleWishlist('${p.id}')">
             <span class="material-symbols-outlined text-[16px]">favorite</span>
           </button>
           <a href="product-detail.html?handle=${p.handle}">
-            <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover" loading="lazy">
+            <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover" loading="lazy" style="object-position:center center;">
           </a>
         </div>
         <div class="p-4">

@@ -275,7 +275,7 @@ function renderWishlist() {
         <button data-product-id="${p.id}" onclick="toggleWishlist('${p.id}'); renderWishlist();" class="heart-btn active" title="Remove from wishlist">
           <span class="material-symbols-outlined text-[16px]">favorite</span>
         </button>
-        <a href="product-detail.html?handle=${p.handle}" class="prod-img block aspect-[4/5] relative overflow-hidden bg-tint">
+        <a href="product-detail.html?handle=${p.handle}" class="prod-img block aspect-square relative overflow-hidden bg-tint">
           <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover">
         </a>
         <div class="p-4">
