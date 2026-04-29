@@ -199,7 +199,7 @@ body { -webkit-font-smoothing: antialiased; }
   .prod-card:hover .card-cta { max-height: 100px; }
 }
 .prod-card .prod-img { overflow: hidden; }
-.prod-card .prod-img img { transition: transform 1.2s cubic-bezier(0.33, 1, 0.68, 1); display: block; width: 100%; mix-blend-mode: multiply; }
+.prod-card .prod-img img { transition: transform 1.2s cubic-bezier(0.33, 1, 0.68, 1); display: block; width: 100%; height: 100%; object-fit: cover; }
 .prod-card .card-cta {
   max-height: 0; overflow: hidden;
   transition: max-height 250ms var(--ease-out-punch);
@@ -275,7 +275,7 @@ body { -webkit-font-smoothing: antialiased; }
   .cat-pill:hover .cat-circle { border-color:#C97840; transform:scale(1.06); }
 }
 .cat-pill:active .cat-circle { transform:scale(0.95); }
-.cat-circle img { width:100%; height:100%; object-fit:cover; mix-blend-mode: multiply; }
+.cat-circle img { width:100%; height:100%; object-fit:cover; }
 .cat-label { font-size:11px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:#767270; white-space:nowrap; }
 
 /* ——— FOCUS STATES (accessibility) ——————————— */
@@ -896,7 +896,7 @@ async function loadDynamicHome() {
             <span class="material-symbols-outlined text-[15px]">favorite</span>
           </button>
           <a href="product-detail.html?handle=${p.handle}" class="block w-full h-full">
-            <img src="${p.image}" alt="${p.name}" class="w-full h-full object-contain p-3 transition-transform duration-700 group-hover:scale-[1.04] mix-blend-multiply">
+            <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]">
           </a>
           <div class="card-overlay">
             <button onclick="addToCart('${p.id}')" class="qa-btn"><span class="material-symbols-outlined text-[14px]">shopping_bag</span> Add to Cart</button>
@@ -924,7 +924,7 @@ async function loadDynamicHome() {
             <span class="material-symbols-outlined text-[15px]">favorite</span>
           </button>
           <a href="product-detail.html?handle=${p.handle}" class="block w-full h-full">
-            <img src="${p.image}" alt="${p.name}" class="w-full h-full object-contain p-3 transition-transform duration-700 group-hover:scale-[1.04] mix-blend-multiply">
+            <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]">
           </a>
           <div class="card-overlay"><button onclick="addToCart('${p.id}')" class="qa-btn">Add to Cart</button></div>
         </div>
