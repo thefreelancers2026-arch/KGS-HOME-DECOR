@@ -893,20 +893,20 @@ async function loadDynamicHome() {
 
   if (newArrContainer) {
     const newArrivals = products.slice(0, 5);
-    newArrContainer.innerHTML = newArrivals.map(p => `
+        newArrContainer.innerHTML = newArrivals.map(p => `
       <div class="new-card relative group">
-        <div class="new-img aspect-[3/4] relative overflow-hidden bg-white">
+        <div class="new-img-wrap relative w-full overflow-hidden bg-white" style="padding-top:100%;">
           <button onclick="toggleWishlist('${p.id}')" class="heart-btn opacity-0 group-hover:opacity-100 transition-opacity duration-200" title="Save">
             <span class="material-symbols-outlined text-[15px]">favorite</span>
           </button>
-          <a href="product-detail.html?handle=${p.handle}" class="block w-full h-full absolute inset-0">
-            <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]">
+          <a href="product-detail.html?handle=${p.handle}" class="absolute inset-0 block">
+            <img src="${p.image}" alt="${p.name}" class="absolute inset-0 w-full h-full object-contain p-4 bg-white transition-transform duration-700 group-hover:scale-[1.04]">
           </a>
           <div class="card-overlay">
             <button onclick="addToCart('${p.id}')" class="qa-btn"><span class="material-symbols-outlined text-[14px]">shopping_bag</span> Add to Cart</button>
           </div>
         </div>
-        <div class="pt-4 pb-2 px-1">
+        <div class="pt-4 pb-2 px-3">
           <p class="text-[9.5px] font-medium tracking-[.2em] uppercase text-muted mb-2">${p.category}</p>
           <h3 class="font-serif font-medium text-ink leading-snug mb-1" style="font-size:1.1rem;"><a href="product-detail.html?handle=${p.handle}">${p.name}</a></h3>
           <p class="font-sans font-semibold text-warm" style="font-size:1rem;">&#8377;${p.price.toLocaleString('en-IN')}</p>
@@ -921,22 +921,24 @@ async function loadDynamicHome() {
     // Use products 5-9 if enough, else reuse from start
     let bestSellers = products.length > 5 ? products.slice(5, 9) : products.slice(0, Math.min(4, products.length));
     if (bestSellers.length === 0) { if (skelBest) skelBest.style.display = 'none'; return; }
-    bestSelContainer.innerHTML = bestSellers.map(p => `
+        bestSelContainer.innerHTML = bestSellers.map(p => `
       <div class="relative group rv">
-        <div class="aspect-[3/4] overflow-hidden bg-white mb-4">
-          <button onclick="toggleWishlist('${p.id}')" class="heart-btn opacity-0 group-hover:opacity-100 transition-opacity duration-200" title="Save">
+        <div class="relative w-full overflow-hidden bg-white mb-4" style="padding-top:100%;">
+          <button onclick="toggleWishlist('${p.id}')" class="heart-btn opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-10" title="Save">
             <span class="material-symbols-outlined text-[15px]">favorite</span>
           </button>
-          <a href="product-detail.html?handle=${p.handle}" class="block w-full h-full absolute inset-0">
-            <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]">
+          <a href="product-detail.html?handle=${p.handle}" class="absolute inset-0 block">
+            <img src="${p.image}" alt="${p.name}" class="absolute inset-0 w-full h-full object-contain p-4 bg-white transition-transform duration-700 group-hover:scale-[1.04]">
           </a>
           <div class="card-overlay"><button onclick="addToCart('${p.id}')" class="qa-btn">Add to Cart</button></div>
         </div>
-        <p class="text-[9.5px] font-medium tracking-[.2em] uppercase text-muted mb-2">${p.category}</p>
-        <h3 class="font-serif font-medium text-ink leading-snug mb-2" style="font-size:1.1rem;"><a href="product-detail.html?handle=${p.handle}">${p.name}</a></h3>
-        <div class="flex items-center justify-between">
-          <p class="font-sans font-semibold text-warm" style="font-size:1rem;">&#8377;${p.price.toLocaleString('en-IN')}</p>
-          <button onclick="addToCart('${p.id}')" class="text-[9px] font-semibold tracking-[.15em] uppercase text-muted hover:text-ink border-b border-current pb-px transition-colors">Add to Cart</button>
+        <div class="px-3 pb-2">
+          <p class="text-[9.5px] font-medium tracking-[.2em] uppercase text-muted mb-2">${p.category}</p>
+          <h3 class="font-serif font-medium text-ink leading-snug mb-2" style="font-size:1.1rem;"><a href="product-detail.html?handle=${p.handle}">${p.name}</a></h3>
+          <div class="flex items-center justify-between">
+            <p class="font-sans font-semibold text-warm" style="font-size:1rem;">&#8377;${p.price.toLocaleString('en-IN')}</p>
+            <button onclick="addToCart('${p.id}')" class="text-[9px] font-semibold tracking-[.15em] uppercase text-muted hover:text-ink border-b border-current pb-px transition-colors">Add to Cart</button>
+          </div>
         </div>
       </div>
     `).join('');
