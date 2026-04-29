@@ -460,7 +460,7 @@ function renderPage() {
     msg.style.display = 'none';
     grid.innerHTML = pageItems.map(p => `
       <div class="prod-card relative hover-trigger">
-        <div class="prod-img block aspect-square relative bg-white">
+        <div class="prod-img">
           ${p.badge ? `<span class="absolute top-2.5 left-2.5 bg-gold text-white text-[9px] font-semibold tracking-wider uppercase px-2 py-1">${p.badge}</span>` : ''}
           <button class="heart-btn" data-product-id="${p.id}" onclick="toggleWishlist('${p.id}')">
             <span class="material-symbols-outlined text-[16px]">favorite</span>
@@ -469,7 +469,7 @@ function renderPage() {
             <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover" loading="lazy" style="object-position:center center;">
           </a>
         </div>
-        <div class="p-4">
+        <div class="px-4 pt-3 pb-4">
           <span class="text-[11px] font-medium tracking-[.2em] uppercase text-muted mb-1">${p.category.replace(/-/g, ' ')}</span>
           <h3 class="font-sans font-medium tracking-tight text-ink text-[1.05rem] leading-snug mb-2">
             <a href="product-detail.html?handle=${p.handle}">${p.name}</a>
