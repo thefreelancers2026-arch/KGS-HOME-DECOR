@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Track Your Order — KGS Home Décors</title>
+<meta name="description" content="Track your KGS Home Décors order in real-time. Enter your Order ID and phone number to see the latest delivery status.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+<link rel="icon" type="image/png" href="assets/images/favicon.png">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#1A1A1A">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: { extend: {
+    colors: {
+      base:    '#FAF8F4',
+      tint:    '#F3EDE4',
+      surface: '#FDF9F3',
+      ink:     '#1A1A1A',
+      muted:   '#767270',
+      gold:    '#C5A880',
+      warm:    '#C97840',
+      border:  '#E4DDD4',
+    },
+    fontFamily: {
+      sans: ['"Jost"', 'sans-serif'],
+      serif: ['"Cormorant Garamond"', 'serif'],
+    }
+  }}
+}
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; }
+
+  /* Timeline */
+  .timeline { position: relative; display: flex; justify-content: space-between; margin: 48px 0 32px; padding: 0 8px; }
+  .timeline::before {
+    content: ''; position: absolute; top: 20px; left: 40px; right: 40px;
+    height: 3px; background: #E4DDD4; z-index: 0;
+  }
+  .timeline-progress {
+    position: absolute; top: 20px; left: 40px;
+    height: 3px; background: linear-gradient(90deg, #C97840, #C5A880); z-index: 1;
+    transition: width 1s cubic-bezier(.4,0,.2,1);
+    border-radius: 2px;
+  }
+  .timeline-step {
+    position: relative; z-index: 2; text-align: center; flex: 1;
+    display: flex; flex-direction: column; align-items: center;
+  }
+  .step-dot {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: #E4DDD4; display: flex; align-items: center; justify-content: center;
+    transition: all .5s cubic-bezier(.4,0,.2,1);
+    box-shadow: 0 0 0 4px #FDF9F3;
+  }
+  .step-dot .material-symbols-outlined { font-size: 20px; color: #999; transition: color .3s }
+  .step-label {
+    margin-top: 12px; font-size: 11px; font-weight: 600;
+    letter-spacing: .08em; text-transform: uppercase; color: #999;
+    transition: color .3s;
+  }
+  .step-date {
+    margin-top: 4px; font-size: 11px; color: #999;
+  }
+
+  /* Active/completed states */
+  .timeline-step.completed .step-dot { background: #C5A880 }
+  .timeline-step.completed .step-dot .material-symbols-outlined { color: #fff }
+  .timeline-step.completed .step-label { color: #1A1A1A }
+  .timeline-step.active .step-dot {
+    background: linear-gradient(135deg, #C97840, #C5A880);
+    box-shadow: 0 0 0 4px #FDF9F3, 0 0 0 8px rgba(197,168,128,.2);
+    animation: pulse 2s infinite;
+  }
+  .timeline-step.active .step-dot .material-symbols-outlined { color: #fff }
+  .timeline-step.active .step-label { color: #C97840; font-weight: 700 }
+
+  .timeline-step.cancelled .step-dot { background: #ef4444 }
+  .timeline-step.cancelled .step-dot .material-symbols-outlined { color: #fff }
+  .timeline-step.cancelled .step-label { color: #ef4444 }
+
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 4px #FDF9F3, 0 0 0 8px rgba(197,168,128,.2) }
+    50% { box-shadow: 0 0 0 4px #FDF9F3, 0 0 0 14px rgba(197,168,128,.08) }
+  }
+
+  /* Card animation */
+  .result-card { animation: slideUp .5s cubic-bezier(.4,0,.2,1) }
+  @keyframes slideUp { from { opacity:0; transform:translateY(20px) } to { opacity:1; transform:translateY(0) } }
+
+  @media(max-width:640px) {
+    .timeline { padding: 0 }
+    .timeline::before { left: 20px; right: 20px }
+    .timeline-progress { left: 20px }
+    .step-dot { width: 32px; height: 32px }
+    .step-dot .material-symbols-outlined { font-size: 16px }
+    .step-label { font-size: 9px; letter-spacing: .04em }
+  }
+</style>
+</head>
+<body class="bg-base text-ink font-sans">
+
+<!-- ══ NAVBAR (minimal) ════════════════════════════════════ -->
+<nav class="bg-surface border-b border-border">
+  <div class="max-w-7xl mx-auto px-5 md:px-10 flex items-center justify-between h-16">
+    <a href="index.html" class="font-serif text-xl font-semibold tracking-[.15em] text-ink">KGS</a>
+    <a href="index.html" class="text-[11px] font-medium tracking-wider uppercase text-muted hover:text-ink transition-colors">← Back to Store</a>
+  </div>
+</nav>
+
+<!-- ══ MAIN ════════════════════════════════════════════════ -->
+<main class="min-h-[80vh] py-12 md:py-20">
+  <div class="max-w-2xl mx-auto px-5 md:px-10">
+
+    <!-- Header -->
+    <div class="text-center mb-10">
+      <span class="material-symbols-outlined text-gold mb-3" style="font-size:40px;">local_shipping</span>
+      <h1 class="font-serif font-medium text-ink" style="font-size:clamp(1.8rem,3vw,2.5rem)">Track Your Order</h1>
+      <p class="text-muted mt-3" style="font-size:.9rem; max-width:400px; margin:0 auto;">Enter your Order ID and registered phone number to check the latest delivery status.</p>
+    </div>
+
+    <!-- Search Form -->
+    <div class="bg-surface border border-border rounded-xl p-6 md:p-8 shadow-sm">
+      <form onsubmit="trackOrder(event)">
+        <div class="mb-5">
+          <label class="block text-[10px] font-semibold tracking-[.16em] uppercase text-muted mb-2">Order ID</label>
+          <input type="text" id="track-order-id" required placeholder="e.g. KGS-A1B2C3D4"
+            class="w-full px-4 py-3 bg-base border border-border rounded-lg font-sans text-[15px] text-ink outline-none focus:border-gold focus:ring-2 focus:ring-gold/20 transition-all"
+            style="letter-spacing:.03em">
+        </div>
+        <div class="mb-6">
+          <label class="block text-[10px] font-semibold tracking-[.16em] uppercase text-muted mb-2">Phone Number</label>
+          <input type="tel" id="track-phone" required placeholder="e.g. 9789182921" minlength="10" maxlength="15"
+            class="w-full px-4 py-3 bg-base border border-border rounded-lg font-sans text-[15px] text-ink outline-none focus:border-gold focus:ring-2 focus:ring-gold/20 transition-all">
+        </div>
+        <p id="track-error" class="text-[13px] mb-4 hidden" style="color:#ef4444"></p>
+        <button type="submit" id="track-btn"
+          class="w-full py-3.5 bg-gradient-to-r from-warm to-gold text-white font-semibold text-[12px] tracking-[.12em] uppercase rounded-lg hover:shadow-lg hover:shadow-warm/20 transition-all duration-300">
+          Track Order
+        </button>
+      </form>
+    </div>
+
+    <!-- Result (hidden initially) -->
+    <div id="track-result" class="hidden mt-8">
+      <div class="result-card bg-surface border border-border rounded-xl overflow-hidden shadow-sm">
+
+        <!-- Order Header -->
+        <div class="p-6 md:p-8 border-b border-border">
+          <div class="flex items-start justify-between flex-wrap gap-3">
+            <div>
+              <p class="text-[10px] font-semibold tracking-[.16em] uppercase text-muted mb-1">Order</p>
+              <p id="r-order-id" class="font-serif text-xl font-medium text-ink"></p>
+            </div>
+            <div class="text-right">
+              <p class="text-[10px] font-semibold tracking-[.16em] uppercase text-muted mb-1">Placed on</p>
+              <p id="r-date" class="text-[14px] text-ink"></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Timeline -->
+        <div class="px-6 md:px-8 py-4">
+          <div class="timeline" id="timeline">
+            <div class="timeline-progress" id="timeline-bar" style="width:0%"></div>
+            <div class="timeline-step" data-status="pending">
+              <div class="step-dot"><span class="material-symbols-outlined">receipt_long</span></div>
+              <span class="step-label">Placed</span>
+            </div>
+            <div class="timeline-step" data-status="confirmed">
+              <div class="step-dot"><span class="material-symbols-outlined">check_circle</span></div>
+              <span class="step-label">Confirmed</span>
+            </div>
+            <div class="timeline-step" data-status="shipped">
+              <div class="step-dot"><span class="material-symbols-outlined">local_shipping</span></div>
+              <span class="step-label">Shipped</span>
+            </div>
+            <div class="timeline-step" data-status="delivered">
+              <div class="step-dot"><span class="material-symbols-outlined">home</span></div>
+              <span class="step-label">Delivered</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Order Details -->
+        <div class="p-6 md:p-8 bg-tint/30">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <div>
+              <p class="text-[10px] font-semibold tracking-[.16em] uppercase text-muted mb-1">Customer</p>
+              <p id="r-name" class="text-[14px] font-medium text-ink"></p>
+            </div>
+            <div>
+              <p class="text-[10px] font-semibold tracking-[.16em] uppercase text-muted mb-1">Payment</p>
+              <p id="r-payment" class="text-[14px] font-medium text-ink"></p>
+            </div>
+            <div>
+              <p class="text-[10px] font-semibold tracking-[.16em] uppercase text-muted mb-1">Delivery Address</p>
+              <p id="r-address" class="text-[14px] text-ink leading-relaxed"></p>
+            </div>
+            <div>
+              <p class="text-[10px] font-semibold tracking-[.16em] uppercase text-muted mb-1">Order Total</p>
+              <p id="r-total" class="font-serif text-2xl font-semibold text-warm"></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Order Items -->
+        <div class="p-6 md:p-8 border-t border-border">
+          <p class="text-[10px] font-semibold tracking-[.16em] uppercase text-muted mb-4">Items Ordered</p>
+          <div id="r-items" class="space-y-3"></div>
+        </div>
+
+      </div>
+
+      <!-- Help -->
+      <div class="text-center mt-8">
+        <p class="text-muted text-[13px]">Need help? Call <a href="tel:+919789182921" class="text-warm font-medium hover:underline">+91 97891 82921</a> or <a href="https://wa.me/919789182921" target="_blank" class="text-warm font-medium hover:underline">WhatsApp us</a></p>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<!-- ══ FOOTER (minimal) ═══════════════════════════════════ -->
+<footer class="bg-surface border-t border-border py-8 text-center">
+  <p class="text-muted text-[12px]">&copy; 2026 KGS Home Décors. All rights reserved.</p>
+</footer>
+
+<script>
+const SB_URL = 'https://rgpkomngygapwjhnbgaf.supabase.co';
+const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJncGtvbW5neWdhcHdqaG5iZ2FmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzczNjg2MDYsImV4cCI6MjA5Mjk0NDYwNn0.1996CFXZp-QdQK8I4l2GoJDyqYPQU3OrmJ7-03DtMCE';
+const sb = supabase.createClient(SB_URL, SB_KEY);
+
+const STATUS_FLOW = ['pending', 'confirmed', 'shipped', 'delivered'];
+
+async function trackOrder(e) {
+  e.preventDefault();
+  const errEl = document.getElementById('track-error');
+  const btn = document.getElementById('track-btn');
+  const resultEl = document.getElementById('track-result');
+  errEl.classList.add('hidden');
+  resultEl.classList.add('hidden');
+
+  let orderId = document.getElementById('track-order-id').value.trim().toUpperCase();
+  const phone = document.getElementById('track-phone').value.trim().replace(/\s/g, '');
+
+  // Normalize: strip "KGS-" prefix if user typed it
+  const orderNumber = orderId.replace(/^KGS-/i, '');
+
+  btn.textContent = 'Searching...';
+  btn.disabled = true;
+
+  try {
+    // Query order by order_number + phone
+    const { data, error } = await sb
+      .from('orders')
+      .select('*, order_items(*)')
+      .eq('order_number', orderNumber)
+      .limit(1)
+      .maybeSingle();
+
+    if (error) throw error;
+
+    if (!data) {
+      // Try with KGS- prefix
+      const { data: data2, error: err2 } = await sb
+        .from('orders')
+        .select('*, order_items(*)')
+        .eq('order_number', orderId)
+        .limit(1)
+        .maybeSingle();
+
+      if (!data2) {
+        errEl.textContent = 'Order not found. Please check your Order ID and phone number.';
+        errEl.classList.remove('hidden');
+        return;
+      }
+
+      // Verify phone
+      const storedPhone = (data2.customer_phone || '').replace(/\D/g, '');
+      const inputPhone = phone.replace(/\D/g, '');
+      if (!storedPhone.endsWith(inputPhone.slice(-10))) {
+        errEl.textContent = 'Phone number does not match our records for this order.';
+        errEl.classList.remove('hidden');
+        return;
+      }
+
+      renderResult(data2);
+      return;
+    }
+
+    // Verify phone
+    const storedPhone = (data.customer_phone || '').replace(/\D/g, '');
+    const inputPhone = phone.replace(/\D/g, '');
+    if (!storedPhone.endsWith(inputPhone.slice(-10))) {
+      errEl.textContent = 'Phone number does not match our records for this order.';
+      errEl.classList.remove('hidden');
+      return;
+    }
+
+    renderResult(data);
+  } catch (err) {
+    errEl.textContent = 'Something went wrong. Please try again.';
+    errEl.classList.remove('hidden');
+    console.error(err);
+  } finally {
+    btn.textContent = 'Track Order';
+    btn.disabled = false;
+  }
+}
+
+function renderResult(order) {
+  const resultEl = document.getElementById('track-result');
+
+  // Header
+  document.getElementById('r-order-id').textContent = 'KGS-' + order.order_number;
+  document.getElementById('r-date').textContent = new Date(order.created_at).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });
+  document.getElementById('r-name').textContent = order.customer_name || '—';
+  document.getElementById('r-payment').textContent = (order.payment_method || 'cod').toUpperCase() === 'COD' ? 'Cash on Delivery' : 'Online (UPI)';
+  document.getElementById('r-address').textContent = [order.shipping_address, order.shipping_city, order.shipping_state, order.shipping_pincode].filter(Boolean).join(', ');
+  document.getElementById('r-total').textContent = '₹' + Number(order.total).toLocaleString('en-IN');
+
+  // Items
+  const items = order.order_items || [];
+  document.getElementById('r-items').innerHTML = items.length ? items.map(it => `
+    <div class="flex items-center gap-4 py-2">
+      ${it.product_image ? `<img src="${it.product_image}" alt="" class="w-12 h-12 object-contain rounded-lg border border-border bg-base flex-shrink-0">` : ''}
+      <div class="flex-1 min-w-0">
+        <p class="text-[13px] font-medium text-ink truncate">${it.product_name}</p>
+        <p class="text-[12px] text-muted">Qty: ${it.quantity} × ₹${Number(it.unit_price).toLocaleString('en-IN')}</p>
+      </div>
+      <p class="text-[13px] font-semibold text-ink flex-shrink-0">₹${Number(it.total_price).toLocaleString('en-IN')}</p>
+    </div>
+  `).join('') : '<p class="text-muted text-[13px]">Item details not available</p>';
+
+  // Timeline
+  const status = (order.status || 'pending').toLowerCase();
+  const steps = document.querySelectorAll('.timeline-step');
+  const bar = document.getElementById('timeline-bar');
+
+  if (status === 'cancelled') {
+    steps.forEach(s => s.className = 'timeline-step');
+    steps[0].classList.add('cancelled');
+    steps[0].querySelector('.step-label').textContent = 'Cancelled';
+    steps[0].querySelector('.material-symbols-outlined').textContent = 'cancel';
+    bar.style.width = '0%';
+  } else {
+    const currentIdx = STATUS_FLOW.indexOf(status);
+    const totalSteps = STATUS_FLOW.length - 1;
+
+    steps.forEach((step, i) => {
+      step.className = 'timeline-step';
+      // Reset icon/label
+      const icons = ['receipt_long', 'check_circle', 'local_shipping', 'home'];
+      const labels = ['Placed', 'Confirmed', 'Shipped', 'Delivered'];
+      step.querySelector('.material-symbols-outlined').textContent = icons[i];
+      step.querySelector('.step-label').textContent = labels[i];
+
+      if (i < currentIdx) step.classList.add('completed');
+      else if (i === currentIdx) step.classList.add('active');
+    });
+
+    // Calculate bar width
+    const barWidth = totalSteps > 0 ? (currentIdx / totalSteps) * 100 : 0;
+    setTimeout(() => { bar.style.width = barWidth + '%'; }, 100);
+  }
+
+  resultEl.classList.remove('hidden');
+  resultEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+</script>
+
+<!-- Service Worker -->
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js').catch(() => {});
+}
+</script>
+</body>
+</html>
