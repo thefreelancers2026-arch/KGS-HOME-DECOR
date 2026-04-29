@@ -4,6 +4,6 @@ Allow: /
 Sitemap: https://kgshomedecors.com/sitemap.xml
 
 # Block admin and internal pages
-Disallow: /admin
+Disallow: /kgsadmin
 Disallow: /assets/js/config.js
-Disallow: /assets/js/admin.js
+Disallow: /assets/js/kgsadmin.js
