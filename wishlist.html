@@ -6,16 +6,15 @@
 <link rel="icon" type="image/png" href="assets/images/favicon.png">
 <meta name="theme-color" content="#1A1A1A">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My Wishlist — KGS Home Décors | Virudhachalam</title>
-<meta name="description" content="View your saved items at KGS Home Décors.">
+<title>My Wishlist &mdash; KGS Home D&eacute;cors | Virudhachalam</title>
+<meta name="description" content="View your saved items at KGS Home D&eacute;cors.">
 <meta name="robots" content="noindex">
 <link rel="canonical" href="https://kgshomedecors.in/wishlist.html">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
-<!-- GA4 — Replace G-XXXXXXXXXX -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+
 <script>
   window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
   gtag('js',new Date());gtag('config','G-XXXXXXXXXX',{page_title:'Wishlist'});
@@ -35,10 +34,10 @@ html.lenis,html.lenis body{height:auto;}
 body{-webkit-font-smoothing:antialiased;}
 ::selection{background:#C5A880;color:#fff;}
 .material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 200,'GRAD' 0,'opsz' 24;}
-.btn-primary{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px 32px;background:#C97840;color:#fff;font-family:"DM Sans",sans-serif;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;border:1.5px solid #C97840;cursor:pointer;transition:background .22s;}
-.btn-primary:hover{background:#a8612d;}
-.btn-whatsapp{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px 32px;background:#25D366;color:#fff;font-family:"DM Sans",sans-serif;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;border:1.5px solid #25D366;cursor:pointer;transition:background .3s;}
-.btn-whatsapp:hover{background:#1db954;}
+.btn-primary{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px 32px;background:#C97840;color:#fff;font-family: "Jost", sans-serif;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;border:1.5px solid #C97840;cursor:pointer;transition:background .22s;}
+.btn-primary:hover{background:#a8612d;border-color:#a8612d;transform:translateY(-2px) scale(1.01);box-shadow:0 20px 40px -10px rgba(201,120,64,0.45);}
+.btn-whatsapp{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px 32px;background:#25D366;color:#fff;font-family: "Jost", sans-serif;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;border:1.5px solid #25D366;cursor:pointer;transition:background .3s;}
+.btn-whatsapp:hover{background:#1db954;transform:translateY(-2px);box-shadow:0 20px 40px -10px rgba(37,211,102,0.4);}
 .nav-link{position:relative;color:#767270;font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;transition:color .2s;}
 .nav-link::after{content:'';position:absolute;left:0;bottom:-3px;width:0;height:1px;background:#C5A880;transition:width .3s;}
 .nav-link:hover{color:#1A1A1A;}.nav-link:hover::after{width:100%;}
@@ -52,7 +51,7 @@ body{-webkit-font-smoothing:antialiased;}
 .heart-btn:hover{transform:scale(1.1);}
 .heart-btn.active .material-symbols-outlined{font-variation-settings:'FILL' 1;color:#C97840;}
 
-/* ——— GLOBAL LAYOUT FIXES ————————————————————————— */
+/* â€”â€”â€” GLOBAL LAYOUT FIXES â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€” */
 html, body {
   overflow-x: hidden;
   width: 100%;
@@ -64,34 +63,95 @@ img {
   max-width: 100%;
 }
 
+
+/* --- PREMIUM OVERRIDES --- */
+.border-border { border-color: rgba(26, 26, 26, 0.06) !important; }
+.shadow-sm { box-shadow: 0 10px 30px -5px rgba(0,0,0,0.03) !important; }
+.shadow-md { box-shadow: 0 20px 40px -10px rgba(0,0,0,0.05) !important; }
+p.leading-relaxed { line-height: 1.85 !important; }
+input:focus { border-color: rgba(26, 26, 26, 0.25) !important; box-shadow: 0 10px 30px -5px rgba(0,0,0,0.03); }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0"></script>
+
+<!-- SEO: Open Graph + Twitter -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="My Wishlist — KGS Home Décors">
+<meta property="og:description" content="Your saved items at KGS Home Décors.">
+<meta property="og:url" content="https://kgshomedecors.com/wishlist">
+<meta property="og:image" content="https://kgshomedecors.com/assets/images/hero_sofa.webp">
+<meta property="og:site_name" content="KGS Home Décors">
+<meta property="og:locale" content="en_IN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="My Wishlist — KGS Home Décors">
+<meta name="twitter:description" content="Your saved items at KGS Home Décors.">
+<meta name="twitter:image" content="https://kgshomedecors.com/assets/images/hero_sofa.webp">
+<link rel="canonical" href="https://kgshomedecors.com/wishlist">
+<link rel="manifest" href="/manifest.json">
 </head>
 <body class="bg-base text-ink font-sans flex flex-col min-h-screen overflow-x-hidden">
 
-<!-- ANNOUNCEMENT -->
-<div class="bg-ink text-white/50 text-[10px] font-medium tracking-[.25em] uppercase text-center py-2.5">
-  Cash on Delivery · Free Delivery in Virudhachalam · Open 10 AM – 10 PM
+<!-- â•â• SEARCH OVERLAY â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+<div id="search-overlay" onclick="if(event.target===this)closeSearch()" class="fixed inset-0 z-[100] bg-surface/95 backdrop-blur-md hidden flex-col items-center pt-24 px-5">
+  <div class="w-full max-w-2xl relative">
+    <div class="flex items-center gap-4 border-b border-ink/10 pb-4 mb-8">
+      <span class="material-symbols-outlined text-[24px] text-ink/40">search</span>
+      <input id="search-input" type="text" placeholder="Search for products..."
+             class="flex-grow bg-transparent text-ink font-sans placeholder-ink/30 outline-none text-[20px] md:text-[24px]"
+             oninput="doSearch(this.value)" autocomplete="off">
+      <button onclick="closeSearch()" class="text-ink/40 hover:text-ink transition-colors bg-transparent border-none cursor-pointer p-1 flex items-center" aria-label="Close search">
+        <span class="material-symbols-outlined text-[24px]">close</span>
+      </button>
+    </div>
+    <div id="search-results" class="max-h-[60vh] overflow-y-auto pb-8 w-full"></div>
+  </div>
 </div>
 
-<!-- NAVBAR -->
-<nav class="sticky top-0 z-40 bg-surface border-b border-border">
-  <div class="max-w-7xl mx-auto px-5 md:px-10 flex items-center justify-between h-16">
-    <a href="index.html" class="font-serif font-medium tracking-[.38em] text-[1.3rem] text-ink hover:text-gold transition-colors">KGS</a>
-    <div class="hidden md:flex items-center gap-10">
-      <a href="index.html#collections" class="nav-link">Collections</a>
-      <a href="product-listing.html" class="nav-link">Shop All</a>
-      <a href="contact.html" class="nav-link">Showroom</a>
+<div id="drw-ov" class="fixed inset-0 bg-ink/40 z-50 hidden backdrop-blur-sm transition-opacity" onclick="closeDrw()"></div>
+<div id="mobile-drawer" class="fixed inset-y-0 right-0 z-50 w-[300px] bg-surface flex flex-col translate-x-full shadow-2xl transition-transform duration-300 ease-out">
+  <div class="flex items-center justify-between px-6 py-6 border-b border-border">
+    <span class="font-serif font-medium tracking-[.2em] text-ink text-[1.1rem]">MENU</span>
+    <button onclick="closeDrw()" class="text-muted hover:text-ink transition-colors bg-transparent border-none p-0 cursor-pointer flex items-center"><span class="material-symbols-outlined text-[24px]">close</span></button>
+  </div>
+  <nav class="flex flex-col px-6 pt-8 gap-6 overflow-y-auto">
+    <a href="index.html" class="nav-link text-[13px] normal-case font-medium tracking-normal text-ink text-left">Home</a>
+    <a href="product-listing.html" class="nav-link text-[13px] normal-case font-medium tracking-normal text-ink text-left">Shop All</a>
+    <a href="product-listing.html?cat=new" class="nav-link text-[13px] normal-case font-medium tracking-normal text-ink text-left">New Arrivals</a>
+    <a href="about.html" class="nav-link text-[13px] normal-case font-medium tracking-normal text-ink text-left">Our Story</a>
+    <a href="contact.html" class="nav-link text-[13px] normal-case font-medium tracking-normal text-ink text-left">Showroom &amp; Contact</a>
+  </nav>
+  <div class="mt-auto px-6 py-8 border-t border-border bg-tint space-y-5">
+    <a href="tel:+919789182921" class="flex items-center gap-3 text-sm text-ink font-medium"><span class="material-symbols-outlined text-[20px] text-gold">call</span> +91 97891 82921</a>
+    <a href="https://wa.me/919789182921" target="_blank" class="flex items-center gap-3 text-sm text-ink font-medium"><span class="material-symbols-outlined text-[20px] text-[#25D366]">chat</span> WhatsApp Us</a>
+  </div>
+</div>
+
+<!-- â•â• NAVBAR â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+<nav id="navbar" class="sticky top-0 z-40 bg-surface border-b border-border">
+  <div class="max-w-7xl mx-auto px-5 md:px-10 flex items-center justify-between h-16 md:h-20">
+    <a href="index.html" class="font-serif font-medium tracking-[.35em] text-[1.4rem] text-ink hover:text-gold transition-colors shrink-0">KGS</a>
+    <div class="hidden md:flex items-center gap-8 lg:gap-12">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="product-listing.html" class="nav-link">Shop</a>
+      <a href="product-listing.html?cat=new" class="nav-link">New Arrivals</a>
+      <a href="about.html" class="nav-link">Our Story</a>
+      <a href="contact.html" class="nav-link">Contact</a>
     </div>
-    <div class="flex items-center gap-4 text-muted">
-      <button onclick="openSearch()" aria-label="Search products" class="hover:text-ink transition-colors bg-transparent border-none cursor-pointer p-0"><span class="material-symbols-outlined text-[20px]">search</span></button>
-      <a href="wishlist.html" aria-label="Wishlist" class="relative hover:text-ink transition-colors text-ink">
-        <span class="material-symbols-outlined text-[20px]" style="font-variation-settings:'FILL' 1;">favorite</span>
-        <span id="wishlist-badge" class="wishlist-count absolute -top-1.5 -right-2 w-4 h-4 bg-warm text-white text-[8px] rounded-full flex items-center justify-center font-bold" style="display:none;">0</span>
+    <div class="flex items-center gap-5 md:gap-6 text-muted">
+      <button onclick="openSearch();if(typeof gtag==='function')gtag('event','search_open',{event_category:'engagement'})" aria-label="Search" class="hover:text-ink transition-colors bg-transparent border-none cursor-pointer p-0 flex items-center"><span class="material-symbols-outlined text-[20px]" style="font-variation-settings:'wght' 300;">search</span></button>
+      <a href="account-login.html" aria-label="Account" class="relative hover:text-ink transition-colors flex items-center">
+        <span class="material-symbols-outlined text-[20px]" style="font-variation-settings:'wght' 300;">person</span>
       </a>
-      <a href="cart-checkout.html" aria-label="Cart" class="relative hover:text-ink transition-colors">
-        <span class="material-symbols-outlined text-[20px]">local_mall</span>
-        <span id="cart-badge" class="cart-count absolute -top-1.5 -right-2 w-4 h-4 bg-warm text-white text-[8px] rounded-full flex items-center justify-center font-bold" style="display:none;">0</span>
+      <a href="wishlist.html" aria-label="Wishlist" class="relative hover:text-ink transition-colors flex items-center">
+        <span class="material-symbols-outlined text-[20px]" style="font-variation-settings:'wght' 300;">favorite</span>
+        <span class="wishlist-count absolute -top-1.5 -right-1.5 w-4 h-4 bg-warm rounded-full text-white text-[9px] font-bold leading-none" style="display:none;">0</span>
       </a>
+      <a href="cart-checkout.html" aria-label="Cart" class="relative hover:text-ink transition-colors flex items-center">
+        <span class="material-symbols-outlined text-[20px]" style="font-variation-settings:'wght' 300;">local_mall</span>
+        <span class="cart-count absolute -top-1.5 -right-1.5 w-4 h-4 bg-warm rounded-full text-white text-[9px] font-bold leading-none" style="display:none;">0</span>
+      </a>
+      <button onclick="openDrw()" class="md:hidden hover:text-ink transition-colors p-0 ml-1 bg-transparent border-none cursor-pointer flex items-center" aria-label="Menu">
+        <span class="material-symbols-outlined text-[24px]" style="font-variation-settings:'wght' 300;">menu</span>
+      </button>
     </div>
   </div>
 </nav>
@@ -105,8 +165,17 @@ img {
 </div>
 
 <!-- MAIN -->
-<main class="max-w-7xl mx-auto px-5 md:px-10 py-12 flex-grow">
+<main class="max-w-7xl mx-auto px-5 md:px-10 py-12 flex-grow min-h-[60vh]">
   
+  <!-- Skeleton Loading -->
+  <style>.skel{background:linear-gradient(90deg,#F3EDE4 25%,#E4DDD4 50%,#F3EDE4 75%);background-size:200% 100%;animation:wlshim 1.5s infinite;border-radius:4px}@keyframes wlshim{0%{background-position:200% 0}100%{background-position:-200% 0}}.skel-card{border:1px solid #E4DDD4;overflow:hidden}</style>
+  <div id="wishlist-skeleton" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-5">
+    <div class="skel-card"><div class="skel" style="aspect-ratio:4/5;"></div><div style="padding:16px;"><div class="skel" style="width:60px;height:10px;margin-bottom:10px;"></div><div class="skel" style="width:80%;height:16px;margin-bottom:8px;"></div><div class="skel" style="width:90px;height:16px;"></div></div></div>
+    <div class="skel-card"><div class="skel" style="aspect-ratio:4/5;"></div><div style="padding:16px;"><div class="skel" style="width:60px;height:10px;margin-bottom:10px;"></div><div class="skel" style="width:80%;height:16px;margin-bottom:8px;"></div><div class="skel" style="width:90px;height:16px;"></div></div></div>
+    <div class="skel-card hidden md:block"><div class="skel" style="aspect-ratio:4/5;"></div><div style="padding:16px;"><div class="skel" style="width:60px;height:10px;margin-bottom:10px;"></div><div class="skel" style="width:80%;height:16px;margin-bottom:8px;"></div><div class="skel" style="width:90px;height:16px;"></div></div></div>
+    <div class="skel-card hidden lg:block"><div class="skel" style="aspect-ratio:4/5;"></div><div style="padding:16px;"><div class="skel" style="width:60px;height:10px;margin-bottom:10px;"></div><div class="skel" style="width:80%;height:16px;margin-bottom:8px;"></div><div class="skel" style="width:90px;height:16px;"></div></div></div>
+  </div>
+
   <div id="empty-wishlist" class="text-center py-16" style="display:none;">
     <span class="material-symbols-outlined text-[48px] text-border mb-4">favorite</span>
     <h2 class="font-serif font-medium text-ink text-2xl mb-2">Your wishlist is empty</h2>
@@ -120,38 +189,53 @@ img {
 
 </main>
 
-<!-- FOOTER -->
-<footer class="bg-ink pt-16 pb-10 border-t border-white/5 mt-auto">
-  <div class="max-w-7xl mx-auto px-5 md:px-10 grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16 mb-12">
-    <div class="md:col-span-5">
-      <a href="index.html" class="font-serif font-medium tracking-[.38em] text-[1.4rem] text-white hover:text-gold transition-colors inline-block mb-5">KGS</a>
-      <p class="text-white/40 text-[13.5px] leading-[1.85] max-w-sm mb-5">Virudhachalam's most trusted home décor store. 500+ premium products. Open daily 10 AM – 10 PM.</p>
-      <div class="space-y-3 text-[13px]">
-        <a href="tel:+919789182921" class="flex items-center gap-2.5 text-white/40 hover:text-white transition-colors"><span class="material-symbols-outlined text-[14px] text-gold">call</span>+91 97891 82921</a>
-        <a href="https://wa.me/919789182921" class="flex items-center gap-2.5 text-white/40 hover:text-white transition-colors"><span class="material-symbols-outlined text-[14px] text-[#25D366]">chat</span>WhatsApp Us</a>
+
+<!-- â•â• FOOTER â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+<footer class="bg-surface pt-20 pb-8 border-t border-border">
+  <div class="max-w-7xl mx-auto px-5 md:px-10 grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8 mb-16">
+    <div class="md:col-span-1">
+      <a href="index.html" class="font-serif font-medium tracking-[.35em] text-[1.4rem] text-ink block mb-6">KGS</a>
+      <p class="text-muted text-[13px] leading-[1.8] mb-6 pr-4">Your one-stop destination for premium home d&eacute;cor and furniture in Virudhachalam.</p>
+      <div class="flex items-center gap-4">
+        <a href="https://www.instagram.com/kgshomedecors_virudhachalam" target="_blank" class="w-8 h-8 rounded-full border border-border flex items-center justify-center text-muted hover:border-ink hover:text-ink transition-colors">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-4 h-4"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.01" stroke-width="3"/></svg>
+        </a>
+        <a href="https://wa.me/919789182921" target="_blank" class="w-8 h-8 rounded-full border border-border flex items-center justify-center text-muted hover:border-[#25D366] hover:text-[#25D366] transition-colors">
+          <svg viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        </a>
       </div>
     </div>
-    <div class="md:col-span-3">
-      <h4 class="text-white text-[11px] tracking-[.18em] uppercase font-semibold mb-5">Shop</h4>
-      <ul class="space-y-3 text-[13px] text-white/40">
-        <li><a href="product-listing.html" class="hover:text-white transition-colors">All Products</a></li>
-        <li><a href="index.html#collections" class="hover:text-white transition-colors">Collections</a></li>
-        <li><a href="cart-checkout.html" class="hover:text-white transition-colors">Cart &amp; Checkout</a></li>
+    <div>
+      <h4 class="text-ink text-[11px] tracking-[.18em] uppercase font-semibold mb-6">Shop</h4>
+      <ul class="space-y-4 text-[13px] text-muted">
+        <li><a href="product-listing.html" class="hover:text-ink transition-colors">All Products</a></li>
+        <li><a href="product-listing.html?cat=furniture" class="hover:text-ink transition-colors">Furniture</a></li>
+        <li><a href="product-listing.html?cat=accessories" class="hover:text-ink transition-colors">Decor & Accessories</a></li>
+        <li><a href="product-listing.html?cat=new" class="hover:text-ink transition-colors">New Arrivals</a></li>
       </ul>
     </div>
-    <div class="md:col-span-4">
-      <h4 class="text-white text-[11px] tracking-[.18em] uppercase font-semibold mb-5">Info</h4>
-      <ul class="space-y-3 text-[13px] text-white/40">
-        <li><a href="about.html" class="hover:text-white transition-colors">Our Story</a></li>
-        <li><a href="contact.html" class="hover:text-white transition-colors">Contact &amp; Showroom</a></li>
-        <li><a href="shipping-policy.html" class="hover:text-white transition-colors">Shipping Policy</a></li>
-        <li><a href="returns-policy.html" class="hover:text-white transition-colors">Returns &amp; Exchange</a></li>
+    <div>
+      <h4 class="text-ink text-[11px] tracking-[.18em] uppercase font-semibold mb-6">Support</h4>
+      <ul class="space-y-4 text-[13px] text-muted">
+        <li><a href="contact.html" class="hover:text-ink transition-colors">Contact Us</a></li>
+        <li><a href="shipping-policy.html" class="hover:text-ink transition-colors">Shipping Info</a></li>
+        <li><a href="returns-policy.html" class="hover:text-ink transition-colors">Returns & Refunds</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="text-ink text-[11px] tracking-[.18em] uppercase font-semibold mb-6">Company</h4>
+      <ul class="space-y-4 text-[13px] text-muted">
+        <li><a href="about.html" class="hover:text-ink transition-colors">Our Story</a></li>
+        <li><a href="privacy-policy.html" class="hover:text-ink transition-colors">Privacy Policy</a></li>
+        <li><a href="terms.html" class="hover:text-ink transition-colors">Terms of Service</a></li>
       </ul>
     </div>
   </div>
-  <div class="max-w-7xl mx-auto px-5 md:px-10 border-t border-white/8 pt-6 flex flex-col sm:flex-row justify-between items-center gap-3">
-    <p class="text-[11px] tracking-[.14em] uppercase text-white/25">© 2026 KGS Home Décors, Virudhachalam · All Rights Reserved</p>
-    <p class="text-[11px] text-white/15 font-serif italic">Made with care for Indian homes.</p>
+  <div class="max-w-7xl mx-auto px-5 md:px-10 border-t border-border pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+    <p class="text-[11px] tracking-[.15em] text-muted uppercase">&copy; 2026 KGS Home D&eacute;cors. All rights reserved.</p>
+    <div class="flex items-center gap-3 opacity-60">
+      <span class="text-[10px] tracking-[.15em] font-semibold uppercase text-muted">Secure Delivery</span>
+    </div>
   </div>
 </footer>
 
@@ -159,71 +243,6 @@ img {
 
 
 
-<!-- ══ SEARCH OVERLAY ═══════════════════════════════════════ -->
-<div id="search-overlay" onclick="if(event.target===this)closeSearch()" style="position:fixed; inset:0; z-index:90; background:rgba(20,18,16,.95); display:none; flex-direction:column; align-items:center; padding-top:100px; padding-left:20px; padding-right:20px; backdrop-filter: blur(8px);">
-  <div class="w-full max-w-2xl">
-    <div class="flex items-center gap-4 border-b pb-5 mb-6" style="border-color:rgba(255,255,255,.18);">
-      <span class="material-symbols-outlined text-[22px]" style="color:rgba(255,255,255,.4);">search</span>
-      <input id="search-input" type="text" placeholder="Search sofas, clocks, fountains..."
-             class="flex-grow bg-transparent text-white font-light placeholder-white/30"
-             style="font-size:20px; font-family:'DM Sans',sans-serif; border:none; outline:none;"
-             oninput="doSearch(this.value)" autocomplete="off">
-      <button onclick="closeSearch()" style="color:rgba(255,255,255,.4); background:none; border:none; cursor:pointer; line-height:1;" aria-label="Close search">
-        <span class="material-symbols-outlined text-[22px]">close</span>
-      </button>
-    </div>
-    <div id="search-hint" style="color:rgba(255,255,255,.3); font-size:13px; text-align:center; padding-top:20px;">
-      Type at least 2 characters to search over 500+ premium products.
-    </div>
-    <div id="search-results" class="flex flex-col"></div>
-  </div>
-</div>
-
-
-<style>
-.search-result-item { display:flex; align-items:center; justify-content:space-between; padding:12px 16px; border-bottom:1px solid rgba(255,255,255,.06); text-decoration:none; transition:background .2s; }
-.search-result-item:hover { background:rgba(255,255,255,.05); }
-.search-result-item:last-child { border-bottom:none; }
-</style>
-<script src="https://cdn.jsdelivr.net/npm/fuse.js/dist/fuse.min.js"></script>
-<script>
-
-
-function openSearch(){
-  document.getElementById('search-overlay').style.display='flex';
-  document.getElementById('search-input').focus();
-  document.body.style.overflow='hidden';
-}
-function closeSearch(){
-  document.getElementById('search-overlay').style.display='none';
-  document.getElementById('search-input').value='';
-  document.getElementById('search-results').innerHTML='';
-  document.getElementById('search-hint').style.display='';
-  document.body.style.overflow='';
-}
-function doSearch(q){
-  const res=document.getElementById('search-results');
-  const hint=document.getElementById('search-hint');
-  if(!q.trim()){res.innerHTML='';hint.style.display='';return;}
-  hint.style.display='none';
-  if(!window.kgsFuse && window.ALL_PRODUCTS) window.kgsFuse = new Fuse(window.ALL_PRODUCTS, {keys:['name','category'], threshold:0.3});
-  if(!window.kgsFuse) return;
-  const matches = window.kgsFuse.search(q).map(r=>r.item);
-  if(matches.length===0){
-    res.innerHTML='<p style="color:rgba(255,255,255,.4);font-size:13px;padding:12px 16px;">No results. <a href="product-listing.html" style="color:#C5A880;text-decoration:underline;">Browse all 500+ products &rarr;</a></p>';
-  }else{
-    res.innerHTML=matches.map(p=>`
-      <a href="product-detail.html?handle=${p.handle}" class="search-result-item">
-        <div>
-          <p style="color:#fff;font-size:14.5px;font-family:\'DM Sans\',sans-serif;font-weight:500;letter-spacing:-0.01em;">${p.name}</p>
-          <p style="color:rgba(255,255,255,.35);font-size:10px;letter-spacing:.14em;text-transform:uppercase;margin-top:3px;">${p.category}</p>
-        </div>
-        <p style="color:#C97840;font-size:13px;font-weight:600;font-family:\'DM Sans\',sans-serif;">₹${p.price.toLocaleString('en-IN')}</p>
-      </a>`).join('');
-  }
-}
-document.addEventListener('keydown',e=>{if(e.key==='Escape' && document.getElementById('search-overlay') && document.getElementById('search-overlay').style.display==='flex') closeSearch();});
-</script>
 
 
 <script src="assets/js/store.js"></script>
@@ -232,7 +251,7 @@ const lenis = new Lenis();
 function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
 requestAnimationFrame(raf);
 
-function formatINR(value){ return '₹' + parseInt(value, 10).toLocaleString('en-IN'); }
+function formatINR(value){ return 'â‚¹' + parseInt(value, 10).toLocaleString('en-IN'); }
 
 function renderWishlist() {
   updateCartBadge();
@@ -256,11 +275,11 @@ function renderWishlist() {
         <button data-product-id="${p.id}" onclick="toggleWishlist('${p.id}'); renderWishlist();" class="heart-btn active" title="Remove from wishlist">
           <span class="material-symbols-outlined text-[16px]">favorite</span>
         </button>
-        <a href="product-detail.html?handle=${p.handle}" class="prod-img block aspect-[4/5] relative overflow-hidden bg-tint">
-          <img src="${p.image}" alt="${p.name}" class="h-full object-cover">
+        <a href="product-detail?handle=${p.handle}" class="prod-img block aspect-[4/5] relative overflow-hidden bg-tint">
+          <img src="${p.image}" alt="${p.name}" class="w-full h-full object-contain p-2">
         </a>
         <div class="p-4">
-          <p class="text-[11px] font-medium tracking-[.14em] uppercase text-muted mb-1">${p.category}</p>
+          <p class="text-[11px] font-medium tracking-[.2em] uppercase text-muted mb-1">${p.category}</p>
           <h3 class="font-sans font-medium tracking-tight text-ink text-[1.05rem] leading-snug mb-2 truncate">${p.name}</h3>
           <p class="font-sans font-semibold text-warm text-[1.1rem] mb-3">${formatINR(p.price)}</p>
           <div class="card-cta space-y-2">
@@ -277,7 +296,7 @@ function moveToCart(event, productId) {
   
   const btn = event.currentTarget;
   const originalText = btn.textContent;
-  btn.textContent = 'Added ✓';
+  btn.textContent = 'Added âœ“';
   btn.style.background = '#15803d';
   btn.style.borderColor = '#15803d';
   
@@ -294,10 +313,17 @@ function moveToCart(event, productId) {
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
-    window.ALL_PRODUCTS = await initStore();
+    try {
+      window.ALL_PRODUCTS = await initStore();
+    } catch(e) {
+      console.error('Failed to load products:', e);
+      window.ALL_PRODUCTS = [];
+    }
+    document.getElementById('wishlist-skeleton').style.display = 'none';
     renderWishlist();
 });
 </script>
 
+<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catch(()=>{});}</script>
 </body>
 </html>

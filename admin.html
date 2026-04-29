@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — KGS Home Décors</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/admin.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+<!-- ══ LOGIN SCREEN ════════════════════════════════════════ -->
+<div id="login-screen" class="login-wrap">
+  <div class="login-box">
+    <h1>K G S</h1>
+    <p>Admin Panel — Sign in to manage your store</p>
+    <form onsubmit="handleLogin(event)">
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" id="login-email" required placeholder="admin@example.com">
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <div style="position:relative">
+          <input type="password" id="login-pass" required placeholder="Enter password" minlength="6" style="padding-right:44px">
+          <button type="button" onclick="togglePass()" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--muted);display:flex;align-items:center" aria-label="Show password">
+            <span id="eye-icon" class="material-symbols-outlined" style="font-size:20px">visibility_off</span>
+          </button>
+        </div>
+      </div>
+      <p id="login-error" style="color:var(--red);font-size:12px;margin-bottom:12px;display:none"></p>
+      <button type="submit" class="btn btn-gold" style="width:100%">Sign In</button>
+    </form>
+  </div>
+</div>
+
+<!-- ══ ADMIN APP ═══════════════════════════════════════════ -->
+<!-- Mobile top bar -->
+<div class="admin-mobile-bar">
+  <span class="logo">K G S</span>
+  <button onclick="toggleSidebar()" aria-label="Menu">
+    <span class="material-symbols-outlined" style="font-size:24px">menu</span>
+  </button>
+</div>
+<div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+<div id="admin-app" class="admin-wrap" style="display:none">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="logo">K G S</div>
+    <nav>
+      <a href="#" data-page="dashboard" onclick="showPage('dashboard')" class="active">
+        <span class="material-symbols-outlined" style="font-size:20px">dashboard</span> Dashboard
+      </a>
+      <a href="#" data-page="products" onclick="showPage('products')">
+        <span class="material-symbols-outlined" style="font-size:20px">inventory_2</span> Products
+      </a>
+      <a href="#" data-page="orders" onclick="showPage('orders')">
+        <span class="material-symbols-outlined" style="font-size:20px">receipt_long</span> Orders
+      </a>
+      <a href="index.html" target="_blank">
+        <span class="material-symbols-outlined" style="font-size:20px">storefront</span> View Store
+      </a>
+    </nav>
+    <div class="sb-footer">
+      <span id="admin-email" style="display:block;margin-bottom:8px"></span>
+      <a href="#" onclick="handleLogout()" style="color:var(--red)">Sign Out</a>
+    </div>
+  </aside>
+
+  <div class="main">
+    <!-- ── DASHBOARD ──────────────────────────────────────── -->
+    <section id="page-dashboard" class="page-section">
+      <div class="page-header"><h1>Dashboard</h1></div>
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="label">Total Products</div>
+          <div class="value" id="stat-products">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Total Orders</div>
+          <div class="value" id="stat-orders">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Revenue</div>
+          <div class="value" id="stat-revenue">₹0</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── PRODUCTS ───────────────────────────────────────── -->
+    <section id="page-products" class="page-section" style="display:none">
+      <div class="page-header">
+        <h1>Products <span style="font-size:14px;color:var(--muted);font-family:Jost">(<span id="product-count">0</span>)</span></h1>
+        <div style="display:flex;gap:12px;align-items:center">
+          <div class="search-bar">
+            <span class="material-symbols-outlined">search</span>
+            <input type="text" placeholder="Search products..." oninput="loadProducts(this.value)">
+          </div>
+          <button class="btn btn-gold" onclick="openAddProduct()">
+            <span class="material-symbols-outlined" style="font-size:18px">add</span> Add Product
+          </button>
+        </div>
+      </div>
+      <table class="data-table">
+        <thead>
+          <tr><th>Image</th><th>Name</th><th>Category</th><th>Price</th><th>Status</th><th>Stock</th><th>Actions</th></tr>
+        </thead>
+        <tbody id="products-tbody"></tbody>
+      </table>
+    </section>
+
+    <!-- ── ORDERS ─────────────────────────────────────────── -->
+    <section id="page-orders" class="page-section" style="display:none">
+      <div class="page-header"><h1>Orders</h1></div>
+      <table class="data-table">
+        <thead>
+          <tr><th>Order</th><th>Customer</th><th>Total</th><th>Status</th><th>Payment</th><th>Update</th></tr>
+        </thead>
+        <tbody id="orders-tbody"></tbody>
+      </table>
+    </section>
+  </div>
+</div>
+
+<!-- ══ PRODUCT MODAL ══════════════════════════════════════ -->
+<div id="product-modal" class="modal-bg" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <h2 id="modal-title">Add Product</h2>
+    <form id="product-form" onsubmit="saveProduct(event)">
+      <input type="hidden" id="edit-id">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Product Name *</label>
+          <input type="text" id="f-name" required oninput="autoHandle()" placeholder="Vintage Brass Table Lamp">
+        </div>
+        <div class="form-group">
+          <label>URL Handle</label>
+          <input type="text" id="f-handle" data-auto="true" placeholder="vintage-brass-table-lamp">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Category *</label>
+          <select id="f-category" required>
+            <option value="water-fountains">Water Fountains</option>
+            <option value="statues">Statues</option>
+            <option value="wall-clocks">Wall Clocks</option>
+            <option value="photo-frames">Photo Frames</option>
+            <option value="vases-plants">Vases & Plants</option>
+            <option value="lighting">Lighting</option>
+            <option value="furniture">Furniture</option>
+            <option value="chairs">Chairs</option>
+            <option value="gifts">Gifts</option>
+            <option value="accessories">Accessories</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Material</label>
+          <input type="text" id="f-material" placeholder="Solid Teak Wood">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Price (₹) *</label>
+          <input type="number" id="f-price" required min="0" step="1" placeholder="12500">
+        </div>
+        <div class="form-group">
+          <label>Compare Price (₹)</label>
+          <input type="number" id="f-compare" min="0" step="1" placeholder="15000">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Stock Quantity</label>
+          <input type="number" id="f-stock" min="0" value="1">
+        </div>
+        <div class="form-group" style="display:flex;align-items:flex-end;gap:8px;padding-bottom:4px">
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer">
+            <input type="checkbox" id="f-instock" checked style="width:auto"> In Stock
+          </label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Product Image *</label>
+        <label class="img-upload" for="f-image">
+          <span class="material-symbols-outlined" style="font-size:32px;display:block;margin-bottom:8px">cloud_upload</span>
+          Click to upload image (JPG, PNG, WebP)
+          <input type="file" id="f-image" accept="image/*" style="display:none" onchange="previewImg(this)">
+          <div id="img-preview"></div>
+        </label>
+      </div>
+      <div class="form-group">
+        <label>Tags</label>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:6px">
+          <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px"><input type="checkbox" class="f-tag" value="featured" style="width:auto"> Featured</label>
+          <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px"><input type="checkbox" class="f-tag" value="bestseller" style="width:auto"> Bestseller</label>
+          <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px"><input type="checkbox" class="f-tag" value="new-arrival" style="width:auto"> New Arrival</label>
+          <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px"><input type="checkbox" class="f-tag" value="trending" style="width:auto"> Trending</label>
+          <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px"><input type="checkbox" class="f-tag" value="sale" style="width:auto"> Sale</label>
+          <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px"><input type="checkbox" class="f-tag" value="premium" style="width:auto"> Premium</label>
+          <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px"><input type="checkbox" class="f-tag" value="limited-edition" style="width:auto"> Limited Edition</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Description</label>
+        <textarea id="f-desc" placeholder="Describe the product..."></textarea>
+      </div>
+      <div style="display:flex;gap:12px;justify-content:flex-end;margin-top:24px">
+        <button type="button" class="btn btn-outline" onclick="closeModal()">Cancel</button>
+        <button type="submit" class="btn btn-gold">Save Product</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Toast -->
+<div id="toast" class="toast"></div>
+
+<script>
+function toggleSidebar(){
+  document.querySelector('.sidebar').classList.toggle('open');
+  document.getElementById('sidebar-overlay').classList.toggle('show');
+}
+function togglePass(){
+  const p=document.getElementById('login-pass');
+  const icon=document.getElementById('eye-icon');
+  if(p.type==='password'){p.type='text';icon.textContent='visibility';}
+  else{p.type='password';icon.textContent='visibility_off';}
+}
+function previewImg(input){
+  const prev=document.getElementById('img-preview');
+  if(input.files[0]){
+    const reader=new FileReader();
+    reader.onload=e=>{prev.innerHTML=`<img src="${e.target.result}">`};
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+async function handleLogin(e){
+  e.preventDefault();
+  const errEl=document.getElementById('login-error');
+  errEl.style.display='none';
+  try{
+    await adminLogin(document.getElementById('login-email').value,document.getElementById('login-pass').value);
+    await checkAuth();showPage('dashboard');
+  }catch(err){errEl.textContent=err.message;errEl.style.display='block';}
+}
+async function handleSignUp(e){
+  e.preventDefault();
+  const email=document.getElementById('login-email').value;
+  const pass=document.getElementById('login-pass').value;
+  if(!email||!pass||pass.length<6){alert('Enter email and password (min 6 chars)');return;}
+  try{
+    const{error}=await sb.auth.signUp({email,password:pass,options:{data:{full_name:'KGS Admin'}}});
+    if(error)throw error;
+    alert('Account created! Check your email to confirm, then sign in.');
+  }catch(err){alert('Error: '+err.message);}
+}
+</script>
+<script src="assets/js/admin.js"></script>
+</body>
+</html>

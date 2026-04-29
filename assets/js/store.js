@@ -1,286 +1,145 @@
 /* ═══════════════════════════════════════════════════════════
-   KGS Home Décors — Shopify Storefront API Integration
-   Vanilla JS GraphQL Client
+   KGS Home Décors — Supabase Store Integration
+   Replaces Shopify Storefront API with Supabase
 ═══════════════════════════════════════════════════════════ */
 
-const SHOPIFY_DOMAIN = "kgs-home-decors.myshopify.com";
-const STOREFRONT_TOKEN = "f88234851fd7abbbfb315676198349e7"; // <-- PASTE YOUR STOREFRONT API TOKEN HERE
-const API_URL = `https://${SHOPIFY_DOMAIN}/api/2024-01/graphql.json`;
+const SB_STORE_URL = 'https://rgpkomngygapwjhnbgaf.supabase.co/rest/v1';
+const SB_STORE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJncGtvbW5neWdhcHdqaG5iZ2FmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzczNjg2MDYsImV4cCI6MjA5Mjk0NDYwNn0.1996CFXZp-QdQK8I4l2GoJDyqYPQU3OrmJ7-03DtMCE';
 
-/* ─── CORE FETCH UTILITY ────────────────────────────────── */
-async function shopifyFetch({ query, variables = {} }) {
+async function sbFetch(endpoint) {
   try {
-    const response = await fetch(API_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-Shopify-Storefront-Access-Token": STOREFRONT_TOKEN,
-      },
-      body: JSON.stringify({ query, variables }),
+    const r = await fetch(`${SB_STORE_URL}${endpoint}`, {
+      headers: { 'apikey': SB_STORE_KEY, 'Authorization': `Bearer ${SB_STORE_KEY}` }
     });
-    const json = await response.json();
-    if (json.errors) {
-      console.error("Shopify API Errors:", json.errors);
-      return null;
-    }
-    return json.data;
-  } catch (error) {
-    console.error("Shopify Fetch failed:", error);
-    return null;
-  }
+    if (!r.ok) { console.error('Store API error:', r.status, await r.text()); return []; }
+    return await r.json();
+  } catch (e) { console.error('Store fetch failed:', e); return []; }
 }
 
 /* ─── PRODUCT CATALOG ───────────────────────────────────── */
 
-// Fetches all products (used for search and general listing)
 async function initStore() {
-  const query = `
-    query getProducts {
-      products(first: 250) {
-        edges {
-          node {
-            id
-            handle
-            title
-            description
-            productType
-            tags
-            priceRange {
-              minVariantPrice { amount }
-            }
-            images(first: 1) {
-              edges { node { url } }
-            }
-            variants(first: 1) {
-              edges { node { id } }
-            }
-          }
-        }
-      }
-    }
-  `;
-  const data = await shopifyFetch({ query });
-  if (!data) return [];
-
-  // Map Shopify data to our old UI structure
-  return data.products.edges.map(({ node }) => ({
-    id: node.variants.edges[0]?.node.id, // We use Variant ID for adding to cart
-    handle: node.handle,
-    name: node.title,
-    description: node.description,
-    category: node.productType,
-    tags: node.tags || [],
-    price: parseFloat(node.priceRange.minVariantPrice.amount),
-    image: node.images.edges[0]?.node.url || 'assets/images/placeholder.jpg'
+  const data = await sbFetch('/products?is_active=eq.true&select=*&order=sort_order.asc,created_at.desc&limit=250');
+  return (data || []).map(p => ({
+    id: p.id,
+    handle: p.handle,
+    name: p.name,
+    description: p.description,
+    category: p.category,
+    tags: p.tags || [],
+    price: parseFloat(p.price),
+    compare_at_price: p.compare_at_price ? parseFloat(p.compare_at_price) : null,
+    image: p.image_url || 'assets/images/placeholder.jpg',
+    images: p.images || [],
+    in_stock: p.in_stock,
+    material: p.material
   }));
 }
 
-// Fetches products for a specific collection
-async function fetchCollectionProducts(handle) {
-  const query = `
-    query getCollection($handle: String!) {
-      collection(handle: $handle) {
-        products(first: 50) {
-          edges {
-            node {
-              id
-              handle
-              title
-              priceRange { minVariantPrice { amount } }
-              images(first: 1) { edges { node { url } } }
-              variants(first: 1) { edges { node { id } } }
-            }
-          }
-        }
-      }
-    }
-  `;
-  const data = await shopifyFetch({ query, variables: { handle } });
-  if (!data || !data.collection) return [];
-  return data.collection.products.edges.map(({ node }) => ({
-    id: node.variants.edges[0]?.node.id,
-    handle: node.handle,
-    name: node.title,
-    price: parseFloat(node.priceRange.minVariantPrice.amount),
-    image: node.images.edges[0]?.node.url || 'assets/images/placeholder.jpg'
+async function fetchCollectionProducts(category) {
+  const data = await sbFetch(`/products?is_active=eq.true&category=eq.${category}&select=*&order=sort_order.asc&limit=50`);
+  return (data || []).map(p => ({
+    id: p.id,
+    handle: p.handle,
+    name: p.name,
+    price: parseFloat(p.price),
+    compare_at_price: p.compare_at_price ? parseFloat(p.compare_at_price) : null,
+    image: p.image_url || 'assets/images/placeholder.jpg'
   }));
 }
 
-// Fetches a single product for the PDP (Product Detail Page)
 async function fetchProductByHandle(handle) {
-  const query = `
-    query getProduct($handle: String!) {
-      product(handle: $handle) {
-        id
-        title
-        descriptionHtml
-        productType
-        tags
-        priceRange { minVariantPrice { amount } }
-        compareAtPriceRange { minVariantPrice { amount } }
-        images(first: 5) { edges { node { url } } }
-        variants(first: 1) { edges { node { id availableForSale quantityAvailable } } }
-      }
-    }
-  `;
-  const data = await shopifyFetch({ query, variables: { handle } });
-  if (!data || !data.product) return null;
-  return data.product;
-}
-
-/* ─── SHOPIFY CART API ──────────────────────────────────── */
-
-// Gets or creates a Shopify Cart ID
-async function getOrCreateCart() {
-  let cartId = localStorage.getItem("shopify_cart_id");
-  if (cartId) return cartId;
-
-  const query = `
-    mutation createCart {
-      cartCreate {
-        cart { id }
-      }
-    }
-  `;
-  const data = await shopifyFetch({ query });
-  if (data && data.cartCreate.cart) {
-    cartId = data.cartCreate.cart.id;
-    localStorage.setItem("shopify_cart_id", cartId);
-    return cartId;
-  }
-  return null;
-}
-
-// Fetch current cart state to update badges and UI
-async function getCart() {
-  const cartId = await getOrCreateCart();
-  if (!cartId) return null;
-
-  const query = `
-    query getCart($cartId: ID!) {
-      cart(id: $cartId) {
-        id
-        checkoutUrl
-        totalQuantity
-        cost { totalAmount { amount } }
-        lines(first: 100) {
-          edges {
-            node {
-              id
-              quantity
-              merchandise {
-                ... on ProductVariant {
-                  id
-                  title
-                  product { title handle }
-                  image { url }
-                  price { amount }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  `;
-  const data = await shopifyFetch({ query, variables: { cartId } });
-  return data?.cart || null;
-}
-
-// Adds an item to the Shopify Cart
-async function addToCart(variantId, quantity = 1) {
-  const cartId = await getOrCreateCart();
-  const query = `
-    mutation cartLinesAdd($cartId: ID!, $lines: [CartLineInput!]!) {
-      cartLinesAdd(cartId: $cartId, lines: $lines) {
-        cart { id totalQuantity }
-      }
-    }
-  `;
-  const variables = {
-    cartId,
-    lines: [{ merchandiseId: variantId, quantity }]
+  const h = encodeURIComponent(handle);
+  const data = await sbFetch(`/products?handle=eq.${h}&is_active=eq.true&select=*&limit=1`);
+  console.log('fetchProductByHandle:', handle, '→', data);
+  if (!data || !data.length || !data[0]) return null;
+  const p = data[0];
+  return {
+    id: p.id,
+    title: p.name,
+    handle: p.handle,
+    descriptionHtml: p.description || '',
+    productType: p.category,
+    tags: p.tags || [],
+    priceRange: { minVariantPrice: { amount: String(p.price) } },
+    compareAtPriceRange: { minVariantPrice: { amount: String(p.compare_at_price || 0) } },
+    images: { edges: [{ node: { url: p.image_url } }, ...(p.images || []).map(u => ({ node: { url: u } }))] },
+    variants: { edges: [{ node: { id: p.id, availableForSale: p.in_stock, quantityAvailable: p.stock_quantity } }] },
+    material: p.material
   };
+}
 
-  await shopifyFetch({ query, variables });
-  await updateCartBadge();
+/* ─── LOCAL CART (localStorage, syncs to Supabase later) ── */
 
-  // Show Toast
+function getLocalCart() {
+  try { return JSON.parse(localStorage.getItem('kgs_cart')) || []; }
+  catch (e) { return []; }
+}
+function saveLocalCart(cart) { localStorage.setItem('kgs_cart', JSON.stringify(cart)); }
+
+async function addToCart(productId, quantity = 1) {
+  let cart = getLocalCart();
+  const existing = cart.find(i => i.id === productId);
+  if (existing) { existing.quantity += quantity; }
+  else {
+    const products = await initStore();
+    const p = products.find(x => x.id === productId);
+    if (p) {
+      cart.push({ id: p.id, handle: p.handle, name: p.name, price: p.price, image: p.image, quantity });
+    }
+  }
+  saveLocalCart(cart);
+  updateCartBadge();
   const toast = document.getElementById('cart-toast');
   if (toast) {
     const txt = document.getElementById('toast-text');
-    if (txt) txt.innerText = 'Item added to secure cart';
+    if (txt) txt.innerText = 'Item added to cart';
     toast.classList.add('show');
     setTimeout(() => toast.classList.remove('show'), 3000);
   }
 }
 
-// Removes a line item from the Shopify Cart
-async function removeFromCart(lineId) {
-  const cartId = localStorage.getItem("shopify_cart_id");
-  if (!cartId) return;
-
-  const query = `
-    mutation cartLinesRemove($cartId: ID!, $lineIds: [ID!]!) {
-      cartLinesRemove(cartId: $cartId, lineIds: $lineIds) {
-        cart { id }
-      }
-    }
-  `;
-  await shopifyFetch({ query, variables: { cartId, lineIds: [lineId] } });
-  await updateCartBadge();
+async function removeFromCart(productId) {
+  let cart = getLocalCart().filter(i => i.id !== productId);
+  saveLocalCart(cart);
+  updateCartBadge();
 }
 
-// Updates quantity of a line item
-async function updateCartLine(lineId, quantity) {
-  const cartId = localStorage.getItem("shopify_cart_id");
-  if (!cartId) return;
+async function updateCartLine(productId, quantity) {
+  if (quantity <= 0) return removeFromCart(productId);
+  let cart = getLocalCart();
+  const item = cart.find(i => i.id === productId);
+  if (item) item.quantity = quantity;
+  saveLocalCart(cart);
+  updateCartBadge();
+}
 
-  if (quantity <= 0) {
-    return removeFromCart(lineId);
-  }
-
-  const query = `
-    mutation cartLinesUpdate($cartId: ID!, $lines: [CartLineUpdateInput!]!) {
-      cartLinesUpdate(cartId: $cartId, lines: $lines) {
-        cart { id }
-      }
-    }
-  `;
-  const variables = {
-    cartId,
-    lines: [{ id: lineId, quantity }]
+async function getCart() {
+  const items = getLocalCart();
+  const total = items.reduce((s, i) => s + i.price * i.quantity, 0);
+  return {
+    id: 'local',
+    totalQuantity: items.reduce((s, i) => s + i.quantity, 0),
+    cost: { totalAmount: { amount: String(total) } },
+    lines: { edges: items.map(i => ({ node: {
+      id: i.id, quantity: i.quantity,
+      merchandise: { id: i.id, title: '', product: { title: i.name, handle: i.handle }, image: { url: i.image }, price: { amount: String(i.price) } }
+    }})) }
   };
-  await shopifyFetch({ query, variables });
-  await updateCartBadge();
 }
 
-// Redirects to Shopify's secure checkout page
-async function proceedToCheckout() {
-  const cart = await getCart();
-  if (cart && cart.checkoutUrl) {
-    window.location.href = cart.checkoutUrl;
-  } else {
-    alert("Unable to process checkout. Please try again.");
-  }
-}
-
-// Updates the navigation cart badge
 async function updateCartBadge() {
-  const cartId = localStorage.getItem("shopify_cart_id");
-  if (!cartId) return;
-
-  const query = `query { cart(id: "${cartId}") { totalQuantity } }`;
-  const data = await shopifyFetch({ query });
-  const count = data?.cart?.totalQuantity || 0;
-
+  const cart = getLocalCart();
+  const count = cart.reduce((s, i) => s + i.quantity, 0);
   document.querySelectorAll('.cart-count').forEach(el => {
     el.textContent = count;
-    el.style.display = count > 0 ? 'inline-flex' : 'none';
+    el.style.display = count > 0 ? 'flex' : 'none';
+    el.style.alignItems = 'center';
+    el.style.justifyContent = 'center';
   });
 }
 
-/* ─── WISHLIST (Unchanged, uses localStorage) ───────────── */
+/* ─── WISHLIST (localStorage) ───────────────────────────── */
 function getWishlist() {
   try { return JSON.parse(localStorage.getItem('kgs_wishlist')) || []; }
   catch (e) { return []; }
@@ -306,7 +165,9 @@ function updateWishlistBadge() {
   const count = getWishlist().length;
   document.querySelectorAll('.wishlist-count').forEach(el => {
     el.textContent = count;
-    el.style.display = count > 0 ? 'inline-flex' : 'none';
+    el.style.display = count > 0 ? 'flex' : 'none';
+    el.style.alignItems = 'center';
+    el.style.justifyContent = 'center';
   });
 }
 function updateHeartIcons() {
@@ -324,9 +185,84 @@ function updateHeartIcons() {
 /* ─── UTILS ─────────────────────────────────────────────── */
 const formatINR = val => '₹' + parseInt(val, 10).toLocaleString('en-IN');
 
-// Initial badge render
 document.addEventListener('DOMContentLoaded', () => {
   updateCartBadge();
   if (typeof updateWishlistBadge === 'function') updateWishlistBadge();
   if (typeof updateHeartIcons === 'function') updateHeartIcons();
+});
+
+/* ─── GLOBAL SEARCH ─────────────────────────────────────── */
+let cachedProducts = null;
+let kgsFuse = null;
+
+async function doSearch(q) {
+  const res = document.getElementById('search-results');
+  const hint = document.getElementById('search-hint');
+  if (!res) return;
+  
+  if (!q.trim()) {
+    res.innerHTML = '';
+    if (hint) hint.style.display = '';
+    return;
+  }
+  if (hint) hint.style.display = 'none';
+  
+  if (!cachedProducts) {
+    res.innerHTML = '<p style="color:rgba(25,25,25,.6);font-size:13px;padding:12px 16px;">Loading products...</p>';
+    cachedProducts = await initStore();
+    if (window.Fuse) {
+      kgsFuse = new window.Fuse(cachedProducts, { keys: ['name', 'category'], threshold: 0.3 });
+    }
+  }
+  
+  if (!kgsFuse) {
+    res.innerHTML = '<p style="color:rgba(25,25,25,.6);font-size:13px;padding:12px 16px;">Search not available right now.</p>';
+    return;
+  }
+  
+  const matches = kgsFuse.search(q).map(r => r.item);
+  if (matches.length === 0) {
+    res.innerHTML = '<p style="color:rgba(25,25,25,.6);font-size:13px;padding:12px 16px;">No results. <a href="product-listing.html" class="text-warm underline">Browse all products &rarr;</a></p>';
+  } else {
+    res.innerHTML = matches.map(p => `
+      <a href="product-detail?handle=${p.handle}" class="flex items-center justify-between p-3 border-b border-border hover:bg-tint transition-colors text-decoration-none">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 bg-tint border border-border shrink-0">
+             <img src="${p.image}" class="w-full h-full object-cover">
+          </div>
+          <div>
+            <p class="text-ink text-[14px] font-medium">${p.name}</p>
+            <p class="text-muted text-[10px] tracking-[.14em] uppercase mt-0.5">${p.category || 'Product'}</p>
+          </div>
+        </div>
+        <p class="text-warm text-[13px] font-semibold">₹${p.price.toLocaleString('en-IN')}</p>
+      </a>`).join('');
+  }
+}
+
+function openSearch() {
+  const overlay = document.getElementById('search-overlay');
+  if(overlay) overlay.style.display = 'flex';
+  const input = document.getElementById('search-input');
+  if(input) input.focus();
+  document.body.style.overflow = 'hidden';
+}
+
+function closeSearch() {
+  const overlay = document.getElementById('search-overlay');
+  if(overlay) overlay.style.display = 'none';
+  const input = document.getElementById('search-input');
+  if(input) input.value = '';
+  const res = document.getElementById('search-results');
+  if(res) res.innerHTML = '';
+  const hint = document.getElementById('search-hint');
+  if(hint) hint.style.display = '';
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', e => {
+  if(e.key === 'Escape') {
+    const overlay = document.getElementById('search-overlay');
+    if(overlay && overlay.style.display === 'flex') closeSearch();
+  }
 });

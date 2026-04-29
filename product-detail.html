@@ -6,8 +6,8 @@
 <link rel="icon" type="image/png" href="assets/images/favicon.png">
 <meta name="theme-color" content="#1A1A1A">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Premium 3-Seater Sofa — KGS Home Décors | Virudhachalam</title>
-<meta name="description" content="Premium 3-Seater Sofa at KGS Home Décors. Cash on Delivery across Tamil Nadu. Free delivery in Virudhachalam. Shop online or visit our store.">
+<title>Loading... — KGS Home Décors</title>
+<meta name="description" content="Premium home décor & furniture at KGS Home Décors. Cash on Delivery across Tamil Nadu. Free delivery in Virudhachalam.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -66,7 +66,25 @@ img {
   max-width: 100%;
 }
 
+/* Loading skeleton */
+#product-loader {
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 2.5rem 1.25rem;
+}
+.skeleton {
+  background: linear-gradient(90deg, #F3EDE4 25%, #E4DDD4 50%, #F3EDE4 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
 </style>
+<link rel="manifest" href="/manifest.json">
 </head>
 <body class="bg-base text-ink font-sans overflow-x-hidden">
 
@@ -138,8 +156,22 @@ img {
   </div>
 </nav>
 
+<!-- LOADING SKELETON -->
+<div id="product-loader">
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+    <div class="skeleton" style="height:clamp(260px,52vw,500px);"></div>
+    <div>
+      <div class="skeleton" style="width:80px;height:14px;margin-bottom:16px;"></div>
+      <div class="skeleton" style="width:70%;height:32px;margin-bottom:16px;"></div>
+      <div class="skeleton" style="width:120px;height:28px;margin-bottom:28px;"></div>
+      <div class="skeleton" style="width:100%;height:48px;margin-bottom:12px;"></div>
+      <div class="skeleton" style="width:100%;height:48px;"></div>
+    </div>
+  </div>
+</div>
+
 <!-- MAIN PRODUCT AREA -->
-<main class="max-w-7xl mx-auto px-5 md:px-10 py-10 pb-28 md:pb-12">
+<main id="product-main" class="max-w-7xl mx-auto px-5 md:px-10 py-10 pb-28 md:pb-12" style="display:none;">
 
   <!-- Breadcrumb -->
   <nav class="flex items-center gap-2 text-[11px] text-muted uppercase tracking-[.14em] font-medium mb-8">
@@ -156,7 +188,7 @@ img {
     <div>
       <!-- Main product image -->
       <div class="w-full bg-tint overflow-hidden mb-3 flex items-center justify-center" style="height:clamp(260px,52vw,500px);">
-        <img id="main-img" src="assets/images/sofa.jpg" alt="Product" class="w-full h-full object-contain object-center">
+        <img id="main-img" src="" alt="Product" class="w-full h-full object-contain object-center">
       </div>
       <div id="thumb-strip" class="flex gap-2 mt-3" style="display:none!important;"></div>
     </div>
@@ -378,7 +410,7 @@ async function doSearch(q){
     res.innerHTML='<p style="color:rgba(255,255,255,.4);font-size:13px;padding:12px 16px;">No results. <a href="product-listing.html" style="color:#C5A880;text-decoration:underline;">Browse all products &rarr;</a></p>';
   }else{
     res.innerHTML=matches.map(p=>`
-      <a href="product-detail.html?id=${p.id}" class="search-result-item">
+      <a href="product-detail?id=${p.id}" class="search-result-item">
         <div>
           <p style="color:#fff;font-size:14.5px;font-family:'DM Sans',sans-serif;font-weight:500;">${p.name}</p>
           <p style="color:rgba(255,255,255,.35);font-size:10px;letter-spacing:.14em;text-transform:uppercase;margin-top:3px;">${p.category}</p>
@@ -402,10 +434,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   const params = new URLSearchParams(window.location.search);
   const handle = params.get('handle') || params.get('id');
-  if (!handle) { window.location.href = 'product-listing.html'; return; }
+  if (!handle) { window.location.href = 'product-listing'; return; }
 
   const pData = await fetchProductByHandle(handle);
-  if (!pData) { window.location.href = 'product-listing.html'; return; }
+  if (!pData) { window.location.href = 'product-listing'; return; }
 
   // Map Shopify data
   const p = {
@@ -420,14 +452,37 @@ document.addEventListener('DOMContentLoaded', async () => {
     tags: pData.tags || [],
     inventory: pData.variants.edges[0]?.node?.quantityAvailable || 0
   };
-  p.image = p.images[0] || 'assets/images/placeholder.jpg';
+  p.image = p.images[0] || 'assets/images/placeholder.webp';
 
   /* ── Meta ── */
   document.title = p.name + ' — KGS Home Décors';
   const metaDesc = document.querySelector('meta[name="description"]');
   if (metaDesc) metaDesc.setAttribute('content', `${p.name} at KGS Home Décors — ₹${p.price.toLocaleString('en-IN')}. Free delivery in Virudhachalam.`);
 
-  /* ── Inject content ── */
+  /* ── Product JSON-LD (SEO) ── */
+  const ldJson = document.createElement('script');
+  ldJson.type = 'application/ld+json';
+  ldJson.textContent = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": p.name,
+    "image": p.image,
+    "description": p.description || `${p.name} — Premium home décor from KGS Home Décors, Virudhachalam.`,
+    "brand": {"@type": "Brand", "name": "KGS Home Décors"},
+    "offers": {
+      "@type": "Offer",
+      "url": window.location.href,
+      "priceCurrency": "INR",
+      "price": p.price,
+      "availability": "https://schema.org/InStock",
+      "seller": {"@type": "Organization", "name": "KGS Home Décors"}
+    }
+  });
+  document.head.appendChild(ldJson);
+
+  /* ── Inject content & show page ── */
+  document.getElementById('product-loader').style.display = 'none';
+  document.getElementById('product-main').style.display = 'block';
   document.getElementById('pd-name').innerText  = p.name;
   document.getElementById('pd-crumb').innerText = p.name;
   document.getElementById('pd-cat').innerText   = p.category || '';
@@ -563,7 +618,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const filtered = related.filter(r => r.handle !== p.handle).slice(0, 4);
     grid.innerHTML = filtered.map(r => `
       <div class="rel-card relative">
-        <a href="product-detail.html?handle=${r.handle}" class="rel-img block aspect-[4/5] overflow-hidden bg-tint">
+        <a href="product-detail?handle=${r.handle}" class="rel-img block aspect-[4/5] overflow-hidden bg-tint">
           <img src="${r.image}" alt="${r.name}" class="w-full h-full object-cover">
         </a>
         <div class="p-4 border-t border-border">
@@ -580,5 +635,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 </script>
 
+<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catch(()=>{});}</script>
 </body>
 </html>

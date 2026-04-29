@@ -1,0 +1,228 @@
+/* ═══════════════════════════════════════════════════════════
+   KGS Admin Panel — JavaScript
+═══════════════════════════════════════════════════════════ */
+const SB_URL='https://rgpkomngygapwjhnbgaf.supabase.co';
+const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJncGtvbW5neWdhcHdqaG5iZ2FmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzczNjg2MDYsImV4cCI6MjA5Mjk0NDYwNn0.1996CFXZp-QdQK8I4l2GoJDyqYPQU3OrmJ7-03DtMCE';
+let sb;
+function initSB(){sb=supabase.createClient(SB_URL,SB_KEY);return sb;}
+
+// ─── AUTH ─────────────────────────────────────────────────
+async function adminLogin(email,password){
+  const{data,error}=await sb.auth.signInWithPassword({email,password});
+  if(error)throw error;
+  const{data:isAdmin}=await sb.rpc('check_is_admin',{check_email:email});
+  if(!isAdmin){await sb.auth.signOut();throw new Error('Not an admin account');}
+  return data;
+}
+
+async function checkAuth(){
+  const{data:{session}}=await sb.auth.getSession();
+  if(!session){showLogin();return false;}
+  const{data:isAdmin}=await sb.rpc('check_is_admin',{check_email:session.user.email});
+  if(!isAdmin){showLogin();return false;}
+  document.getElementById('login-screen').style.display='none';
+  document.getElementById('admin-app').style.display='flex';
+  document.getElementById('admin-email').textContent=session.user.email;
+  return true;
+}
+
+function showLogin(){
+  document.getElementById('login-screen').style.display='flex';
+  document.getElementById('admin-app').style.display='none';
+}
+
+async function handleLogout(){await sb.auth.signOut();showLogin();}
+
+// ─── TOAST ────────────────────────────────────────────────
+function toast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),3000);
+}
+
+// ─── NAVIGATION ───────────────────────────────────────────
+let currentPage='products';
+function showPage(page){
+  currentPage=page;
+  document.querySelectorAll('.page-section').forEach(s=>s.style.display='none');
+  document.getElementById('page-'+page).style.display='block';
+  document.querySelectorAll('.sidebar nav a').forEach(a=>{
+    a.classList.toggle('active',a.dataset.page===page);
+  });
+  if(page==='products')loadProducts();
+  if(page==='orders')loadOrders();
+  if(page==='dashboard')loadDashboard();
+}
+
+// ─── PRODUCTS ─────────────────────────────────────────────
+let allProducts=[];
+async function loadProducts(search=''){
+  const tbody=document.getElementById('products-tbody');
+  tbody.innerHTML='<tr><td colspan="7" style="text-align:center;padding:32px;color:var(--muted)">Loading...</td></tr>';
+  let q=sb.from('products').select('*',{count:'exact'}).order('created_at',{ascending:false});
+  if(search)q=q.ilike('name','%'+search+'%');
+  const{data,error,count}=await q.limit(100);
+  if(error){toast('Error: '+error.message);return;}
+  allProducts=data||[];
+  document.getElementById('product-count').textContent=count||0;
+  if(!allProducts.length){
+    tbody.innerHTML='<tr><td colspan="7"><div class="empty-state"><span class="material-symbols-outlined">inventory_2</span><p>No products yet. Add your first product!</p></div></td></tr>';
+    return;
+  }
+  tbody.innerHTML=allProducts.map(p=>`
+    <tr>
+      <td><img src="${p.image_url||''}" alt="" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2248%22 height=%2248%22><rect fill=%22%23242424%22 width=%2248%22 height=%2248%22/></svg>'"></td>
+      <td><strong>${p.name}</strong><br><span style="color:var(--muted);font-size:11px">${p.handle}</span></td>
+      <td>${p.category}</td>
+      <td style="font-weight:600;color:var(--gold)">₹${Number(p.price).toLocaleString('en-IN')}</td>
+      <td>${p.in_stock?'<span class="badge badge-green">In Stock</span>':'<span class="badge badge-red">Out</span>'}</td>
+      <td>${p.stock_quantity||0}</td>
+      <td>
+        <button class="btn btn-outline btn-sm" onclick="editProduct('${p.id}')">Edit</button>
+        <button class="btn btn-red btn-sm" onclick="deleteProduct('${p.id}','${p.name.replace(/'/g,"\\'")}')">Delete</button>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function openAddProduct(){
+  document.getElementById('modal-title').textContent='Add Product';
+  document.getElementById('product-form').reset();
+  document.getElementById('edit-id').value='';
+  document.getElementById('img-preview').innerHTML='';
+  document.getElementById('product-modal').classList.add('active');
+}
+
+async function editProduct(id){
+  const p=allProducts.find(x=>x.id===id);
+  if(!p)return;
+  document.getElementById('modal-title').textContent='Edit Product';
+  document.getElementById('edit-id').value=p.id;
+  document.getElementById('f-name').value=p.name;
+  document.getElementById('f-handle').value=p.handle;
+  document.getElementById('f-category').value=p.category;
+  document.getElementById('f-price').value=p.price;
+  document.getElementById('f-compare').value=p.compare_at_price||'';
+  document.getElementById('f-stock').value=p.stock_quantity||0;
+  document.getElementById('f-material').value=p.material||'';
+  document.getElementById('f-desc').value=p.description||'';
+  document.querySelectorAll('.f-tag').forEach(cb=>{cb.checked=(p.tags||[]).includes(cb.value);});
+  document.getElementById('f-instock').checked=p.in_stock;
+  const prev=document.getElementById('img-preview');
+  prev.innerHTML=p.image_url?`<img src="${p.image_url}" alt="">`:''
+  document.getElementById('product-modal').classList.add('active');
+}
+
+async function saveProduct(e){
+  e.preventDefault();
+  const id=document.getElementById('edit-id').value;
+  const fileInput=document.getElementById('f-image');
+  let imageUrl=null;
+  // Upload image if selected
+  if(fileInput.files.length){
+    const file=fileInput.files[0];
+    const fname=`products/${Date.now()}_${file.name.replace(/\s/g,'_')}`;
+    const{error:upErr}=await sb.storage.from('product-images').upload(fname,file);
+    if(upErr){toast('Image upload failed: '+upErr.message);return;}
+    const{data:urlData}=sb.storage.from('product-images').getPublicUrl(fname);
+    imageUrl=urlData.publicUrl;
+  }
+  const name=document.getElementById('f-name').value.trim();
+  const product={
+    name,
+    handle:document.getElementById('f-handle').value.trim()||name.toLowerCase().replace(/[^a-z0-9]+/g,'-'),
+    category:document.getElementById('f-category').value,
+    price:parseFloat(document.getElementById('f-price').value),
+    compare_at_price:parseFloat(document.getElementById('f-compare').value)||null,
+    stock_quantity:parseInt(document.getElementById('f-stock').value)||0,
+    material:document.getElementById('f-material').value.trim()||null,
+    description:document.getElementById('f-desc').value.trim(),
+    tags:[...document.querySelectorAll('.f-tag:checked')].map(cb=>cb.value),
+    in_stock:document.getElementById('f-instock').checked,
+    is_active:true,
+  };
+  if(imageUrl)product.image_url=imageUrl;
+  try{
+    if(id){
+      const{error}=await sb.from('products').update(product).eq('id',id);
+      if(error)throw error;
+      toast('Product updated!');
+    }else{
+      if(!imageUrl){toast('Please upload an image');return;}
+      const{error}=await sb.from('products').insert(product);
+      if(error)throw error;
+      toast('Product added!');
+    }
+    closeModal();loadProducts();
+  }catch(err){toast('Error: '+err.message);}
+}
+
+async function deleteProduct(id,name){
+  if(!confirm(`Delete "${name}"?`))return;
+  const{error}=await sb.from('products').update({is_active:false}).eq('id',id);
+  if(error){toast('Error: '+error.message);return;}
+  toast('Product deleted');loadProducts();
+}
+
+function closeModal(){document.getElementById('product-modal').classList.remove('active');}
+
+// Auto-generate handle from name
+function autoHandle(){
+  const name=document.getElementById('f-name').value;
+  const handle=document.getElementById('f-handle');
+  if(!handle.value||handle.dataset.auto==='true'){
+    handle.value=name.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+    handle.dataset.auto='true';
+  }
+}
+
+// ─── ORDERS ───────────────────────────────────────────────
+async function loadOrders(){
+  const tbody=document.getElementById('orders-tbody');
+  tbody.innerHTML='<tr><td colspan="6" style="text-align:center;padding:32px;color:var(--muted)">Loading...</td></tr>';
+  const{data,error}=await sb.from('orders').select('*,order_items(*)').order('created_at',{ascending:false}).limit(50);
+  if(error){toast('Error: '+error.message);return;}
+  if(!data||!data.length){
+    tbody.innerHTML='<tr><td colspan="6"><div class="empty-state"><span class="material-symbols-outlined">receipt_long</span><p>No orders yet</p></div></td></tr>';
+    return;
+  }
+  const statusBadge=s=>({placed:'badge-gold',confirmed:'badge-gold',packed:'badge-gold',shipped:'badge-green',delivered:'badge-green',cancelled:'badge-red'}[s]||'badge-gold');
+  tbody.innerHTML=data.map(o=>`
+    <tr>
+      <td><strong>KGS-${o.order_number}</strong></td>
+      <td>${o.customer_name||o.shipping_name||'—'}<br><span style="color:var(--muted);font-size:11px">${o.customer_phone||o.shipping_phone||''}</span></td>
+      <td style="font-weight:600;color:var(--gold)">₹${Number(o.total).toLocaleString('en-IN')}</td>
+      <td><span class="badge ${statusBadge(o.status)}">${o.status}</span></td>
+      <td>${(o.payment_method||'cod').toUpperCase()}</td>
+      <td>
+        <select onchange="updateOrderStatus('${o.id}',this.value)" style="background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:4px 8px;border-radius:4px;font-size:12px">
+          ${['placed','confirmed','packed','shipped','delivered','cancelled'].map(s=>`<option value="${s}"${o.status===s?' selected':''}>${s}</option>`).join('')}
+        </select>
+      </td>
+    </tr>
+  `).join('');
+}
+
+async function updateOrderStatus(id,status){
+  const{error}=await sb.from('orders').update({status}).eq('id',id);
+  if(error)toast('Error: '+error.message);
+  else toast('Order status updated to: '+status);
+}
+
+// ─── DASHBOARD ────────────────────────────────────────────
+async function loadDashboard(){
+  const{count:productCount}=await sb.from('products').select('*',{count:'exact',head:true});
+  const{count:orderCount}=await sb.from('orders').select('*',{count:'exact',head:true});
+  const{data:orders}=await sb.from('orders').select('total');
+  const revenue=orders?orders.reduce((s,o)=>s+Number(o.total),0):0;
+  document.getElementById('stat-products').textContent=productCount||0;
+  document.getElementById('stat-orders').textContent=orderCount||0;
+  document.getElementById('stat-revenue').textContent='₹'+revenue.toLocaleString('en-IN');
+}
+
+// ─── INIT ─────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded',async()=>{
+  initSB();
+  const ok=await checkAuth();
+  if(ok)showPage('dashboard');
+});

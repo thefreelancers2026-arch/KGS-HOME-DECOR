@@ -2,8 +2,16 @@ node_modules/
 *.py
 temp_*.js
 test.js
+test_api.js
 screenshot.png
 .DS_Store
 *.log
 package.json
 package-lock.json
+
+# ═══ SECURITY: Never push these ═══
+.env.local.js
+migrate_products.js
+supabase_schema.sql
+supabase_admin.sql
+supabase_orders.sql

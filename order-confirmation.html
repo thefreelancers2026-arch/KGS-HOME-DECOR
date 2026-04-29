@@ -6,13 +6,13 @@
 <link rel="icon" type="image/png" href="assets/images/favicon.png">
 <meta name="theme-color" content="#1A1A1A">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Order Confirmed — KGS Home Décors | Virudhachalam</title>
-<meta name="description" content="Your order has been placed at KGS Home Décors. Our team will confirm via WhatsApp shortly.">
+<title>Order Confirmed &mdash; KGS Home D&eacute;cors | Virudhachalam</title>
+<meta name="description" content="Your order has been placed at KGS Home D&eacute;cors. Our team will confirm via WhatsApp shortly.">
 <meta name="robots" content="noindex, nofollow">
 <link rel="canonical" href="https://kgshomedecors.in/order-confirmation.html">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
 <script>
@@ -26,7 +26,7 @@
 tailwind.config = {
   theme: { extend: {
     colors: { base:'#FAF8F4', tint:'#F3EDE4', surface:'#FFFFFF', ink:'#1A1A1A', muted:'#767270', gold:'#C5A880', warm:'#C97840', border:'#E4DDD4' },
-    fontFamily: { sans:['"DM Sans"','sans-serif'], serif:['"Cormorant Garamond"','serif'] }
+    fontFamily: { sans:['"Jost"','sans-serif'], serif:['"Cormorant Garamond"','serif'] }
   }}
 }
 </script>
@@ -39,12 +39,12 @@ html,body{overflow-x:hidden;width:100%;margin:0;padding:0;}
 .nav-link{position:relative;color:#767270;font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;transition:color .2s;}
 .nav-link::after{content:'';position:absolute;left:0;bottom:-3px;width:0;height:1px;background:#C5A880;transition:width .3s;}
 .nav-link:hover{color:#1A1A1A;}.nav-link:hover::after{width:100%;}
-.btn-primary{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px 32px;background:#C97840;color:#fff;font-family:"DM Sans",sans-serif;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;border:1.5px solid #C97840;cursor:pointer;transition:background .22s,transform .3s,box-shadow .3s;}
+.btn-primary{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px 32px;background:#C97840;color:#fff;font-family: "Jost", sans-serif;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;border:1.5px solid #C97840;cursor:pointer;transition:background .22s,transform .3s,box-shadow .3s;}
 .btn-primary:hover{background:#a8612d;transform:translateY(-2px);box-shadow:0 8px 24px rgba(201,120,64,.35);}
-.btn-secondary{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 28px;background:transparent;color:#1A1A1A;font-family:"DM Sans",sans-serif;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;border:1.5px solid #1A1A1A;cursor:pointer;transition:background .22s,color .22s;}
-.btn-secondary:hover{background:#1A1A1A;color:#FAF8F4;}
+.btn-secondary{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 28px;background:transparent;color:#1A1A1A;font-family: "Jost", sans-serif;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;border:1.5px solid #1A1A1A;cursor:pointer;transition:background .22s,color .22s;}
+.btn-secondary:hover{background:#1A1A1A;color:#FAF8F4;transform:translateY(-2px);box-shadow:0 20px 40px -10px rgba(26,26,26,0.3);}
 
-/* ——— CHECKMARK ANIMATION ——— */
+/* Ã¢â‚¬â€Ã¢â‚¬â€Ã¢â‚¬â€ CHECKMARK ANIMATION Ã¢â‚¬â€Ã¢â‚¬â€Ã¢â‚¬â€ */
 @keyframes draw-check {
   0%  { stroke-dashoffset: 100; opacity: 0; }
   20% { opacity: 1; }
@@ -66,36 +66,91 @@ html,body{overflow-x:hidden;width:100%;margin:0;padding:0;}
 .fade-up-3 { animation: fade-up 0.5s ease 1.2s both; }
 .fade-up-4 { animation: fade-up 0.5s ease 1.4s both; }
 
-/* ——— ORDER SUMMARY CARD ——— */
+/* Ã¢â‚¬â€Ã¢â‚¬â€Ã¢â‚¬â€ ORDER SUMMARY CARD Ã¢â‚¬â€Ã¢â‚¬â€Ã¢â‚¬â€ */
 .order-item { display:flex; align-items:center; gap:14px; padding:14px 0; border-bottom:1px solid #E4DDD4; }
 .order-item:last-child { border-bottom:none; }
 
-/* ——— WA FLOAT ——— */
+/* Ã¢â‚¬â€Ã¢â‚¬â€Ã¢â‚¬â€ WA FLOAT Ã¢â‚¬â€Ã¢â‚¬â€Ã¢â‚¬â€ */
 #wa-float:hover{transform:scale(1.1);box-shadow:0 6px 28px rgba(37,211,102,0.55);}
 #wa-float:active{transform:scale(0.95);}
 @keyframes wa-pulse{0%,100%{box-shadow:0 4px 20px rgba(37,211,102,0.45);}50%{box-shadow:0 4px 32px rgba(37,211,102,0.75),0 0 0 8px rgba(37,211,102,0.12);}}
 #wa-float{animation:wa-pulse 2.5s ease-in-out infinite;}
 #wa-float:hover{animation:none;}
+
+/* --- PREMIUM OVERRIDES --- */
+.border-border { border-color: rgba(26, 26, 26, 0.06) !important; }
+.shadow-sm { box-shadow: 0 10px 30px -5px rgba(0,0,0,0.03) !important; }
+.shadow-md { box-shadow: 0 20px 40px -10px rgba(0,0,0,0.05) !important; }
+p.leading-relaxed { line-height: 1.85 !important; }
+input:focus { border-color: rgba(26, 26, 26, 0.25) !important; box-shadow: 0 10px 30px -5px rgba(0,0,0,0.03); }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0"></script>
+<link rel="manifest" href="/manifest.json">
 </head>
 <body class="bg-base text-ink font-sans overflow-x-hidden">
 
-<!-- ANNOUNCEMENT -->
-<div class="bg-ink text-white/50 text-[10px] font-medium tracking-[.25em] uppercase text-center py-2.5">
-  Cash on Delivery Available &nbsp;·&nbsp; Free Delivery in Virudhachalam &nbsp;·&nbsp; Secure Checkout
+<!-- Ã¢â€¢ÂÃ¢â€¢Â SEARCH OVERLAY Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â -->
+<div id="search-overlay" onclick="if(event.target===this)closeSearch()" class="fixed inset-0 z-[100] bg-surface/95 backdrop-blur-md hidden flex-col items-center pt-24 px-5">
+  <div class="w-full max-w-2xl relative">
+    <div class="flex items-center gap-4 border-b border-ink/10 pb-4 mb-8">
+      <span class="material-symbols-outlined text-[24px] text-ink/40">search</span>
+      <input id="search-input" type="text" placeholder="Search for products..."
+             class="flex-grow bg-transparent text-ink font-sans placeholder-ink/30 outline-none text-[20px] md:text-[24px]"
+             oninput="doSearch(this.value)" autocomplete="off">
+      <button onclick="closeSearch()" class="text-ink/40 hover:text-ink transition-colors bg-transparent border-none cursor-pointer p-1 flex items-center" aria-label="Close search">
+        <span class="material-symbols-outlined text-[24px]">close</span>
+      </button>
+    </div>
+    <div id="search-results" class="max-h-[60vh] overflow-y-auto pb-8 w-full"></div>
+  </div>
 </div>
 
-<!-- NAVBAR -->
-<nav class="sticky top-0 z-40 bg-surface border-b border-border">
-  <div class="max-w-7xl mx-auto px-5 md:px-10 flex items-center justify-between h-16">
-    <a href="index.html" class="font-serif font-medium tracking-[.38em] text-[1.3rem] text-ink hover:text-gold transition-colors">KGS</a>
-    <div class="hidden md:flex items-center gap-10">
-      <a href="index.html#collections" class="nav-link">Collections</a>
-      <a href="product-listing.html" class="nav-link">Shop All</a>
+<div id="drw-ov" class="fixed inset-0 bg-ink/40 z-50 hidden backdrop-blur-sm transition-opacity" onclick="closeDrw()"></div>
+<div id="mobile-drawer" class="fixed inset-y-0 right-0 z-50 w-[300px] bg-surface flex flex-col translate-x-full shadow-2xl transition-transform duration-300 ease-out">
+  <div class="flex items-center justify-between px-6 py-6 border-b border-border">
+    <span class="font-serif font-medium tracking-[.2em] text-ink text-[1.1rem]">MENU</span>
+    <button onclick="closeDrw()" class="text-muted hover:text-ink transition-colors bg-transparent border-none p-0 cursor-pointer flex items-center"><span class="material-symbols-outlined text-[24px]">close</span></button>
+  </div>
+  <nav class="flex flex-col px-6 pt-8 gap-6 overflow-y-auto">
+    <a href="index.html" class="nav-link text-[13px] normal-case font-medium tracking-normal text-ink text-left">Home</a>
+    <a href="product-listing.html" class="nav-link text-[13px] normal-case font-medium tracking-normal text-ink text-left">Shop All</a>
+    <a href="product-listing.html?cat=new" class="nav-link text-[13px] normal-case font-medium tracking-normal text-ink text-left">New Arrivals</a>
+    <a href="about.html" class="nav-link text-[13px] normal-case font-medium tracking-normal text-ink text-left">Our Story</a>
+    <a href="contact.html" class="nav-link text-[13px] normal-case font-medium tracking-normal text-ink text-left">Showroom &amp; Contact</a>
+  </nav>
+  <div class="mt-auto px-6 py-8 border-t border-border bg-tint space-y-5">
+    <a href="tel:+919789182921" class="flex items-center gap-3 text-sm text-ink font-medium"><span class="material-symbols-outlined text-[20px] text-gold">call</span> +91 97891 82921</a>
+    <a href="https://wa.me/919789182921" target="_blank" class="flex items-center gap-3 text-sm text-ink font-medium"><span class="material-symbols-outlined text-[20px] text-[#25D366]">chat</span> WhatsApp Us</a>
+  </div>
+</div>
+
+<!-- Ã¢â€¢ÂÃ¢â€¢Â NAVBAR Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â -->
+<nav id="navbar" class="sticky top-0 z-40 bg-surface border-b border-border">
+  <div class="max-w-7xl mx-auto px-5 md:px-10 flex items-center justify-between h-16 md:h-20">
+    <a href="index.html" class="font-serif font-medium tracking-[.35em] text-[1.4rem] text-ink hover:text-gold transition-colors shrink-0">KGS</a>
+    <div class="hidden md:flex items-center gap-8 lg:gap-12">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="product-listing.html" class="nav-link">Shop</a>
+      <a href="product-listing.html?cat=new" class="nav-link">New Arrivals</a>
       <a href="about.html" class="nav-link">Our Story</a>
+      <a href="contact.html" class="nav-link">Contact</a>
     </div>
-    <div class="flex items-center gap-4 text-muted">
-      <a href="product-listing.html" class="text-[11px] font-semibold tracking-[.12em] uppercase text-warm hover:text-ink transition-colors">Continue Shopping &rarr;</a>
+    <div class="flex items-center gap-5 md:gap-6 text-muted">
+      <button onclick="openSearch();if(typeof gtag==='function')gtag('event','search_open',{event_category:'engagement'})" aria-label="Search" class="hover:text-ink transition-colors bg-transparent border-none cursor-pointer p-0 flex items-center"><span class="material-symbols-outlined text-[20px]" style="font-variation-settings:'wght' 300;">search</span></button>
+      <a href="account-login.html" aria-label="Account" class="relative hover:text-ink transition-colors flex items-center">
+        <span class="material-symbols-outlined text-[20px]" style="font-variation-settings:'wght' 300;">person</span>
+      </a>
+      <a href="wishlist.html" aria-label="Wishlist" class="relative hover:text-ink transition-colors flex items-center">
+        <span class="material-symbols-outlined text-[20px]" style="font-variation-settings:'wght' 300;">favorite</span>
+        <span class="wishlist-count absolute -top-1.5 -right-1.5 w-4 h-4 bg-warm rounded-full text-white text-[9px] font-bold leading-none" style="display:none;">0</span>
+      </a>
+      <a href="cart-checkout.html" aria-label="Cart" class="relative hover:text-ink transition-colors flex items-center">
+        <span class="material-symbols-outlined text-[20px]" style="font-variation-settings:'wght' 300;">local_mall</span>
+        <span class="cart-count absolute -top-1.5 -right-1.5 w-4 h-4 bg-warm rounded-full text-white text-[9px] font-bold leading-none" style="display:none;">0</span>
+      </a>
+      <button onclick="openDrw()" class="md:hidden hover:text-ink transition-colors p-0 ml-1 bg-transparent border-none cursor-pointer flex items-center" aria-label="Menu">
+        <span class="material-symbols-outlined text-[24px]" style="font-variation-settings:'wght' 300;">menu</span>
+      </button>
     </div>
   </div>
 </nav>
@@ -117,13 +172,13 @@ html,body{overflow-x:hidden;width:100%;margin:0;padding:0;}
       <p class="fade-up-1 text-[11px] font-semibold tracking-[.22em] uppercase text-gold mb-3">Order Received</p>
       <h1 class="fade-up-2 font-serif font-medium text-ink leading-tight mb-5" style="font-size:clamp(2.2rem,5vw,3.5rem);">Your Order is Confirmed</h1>
       <p class="fade-up-3 text-muted leading-[1.85] mb-10" style="font-size:15px;">
-        Thank you for shopping with KGS Home Décors. Your WhatsApp order message has been sent to our team. We will confirm your order and arrange delivery shortly — typically within <strong class="text-ink">30 minutes</strong>.
+        Thank you for shopping with KGS Home D&eacute;cors. Your WhatsApp order message has been sent to our team. We will confirm your order and arrange delivery shortly &mdash; typically within <strong class="text-ink">30 minutes</strong>.
       </p>
 
       <!-- CTA buttons -->
       <div class="fade-up-4 flex flex-col sm:flex-row gap-4 justify-center">
         <a href="https://wa.me/919789182921?text=Hi%20KGS%2C%20I%20just%20placed%20an%20order.%20Please%20confirm." target="_blank" rel="noopener noreferrer"
-           style="display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:14px 32px;background:#25D366;color:#fff;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;border:1.5px solid #25D366;cursor:pointer;transition:background .22s,transform .22s,box-shadow .22s;"
+           style="display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:14px 32px;background:#25D366;color:#fff;font-family: "Jost", sans-serif;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;border:1.5px solid #25D366;cursor:pointer;transition:background .22s,transform .22s,box-shadow .22s;"
            onmouseover="this.style.background='#1db954';this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 24px rgba(37,211,102,0.35)'"
            onmouseout="this.style.background='#25D366';this.style.transform='';this.style.boxShadow=''">
           <svg viewBox="0 0 24 24" fill="white" width="15" height="15"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
@@ -184,12 +239,12 @@ html,body{overflow-x:hidden;width:100%;margin:0;padding:0;}
       <div id="order-summary" class="bg-surface border border-border p-6 md:p-8">
         <div id="order-items"></div>
         <div class="flex justify-between items-center pt-5 mt-5 border-t border-border">
-          <span class="text-[11px] font-semibold tracking-[.14em] uppercase text-muted">Total Paid</span>
+          <span class="text-[11px] font-semibold tracking-[.2em] uppercase text-muted">Total Paid</span>
           <span id="order-total" class="font-serif font-medium text-ink" style="font-size:1.4rem;"></span>
         </div>
         <div class="mt-4 flex items-center gap-2 text-[12px] text-muted">
           <span class="material-symbols-outlined text-[15px] text-gold" style="font-variation-settings:'FILL' 1,'wght' 400;">check_circle</span>
-          Cash on Delivery &nbsp;·&nbsp; Free Delivery in Virudhachalam
+          Cash on Delivery &nbsp;Ã‚Â·&nbsp; Free Delivery in Virudhachalam
         </div>
       </div>
       <p class="text-muted text-[12px] mt-5 leading-relaxed">
@@ -205,54 +260,96 @@ html,body{overflow-x:hidden;width:100%;margin:0;padding:0;}
       <p class="text-[11px] font-semibold tracking-[.18em] uppercase text-gold mb-3">Keep Exploring</p>
       <h2 class="font-serif font-medium text-ink mb-8" style="font-size:clamp(1.6rem,3vw,2.4rem);">Discover More Premium Pieces</h2>
       <div class="flex flex-wrap gap-3 justify-center">
-        <a href="collection.html?cat=accessories" class="btn-secondary text-[10px]">Wall Decor</a>
-        <a href="collection.html?cat=furniture" class="btn-secondary text-[10px]">Furniture</a>
-        <a href="collection.html?cat=lighting" class="btn-secondary text-[10px]">Lighting</a>
-        <a href="collection.html?cat=vases-plants" class="btn-secondary text-[10px]">Botanicals</a>
-        <a href="collection.html?cat=gifts" class="btn-secondary text-[10px]">Gifting</a>
+        <a href="product-listing.html?cat=decor" class="btn-secondary text-[10px]">Décor</a>
+        <a href="product-listing.html?cat=furniture" class="btn-secondary text-[10px]">Furniture</a>
+        <a href="product-listing.html?cat=lighting" class="btn-secondary text-[10px]">Lighting</a>
+        <a href="product-listing.html?cat=botanicals" class="btn-secondary text-[10px]">Plants</a>
+        <a href="product-listing.html?cat=gifting" class="btn-secondary text-[10px]">Gifts</a>
       </div>
       <div class="mt-8">
-        <a href="product-listing.html" class="btn-primary">Browse All 500+ Products &rarr;</a>
+        <a href="product-listing.html" class="btn-primary">Browse All Products &rarr;</a>
       </div>
     </div>
   </section>
 
 </main>
 
-<!-- FOOTER (minimal) -->
-<footer class="bg-ink py-10 border-t border-white/10">
-  <div class="max-w-7xl mx-auto px-5 md:px-10 flex flex-col sm:flex-row justify-between items-center gap-5">
-    <a href="index.html" class="font-serif font-medium tracking-[.38em] text-[1.2rem] text-white/80 hover:text-white transition-colors">KGS</a>
-    <p class="text-[11px] tracking-[.14em] uppercase text-white/25 text-center">&copy; 2026 KGS Home Décors &middot; 185/G Junction Road, Virudhachalam 606001</p>
-    <a href="https://wa.me/919789182921" target="_blank" rel="noopener noreferrer" class="text-[11px] font-semibold tracking-[.12em] uppercase text-gold hover:text-white transition-colors">+91 97891 82921</a>
+
+<!-- Ã¢â€¢ÂÃ¢â€¢Â FOOTER Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â -->
+<footer class="bg-surface pt-20 pb-8 border-t border-border">
+  <div class="max-w-7xl mx-auto px-5 md:px-10 grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8 mb-16">
+    <div class="md:col-span-1">
+      <a href="index.html" class="font-serif font-medium tracking-[.35em] text-[1.4rem] text-ink block mb-6">KGS</a>
+      <p class="text-muted text-[13px] leading-[1.8] mb-6 pr-4">Your one-stop destination for premium home d&eacute;cor and furniture in Virudhachalam.</p>
+      <div class="flex items-center gap-4">
+        <a href="https://www.instagram.com/kgshomedecors_virudhachalam" target="_blank" class="w-8 h-8 rounded-full border border-border flex items-center justify-center text-muted hover:border-ink hover:text-ink transition-colors">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-4 h-4"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.01" stroke-width="3"/></svg>
+        </a>
+        <a href="https://wa.me/919789182921" target="_blank" class="w-8 h-8 rounded-full border border-border flex items-center justify-center text-muted hover:border-[#25D366] hover:text-[#25D366] transition-colors">
+          <svg viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div>
+      <h4 class="text-ink text-[11px] tracking-[.18em] uppercase font-semibold mb-6">Shop</h4>
+      <ul class="space-y-4 text-[13px] text-muted">
+        <li><a href="product-listing.html" class="hover:text-ink transition-colors">All Products</a></li>
+        <li><a href="product-listing.html?cat=furniture" class="hover:text-ink transition-colors">Furniture</a></li>
+        <li><a href="product-listing.html?cat=accessories" class="hover:text-ink transition-colors">Decor & Accessories</a></li>
+        <li><a href="product-listing.html?cat=new" class="hover:text-ink transition-colors">New Arrivals</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="text-ink text-[11px] tracking-[.18em] uppercase font-semibold mb-6">Support</h4>
+      <ul class="space-y-4 text-[13px] text-muted">
+        <li><a href="contact.html" class="hover:text-ink transition-colors">Contact Us</a></li>
+        <li><a href="shipping-policy.html" class="hover:text-ink transition-colors">Shipping Info</a></li>
+        <li><a href="returns-policy.html" class="hover:text-ink transition-colors">Returns & Refunds</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="text-ink text-[11px] tracking-[.18em] uppercase font-semibold mb-6">Company</h4>
+      <ul class="space-y-4 text-[13px] text-muted">
+        <li><a href="about.html" class="hover:text-ink transition-colors">Our Story</a></li>
+        <li><a href="privacy-policy.html" class="hover:text-ink transition-colors">Privacy Policy</a></li>
+        <li><a href="terms.html" class="hover:text-ink transition-colors">Terms of Service</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="max-w-7xl mx-auto px-5 md:px-10 border-t border-border pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+    <p class="text-[11px] tracking-[.15em] text-muted uppercase">&copy; 2026 KGS Home D&eacute;cors. All rights reserved.</p>
+    <div class="flex items-center gap-3 opacity-60">
+      <span class="text-[10px] tracking-[.15em] font-semibold uppercase text-muted">Secure Delivery</span>
+    </div>
   </div>
 </footer>
 
-<!-- WA FLOAT -->
-<a href="https://wa.me/919789182921?text=Hi%20KGS%2C%20I%20need%20help%20with%20my%20recent%20order"
-   target="_blank" rel="noopener noreferrer" id="wa-float" aria-label="Chat on WhatsApp"
-   style="position:fixed;bottom:28px;right:24px;z-index:999;width:56px;height:56px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,0.45);transition:transform .25s cubic-bezier(0.23,1,0.32,1),box-shadow .25s ease;text-decoration:none;">
-  <svg viewBox="0 0 24 24" fill="white" width="26" height="26"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+
+<!-- Ã¢â€¢ÂÃ¢â€¢Â WHATSAPP FLOAT Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â -->
+<a href="https://wa.me/919789182921?text=Hi%20KGS%2C%20I%20need%20help"
+   target="_blank" rel="noopener noreferrer" class="fixed bottom-20 right-5 z-30 w-12 h-12 bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-[0_4px_20px_rgba(37,211,102,0.4)] hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(37,211,102,0.4)] transition-all duration-300" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor" class="w-7 h-7"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
 </a>
 
 <script src="assets/js/store.js"></script>
 <script>
 // Render order summary from cart before clearing
 document.addEventListener('DOMContentLoaded', () => {
-  const cart  = getCart();
-  const total = getCartTotal();
+  const order = JSON.parse(localStorage.getItem("kgs_last_order") || "null");
+  const cart = order ? order.items : getLocalCart();
+  const total = order ? order.total : cart.reduce((s,i) => s + i.price * i.quantity, 0);
 
   const itemsEl = document.getElementById('order-items');
   const totalEl = document.getElementById('order-total');
 
   if (cart.length === 0) {
-    itemsEl.innerHTML = '<p class="text-muted text-[13px] py-4">No order data found. <a href="product-listing.html" class="text-warm underline">Browse our collection →</a></p>';
+    itemsEl.innerHTML = '<p class="text-muted text-[13px] py-4">No order data found. <a href="product-listing.html" class="text-warm underline">Browse our collection \u2192</a></p>';
     totalEl.textContent = '';
   } else {
     itemsEl.innerHTML = cart.map(item => `
       <div class="order-item">
         <div class="w-14 h-14 bg-tint border border-border overflow-hidden shrink-0">
-          <img src="${item.image || 'assets/images/placeholder.jpg'}" alt="${item.name}" class="w-full h-full object-cover">
+          <img src="${item.image || 'assets/images/placeholder.webp'}" alt="${item.name}" class="w-full h-full object-cover">
         </div>
         <div class="flex-grow">
           <p class="text-ink font-medium text-[13.5px]">${item.name}</p>
@@ -261,12 +358,12 @@ document.addEventListener('DOMContentLoaded', () => {
         <p class="text-ink font-semibold text-[13.5px] shrink-0">&#8377;${(item.price * item.quantity).toLocaleString('en-IN')}</p>
       </div>
     `).join('');
-    totalEl.textContent = '₹' + total.toLocaleString('en-IN');
+    totalEl.textContent = '\u20B9' + total.toLocaleString('en-IN');
   }
 
   // Clear cart after rendering
   if (cart.length > 0) {
-    setTimeout(() => clearCart(), 1500);
+    setTimeout(() => { localStorage.removeItem("kgs_cart"); updateCartBadge(); }, 1500);
   }
 });
 </script>
@@ -274,5 +371,6 @@ document.addEventListener('DOMContentLoaded', () => {
 <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
 <script>const lenis=new Lenis();function raf(time){lenis.raf(time);requestAnimationFrame(raf);}requestAnimationFrame(raf);</script>
 
+<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catch(()=>{});}</script>
 </body>
 </html>
