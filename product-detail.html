@@ -618,7 +618,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const filtered = related.filter(r => r.handle !== p.handle).slice(0, 4);
     grid.innerHTML = filtered.map(r => `
       <div class="rel-card relative">
-        <a href="product-detail?handle=${r.handle}" class="rel-img block aspect-[4/5] overflow-hidden bg-tint">
+        <a href="product-detail.html?handle=${r.handle}" class="rel-img block aspect-[4/5] overflow-hidden bg-tint">
           <img src="${r.image}" alt="${r.name}" class="w-full h-full object-cover">
         </a>
         <div class="p-4 border-t border-border">

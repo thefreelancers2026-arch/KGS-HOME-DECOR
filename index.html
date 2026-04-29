@@ -850,7 +850,7 @@ async function doSearch(q){
     res.innerHTML='<p style="color:rgba(255,255,255,.4);font-size:13px;padding:12px 16px;">No results. <a href="product-listing.html" style="color:#C5A880;text-decoration:underline;">Browse all products &rarr;</a></p>';
   }else{
     res.innerHTML=matches.map(p=>`
-      <a href="product-detail?handle=${p.handle}" class="search-result-item">
+      <a href="product-detail.html?handle=${p.handle}" class="search-result-item">
         <div>
           <p style="color:#fff;font-size:14.5px;font-family: "Jost", sans-serif;font-weight:500;letter-spacing:-0.01em;">${p.name}</p>
           <p style="color:rgba(255,255,255,.35);font-size:10px;letter-spacing:.14em;text-transform:uppercase;margin-top:3px;">${p.category || ''}</p>
@@ -895,8 +895,8 @@ async function loadDynamicHome() {
           <button onclick="toggleWishlist('${p.id}')" class="heart-btn opacity-0 group-hover:opacity-100 transition-opacity duration-200" title="Save">
             <span class="material-symbols-outlined text-[15px]">favorite</span>
           </button>
-          <a href="product-detail?handle=${p.handle}" class="block w-full h-full">
-            <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]">
+          <a href="product-detail.html?handle=${p.handle}" class="block w-full h-full">
+            <img src="${p.image}" alt="${p.name}" class="w-full h-full object-contain p-3 transition-transform duration-700 group-hover:scale-[1.04]">
           </a>
           <div class="card-overlay">
             <button onclick="addToCart('${p.id}')" class="qa-btn"><span class="material-symbols-outlined text-[14px]">shopping_bag</span> Add to Cart</button>
@@ -904,7 +904,7 @@ async function loadDynamicHome() {
         </div>
         <div class="pt-4 pb-2 px-1">
           <p class="text-[9.5px] font-medium tracking-[.2em] uppercase text-muted mb-2">${p.category}</p>
-          <h3 class="font-serif font-medium text-ink leading-snug mb-1" style="font-size:1.1rem;"><a href="product-detail?handle=${p.handle}">${p.name}</a></h3>
+          <h3 class="font-serif font-medium text-ink leading-snug mb-1" style="font-size:1.1rem;"><a href="product-detail.html?handle=${p.handle}">${p.name}</a></h3>
           <p class="font-sans font-semibold text-warm" style="font-size:1rem;">&#8377;${p.price.toLocaleString('en-IN')}</p>
         </div>
       </div>
@@ -923,13 +923,13 @@ async function loadDynamicHome() {
           <button onclick="toggleWishlist('${p.id}')" class="heart-btn opacity-0 group-hover:opacity-100 transition-opacity duration-200" title="Save">
             <span class="material-symbols-outlined text-[15px]">favorite</span>
           </button>
-          <a href="product-detail?handle=${p.handle}" class="block w-full h-full">
-            <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]">
+          <a href="product-detail.html?handle=${p.handle}" class="block w-full h-full">
+            <img src="${p.image}" alt="${p.name}" class="w-full h-full object-contain p-3 transition-transform duration-700 group-hover:scale-[1.04]">
           </a>
           <div class="card-overlay"><button onclick="addToCart('${p.id}')" class="qa-btn">Add to Cart</button></div>
         </div>
         <p class="text-[9.5px] font-medium tracking-[.2em] uppercase text-muted mb-2">${p.category}</p>
-        <h3 class="font-serif font-medium text-ink leading-snug mb-2" style="font-size:1.1rem;"><a href="product-detail?handle=${p.handle}">${p.name}</a></h3>
+        <h3 class="font-serif font-medium text-ink leading-snug mb-2" style="font-size:1.1rem;"><a href="product-detail.html?handle=${p.handle}">${p.name}</a></h3>
         <div class="flex items-center justify-between">
           <p class="font-sans font-semibold text-warm" style="font-size:1rem;">&#8377;${p.price.toLocaleString('en-IN')}</p>
           <button onclick="addToCart('${p.id}')" class="text-[9px] font-semibold tracking-[.15em] uppercase text-muted hover:text-ink border-b border-current pb-px transition-colors">Add to Cart</button>

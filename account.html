@@ -378,11 +378,11 @@ input:focus { border-color: rgba(26, 26, 26, 0.25) !important; box-shadow: 0 10p
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         ${wishItems.map(p => `
           <div class="bg-surface border border-border p-4 flex gap-4 items-start">
-            <a href="product-detail?handle=${p.handle}" class="shrink-0 w-20 h-20 bg-tint overflow-hidden">
+            <a href="product-detail.html?handle=${p.handle}" class="shrink-0 w-20 h-20 bg-tint overflow-hidden">
               <img src="${p.image}" alt="${p.name}" class="w-full h-full object-contain p-1">
             </a>
             <div class="flex-grow min-w-0">
-              <a href="product-detail?handle=${p.handle}" class="block text-ink font-medium text-[14px] leading-tight hover:text-warm transition-colors truncate">${p.name}</a>
+              <a href="product-detail.html?handle=${p.handle}" class="block text-ink font-medium text-[14px] leading-tight hover:text-warm transition-colors truncate">${p.name}</a>
               <p class="text-[11px] text-muted tracking-[.1em] uppercase mt-1">${(p.category || '').replace(/-/g, ' ')}</p>
               <p class="text-warm font-semibold text-[14px] mt-1.5">${String.fromCharCode(8377)}${p.price.toLocaleString('en-IN')}</p>
               <div class="flex gap-2 mt-3">
