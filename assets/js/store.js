@@ -37,7 +37,11 @@ async function initStore() {
 }
 
 async function fetchCollectionProducts(category) {
-  const data = await sbFetch(`/products?is_active=eq.true&category=eq.${category}&select=*&order=sort_order.asc&limit=50`);
+  let url = '/products?is_active=eq.true&select=*&order=sort_order.asc&limit=50';
+  if (category && category.toLowerCase() !== 'all') {
+    url += `&category=eq.${category}`;
+  }
+  const data = await sbFetch(url);
   return (data || []).map(p => ({
     id: p.id,
     handle: p.handle,

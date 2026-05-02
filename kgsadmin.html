@@ -186,12 +186,12 @@
         </div>
       </div>
       <div class="form-group">
-        <label>Product Image *</label>
+        <label>Product Images * (Select up to 5+)</label>
         <label class="img-upload" for="f-image">
           <span class="material-symbols-outlined" style="font-size:32px;display:block;margin-bottom:8px">cloud_upload</span>
-          Click to upload image (JPG, PNG, WebP)
-          <input type="file" id="f-image" accept="image/*" style="display:none" onchange="previewImg(this)">
-          <div id="img-preview"></div>
+          Click to upload images (JPG, PNG, WebP)
+          <input type="file" id="f-image" accept="image/*" multiple style="display:none" onchange="previewImg(this)">
+          <div id="img-preview" style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;justify-content:center;"></div>
         </label>
       </div>
       <div class="form-group">
@@ -234,10 +234,21 @@ function togglePass(){
 }
 function previewImg(input){
   const prev=document.getElementById('img-preview');
-  if(input.files[0]){
-    const reader=new FileReader();
-    reader.onload=e=>{prev.innerHTML=`<img src="${e.target.result}">`};
-    reader.readAsDataURL(input.files[0]);
+  prev.innerHTML='';
+  if(input.files && input.files.length){
+    Array.from(input.files).forEach(file => {
+      const reader=new FileReader();
+      reader.onload=e=>{
+        const img = document.createElement('img');
+        img.src = e.target.result;
+        img.style.width = '60px';
+        img.style.height = '60px';
+        img.style.objectFit = 'cover';
+        img.style.borderRadius = '4px';
+        prev.appendChild(img);
+      };
+      reader.readAsDataURL(file);
+    });
   }
 }
 async function handleLogin(e){

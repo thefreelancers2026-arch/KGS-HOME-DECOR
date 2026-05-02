@@ -109,7 +109,11 @@ async function editProduct(id){
   document.querySelectorAll('.f-tag').forEach(cb=>{cb.checked=(p.tags||[]).includes(cb.value);});
   document.getElementById('f-instock').checked=p.in_stock;
   const prev=document.getElementById('img-preview');
-  prev.innerHTML=p.image_url?`<img src="${p.image_url}" alt="">`:''
+  prev.innerHTML='';
+  const imgs = p.images && p.images.length ? p.images : (p.image_url ? [p.image_url] : []);
+  imgs.forEach(url => {
+    prev.innerHTML += `<img src="${url}" style="width:60px;height:60px;object-fit:cover;border-radius:4px;">`;
+  });
   document.getElementById('product-modal').classList.add('active');
 }
 
@@ -118,14 +122,20 @@ async function saveProduct(e){
   const id=document.getElementById('edit-id').value;
   const fileInput=document.getElementById('f-image');
   let imageUrl=null;
-  // Upload image if selected
+  let imageUrls=[];
+  // Upload images if selected
   if(fileInput.files.length){
-    const file=fileInput.files[0];
-    const fname=`products/${Date.now()}_${file.name.replace(/\s/g,'_')}`;
-    const{error:upErr}=await sb.storage.from('product-images').upload(fname,file);
-    if(upErr){toast('Image upload failed: '+upErr.message);return;}
-    const{data:urlData}=sb.storage.from('product-images').getPublicUrl(fname);
-    imageUrl=urlData.publicUrl;
+    for (let i = 0; i < fileInput.files.length; i++) {
+      const file = fileInput.files[i];
+      const fname=`products/${Date.now()}_${i}_${file.name.replace(/\s/g,'_')}`;
+      const{error:upErr}=await sb.storage.from('product-images').upload(fname,file);
+      if(upErr){toast('Image upload failed: '+upErr.message);return;}
+      const{data:urlData}=sb.storage.from('product-images').getPublicUrl(fname);
+      imageUrls.push(urlData.publicUrl);
+    }
+    if (imageUrls.length > 0) {
+      imageUrl = imageUrls[0];
+    }
   }
   const name=document.getElementById('f-name').value.trim();
   const product={
@@ -141,9 +151,14 @@ async function saveProduct(e){
     in_stock:document.getElementById('f-instock').checked,
     is_active:true,
   };
-  if(imageUrl)product.image_url=imageUrl;
+  if(imageUrl) product.image_url=imageUrl;
+  if(imageUrls.length > 0) product.images=imageUrls;
   try{
     if(id){
+      const p = allProducts.find(x=>x.id===id);
+      if(p && imageUrls.length > 0) {
+        product.images = [...(p.images || []), ...imageUrls];
+      }
       const{error}=await sb.from('products').update(product).eq('id',id);
       if(error)throw error;
       toast('Product updated!');
