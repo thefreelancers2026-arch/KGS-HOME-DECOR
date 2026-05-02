@@ -427,21 +427,19 @@ async function loadProducts() {
   grid.style.display = 'none';
   pag.style.display = 'none';
 
-  const params = new URLSearchParams(window.location.search);
-  const cat = params.get('cat');
-  
-  if (!cat || cat.toLowerCase() === 'all') {
+  const cat = (new URLSearchParams(window.location.search).get('cat') || '').toLowerCase();
+
+  if (!cat || cat === 'all') {
+    // No filter — fetch ALL active products from Supabase
     ALL_PRODUCTS = await initStore();
     setActivePill('all');
   } else {
-    const term = cat.toLowerCase();
-    FILTERED_PRODUCTS = ALL_PRODUCTS.filter(p => 
-      p.category?.toLowerCase() === term || 
-      (p.tags && p.tags.map(t=>t.toLowerCase()).includes(term))
-    );
-    setActivePill(term);
+    // Specific category — fetch from Supabase with category filter
+    ALL_PRODUCTS = await fetchCollectionProducts(cat);
+    setActivePill(cat);
   }
 
+  FILTERED_PRODUCTS = [...ALL_PRODUCTS];
   renderPage();
 }
 
@@ -543,16 +541,10 @@ const CATEGORY_GROUPS = {
 };
 
 function filterByCategory(cat) {
-  CURRENT_PAGE = 1;
   const term = cat.toLowerCase();
-  setActivePill(term);
-  FILTERED_PRODUCTS = term === 'all' 
-    ? [...ALL_PRODUCTS] 
-    : ALL_PRODUCTS.filter(p => 
-        p.category?.toLowerCase() === term || 
-        (p.tags && p.tags.map(t=>t.toLowerCase()).includes(term))
-      );
-  renderPage();
+  window.location.href = term === 'all'
+    ? 'product-listing.html'
+    : 'product-listing.html?cat=' + encodeURIComponent(term);
 }
 
 function sortProducts(val) {
