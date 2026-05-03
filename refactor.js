@@ -118,11 +118,11 @@ if (oldNavId && navHTML) {
   content = content.replace(oldNavId, navHTML);
 }
 
-// Insert Instagram before Footer
+// Insert Footer (without Instagram)
 const oldFooter = extractElement(content, '<footer', 'footer');
 if (oldFooter && footerHTML) {
   content = content.replace(/<!-- ══ INSTAGRAM [\s\S]*?<\/section>\n/g, '');
-  content = content.replace(oldFooter, instagramHTML + '\n\n' + footerHTML);
+  content = content.replace(oldFooter, footerHTML);
 }
 
 // Max Widths
