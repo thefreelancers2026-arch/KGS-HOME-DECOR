@@ -35,6 +35,7 @@ tailwind.config = {
   }}
 }
 </script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
   *, *::before, *::after { box-sizing: border-box; }
@@ -107,13 +108,88 @@ tailwind.config = {
   }
 </style>
 </head>
-<body class="bg-base text-ink font-sans">
+<body class="bg-base text-ink font-sans overflow-x-hidden">
 
-<!-- ══ NAVBAR (minimal) ════════════════════════════════════ -->
-<nav class="bg-surface border-b border-border">
-  <div class="max-w-7xl mx-auto px-5 md:px-10 flex items-center justify-between h-16">
-    <a href="index.html" class="font-serif text-xl font-semibold tracking-[.15em] text-ink">KGS</a>
-    <a href="index.html" class="text-[11px] font-medium tracking-wider uppercase text-muted hover:text-ink transition-colors">← Back to Store</a>
+<!-- ══ ANNOUNCEMENT BAR ═══════════════════════════════════ -->
+<div class="bg-ink text-white/50 text-[10px] font-medium tracking-[.25em] uppercase text-center py-2.5">
+  Free Delivery in Virudhachalam &nbsp;·&nbsp; Cash on Delivery &nbsp;·&nbsp; Open 10 AM – 10 PM, Every Day
+</div>
+
+<!-- ══ TOAST NOTIFICATION ═══════════════════════════════════ -->
+<div id="cart-toast">
+  <span class="material-symbols-outlined toast-icon">check_circle</span>
+  <span id="toast-text">Added to cart</span>
+  <a href="cart-checkout.html" style="color:#C5A880;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;margin-left:8px;">View Cart &rarr;</a>
+</div>
+
+<!-- ══ DRAWER OVERLAY ═══════════════════════════════════════ -->
+<div id="drw-ov" class="fixed inset-0 bg-ink/40 z-50 hidden backdrop-blur-sm transition-opacity" onclick="closeDrw()"></div>
+<div id="mobile-drawer" class="fixed inset-y-0 right-0 z-50 w-[300px] bg-surface flex flex-col translate-x-full shadow-2xl transition-transform duration-300 ease-out">
+  <div class="flex items-center justify-between px-6 py-6 border-b border-border">
+    <span class="font-serif font-medium tracking-[.2em] text-ink text-[1.1rem]">MENU</span>
+    <button onclick="closeDrw()" class="text-muted hover:text-ink transition-colors bg-transparent border-none p-0 cursor-pointer flex items-center"><span class="material-symbols-outlined text-[24px]">close</span></button>
+  </div>
+  <nav class="flex flex-col px-6 pt-8 gap-6 overflow-y-auto">
+    <a href="index.html" class="nav-link text-[13px] normal-case font-medium tracking-normal text-ink text-left">Home</a>
+    <a href="product-listing.html" class="nav-link text-[13px] normal-case font-medium tracking-normal text-ink text-left">Shop All</a>
+    <a href="product-listing.html?cat=new" class="nav-link text-[13px] normal-case font-medium tracking-normal text-ink text-left">New Arrivals</a>
+    <a href="about.html" class="nav-link text-[13px] normal-case font-medium tracking-normal text-ink text-left">Our Story</a>
+    <a href="contact.html" class="nav-link text-[13px] normal-case font-medium tracking-normal text-ink text-left">Showroom & Contact</a>
+    <a href="order-tracking.html" class="nav-link text-[13px] normal-case font-medium tracking-normal text-ink text-left">Track Order</a>
+  </nav>
+  <div class="mt-auto px-6 py-8 border-t border-border bg-tint space-y-5">
+    <a href="tel:+919789182921" class="flex items-center gap-3 text-sm text-ink font-medium"><span class="material-symbols-outlined text-[20px] text-gold">call</span> +91 97891 82921</a>
+    <a href="https://wa.me/919789182921" target="_blank" class="flex items-center gap-3 text-sm text-ink font-medium"><span class="material-symbols-outlined text-[20px] text-[#25D366]">chat</span> WhatsApp Us</a>
+  </div>
+</div>
+
+
+<!-- ══ SEARCH OVERLAY ═══════════════════════════════════════ -->
+<div id="search-overlay" onclick="if(event.target===this)closeSearch()" class="fixed inset-0 z-[100] bg-surface/95 backdrop-blur-md hidden flex-col items-center pt-24 px-5">
+  <div class="w-full max-w-2xl relative">
+    <div class="flex items-center gap-4 border-b border-ink/10 pb-4 mb-8">
+      <span class="material-symbols-outlined text-[24px] text-ink/40">search</span>
+      <input id="search-input" type="text" placeholder="Search for products..."
+             class="flex-grow bg-transparent text-ink font-sans placeholder-ink/30 outline-none text-[20px] md:text-[24px]"
+             oninput="doSearch(this.value)" autocomplete="off">
+      <button onclick="closeSearch()" class="text-ink/40 hover:text-ink transition-colors bg-transparent border-none cursor-pointer p-1 flex items-center" aria-label="Close search">
+        <span class="material-symbols-outlined text-[24px]">close</span>
+      </button>
+    </div>
+    <div id="search-results" class="max-h-[60vh] overflow-y-auto pb-8 w-full"></div>
+  </div>
+</div>
+
+
+<!-- ══ NAVBAR ═══════════════════════════════════════════════ -->
+<nav id="navbar" class="sticky top-0 z-40 bg-surface border-b border-border">
+  <div class="max-w-7xl mx-auto px-5 md:px-10 flex items-center justify-between h-16 md:h-20">
+    <a href="index.html" class="font-serif font-medium tracking-[.35em] text-[1.4rem] text-ink hover:text-gold transition-colors shrink-0">KGS</a>
+    <div class="hidden md:flex items-center gap-8 lg:gap-12">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="product-listing.html" class="nav-link">Shop</a>
+      <a href="product-listing.html?cat=new" class="nav-link">New Arrivals</a>
+      <a href="about.html" class="nav-link">Our Story</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+      <a href="order-tracking.html" class="nav-link">Track Order</a>
+    </div>
+    <div class="flex items-center gap-5 md:gap-6 text-muted">
+      <button onclick="openSearch();if(typeof gtag==='function')gtag('event','search_open',{event_category:'engagement'})" aria-label="Search" class="hover:text-ink transition-colors bg-transparent border-none cursor-pointer p-0 flex items-center"><span class="material-symbols-outlined text-[20px]" style="font-variation-settings:'wght' 300;">search</span></button>
+      <a href="account-login.html" aria-label="Account" class="relative hover:text-ink transition-colors flex items-center">
+        <span class="material-symbols-outlined text-[20px]" style="font-variation-settings:'wght' 300;">person</span>
+      </a>
+      <a href="wishlist.html" aria-label="Wishlist" class="relative hover:text-ink transition-colors flex items-center">
+        <span class="material-symbols-outlined text-[20px]" style="font-variation-settings:'wght' 300;">favorite</span>
+        <span class="wishlist-count absolute -top-1.5 -right-1.5 w-4 h-4 bg-warm rounded-full text-white text-[9px] font-bold leading-none" style="display:none;">0</span>
+      </a>
+      <a href="cart-checkout.html" aria-label="Cart" class="relative hover:text-ink transition-colors flex items-center">
+        <span class="material-symbols-outlined text-[20px]" style="font-variation-settings:'wght' 300;">local_mall</span>
+        <span class="cart-count absolute -top-1.5 -right-1.5 w-4 h-4 bg-warm rounded-full text-white text-[9px] font-bold leading-none" style="display:none;">0</span>
+      </a>
+      <button onclick="openDrw()" class="md:hidden hover:text-ink transition-colors p-0 ml-1 bg-transparent border-none cursor-pointer flex items-center" aria-label="Menu">
+        <span class="material-symbols-outlined text-[24px]" style="font-variation-settings:'wght' 300;">menu</span>
+      </button>
+    </div>
   </div>
 </nav>
 
@@ -380,6 +456,57 @@ function renderResult(order) {
 </script>
 
 <!-- Service Worker -->
+<script src="assets/js/store.js"></script>
+<script>
+function openDrw() {
+  document.getElementById('drw-ov').classList.remove('hidden');
+  document.getElementById('mobile-drawer').classList.remove('translate-x-full');
+  document.body.style.overflow = 'hidden';
+}
+function closeDrw() {
+  document.getElementById('drw-ov').classList.add('hidden');
+  document.getElementById('mobile-drawer').classList.add('translate-x-full');
+  document.body.style.overflow = '';
+}
+</script>
+<script>
+
+/* ——— SEARCH ———————————————————————————————— */
+function openSearch(){
+  document.getElementById('search-overlay').style.display='flex';
+  document.getElementById('search-input').focus();
+  document.body.style.overflow='hidden';
+}
+function closeSearch(){
+  document.getElementById('search-overlay').style.display='none';
+  document.getElementById('search-input').value='';
+  document.getElementById('search-results').innerHTML='';
+  document.body.style.overflow='';
+}
+async function doSearch(q){
+  const res=document.getElementById('search-results');
+  if(!q.trim()){res.innerHTML='';return;}
+  if(!window.kgsFuse) {
+    const products = await initStore();
+    window.kgsFuse = new Fuse(products, {keys:['name','category'], threshold:0.3});
+  }
+  const matches = window.kgsFuse.search(q).map(r=>r.item);
+  if(matches.length===0){
+    res.innerHTML='<p style="color:#767270;font-size:13px;padding:12px 16px;">No results found. <a href="product-listing.html" style="color:#C97840;text-decoration:underline;">Browse all products &rarr;</a></p>';
+  }else{
+    res.innerHTML=matches.map(p=>`
+      <a href="product-detail.html?handle=${p.handle}" style="display:flex;justify-content:space-between;align-items:center;padding:14px 16px;border-bottom:1px solid rgba(26,26,26,0.06);text-decoration:none;transition:background .2s;" onmouseover="this.style.background='rgba(26,26,26,0.03)'" onmouseout="this.style.background=''">
+        <div>
+          <p style="color:#1A1A1A;font-size:14.5px;font-family:'Jost',sans-serif;font-weight:500;">${p.name}</p>
+          <p style="color:#767270;font-size:10px;letter-spacing:.14em;text-transform:uppercase;margin-top:3px;">${p.category || ''}</p>
+        </div>
+        <p style="color:#C97840;font-size:13px;font-weight:600;font-family:'Jost',sans-serif;">&#8377;${p.price.toLocaleString('en-IN')}</p>
+      </a>`).join('');
+  }
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSearch();});
+
+</script>
 <script>
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('/sw.js').catch(() => {});

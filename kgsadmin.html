@@ -112,6 +112,13 @@
         </thead>
         <tbody id="products-tbody"></tbody>
       </table>
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-top:16px; font-size:13px;">
+        <div style="color:var(--muted);">Showing <span id="page-start">0</span>-<span id="page-end">0</span> of <span id="page-total">0</span></div>
+        <div style="display:flex; gap:8px;">
+          <button id="btn-prev" class="btn btn-outline btn-sm" onclick="changePage(-1)" disabled>Previous</button>
+          <button id="btn-next" class="btn btn-outline btn-sm" onclick="changePage(1)" disabled>Next</button>
+        </div>
+      </div>
     </section>
 
     <!-- ── ORDERS ─────────────────────────────────────────── -->
@@ -123,6 +130,13 @@
         </thead>
         <tbody id="orders-tbody"></tbody>
       </table>
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-top:16px; font-size:13px;">
+        <div style="color:var(--muted);">Showing <span id="order-page-start">0</span>-<span id="order-page-end">0</span> of <span id="order-page-total">0</span></div>
+        <div style="display:flex; gap:8px;">
+          <button id="btn-order-prev" class="btn btn-outline btn-sm" onclick="changeOrderPage(-1)" disabled>Previous</button>
+          <button id="btn-order-next" class="btn btn-outline btn-sm" onclick="changeOrderPage(1)" disabled>Next</button>
+        </div>
+      </div>
     </section>
   </div>
 </div>

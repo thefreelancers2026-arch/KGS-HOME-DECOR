@@ -229,7 +229,7 @@ async function doSearch(q) {
     res.innerHTML = '<p style="color:rgba(25,25,25,.6);font-size:13px;padding:12px 16px;">No results. <a href="product-listing.html" class="text-warm underline">Browse all products &rarr;</a></p>';
   } else {
     res.innerHTML = matches.map(p => `
-      <a href="product-detail?handle=${p.handle}" class="flex items-center justify-between p-3 border-b border-border hover:bg-tint transition-colors text-decoration-none">
+      <a href="product-detail.html?handle=${p.handle}" class="flex items-center justify-between p-3 border-b border-border hover:bg-tint transition-colors text-decoration-none">
         <div class="flex items-center gap-3">
           <div class="w-12 h-12 bg-tint border border-border shrink-0">
              <img src="${p.image}" class="w-full h-full object-cover">

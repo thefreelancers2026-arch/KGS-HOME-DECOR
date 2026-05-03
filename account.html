@@ -46,8 +46,19 @@ input:focus { border-color: rgba(26, 26, 26, 0.25) !important; box-shadow: 0 10p
 <script src="assets/js/supabase-client.js"></script>
 <link rel="manifest" href="/manifest.json">
 </head>
-<body class="bg-base text-ink font-sans">
+<body class="bg-base text-ink font-sans overflow-x-hidden">
 
+<!-- ══ ANNOUNCEMENT BAR ═══════════════════════════════════ -->
+<div class="bg-ink text-white/50 text-[10px] font-medium tracking-[.25em] uppercase text-center py-2.5">
+  Free Delivery in Virudhachalam &nbsp;·&nbsp; Cash on Delivery &nbsp;·&nbsp; Open 10 AM – 10 PM, Every Day
+</div>
+
+<!-- ══ TOAST NOTIFICATION ═══════════════════════════════════ -->
+<div id="cart-toast">
+  <span class="material-symbols-outlined toast-icon">check_circle</span>
+  <span id="toast-text">Added to cart</span>
+  <a href="cart-checkout.html" style="color:#C5A880;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;margin-left:8px;">View Cart &rarr;</a>
+</div>
 <!-- ══ DRAWER OVERLAY ═══════════════════════════════════════ -->
 <div id="drw-ov" class="fixed inset-0 bg-ink/40 z-50 hidden backdrop-blur-sm transition-opacity" onclick="closeDrw()"></div>
 <div id="mobile-drawer" class="fixed inset-y-0 right-0 z-50 w-[300px] bg-surface flex flex-col translate-x-full shadow-2xl transition-transform duration-300 ease-out">

@@ -56,15 +56,32 @@ function showPage(page){
 
 // ─── PRODUCTS ─────────────────────────────────────────────
 let allProducts=[];
-async function loadProducts(search=''){
+let currentProductPage=0;
+const productsPerPage=50;
+let currentSearch=null;
+
+async function loadProducts(search=null){
+  if(search!==null){currentSearch=search;currentProductPage=0;}
   const tbody=document.getElementById('products-tbody');
   tbody.innerHTML='<tr><td colspan="7" style="text-align:center;padding:32px;color:var(--muted)">Loading...</td></tr>';
+  
+  const from=currentProductPage*productsPerPage;
+  const to=from+productsPerPage-1;
+  
   let q=sb.from('products').select('*',{count:'exact'}).order('created_at',{ascending:false});
-  if(search)q=q.ilike('name','%'+search+'%');
-  const{data,error,count}=await q.limit(100);
+  if(currentSearch)q=q.ilike('name','%'+currentSearch+'%');
+  const{data,error,count}=await q.range(from,to);
   if(error){toast('Error: '+error.message);return;}
   allProducts=data||[];
   document.getElementById('product-count').textContent=count||0;
+  
+  // Pagination UI
+  document.getElementById('page-start').textContent=count>0?from+1:0;
+  document.getElementById('page-end').textContent=Math.min(to+1,count||0);
+  document.getElementById('page-total').textContent=count||0;
+  document.getElementById('btn-prev').disabled=currentProductPage===0;
+  document.getElementById('btn-next').disabled=(to+1)>=(count||0);
+  
   if(!allProducts.length){
     tbody.innerHTML='<tr><td colspan="7"><div class="empty-state"><span class="material-symbols-outlined">inventory_2</span><p>No products yet. Add your first product!</p></div></td></tr>';
     return;
@@ -83,6 +100,11 @@ async function loadProducts(search=''){
       </td>
     </tr>
   `).join('');
+}
+
+function changePage(delta){
+  currentProductPage+=delta;
+  loadProducts(null);
 }
 
 function openAddProduct(){
@@ -192,11 +214,25 @@ function autoHandle(){
 }
 
 // ─── ORDERS ───────────────────────────────────────────────
+let currentOrderPage=0;
+const ordersPerPage=50;
+
 async function loadOrders(){
   const tbody=document.getElementById('orders-tbody');
   tbody.innerHTML='<tr><td colspan="6" style="text-align:center;padding:32px;color:var(--muted)">Loading...</td></tr>';
-  const{data,error}=await sb.from('orders').select('*,order_items(*)').order('created_at',{ascending:false}).limit(50);
+  
+  const from=currentOrderPage*ordersPerPage;
+  const to=from+ordersPerPage-1;
+  const{data,error,count}=await sb.from('orders').select('*,order_items(*)',{count:'exact'}).order('created_at',{ascending:false}).range(from,to);
   if(error){toast('Error: '+error.message);return;}
+  
+  // Pagination UI
+  document.getElementById('order-page-start').textContent=count>0?from+1:0;
+  document.getElementById('order-page-end').textContent=Math.min(to+1,count||0);
+  document.getElementById('order-page-total').textContent=count||0;
+  document.getElementById('btn-order-prev').disabled=currentOrderPage===0;
+  document.getElementById('btn-order-next').disabled=(to+1)>=(count||0);
+
   if(!data||!data.length){
     tbody.innerHTML='<tr><td colspan="6"><div class="empty-state"><span class="material-symbols-outlined">receipt_long</span><p>No orders yet</p></div></td></tr>';
     return;
@@ -216,6 +252,11 @@ async function loadOrders(){
       </td>
     </tr>
   `).join('');
+}
+
+function changeOrderPage(delta){
+  currentOrderPage+=delta;
+  loadOrders();
 }
 
 async function updateOrderStatus(id,status){
