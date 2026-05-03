@@ -12,7 +12,7 @@
 <link rel="canonical" href="https://kgshomedecors.in/wishlist.html">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
 
 <script>
@@ -107,7 +107,7 @@ input:focus { border-color: rgba(26, 26, 26, 0.25) !important; box-shadow: 0 10p
         <span class="material-symbols-outlined text-[24px]">close</span>
       </button>
     </div>
-    <div id="search-results" class="max-h-[60vh] overflow-y-auto pb-8 w-full"></div>
+    <div id="search-results" class="max-h-[60vh] overflow-y-auto pb-8 w-full flex flex-col gap-2"></div>
   </div>
 </div>
 
@@ -122,7 +122,8 @@ input:focus { border-color: rgba(26, 26, 26, 0.25) !important; box-shadow: 0 10p
     <a href="product-listing.html" class="nav-link text-[13px] normal-case font-medium tracking-normal text-ink text-left">Shop All</a>
     <a href="product-listing.html?cat=new" class="nav-link text-[13px] normal-case font-medium tracking-normal text-ink text-left">New Arrivals</a>
     <a href="about.html" class="nav-link text-[13px] normal-case font-medium tracking-normal text-ink text-left">Our Story</a>
-    <a href="contact.html" class="nav-link text-[13px] normal-case font-medium tracking-normal text-ink text-left">Showroom &amp; Contact</a>
+    <a href="contact.html" class="nav-link text-[13px] normal-case font-medium tracking-normal text-ink text-left">Showroom & Contact</a>
+    <a href="order-tracking.html" class="nav-link text-[13px] normal-case font-medium tracking-normal text-ink text-left">Track Order</a>
   </nav>
   <div class="mt-auto px-6 py-8 border-t border-border bg-tint space-y-5">
     <a href="tel:+919789182921" class="flex items-center gap-3 text-sm text-ink font-medium"><span class="material-symbols-outlined text-[20px] text-gold">call</span> +91 97891 82921</a>
@@ -131,32 +132,30 @@ input:focus { border-color: rgba(26, 26, 26, 0.25) !important; box-shadow: 0 10p
 </div>
 
 <!-- â•â• NAVBAR â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
-<nav id="navbar" class="sticky top-0 z-40 bg-surface border-b border-border">
-  <div class="max-w-7xl mx-auto px-5 md:px-10 flex items-center justify-between h-16 md:h-20">
-    <a href="index.html" class="font-serif font-medium tracking-[.35em] text-[1.4rem] text-ink hover:text-gold transition-colors shrink-0">KGS</a>
-    <div class="hidden md:flex items-center gap-8 lg:gap-12">
+<nav id="navbar" class="fixed top-0 w-full z-40 bg-surface/90 backdrop-blur-lg border-b border-border transition-transform duration-300">
+  <div class="max-w-[90rem] mx-auto px-5 md:px-12 flex items-center justify-between h-20 md:h-24">
+    <a href="index.html" class="font-serif font-medium tracking-[.35em] text-[1.6rem] text-ink hover:text-gold transition-colors shrink-0">KGS</a>
+    <div class="hidden md:flex items-center gap-10">
       <a href="index.html" class="nav-link">Home</a>
       <a href="product-listing.html" class="nav-link">Shop</a>
       <a href="product-listing.html?cat=new" class="nav-link">New Arrivals</a>
       <a href="about.html" class="nav-link">Our Story</a>
-      <a href="contact.html" class="nav-link">Contact</a>
-      <a href="order-tracking.html" class="nav-link">Track Order</a>
     </div>
-    <div class="flex items-center gap-5 md:gap-6 text-muted">
-      <button onclick="openSearch();if(typeof gtag==='function')gtag('event','search_open',{event_category:'engagement'})" aria-label="Search" class="hover:text-ink transition-colors bg-transparent border-none cursor-pointer p-0 flex items-center"><span class="material-symbols-outlined text-[20px]" style="font-variation-settings:'wght' 300;">search</span></button>
-      <a href="account-login.html" aria-label="Account" class="relative hover:text-ink transition-colors flex items-center">
-        <span class="material-symbols-outlined text-[20px]" style="font-variation-settings:'wght' 300;">person</span>
+    <div class="flex items-center gap-6 md:gap-7 text-ink">
+      <button onclick="openSearch()" aria-label="Search" class="hover:text-gold transition-colors bg-transparent border-none cursor-pointer p-0 flex items-center"><span class="material-symbols-outlined text-[22px]">search</span></button>
+      <a href="account-login.html" aria-label="Account" class="hidden md:flex hover:text-gold transition-colors items-center">
+        <span class="material-symbols-outlined text-[22px]">person</span>
       </a>
-      <a href="wishlist.html" aria-label="Wishlist" class="relative hover:text-ink transition-colors flex items-center">
-        <span class="material-symbols-outlined text-[20px]" style="font-variation-settings:'wght' 300;">favorite</span>
-        <span class="wishlist-count absolute -top-1.5 -right-1.5 w-4 h-4 bg-warm rounded-full text-white text-[9px] font-bold leading-none" style="display:none;">0</span>
+      <a href="wishlist.html" aria-label="Wishlist" class="relative hover:text-gold transition-colors flex items-center">
+        <span class="material-symbols-outlined text-[22px]">favorite</span>
+        <span class="wishlist-count absolute -top-1.5 -right-1.5 w-4 h-4 bg-warm rounded-full text-white text-[9px] font-bold leading-none flex items-center justify-center" style="display:none;">0</span>
       </a>
-      <a href="cart-checkout.html" aria-label="Cart" class="relative hover:text-ink transition-colors flex items-center">
-        <span class="material-symbols-outlined text-[20px]" style="font-variation-settings:'wght' 300;">local_mall</span>
-        <span class="cart-count absolute -top-1.5 -right-1.5 w-4 h-4 bg-warm rounded-full text-white text-[9px] font-bold leading-none" style="display:none;">0</span>
+      <a href="cart-checkout.html" aria-label="Cart" class="relative hover:text-gold transition-colors flex items-center">
+        <span class="material-symbols-outlined text-[22px]">shopping_bag</span>
+        <span class="cart-count absolute -top-1.5 -right-1.5 w-4 h-4 bg-warm rounded-full text-white text-[9px] font-bold leading-none flex items-center justify-center" style="display:none;">0</span>
       </a>
-      <button onclick="openDrw()" class="md:hidden hover:text-ink transition-colors p-0 ml-1 bg-transparent border-none cursor-pointer flex items-center" aria-label="Menu">
-        <span class="material-symbols-outlined text-[24px]" style="font-variation-settings:'wght' 300;">menu</span>
+      <button onclick="openDrw()" class="md:hidden hover:text-gold transition-colors p-0 bg-transparent border-none cursor-pointer flex items-center" aria-label="Menu">
+        <span class="material-symbols-outlined text-[26px]">menu</span>
       </button>
     </div>
   </div>
@@ -164,14 +163,14 @@ input:focus { border-color: rgba(26, 26, 26, 0.25) !important; box-shadow: 0 10p
 
 <!-- PAGE HEADER -->
 <div class="bg-tint border-b border-border py-12">
-  <div class="max-w-7xl mx-auto px-5 md:px-10 text-center">
+  <div class="max-w-[90rem] mx-auto px-5 md:px-12 text-center">
     <p class="text-[11px] font-semibold tracking-[.18em] uppercase text-gold mb-4">Saved For Later</p>
     <h1 class="font-serif font-medium text-ink mb-3" style="font-size:clamp(1.9rem,4vw,3rem);">Your Wishlist</h1>
   </div>
 </div>
 
 <!-- MAIN -->
-<main class="max-w-7xl mx-auto px-5 md:px-10 py-12 flex-grow min-h-[60vh]">
+<main class="max-w-[90rem] mx-auto px-5 md:px-12 py-12 flex-grow min-h-[60vh]">
   
   <!-- Skeleton Loading -->
   <style>.skel{background:linear-gradient(90deg,#F3EDE4 25%,#E4DDD4 50%,#F3EDE4 75%);background-size:200% 100%;animation:wlshim 1.5s infinite;border-radius:4px}@keyframes wlshim{0%{background-position:200% 0}100%{background-position:-200% 0}}.skel-card{border:1px solid #E4DDD4;overflow:hidden}</style>
@@ -197,51 +196,94 @@ input:focus { border-color: rgba(26, 26, 26, 0.25) !important; box-shadow: 0 10p
 
 
 <!-- â•â• FOOTER â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
-<footer class="bg-surface pt-12 md:pt-20 pb-8 border-t border-border">
-  <div class="max-w-7xl mx-auto px-5 md:px-10 grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-8 mb-10 md:mb-16">
+
+<!-- ══ INSTAGRAM ════════════════════════════════════════════ -->
+<section class="bg-base py-20 md:py-28 border-t border-border overflow-hidden">
+  <div class="max-w-[90rem] mx-auto px-5 md:px-12">
+    <div class="flex flex-col md:flex-row items-center justify-between mb-12 gap-6">
+      <div>
+        <p class="text-[10px] font-bold tracking-[.25em] uppercase text-gold mb-3">Join Our Community</p>
+        <h2 class="font-serif font-medium text-ink text-3xl md:text-4xl mb-3">Follow Us on Instagram</h2>
+        <p class="text-muted text-[13px] md:text-sm">Follow <a href="https://www.instagram.com/kgshomedecors_virudhachalam" target="_blank" class="text-ink font-semibold hover:text-gold transition-colors">@kgshomedecors_virudhachalam</a> for daily inspiration.</p>
+      </div>
+      <a href="https://www.instagram.com/kgshomedecors_virudhachalam" target="_blank" class="btn-secondary whitespace-nowrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-4 h-4"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.01" stroke-width="3"/></svg>
+        Follow on Instagram
+      </a>
+    </div>
+    
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <a href="https://www.instagram.com/kgshomedecors_virudhachalam" target="_blank" class="group relative aspect-square overflow-hidden bg-tint rounded-md block">
+        <img src="assets/images/sofa.jpg" alt="Instagram 1" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+        <div class="absolute inset-0 bg-ink/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-[2px]">
+          <svg viewBox="0 0 24 24" fill="white" class="w-8 h-8"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+        </div>
+      </a>
+      <a href="https://www.instagram.com/kgshomedecors_virudhachalam" target="_blank" class="group relative aspect-square overflow-hidden bg-tint rounded-md block">
+        <img src="assets/images/wall_decor.jpg" alt="Instagram 2" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+        <div class="absolute inset-0 bg-ink/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-[2px]">
+          <svg viewBox="0 0 24 24" fill="white" class="w-8 h-8"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+        </div>
+      </a>
+      <a href="https://www.instagram.com/kgshomedecors_virudhachalam" target="_blank" class="group relative aspect-square overflow-hidden bg-tint rounded-md block">
+        <img src="assets/images/lighting.jpg" alt="Instagram 3" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+        <div class="absolute inset-0 bg-ink/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-[2px]">
+          <svg viewBox="0 0 24 24" fill="white" class="w-8 h-8"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+        </div>
+      </a>
+      <a href="https://www.instagram.com/kgshomedecors_virudhachalam" target="_blank" class="group relative aspect-square overflow-hidden bg-tint rounded-md block">
+        <img src="assets/images/gifts.jpg" alt="Instagram 4" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+        <div class="absolute inset-0 bg-ink/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-[2px]">
+          <svg viewBox="0 0 24 24" fill="white" class="w-8 h-8"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<footer class="bg-surface pt-16 md:pt-24 pb-8 border-t border-border">
+  <div class="max-w-[90rem] mx-auto px-5 md:px-12 grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-12 mb-16">
     <div class="md:col-span-1">
       <a href="index.html" class="font-serif font-medium tracking-[.35em] text-[1.4rem] text-ink block mb-6">KGS</a>
-      <p class="text-muted text-[13px] leading-[1.8] mb-6 pr-4">Your one-stop destination for premium home d&eacute;cor and furniture in Virudhachalam.</p>
+      <p class="text-muted text-[13px] leading-[1.8] mb-8 max-w-xs">Your one-stop destination for premium modern Indian home décor and furniture in Virudhachalam.</p>
       <div class="flex items-center gap-4">
-        <a href="https://www.instagram.com/kgshomedecors_virudhachalam" target="_blank" class="w-8 h-8 rounded-full border border-border flex items-center justify-center text-muted hover:border-ink hover:text-ink transition-colors">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-4 h-4"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.01" stroke-width="3"/></svg>
-        </a>
-        <a href="https://wa.me/919789182921" target="_blank" class="w-8 h-8 rounded-full border border-border flex items-center justify-center text-muted hover:border-[#25D366] hover:text-[#25D366] transition-colors">
-          <svg viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        <a href="https://wa.me/919789182921" target="_blank" class="w-10 h-10 rounded-full border border-border flex items-center justify-center text-muted hover:border-[#25D366] hover:text-[#25D366] transition-colors bg-white">
+          <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
         </a>
       </div>
     </div>
     <div>
-      <h4 class="text-ink text-[11px] tracking-[.18em] uppercase font-semibold mb-6">Shop</h4>
-      <ul class="space-y-4 text-[13px] text-muted">
-        <li><a href="product-listing.html" class="hover:text-ink transition-colors">All Products</a></li>
-        <li><a href="product-listing.html?cat=furniture" class="hover:text-ink transition-colors">Furniture</a></li>
-        <li><a href="product-listing.html?cat=accessories" class="hover:text-ink transition-colors">Decor & Accessories</a></li>
-        <li><a href="product-listing.html?cat=new" class="hover:text-ink transition-colors">New Arrivals</a></li>
+      <h4 class="text-ink text-[11px] tracking-[.18em] uppercase font-bold mb-6">Shop</h4>
+      <ul class="space-y-4 text-[13px] text-muted font-medium">
+        <li><a href="product-listing.html" class="hover:text-gold transition-colors">All Products</a></li>
+        <li><a href="product-listing.html?cat=sofas" class="hover:text-gold transition-colors">Sofas & Furniture</a></li>
+        <li><a href="product-listing.html?cat=decor" class="hover:text-gold transition-colors">Decor & Accessories</a></li>
+        <li><a href="product-listing.html?cat=new" class="hover:text-gold transition-colors">New Arrivals</a></li>
       </ul>
     </div>
     <div>
-      <h4 class="text-ink text-[11px] tracking-[.18em] uppercase font-semibold mb-6">Support</h4>
-      <ul class="space-y-4 text-[13px] text-muted">
-        <li><a href="contact.html" class="hover:text-ink transition-colors">Contact Us</a></li>
-        <li><a href="shipping-policy.html" class="hover:text-ink transition-colors">Shipping Info</a></li>
-        <li><a href="returns-policy.html" class="hover:text-ink transition-colors">Returns & Refunds</a></li>
-        <li><a href="order-tracking.html" class="hover:text-ink transition-colors">Track Order</a></li>
+      <h4 class="text-ink text-[11px] tracking-[.18em] uppercase font-bold mb-6">Support</h4>
+      <ul class="space-y-4 text-[13px] text-muted font-medium">
+        <li><a href="contact.html" class="hover:text-gold transition-colors">Contact Us</a></li>
+        <li><a href="shipping-policy.html" class="hover:text-gold transition-colors">Shipping Info</a></li>
+        <li><a href="returns-policy.html" class="hover:text-gold transition-colors">Returns & Refunds</a></li>
+        <li><a href="order-tracking.html" class="hover:text-gold transition-colors">Track Order</a></li>
       </ul>
     </div>
     <div>
-      <h4 class="text-ink text-[11px] tracking-[.18em] uppercase font-semibold mb-6">Company</h4>
-      <ul class="space-y-4 text-[13px] text-muted">
-        <li><a href="about.html" class="hover:text-ink transition-colors">Our Story</a></li>
-        <li><a href="privacy-policy.html" class="hover:text-ink transition-colors">Privacy Policy</a></li>
-        <li><a href="terms.html" class="hover:text-ink transition-colors">Terms of Service</a></li>
+      <h4 class="text-ink text-[11px] tracking-[.18em] uppercase font-bold mb-6">Company</h4>
+      <ul class="space-y-4 text-[13px] text-muted font-medium">
+        <li><a href="about.html" class="hover:text-gold transition-colors">Our Story</a></li>
+        <li><a href="privacy-policy.html" class="hover:text-gold transition-colors">Privacy Policy</a></li>
+        <li><a href="terms.html" class="hover:text-gold transition-colors">Terms of Service</a></li>
       </ul>
     </div>
   </div>
-  <div class="max-w-7xl mx-auto px-5 md:px-10 border-t border-border pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-    <p class="text-[11px] tracking-[.15em] text-muted uppercase">&copy; 2026 KGS Home D&eacute;cors. All rights reserved.</p>
+  <div class="max-w-[90rem] mx-auto px-5 md:px-12 border-t border-border pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+    <p class="text-[11px] tracking-[.15em] text-muted uppercase font-medium">&copy; 2026 KGS Home Décors. All rights reserved.</p>
     <div class="flex items-center gap-3 opacity-60">
-      <span class="text-[10px] tracking-[.15em] font-semibold uppercase text-muted">Secure Delivery</span>
+      <span class="text-[10px] tracking-[.15em] font-bold uppercase text-muted">Virudhachalam's Premium Choice</span>
     </div>
   </div>
 </footer>
