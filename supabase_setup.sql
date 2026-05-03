@@ -141,7 +141,7 @@ CREATE POLICY "Admins can manage order items" ON order_items FOR ALL USING (EXIS
 
 -- Admin Users Policies
 DROP POLICY IF EXISTS "Admins can view admin list" ON admin_users;
-CREATE POLICY "Admins can view admin list" ON admin_users FOR SELECT USING (EXISTS (SELECT 1 FROM admin_users WHERE id = auth.uid()));
+CREATE POLICY "Admins can view admin list" ON admin_users FOR SELECT USING (id = auth.uid());
 
 -- 4. Triggers for Automatic Profile Creation
 -- When a user signs up in Supabase Auth, automatically create a customer record

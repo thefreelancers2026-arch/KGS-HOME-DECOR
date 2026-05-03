@@ -552,8 +552,8 @@ gsap.fromTo('.gsap-trust',
 // Generic Reveal
 gsap.utils.toArray('.gsap-rv').forEach(el => {
   gsap.fromTo(el,
-    { opacity: 0, y: 40 },
-    { opacity: 1, y: 0, duration: 1, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 85%' } }
+    { autoAlpha: 0, y: 40 },
+    { autoAlpha: 1, y: 0, duration: 1, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 85%' } }
   );
 });
 
