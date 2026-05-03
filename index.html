@@ -4,68 +4,18 @@
 <meta charset="UTF-8">
 <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
 <link rel="icon" type="image/png" href="assets/images/favicon.png">
-<meta name="theme-color" content="#1A1A1A">
+<meta name="theme-color" content="#FAF8F4">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KGS Home D&eacute;cors &mdash; Premium Furniture & D&eacute;cor | Virudhachalam, Tamil Nadu</title>
-<meta name="description" content="KGS Home D&eacute;cors &mdash; Virudhachalam's favourite home d&eacute;cor store. Shop sofas, wall clocks, fountains, wall art, photo frames, LED lights, artificial plants & gift items. 5.0 &#9733; on Google. Cash on Delivery. Free local delivery. Open daily 10 AM&ndash;10 PM.">
-<meta name="robots" content="index, follow">
-<meta name="author" content="KGS Home D&eacute;cors">
-<link rel="canonical" href="https://kgshomedecors.in/">
-<meta property="og:title" content="KGS Home D&eacute;cors &mdash; Premium Furniture & D&eacute;cor | Virudhachalam">
-<meta property="og:description" content="Virudhachalam's favourite home d&eacute;cor store. 500+ products. 5.0 Google Rating. Cash on Delivery. Free local delivery.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://kgshomedecors.in/">
-<meta property="og:image" content="https://kgshomedecors.in/assets/images/hero.webp">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="KGS Home Décors — Premium Furniture & Décor">
-<meta name="twitter:description" content="Virudhachalam's favourite home décor store. 500+ products. Free local delivery.">
-<meta name="twitter:image" content="https://kgshomedecors.in/assets/images/hero.webp">
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "HomeGoodsStore",
-  "name": "KGS Home Décors",
-  "description": "Premium home décor and furniture store in Virudhachalam, Tamil Nadu.",
-  "url": "https://kgshomedecors.in",
-  "telephone": "+919789182921",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "185/G, Junction Road, near EB Office",
-    "addressLocality": "Virudhachalam",
-    "addressRegion": "Tamil Nadu",
-    "postalCode": "606001",
-    "addressCountry": "IN"
-  },
-  "openingHoursSpecification": {
-    "@type": "OpeningHoursSpecification",
-    "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
-    "opens": "10:00",
-    "closes": "22:00"
-  },
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "5.0",
-    "reviewCount": "200",
-    "bestRating": "5"
-  },
-  "priceRange": "₹499 - ₹50,000",
-  "image": "https://kgshomedecors.in/assets/images/hero_sofa.webp",
-  "sameAs": ["https://www.instagram.com/kgshomedecors_virudhachalam"]
-}
-</script>
+<title>KGS Home Décors — Premium Furniture & Décor | Virudhachalam, Tamil Nadu</title>
+<meta name="description" content="KGS Home Décors — Virudhachalam's favourite home décor store. Shop sofas, wall clocks, fountains, wall art, photo frames, LED lights, artificial plants & gift items. 5.0 ★ on Google.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
-<!-- ══ GOOGLE ANALYTICS 4 ══ Replace G-XXXXXXXXXX with your Measurement ID from analytics.google.com -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-XXXXXXXXXX', { page_title: 'Home', page_location: window.location.href });
-</script>
 <script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
 <script>
 tailwind.config = {
   theme: { extend: {
@@ -93,77 +43,53 @@ tailwind.config = {
   --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
 }
 
-/* ——— GHOST WHITE BUTTON ——————————————————— */
-.btn-ghost-white{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;background:transparent;color:#fff;font-family: 'Jost', sans-serif;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;border:1.5px solid rgba(255,255,255,.35);cursor:pointer;transition:border-color .3s;}
-@media(hover:hover)and(pointer:fine){.btn-ghost-white:hover{border-color:rgba(255,255,255,.7);}}
+/* ——— RESET & BASE ——————————————————————————————— */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { -webkit-font-smoothing: antialiased; overflow-x: hidden; width: 100%; position: relative; margin: 0; padding: 0; }
+::selection { background: #C5A880; color: #fff; }
+.material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 24; }
 
 /* ——— LENIS REQUIRED ————————————————————————— */
 html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-smooth { scroll-behavior: auto; }
 .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
-/* ——— RESET ——————————————————————————————————— */
-*, *::before, *::after { box-sizing: border-box; }
-body { -webkit-font-smoothing: antialiased; }
-::selection { background: #C5A880; color: #fff; }
-.material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 24; }
 
-/* ——— BUTTONS ————————————————————————————————— */
+/* ——— HIGH-CONVERSION CTA PHYSICS ————————————— */
 .btn-primary {
   display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-  padding: 13px 32px; background: #C97840; color: #fff;
+  padding: 15px 36px; background: #C97840; color: #fff;
   font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 600;
   letter-spacing: .14em; text-transform: uppercase; text-decoration: none;
-  border: 1.5px solid #C97840; cursor: pointer;
+  border: 1px solid #C97840; cursor: pointer;
   transition: all 400ms cubic-bezier(0.25, 1, 0.5, 1);
+  box-shadow: 0 4px 14px rgba(201,120,64,0.15);
 }
 @media (hover: hover) and (pointer: fine) {
   .btn-primary:hover { 
     background: #a8612d; border-color: #a8612d; 
-    transform: translateY(-2px) scale(1.01); 
+    transform: translateY(-2px) scale(1.02); 
     box-shadow: 0 20px 40px -10px rgba(201,120,64,0.45);
   }
 }
-.btn-primary:active {
-  transform: scale(0.97);
-}
+.btn-primary:active { transform: scale(0.96) translateY(0); box-shadow: 0 2px 8px rgba(201,120,64,0.15); }
 
 .btn-secondary {
   display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-  padding: 12px 30px; background: transparent; color: #1A1A1A;
+  padding: 14px 34px; background: transparent; color: #1A1A1A;
   font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 600;
   letter-spacing: .14em; text-transform: uppercase; text-decoration: none;
-  border: 1.5px solid #1A1A1A; cursor: pointer;
+  border: 1px solid rgba(26,26,26,0.3); cursor: pointer;
   transition: all 400ms cubic-bezier(0.25, 1, 0.5, 1);
 }
 @media (hover: hover) and (pointer: fine) {
   .btn-secondary:hover { 
-    background: #1A1A1A; color: #FAF8F4; 
+    border-color: #1A1A1A; color: #1A1A1A;
     transform: translateY(-2px); 
-    box-shadow: 0 20px 40px -10px rgba(26,26,26,0.3); 
+    box-shadow: 0 20px 40px -10px rgba(26,26,26,0.1); 
   }
 }
-.btn-secondary:active {
-  transform: scale(0.97);
-}
-
-.btn-whatsapp {
-  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-  padding: 12px 24px; background: #25D366; color: #fff;
-  font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 600;
-  letter-spacing: .14em; text-transform: uppercase; text-decoration: none;
-  border: 1.5px solid #25D366; cursor: pointer;
-  transition: all 400ms cubic-bezier(0.25, 1, 0.5, 1);
-}
-@media (hover: hover) and (pointer: fine) {
-  .btn-whatsapp:hover { 
-    background: #1db954; 
-    transform: translateY(-2px); 
-    box-shadow: 0 20px 40px -10px rgba(37,211,102,0.4); 
-  }
-}
-.btn-whatsapp:active {
-  transform: scale(0.97);
-}
+.btn-secondary:active { transform: scale(0.96); }
 
 /* ——— NAV LINK ———————————————————————————————— */
 .nav-link {
@@ -182,201 +108,80 @@ body { -webkit-font-smoothing: antialiased; }
   .nav-link:hover::after { width: 100%; }
 }
 
-.trust-sep { width: 1px; height: 36px; background: #E4DDD4; flex-shrink: 0; align-self: center; }
-
-/* ——— COLLECTION TILE ———————————————————————— */
-.col-tile { position: relative; overflow: hidden; display: block; }
-.col-tile img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s cubic-bezier(0.33, 1, 0.68, 1); }
-@media (hover: hover) and (pointer: fine) {
-  .col-tile:hover img { transform: scale(1.05); }
-}
-
-/* ——— PRODUCT CARD ——————————————————————————— */
-.prod-card { background: #FDF9F3; border: 1px solid #E4DDD4; transition: box-shadow 250ms ease, transform 200ms var(--ease-out-punch); }
-@media (hover: hover) and (pointer: fine) {
-  .prod-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,.08); transform: translateY(-2px); }
-  .prod-card:hover .prod-img img { transform: scale(1.03); }
-  .prod-card:hover .card-cta { max-height: 100px; }
-}
-.prod-card .prod-img { overflow: hidden; }
-/* ── CARD IMAGE WRAPS ───────────────────────────────────────────────── */
-/* Padding-top 100% = rock-solid 1:1 square. No aspect-ratio needed. */
-.prod-card .prod-img{position:relative;width:100%;padding-top:100%;overflow:hidden;background:#fff;}
-.prod-card .prod-img a,.new-img-wrap a{position:absolute;top:0;left:0;right:0;bottom:0;display:block;}
-.prod-card .prod-img img,.new-img-wrap img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:contain;padding:12px;box-sizing:border-box;background:#fff;transition:transform 0.7s cubic-bezier(0.33,1,0.68,1);}
-.prod-card .card-cta {
-  max-height: 0; overflow: hidden;
-  transition: max-height 250ms var(--ease-out-punch);
-}
-
 /* ——— DRAWER ————————————————————————————————— */
 #mobile-drawer { transition: transform 400ms var(--ease-drawer); }
-
-/* ——— REVEAL ————————————————————————————————— */
-.rv { opacity: 0; transform: translateY(18px) scale(0.96); transition: opacity 500ms var(--ease-out-punch), transform 500ms var(--ease-out-punch); }
-.rv.on { opacity: 1; transform: translateY(0) scale(1); }
-.d1 { transition-delay: 50ms; } .d2 { transition-delay: 100ms; }
-.d3 { transition-delay: 150ms; } .d4 { transition-delay: 200ms; }
 
 /* ——— SEARCH OVERLAY —————————————————————————— */
 #search-overlay { position:fixed; inset:0; z-index:90; background:rgba(20,18,16,.92); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); display:none; flex-direction:column; align-items:center; padding-top:100px; padding-left:20px; padding-right:20px; }
 #search-input:focus { outline:none; }
-@media (hover: hover) and (pointer: fine) {
-  .search-result-item:hover { background:rgba(255,255,255,.05); }
+
+/* ——— SKELETON LOADING ———————————————————————— */
+.skel { background: linear-gradient(90deg, #F3EDE4 25%, #E4DDD4 50%, #F3EDE4 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; border-radius: 4px; }
+@keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+.skel-card { border: 1px solid #E4DDD4; overflow: hidden; background: #FDF9F3;}
+.skel-card .skel-img { aspect-ratio: 1/1; }
+
+/* ——— PRODUCT CARD (BENTO STYLE) —————————————— */
+.new-card {
+  background: #FDF9F3; border: 1px solid rgba(26,26,26,0.06);
+  transition: box-shadow 250ms ease, transform 200ms var(--ease-out-punch);
 }
-.heart-btn{position:absolute;top:10px;right:10px;z-index:10;background: #FDF9F3;border:none;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,0.06);transition:transform 160ms var(--ease-out-punch);}
 @media (hover: hover) and (pointer: fine) {
-  .heart-btn:hover{transform:scale(1.1);}
+  .new-card:hover { box-shadow: 0 12px 40px -10px rgba(0,0,0,.08); transform: translateY(-4px); }
+  .new-card:hover .new-img img { transform: scale(1.05); }
+  .new-card:hover .card-overlay { transform:translateY(0); }
 }
+.new-img-wrap { position:relative; width:100%; padding-top:100%; overflow:hidden; background:#fff; }
+.new-img-wrap a { position:absolute; top:0; left:0; right:0; bottom:0; display:block; }
+.new-img-wrap img { position:absolute; top:0; left:0; width:100%; height:100%; object-fit:contain; padding:20px; box-sizing:border-box; background:#fff; transition:transform 0.7s cubic-bezier(0.33,1,0.68,1); }
+
+.heart-btn { position:absolute; top:12px; right:12px; z-index:10; background: #fff; border:1px solid rgba(0,0,0,0.05); width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; box-shadow:0 4px 12px rgba(0,0,0,0.04); transition:all 200ms var(--ease-out-punch); }
+@media (hover: hover) and (pointer: fine) { .heart-btn:hover{transform:scale(1.1); box-shadow:0 8px 16px rgba(0,0,0,0.08);} }
 .heart-btn:active{transform:scale(0.9);}
 .heart-btn.active .material-symbols-outlined{font-variation-settings:'FILL' 1;color:#C97840;}
 
-/* ——— CARD QUICK-ADD OVERLAY ————————————————— */
 .card-overlay {
   position:absolute; bottom:0; left:0; right:0;
-  background:rgba(250,248,244,.95); /* Light premium base color with slight transparency */
-  backdrop-filter: blur(4px);
-  border-top: 1px solid rgba(197,168,128,.2); /* Subtle gold border */
-  padding:14px 16px;
-  transform:translateY(100%);
-  transition:transform 280ms var(--ease-out-punch);
-  display:flex; align-items:center; justify-content:space-between; gap:10px;
-  z-index:5;
+  background:rgba(255,255,255,.98);
+  backdrop-filter: blur(8px); border-top: 1px solid rgba(0,0,0,0.05);
+  padding:14px 16px; transform:translateY(100%); transition:transform 280ms var(--ease-out-punch); display:flex; align-items:center; justify-content:space-between; gap:10px; z-index:5;
 }
-@media (hover: hover) and (pointer: fine) {
-  .new-card:hover .card-overlay,
-  .bs-card:hover .card-overlay { transform:translateY(0); }
-}
-.card-overlay .qa-btn {
+.qa-btn {
   flex:1; display:inline-flex; align-items:center; justify-content:center; gap:6px;
-  background:#C97840; color:#fff; border:none; cursor:pointer;
+  background:#1A1A1A; color:#fff; border:none; cursor:pointer;
   font-family: 'Jost', sans-serif; font-size:10px; font-weight:600;
-  letter-spacing:.14em; text-transform:uppercase; padding:10px 16px;
-  transition:background 160ms var(--ease-out-punch);
+  letter-spacing:.14em; text-transform:uppercase; padding:12px 16px;
+  transition:all 200ms var(--ease-out-punch);
 }
-.card-overlay .qa-btn:hover { background:#a8612d; }
-.card-overlay .wa-btn {
-  display:inline-flex; align-items:center; justify-content:center;
-  background:#25D366; color:#fff; border:none; cursor:pointer;
-  width:38px; height:38px; flex-shrink:0;
-  transition:background 160ms var(--ease-out-punch);
-}
-.card-overlay .wa-btn:hover { background:#1db954; }
-
-/* ——— HERO SLIDER ———————————————————————————— */
-.hero-slider { position:relative; overflow:hidden; background:#1A1A1A; min-height:72vh; }
-.hero-slide { position:absolute; inset:0; opacity:0; transition:opacity 1.2s ease; pointer-events:none; }
-.hero-slide.active { opacity:1; pointer-events:auto; }
-.hero-dot { width:5px; height:5px; border-radius:50%; background:rgba(255,255,255,.25); cursor:pointer; transition:background .3s, transform .3s, width .3s; border:none; padding:0; }
-.hero-dot.active { background:#C97840; transform:scale(1.5); }
+.qa-btn:hover { background:#333; transform: scale(1.02); }
+.qa-btn:active { transform: scale(0.97); }
 
 /* ——— CATEGORY ICONS STRIP ——————————————————— */
 .cat-strip { display:flex; gap:0; overflow-x:auto; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; scrollbar-width:none; padding:20px 16px; }
 .cat-strip::-webkit-scrollbar { display:none; }
-.cat-pill { flex:0 0 auto; scroll-snap-align:start; display:flex; flex-direction:column; align-items:center; gap:9px; padding:0 14px; text-decoration:none; }
-.cat-circle { width:88px; height:88px; border-radius:50%; overflow:hidden; border:2px solid transparent; transition:border-color 160ms var(--ease-out-punch), transform 160ms var(--ease-out-punch); box-shadow:0 2px 10px rgba(0,0,0,.1); }
-@media(max-width:767px) { .cat-circle { width:72px; height:72px; } }
+.cat-pill { flex:0 0 auto; scroll-snap-align:start; display:flex; flex-direction:column; align-items:center; gap:12px; padding:0 20px; text-decoration:none; }
+.cat-circle { width:100px; height:100px; border-radius:50%; overflow:hidden; border:2px solid transparent; transition:all 400ms var(--ease-out-punch); }
+@media(max-width:767px) { .cat-circle { width:80px; height:80px; } }
 @media (hover: hover) and (pointer: fine) {
-  .cat-pill:hover .cat-circle { border-color:#C97840; transform:scale(1.06); }
+  .cat-pill:hover .cat-circle { border-color:#C5A880; transform:scale(1.05); box-shadow: 0 10px 30px -5px rgba(197,168,128,0.3); }
 }
 .cat-pill:active .cat-circle { transform:scale(0.95); }
 .cat-circle img { width:100%; height:100%; object-fit:cover; }
-.cat-label { font-size:12px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:#767270; white-space:nowrap; }
+.cat-label { font-size:11px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:#1A1A1A; white-space:nowrap; transition: color 200ms; }
+.cat-pill:hover .cat-label { color: #C97840; }
 
-/* ——— FOCUS STATES (accessibility) ——————————— */
-a:focus-visible, button:focus-visible { outline: 2px solid #C5A880; outline-offset: 3px; }
-.btn-primary:focus-visible, .btn-secondary:focus-visible, .btn-whatsapp:focus-visible { outline-offset: 4px; }
+/* ——— GSAP REVEAL UTILS —————————————————————— */
+.gsap-rv { opacity: 0; visibility: hidden; }
 
-/* ——— KEN BURNS REELS ————————————————————————— */
-@keyframes kenburns { 0%{transform:scale(1) translate(0,0);} 100%{transform:scale(1.12) translate(-2%,-1%);} }
-.reel-card { position:relative; overflow:hidden; border-radius:0; background:#1A1A1A; }
-.reel-card img { width:100%; height:100%; object-fit:cover; animation:kenburns 8s ease-in-out infinite alternate; }
-.reel-card:hover img { animation-play-state:paused; }
-.reel-overlay { position:absolute; inset:0; background:linear-gradient(to top, rgba(20,18,16,.85) 0%, rgba(20,18,16,.1) 60%); display:flex; flex-direction:column; justify-content:flex-end; padding:20px; }
-
-/* ——— TOAST NOTIFICATION ————————————————————— */
-#cart-toast {
-  position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%) translateY(20px);
-  background: #1A1A1A; color: #fff; padding: 14px 28px; z-index: 100;
-  font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 500;
-  display: flex; align-items: center; gap: 10px;
-  box-shadow: 0 8px 32px rgba(0,0,0,.25);
-  opacity: 0; pointer-events: none;
-  transition: opacity 300ms var(--ease-out-punch), transform 300ms var(--ease-out-punch);
-}
-#cart-toast.show {
-  opacity: 1; pointer-events: auto;
-  transform: translateX(-50%) translateY(0);
-}
-#cart-toast .toast-icon { color: #25D366; font-variation-settings: 'FILL' 1, 'wght' 400; }
-
-/* ——— NEW ARRIVALS SCROLL ———————————————————— */
-.new-arrivals-scroll {
-  display: flex; gap: 16px; overflow-x: auto;
-  scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
-  scrollbar-width: none; padding-bottom: 8px;
-}
-.new-arrivals-scroll::-webkit-scrollbar { display: none; }
-.new-card {
-  flex: 0 0 260px; scroll-snap-align: start;
-  background: #FDF9F3; border: 1px solid #E4DDD4;
-  transition: box-shadow 250ms ease, transform 200ms var(--ease-out-punch);
-}
-@media(min-width:768px) { .new-card { flex: 0 0 280px; } }
-@media (hover: hover) and (pointer: fine) {
-  .new-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,.08); transform: translateY(-2px); }
-  .new-card:hover .new-img img { transform: scale(1.03); }
-}
-.new-card .new-img { overflow: hidden; }
-.new-card .new-img img { transition: transform 1.2s cubic-bezier(0.33, 1, 0.68, 1); display: block; width: 100%; }
-.new-badge {
-  position: absolute; top: 10px; left: 10px; z-index: 5;
-  background: linear-gradient(135deg, #C97840, #E8A860); color: #fff;
-  font-size: 9px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
-  padding: 4px 10px; display: flex; align-items: center; gap: 4px;
-}
-.new-badge .material-symbols-outlined { font-size: 12px; font-variation-settings: 'FILL' 1, 'wght' 500; }
-
-/* ——— GLOBAL LAYOUT FIXES ————————————————————————— */
-html, body {
-  overflow-x: hidden;
-  width: 100%;
-  position: relative;
-  margin: 0;
-  padding: 0;
-}
-img {
-  max-width: 100%;
-}
-
-
-/* --- PREMIUM OVERRIDES --- */
-.border-border { border-color: rgba(26, 26, 26, 0.06) !important; }
-.shadow-sm { box-shadow: 0 10px 30px -5px rgba(0,0,0,0.03) !important; }
-.shadow-md { box-shadow: 0 20px 40px -10px rgba(0,0,0,0.05) !important; }
-p.leading-relaxed { line-height: 1.85 !important; }
-input:focus { border-color: rgba(26, 26, 26, 0.25) !important; box-shadow: 0 10px 30px -5px rgba(0,0,0,0.03); }
-
-/* --- SKELETON LOADING --- */
-.skel { background: linear-gradient(90deg, #F3EDE4 25%, #E4DDD4 50%, #F3EDE4 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; border-radius: 4px; }
-@keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
-.skel-card { border: 1px solid #E4DDD4; overflow: hidden; }
-.skel-card .skel-img { aspect-ratio: 3/4; }
 </style>
-<link rel="manifest" href="/manifest.json">
 </head>
 <body class="bg-base text-ink font-sans overflow-x-hidden">
 
-<!-- ══ ANNOUNCEMENT BAR ═══════════════════════════════════ -->
-<div class="bg-ink text-white/50 text-[10px] font-medium tracking-[.25em] uppercase text-center py-2.5">
-  Free Delivery in Virudhachalam &nbsp;·&nbsp; Cash on Delivery &nbsp;·&nbsp; Open 10 AM – 10 PM, Every Day
-</div>
-
 <!-- ══ TOAST NOTIFICATION ═══════════════════════════════════ -->
-<div id="cart-toast">
-  <span class="material-symbols-outlined toast-icon">check_circle</span>
+<div id="cart-toast" class="fixed bottom-[80px] left-1/2 -translate-x-1/2 bg-ink text-white px-7 py-3.5 z-[100] font-sans text-[13px] font-medium flex items-center gap-3 shadow-2xl opacity-0 pointer-events-none transition-all duration-300">
+  <span class="material-symbols-outlined text-[#25D366]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
   <span id="toast-text">Added to cart</span>
-  <a href="cart-checkout.html" style="color:#C5A880;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;margin-left:8px;">View Cart &rarr;</a>
+  <a href="cart-checkout.html" class="text-gold text-[11px] font-semibold tracking-[.1em] uppercase no-underline ml-2">View Cart &rarr;</a>
 </div>
 
 <!-- ══ DRAWER OVERLAY ═══════════════════════════════════════ -->
@@ -400,7 +205,6 @@ input:focus { border-color: rgba(26, 26, 26, 0.25) !important; box-shadow: 0 10p
   </div>
 </div>
 
-
 <!-- ══ SEARCH OVERLAY ═══════════════════════════════════════ -->
 <div id="search-overlay" onclick="if(event.target===this)closeSearch()" class="fixed inset-0 z-[100] bg-surface/95 backdrop-blur-md hidden flex-col items-center pt-24 px-5">
   <div class="w-full max-w-2xl relative">
@@ -413,366 +217,310 @@ input:focus { border-color: rgba(26, 26, 26, 0.25) !important; box-shadow: 0 10p
         <span class="material-symbols-outlined text-[24px]">close</span>
       </button>
     </div>
-    <div id="search-results" class="max-h-[60vh] overflow-y-auto pb-8 w-full"></div>
+    <div id="search-results" class="max-h-[60vh] overflow-y-auto pb-8 w-full flex flex-col gap-2"></div>
   </div>
 </div>
 
-
 <!-- ══ NAVBAR ═══════════════════════════════════════════════ -->
-<nav id="navbar" class="sticky top-0 z-40 bg-surface border-b border-border">
-  <div class="max-w-7xl mx-auto px-5 md:px-10 flex items-center justify-between h-16 md:h-20">
-    <a href="index.html" class="font-serif font-medium tracking-[.35em] text-[1.4rem] text-ink hover:text-gold transition-colors shrink-0">KGS</a>
-    <div class="hidden md:flex items-center gap-8 lg:gap-12">
+<nav id="navbar" class="fixed top-0 w-full z-40 bg-surface/90 backdrop-blur-lg border-b border-border transition-transform duration-300">
+  <div class="max-w-[90rem] mx-auto px-5 md:px-12 flex items-center justify-between h-20 md:h-24">
+    <a href="index.html" class="font-serif font-medium tracking-[.35em] text-[1.6rem] text-ink hover:text-gold transition-colors shrink-0">KGS</a>
+    <div class="hidden md:flex items-center gap-10">
       <a href="index.html" class="nav-link">Home</a>
       <a href="product-listing.html" class="nav-link">Shop</a>
       <a href="product-listing.html?cat=new" class="nav-link">New Arrivals</a>
       <a href="about.html" class="nav-link">Our Story</a>
-      <a href="contact.html" class="nav-link">Contact</a>
-      <a href="order-tracking.html" class="nav-link">Track Order</a>
     </div>
-    <div class="flex items-center gap-5 md:gap-6 text-muted">
-      <button onclick="openSearch();if(typeof gtag==='function')gtag('event','search_open',{event_category:'engagement'})" aria-label="Search" class="hover:text-ink transition-colors bg-transparent border-none cursor-pointer p-0 flex items-center"><span class="material-symbols-outlined text-[20px]" style="font-variation-settings:'wght' 300;">search</span></button>
-      <a href="account-login.html" aria-label="Account" class="relative hover:text-ink transition-colors flex items-center">
-        <span class="material-symbols-outlined text-[20px]" style="font-variation-settings:'wght' 300;">person</span>
+    <div class="flex items-center gap-6 md:gap-7 text-ink">
+      <button onclick="openSearch()" aria-label="Search" class="hover:text-gold transition-colors bg-transparent border-none cursor-pointer p-0 flex items-center"><span class="material-symbols-outlined text-[22px]">search</span></button>
+      <a href="account-login.html" aria-label="Account" class="hidden md:flex hover:text-gold transition-colors items-center">
+        <span class="material-symbols-outlined text-[22px]">person</span>
       </a>
-      <a href="wishlist.html" aria-label="Wishlist" class="relative hover:text-ink transition-colors flex items-center">
-        <span class="material-symbols-outlined text-[20px]" style="font-variation-settings:'wght' 300;">favorite</span>
-        <span class="wishlist-count absolute -top-1.5 -right-1.5 w-4 h-4 bg-warm rounded-full text-white text-[9px] font-bold leading-none" style="display:none;">0</span>
+      <a href="wishlist.html" aria-label="Wishlist" class="relative hover:text-gold transition-colors flex items-center">
+        <span class="material-symbols-outlined text-[22px]">favorite</span>
+        <span class="wishlist-count absolute -top-1.5 -right-1.5 w-4 h-4 bg-warm rounded-full text-white text-[9px] font-bold leading-none flex items-center justify-center" style="display:none;">0</span>
       </a>
-      <a href="cart-checkout.html" aria-label="Cart" class="relative hover:text-ink transition-colors flex items-center">
-        <span class="material-symbols-outlined text-[20px]" style="font-variation-settings:'wght' 300;">local_mall</span>
-        <span class="cart-count absolute -top-1.5 -right-1.5 w-4 h-4 bg-warm rounded-full text-white text-[9px] font-bold leading-none" style="display:none;">0</span>
+      <a href="cart-checkout.html" aria-label="Cart" class="relative hover:text-gold transition-colors flex items-center">
+        <span class="material-symbols-outlined text-[22px]">shopping_bag</span>
+        <span class="cart-count absolute -top-1.5 -right-1.5 w-4 h-4 bg-warm rounded-full text-white text-[9px] font-bold leading-none flex items-center justify-center" style="display:none;">0</span>
       </a>
-      <button onclick="openDrw()" class="md:hidden hover:text-ink transition-colors p-0 ml-1 bg-transparent border-none cursor-pointer flex items-center" aria-label="Menu">
-        <span class="material-symbols-outlined text-[24px]" style="font-variation-settings:'wght' 300;">menu</span>
+      <button onclick="openDrw()" class="md:hidden hover:text-gold transition-colors p-0 bg-transparent border-none cursor-pointer flex items-center" aria-label="Menu">
+        <span class="material-symbols-outlined text-[26px]">menu</span>
       </button>
     </div>
   </div>
 </nav>
 
-<!-- ══ HERO SLIDER ═════════════════════════════════════════════ -->
-<section class="hero-slider" aria-label="KGS Home D&eacute;cors hero slider">
-
-  <!-- —— Slide 1: Sofas —— -->
-  <div class="hero-slide active">
-    <div class="absolute inset-0">
-      <img src="assets/images/hero_sofa.webp" alt="Premium Indian Living Room — KGS Home Décors Virudhachalam" class="w-full h-full object-cover" style="opacity:.85;" fetchpriority="high">
-      <div class="absolute inset-0" style="background:linear-gradient(105deg,rgba(14,12,10,.93) 36%,rgba(14,12,10,.08) 100%);"></div>
-    </div>
-    <div class="relative z-10 max-w-7xl mx-auto px-6 md:px-14 flex flex-col justify-center" style="min-height:72vh;padding-top:5rem;padding-bottom:7rem;">
-      <div class="flex items-center gap-2 mb-9">
-        <div class="flex items-center gap-1.5 bg-surface/8 backdrop-blur-sm px-3 py-1.5">
-          <svg class="w-3 h-3" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
-          <span class="text-white/55 text-[10.5px] font-medium tracking-[.15em]">5.0 &#9733; Google &middot; Virudhachalam</span>
-        </div>
-      </div>
-      <p class="text-[10px] font-semibold tracking-[.3em] uppercase mb-5" style="color:rgba(197,168,128,.7);">Sofas &amp; Furniture</p>
-      <h1 class="font-serif font-medium text-white leading-[1.05] mb-7 max-w-lg" style="font-size:clamp(2.7rem,5.5vw,4.8rem);letter-spacing:-.01em;">Solid Teak.<br>Linen Touch.<br>Built to Last.</h1>
-      <p class="mb-10 max-w-xs" style="font-size:14.5px;line-height:2.1;color:rgba(255,255,255,.4);">Handcrafted frames &middot; Premium upholstery<br><span style="font-size:13px;color:rgba(255,255,255,.25);">Free delivery in Virudhachalam.</span></p>
-      <div class="flex flex-wrap gap-3">
-        <a href="product-listing.html" class="btn-primary" onclick="gtag('event','hero_cta',{event_category:'conversion',event_label:'slide_sofas'})">Explore Collection</a>
-        <a href="#showroom" style="display:inline-flex;align-items:center;gap:8px;padding:12px 28px;background:transparent;color:rgba(255,255,255,.55);font-family: 'Jost', sans-serif;font-size:10.5px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;border:1px solid rgba(255,255,255,.18);cursor:pointer;transition:all .3s;" onmouseover="this.style.borderColor='rgba(255,255,255,.45)';this.style.color='#fff'" onmouseout="this.style.borderColor='rgba(255,255,255,.18)';this.style.color='rgba(255,255,255,.55)'">Visit Showroom</a>
+<!-- ══ CINEMATIC HERO ═════════════════════════════════════════════ -->
+<section class="relative w-full h-screen min-h-[700px] bg-ink flex items-center pt-24 overflow-hidden">
+  <div class="absolute inset-0 z-0">
+    <img src="assets/images/banners/split_sofas.png" alt="Premium Modern Indian Furniture" class="w-full h-full object-cover scale-105" id="hero-img">
+    <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent"></div>
+    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+  </div>
+  
+  <div class="relative z-10 max-w-[90rem] mx-auto w-full px-5 md:px-12 flex flex-col justify-center h-full pb-10">
+    <div class="gsap-hero-el flex items-center gap-2 mb-8">
+      <div class="flex items-center gap-1.5 bg-white/10 backdrop-blur-md px-4 py-2 rounded-sm border border-white/10">
+        <span class="text-white text-[10px] font-semibold tracking-[.2em] uppercase">Virudhachalam's Premier Store</span>
       </div>
     </div>
-  </div>
-
-  <!-- —— Slide 2: Wall Clocks & Art —— -->
-  <div class="hero-slide">
-    <div class="absolute inset-0">
-      <img src="assets/images/hero_clock.webp" alt="Antique Brass Wall Clocks — KGS Home Décors" class="w-full h-full object-cover" style="opacity:.85;" loading="lazy">
-      <div class="absolute inset-0" style="background:linear-gradient(105deg,rgba(14,12,10,.93) 36%,rgba(14,12,10,.08) 100%);"></div>
-    </div>
-    <div class="relative z-10 max-w-7xl mx-auto px-6 md:px-14 flex flex-col justify-center" style="min-height:72vh;padding-top:5rem;padding-bottom:7rem;">
-      <p class="text-[10px] font-semibold tracking-[.3em] uppercase mb-5" style="color:rgba(197,168,128,.7);">Wall Clocks &amp; Décor</p>
-      <h1 class="font-serif font-medium text-white leading-[1.05] mb-7 max-w-lg" style="font-size:clamp(2.7rem,5.5vw,4.8rem);letter-spacing:-.01em;">Brass. Vintage.<br>Made to Impress.</h1>
-      <p class="mb-10 max-w-xs" style="font-size:14.5px;line-height:2.1;color:rgba(255,255,255,.4);">Statement clocks &middot; Wall panels &middot; Art<br><span style="font-size:13px;color:rgba(255,255,255,.25);">From &#8377;899. Free local delivery.</span></p>
-      <div class="flex flex-wrap gap-3">
-        <a href="product-listing.html" class="btn-primary" onclick="gtag('event','hero_cta',{event_category:'conversion',event_label:'slide_clocks'})">Shop Wall Décor</a>
-        <a href="https://wa.me/919789182921?text=Hi%2C+I%27m+interested+in+Wall+Clocks" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:8px;padding:12px 28px;background:transparent;color:rgba(255,255,255,.55);font-family: 'Jost', sans-serif;font-size:10.5px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;border:1px solid rgba(255,255,255,.18);cursor:pointer;transition:all .3s;" onmouseover="this.style.borderColor='rgba(255,255,255,.45)';this.style.color='#fff'" onmouseout="this.style.borderColor='rgba(255,255,255,.18)';this.style.color='rgba(255,255,255,.55)'">WhatsApp Order</a>
-      </div>
+    
+    <h1 class="gsap-hero-el font-serif font-medium text-white leading-[1.05] mb-8 max-w-2xl" style="font-size:clamp(3.5rem,7vw,6.5rem);letter-spacing:-.02em;">
+      Design Your Space,<br>Define Your Comfort.
+    </h1>
+    
+    <p class="gsap-hero-el text-white/70 font-sans text-lg md:text-xl leading-relaxed max-w-xl mb-12 font-light">
+      Discover our curated collection of Modern Indian furniture and high-end décor. Handcrafted pieces that bring warmth, luxury, and heritage to your home.
+    </p>
+    
+    <div class="gsap-hero-el flex flex-wrap gap-4">
+      <a href="product-listing.html" class="btn-primary" style="padding:18px 42px; font-size:12px;">Shop Collection</a>
+      <a href="#showroom" class="btn-secondary" style="border-color:rgba(255,255,255,0.4); color:white; padding:18px 42px; font-size:12px;" onmouseover="this.style.borderColor='white'" onmouseout="this.style.borderColor='rgba(255,255,255,0.4)'">Visit Showroom</a>
     </div>
   </div>
-
-  <!-- —— Slide 3: Fountains & Plants —— -->
-  <div class="hero-slide">
-    <div class="absolute inset-0">
-      <img src="assets/images/hero_nature.webp" alt="Indoor Fountains and Plants — KGS Home Décors" class="w-full h-full object-cover" style="opacity:.85;" loading="lazy">
-      <div class="absolute inset-0" style="background:linear-gradient(105deg,rgba(14,12,10,.93) 36%,rgba(14,12,10,.08) 100%);"></div>
-    </div>
-    <div class="relative z-10 max-w-7xl mx-auto px-6 md:px-14 flex flex-col justify-center" style="min-height:72vh;padding-top:5rem;padding-bottom:7rem;">
-      <p class="text-[10px] font-semibold tracking-[.3em] uppercase mb-5" style="color:rgba(197,168,128,.7);">Fountains &amp; Nature</p>
-      <h1 class="font-serif font-medium text-white leading-[1.05] mb-7 max-w-lg" style="font-size:clamp(2.7rem,5.5vw,4.8rem);letter-spacing:-.01em;">Indoor Calm.<br>Zero Maintenance.</h1>
-      <p class="mb-10 max-w-xs" style="font-size:14.5px;line-height:2.1;color:rgba(255,255,255,.4);">Tabletop fountains &middot; Faux botanicals<br><span style="font-size:13px;color:rgba(255,255,255,.25);">Designed for Indian homes.</span></p>
-      <div class="flex flex-wrap gap-3">
-        <a href="product-listing.html" class="btn-primary" onclick="gtag('event','hero_cta',{event_category:'conversion',event_label:'slide_nature'})">Shop Nature</a>
-        <a href="about.html" style="display:inline-flex;align-items:center;gap:8px;padding:12px 28px;background:transparent;color:rgba(255,255,255,.55);font-family: 'Jost', sans-serif;font-size:10.5px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;border:1px solid rgba(255,255,255,.18);cursor:pointer;transition:all .3s;" onmouseover="this.style.borderColor='rgba(255,255,255,.45)';this.style.color='#fff'" onmouseout="this.style.borderColor='rgba(255,255,255,.18)';this.style.color='rgba(255,255,255,.55)'">Our Story</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- Dot indicators -->
-  <div class="absolute bottom-2 md:bottom-6 left-1/2 -translate-x-1/2 flex gap-3 z-20">
-    <button class="hero-dot active" data-slide="0" aria-label="Slide 1"></button>
-    <button class="hero-dot" data-slide="1" aria-label="Slide 2"></button>
-    <button class="hero-dot" data-slide="2" aria-label="Slide 3"></button>
-  </div>
-
 </section>
 
+<!-- ══ TRUST BAR ═══════════════════════════════════════════ -->
+<section class="bg-surface border-b border-border py-8 relative z-20">
+  <div class="max-w-[90rem] mx-auto px-5 md:px-12">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-4 divide-x-0 md:divide-x divide-border">
+      <div class="flex items-center justify-center md:justify-start gap-4 px-2 gsap-trust">
+        <span class="material-symbols-outlined text-[28px] text-gold" style="font-variation-settings: 'wght' 200;">local_shipping</span>
+        <div><h4 class="text-ink text-[11px] font-bold tracking-[.15em] uppercase">Free Delivery</h4><p class="text-muted text-[11px] mt-1">Within Virudhachalam</p></div>
+      </div>
+      <div class="flex items-center justify-center md:justify-start gap-4 px-2 md:pl-8 gsap-trust">
+        <span class="material-symbols-outlined text-[28px] text-gold" style="font-variation-settings: 'wght' 200;">currency_rupee</span>
+        <div><h4 class="text-ink text-[11px] font-bold tracking-[.15em] uppercase">Cash on Delivery</h4><p class="text-muted text-[11px] mt-1">Available on all orders</p></div>
+      </div>
+      <div class="flex items-center justify-center md:justify-start gap-4 px-2 md:pl-8 gsap-trust">
+        <span class="material-symbols-outlined text-[28px] text-gold" style="font-variation-settings: 'wght' 200;">replay</span>
+        <div><h4 class="text-ink text-[11px] font-bold tracking-[.15em] uppercase">Easy Returns</h4><p class="text-muted text-[11px] mt-1">Hassle-free exchange</p></div>
+      </div>
+      <div class="flex items-center justify-center md:justify-start gap-4 px-2 md:pl-8 gsap-trust">
+        <span class="material-symbols-outlined text-[28px] text-gold" style="font-variation-settings: 'wght' 200;">support_agent</span>
+        <div><h4 class="text-ink text-[11px] font-bold tracking-[.15em] uppercase">WhatsApp Support</h4><p class="text-muted text-[11px] mt-1">Instant assistance</p></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-
-</div>
-
-<!-- ══ CATEGORY ICONS STRIP ══════════════════════════════════ -->
-<div class="bg-base border-b border-border">
-  <div class="max-w-7xl mx-auto">
-    <div class="cat-strip md:justify-center">
-      <a href="product-listing.html?cat=all" class="cat-pill">
-        <div class="cat-circle"><img src="assets/images/cat_all.webp" alt="All" loading="lazy"></div>
-        <span class="cat-label">All</span>
+<!-- ══ CATEGORY STRIP ══════════════════════════════════════ -->
+<section class="bg-base py-20 border-b border-border overflow-hidden">
+  <div class="max-w-[90rem] mx-auto">
+    <div class="text-center mb-12 gsap-rv">
+      <h2 class="font-serif font-medium text-ink text-3xl md:text-4xl">Shop by Category</h2>
+    </div>
+    <div class="cat-strip md:justify-center gsap-rv">
+      <a href="product-listing.html?cat=sofas" class="cat-pill group">
+        <div class="cat-circle"><img src="assets/images/categories/cat_sofas.png" alt="Sofas" loading="lazy"></div>
+        <span class="cat-label">Sofas</span>
       </a>
-      <a href="product-listing.html?cat=furniture" class="cat-pill">
-        <div class="cat-circle"><img src="assets/images/cat_furniture.webp" alt="Furniture" loading="lazy"></div>
-        <span class="cat-label">Furniture</span>
-      </a>
-      <a href="product-listing.html?cat=accessories" class="cat-pill">
-        <div class="cat-circle"><img src="assets/images/cat_decor.webp" alt="Décor" loading="lazy"></div>
-        <span class="cat-label">Décor</span>
-      </a>
-      <a href="product-listing.html?cat=lighting" class="cat-pill">
-        <div class="cat-circle"><img src="assets/images/cat_lighting.webp" alt="Lighting" loading="lazy"></div>
+      <a href="product-listing.html?cat=lighting" class="cat-pill group">
+        <div class="cat-circle"><img src="assets/images/categories/cat_lighting.png" alt="Lighting" loading="lazy"></div>
         <span class="cat-label">Lighting</span>
       </a>
-      <a href="product-listing.html?cat=vases-plants" class="cat-pill">
-        <div class="cat-circle"><img src="assets/images/cat_botanicals.webp" alt="Botanicals" loading="lazy"></div>
+      <a href="product-listing.html?cat=wall-decor" class="cat-pill group">
+        <div class="cat-circle"><img src="assets/images/categories/cat_wall_decor.png" alt="Wall Decor" loading="lazy"></div>
+        <span class="cat-label">Wall Decor</span>
+      </a>
+      <a href="product-listing.html?cat=plants" class="cat-pill group">
+        <div class="cat-circle"><img src="assets/images/categories/cat_plants.png" alt="Botanicals" loading="lazy"></div>
         <span class="cat-label">Botanicals</span>
       </a>
-      <a href="product-listing.html?cat=gifts" class="cat-pill">
-        <div class="cat-circle"><img src="assets/images/cat_gifting.webp" alt="Gifting" loading="lazy"></div>
+      <a href="product-listing.html?cat=decor" class="cat-pill group">
+        <div class="cat-circle"><img src="assets/images/categories/cat_decor.png" alt="Tabletop Decor" loading="lazy"></div>
+        <span class="cat-label">Décor</span>
+      </a>
+      <a href="product-listing.html?cat=gifts" class="cat-pill group">
+        <div class="cat-circle"><img src="assets/images/categories/cat_gifts.png" alt="Gifting" loading="lazy"></div>
         <span class="cat-label">Gifting</span>
       </a>
     </div>
   </div>
-</div>
+</section>
 
-<!-- ══ SHOP BY CATEGORY (Bento Grid) ════════════════ -->
-<section id="collections" class="bg-base py-16 md:py-24">
-  <div class="max-w-7xl mx-auto px-5 md:px-10">
-    <div class="flex items-end justify-between mb-10 rv">
+<!-- ══ NEW ARRIVALS (BENTO GRID) ════════════════════════════ -->
+<section class="bg-surface py-24 md:py-32">
+  <div class="max-w-[90rem] mx-auto px-5 md:px-12">
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6 gsap-rv">
       <div>
-        <p class="text-[11px] font-semibold tracking-[.18em] uppercase text-gold mb-3">Browse Collections</p>
-        <h2 class="font-serif font-medium text-ink" style="font-size:clamp(1.8rem,3.2vw,2.8rem);">Shop by Category</h2>
+        <p class="text-[10px] font-bold tracking-[.25em] uppercase text-gold mb-4">Just Landed</p>
+        <h2 class="font-serif font-medium text-ink text-4xl md:text-5xl leading-tight">Featured Arrivals</h2>
       </div>
-      <a href="product-listing.html" class="text-[11px] font-medium tracking-[.08em] uppercase text-muted hover:text-ink border-b border-current pb-0.5 transition-colors duration-300 hidden md:block">View All &rarr;</a>
+      <a href="product-listing.html?cat=new" class="btn-secondary hidden md:inline-flex">View Collection</a>
     </div>
-    <!-- Bento: 1 tall hero + 4 tiles -->
-    <div class="grid grid-cols-2 md:grid-cols-3 gap-3 rv">
-      <a href="product-listing.html?cat=furniture" class="col-tile col-span-2 md:col-span-1 md:row-span-2 block bg-tint" style="height:480px; min-height:300px;">
-        <img src="assets/images/cat_furniture.webp" alt="Furniture Collection" loading="lazy" style="object-position: center center;">
-        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-        <div class="absolute bottom-0 left-0 right-0 p-6">
-          <p class="text-white/60 text-[11px] tracking-[.18em] uppercase mb-1">Furniture</p>
-          <h3 class="text-white font-serif font-medium" style="font-size:1.6rem;">Sofas, Tables & More</h3>
-        </div>
-      </a>
-      <a href="product-listing.html?cat=accessories" class="col-tile block bg-tint" style="height:230px;">
-        <img src="assets/images/cat_decor.webp" alt="Décor & Accessories" loading="lazy">
-        <div class="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent"></div>
-        <div class="absolute bottom-0 left-0 right-0 p-5"><h3 class="text-white font-serif font-medium text-xl">Décor & Accessories</h3></div>
-      </a>
-      <a href="product-listing.html?cat=lighting" class="col-tile block bg-tint" style="height:230px;">
-        <img src="assets/images/cat_lighting.webp" alt="Lighting" loading="lazy">
-        <div class="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent"></div>
-        <div class="absolute bottom-0 left-0 right-0 p-5"><h3 class="text-white font-serif font-medium text-xl">Lighting</h3></div>
-      </a>
-      <a href="product-listing.html?cat=vases-plants" class="col-tile block bg-tint" style="height:230px;">
-        <img src="assets/images/cat_botanicals.webp" alt="Botanicals" loading="lazy">
-        <div class="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent"></div>
-        <div class="absolute bottom-0 left-0 right-0 p-5"><h3 class="text-white font-serif font-medium text-xl">Botanicals</h3></div>
-      </a>
-      <a href="product-listing.html?cat=gifts" class="col-tile block bg-tint" style="height:230px;">
-        <img src="assets/images/cat_gifting.webp" alt="Gifting" loading="lazy">
-        <div class="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent"></div>
-        <div class="absolute bottom-0 left-0 right-0 p-5"><h3 class="text-white font-serif font-medium text-xl">Gifts & Essentials</h3></div>
-      </a>
+
+    <!-- Dynamic Container -->
+    <div id="skel-new" class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+      <div class="skel-card"><div class="skel skel-img"></div><div class="p-5"><div class="skel w-16 h-3 mb-4"></div><div class="skel w-3/4 h-5 mb-3"></div><div class="skel w-20 h-5"></div></div></div>
+      <div class="skel-card"><div class="skel skel-img"></div><div class="p-5"><div class="skel w-16 h-3 mb-4"></div><div class="skel w-3/4 h-5 mb-3"></div><div class="skel w-20 h-5"></div></div></div>
+      <div class="skel-card"><div class="skel skel-img"></div><div class="p-5"><div class="skel w-16 h-3 mb-4"></div><div class="skel w-3/4 h-5 mb-3"></div><div class="skel w-20 h-5"></div></div></div>
+      <div class="skel-card"><div class="skel skel-img"></div><div class="p-5"><div class="skel w-16 h-3 mb-4"></div><div class="skel w-3/4 h-5 mb-3"></div><div class="skel w-20 h-5"></div></div></div>
+    </div>
+    
+    <div id="dynamic-new-arrivals" class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6" style="display:none;">
+      <!-- Populated via JS -->
+    </div>
+    
+    <div class="text-center mt-12 md:hidden">
+      <a href="product-listing.html?cat=new" class="btn-secondary w-full">View Collection</a>
     </div>
   </div>
 </section>
 
-
-<!-- ══ NEW ARRIVALS ════════════════════════════════ -->
-<section id="new-arrivals" class="bg-tint py-20 md:py-28 border-t border-border">
-  <div class="max-w-7xl mx-auto px-5 md:px-10">
-    <div class="flex items-end justify-between mb-14 rv">
-      <div>
-        <p class="text-[10px] font-semibold tracking-[.28em] uppercase mb-4" style="color:rgba(197,168,128,.65);">Just Landed</p>
-        <h2 class="font-serif font-medium text-ink" style="font-size:clamp(2rem,3.5vw,3.2rem);letter-spacing:-.01em;line-height:1.1;">New Arrivals</h2>
-        <p class="text-muted mt-3" style="font-size:.9rem;line-height:1.7;max-width:360px;">Fresh pieces from our Virudhachalam showroom — new additions every week. Don't miss what's in.</p>
-      </div>
-      <a href="product-listing.html" class="text-[10px] font-medium tracking-[.18em] uppercase text-muted hover:text-ink transition-colors duration-300 hidden md:block pb-0.5 border-b border-current">View All &rarr;</a>
-    </div>
-
-    <div id="skel-new" class="new-arrivals-scroll">
-      <div class="new-card skel-card" style="flex:0 0 260px;"><div class="skel skel-img"></div><div style="padding:16px;"><div class="skel" style="width:60px;height:10px;margin-bottom:10px;"></div><div class="skel" style="width:80%;height:16px;margin-bottom:8px;"></div><div class="skel" style="width:90px;height:16px;"></div></div></div>
-      <div class="new-card skel-card" style="flex:0 0 260px;"><div class="skel skel-img"></div><div style="padding:16px;"><div class="skel" style="width:60px;height:10px;margin-bottom:10px;"></div><div class="skel" style="width:80%;height:16px;margin-bottom:8px;"></div><div class="skel" style="width:90px;height:16px;"></div></div></div>
-      <div class="new-card skel-card" style="flex:0 0 260px;"><div class="skel skel-img"></div><div style="padding:16px;"><div class="skel" style="width:60px;height:10px;margin-bottom:10px;"></div><div class="skel" style="width:80%;height:16px;margin-bottom:8px;"></div><div class="skel" style="width:90px;height:16px;"></div></div></div>
-    </div>
-    <div id="dynamic-new-arrivals" class="new-arrivals-scroll rv" style="display:none;">
-    </div>
-    <div class="text-center mt-10 md:hidden rv">
-      <a href="product-listing.html" class="text-[10px] font-semibold tracking-[.18em] uppercase text-muted hover:text-ink transition-colors border-b border-current pb-px">View All New Arrivals &rarr;</a>
-    </div>
-  </div>
-</section>
-
-<!-- ══ BEST SELLERS ════════════════════════════════ -->
-<section class="bg-surface py-20 md:py-28 border-t border-border">
-  <div class="max-w-7xl mx-auto px-5 md:px-10">
-    <div class="flex items-end justify-between mb-14 rv">
-      <div>
-        <p class="text-[10px] font-semibold tracking-[.28em] uppercase mb-4" style="color:rgba(197,168,128,.65);">Handpicked for You</p>
-        <h2 class="font-serif font-medium text-ink" style="font-size:clamp(2rem,3.5vw,3.2rem);letter-spacing:-.01em;line-height:1.1;">Best Sellers</h2>
-        <p class="text-muted mt-3" style="font-size:.9rem;line-height:1.7;max-width:360px;">The pieces Virudhachalam keeps coming back for. Loved by 200+ families.</p>
-      </div>
-      <a href="product-listing.html" class="text-[10px] font-medium tracking-[.18em] uppercase text-muted hover:text-ink transition-colors duration-300 hidden md:block pb-0.5 border-b border-current">View All &rarr;</a>
-    </div>
-
-    <div id="skel-best" class="grid grid-cols-2 md:grid-cols-4 gap-x-5 gap-y-10">
-      <div class="skel-card"><div class="skel skel-img"></div><div style="padding:16px;"><div class="skel" style="width:60px;height:10px;margin-bottom:10px;"></div><div class="skel" style="width:80%;height:16px;margin-bottom:8px;"></div><div class="skel" style="width:90px;height:16px;"></div></div></div>
-      <div class="skel-card"><div class="skel skel-img"></div><div style="padding:16px;"><div class="skel" style="width:60px;height:10px;margin-bottom:10px;"></div><div class="skel" style="width:80%;height:16px;margin-bottom:8px;"></div><div class="skel" style="width:90px;height:16px;"></div></div></div>
-      <div class="skel-card"><div class="skel skel-img"></div><div style="padding:16px;"><div class="skel" style="width:60px;height:10px;margin-bottom:10px;"></div><div class="skel" style="width:80%;height:16px;margin-bottom:8px;"></div><div class="skel" style="width:90px;height:16px;"></div></div></div>
-      <div class="skel-card"><div class="skel skel-img"></div><div style="padding:16px;"><div class="skel" style="width:60px;height:10px;margin-bottom:10px;"></div><div class="skel" style="width:80%;height:16px;margin-bottom:8px;"></div><div class="skel" style="width:90px;height:16px;"></div></div></div>
-    </div>
-    <div id="dynamic-best-sellers" class="grid grid-cols-2 md:grid-cols-4 gap-x-5 gap-y-10" style="display:none;">
-    </div>
-
-    <div class="text-center mt-14 rv">
-      <a href="product-listing.html" class="btn-secondary">See All Products</a>
-    </div>
-  </div>
-</section>
-
-<!-- ══ SHOWROOM ═══════════════════════════════════════════ -->
-<section id="showroom" class="bg-surface py-16 md:py-24 border-t border-border">
-  <div class="max-w-7xl mx-auto px-5 md:px-10 grid grid-cols-1 lg:grid-cols-2 gap-14 md:gap-20 items-stretch">
-    <div class="relative rv">
-      <div class="w-full overflow-hidden" style="min-height:400px; height:100%;">
-        <img src="assets/images/showroom.webp" alt="KGS Showroom, Virudhachalam" loading="lazy" class="w-full h-full object-cover">
-      </div>
-      <div class="absolute top-5 right-5 bg-warm text-white px-5 py-4 text-center" style="box-shadow:0 4px 16px rgba(0,0,0,.2);">
-        <p class="text-[9px] tracking-[.2em] uppercase font-semibold opacity-80">Open</p>
-        <p class="font-serif font-medium text-xl leading-tight mt-0.5">Every Day</p>
-        <p class="text-[10px] tracking-wide mt-1 opacity-80">10 AM &ndash; 10 PM</p>
+<!-- ══ SPLIT BANNERS ════════════════════════════════════════ -->
+<section class="w-full bg-base border-t border-b border-border">
+  <div class="grid grid-cols-1 md:grid-cols-2">
+    <!-- Banner 1 -->
+    <div class="relative h-[600px] md:h-[750px] overflow-hidden group gsap-rv">
+      <img src="assets/images/banners/split_sofas.png" alt="Sofa Collection" class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105">
+      <div class="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors duration-500"></div>
+      <div class="absolute inset-0 p-10 md:p-16 flex flex-col justify-end">
+        <p class="text-white/80 text-[10px] font-bold tracking-[.25em] uppercase mb-4">Premium Living</p>
+        <h2 class="font-serif text-white text-4xl md:text-5xl font-medium mb-8">The Sofa Collection</h2>
+        <a href="product-listing.html?cat=sofas" class="inline-flex items-center gap-3 text-white text-[11px] font-bold tracking-[.15em] uppercase border-b border-white/30 pb-2 w-max hover:border-white transition-colors">
+          Explore Now <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+        </a>
       </div>
     </div>
-    <div class="flex flex-col justify-center rv d2">
-      <p class="text-[11px] font-semibold tracking-[.18em] uppercase text-gold mb-6">Find Us</p>
-      <h2 class="font-serif font-medium text-ink leading-[1.06] mb-10" style="font-size:clamp(1.9rem,3.5vw,3rem);">Visit Our Showroom</h2>
-      <div class="space-y-7">
-        <div class="flex items-start gap-5 border-b border-border pb-7">
-          <span class="material-symbols-outlined text-gold mt-0.5">location_on</span>
-          <div>
-            <p class="text-[10px] font-semibold tracking-[.18em] uppercase text-muted mb-1.5">Address</p>
-            <p class="text-ink leading-relaxed" style="font-size:15px;">185/G, Junction Road, near EB Office,<br>Virudhachalam, Tamil Nadu &ndash; 606 001</p>
-          </div>
-        </div>
-        <div class="flex items-start gap-5 border-b border-border pb-7">
-          <span class="material-symbols-outlined text-gold mt-0.5">call</span>
-          <div>
-            <p class="text-[10px] font-semibold tracking-[.18em] uppercase text-muted mb-1.5">Phone</p>
-            <p class="text-ink" style="font-size:15px;">+91 97891 82921<br>+91 84894 99166</p>
-          </div>
-        </div>
-        <div class="flex items-start gap-5">
-          <span class="material-symbols-outlined text-gold mt-0.5">schedule</span>
-          <div>
-            <p class="text-[10px] font-semibold tracking-[.18em] uppercase text-muted mb-1.5">Hours</p>
-            <p class="text-ink" style="font-size:15px;">Monday &ndash; Sunday<br>10:00 AM &ndash; 10:00 PM</p>
-          </div>
-        </div>
-      </div>
-      <div class="mt-10 flex flex-wrap gap-3">
-        <a href="https://maps.google.com/?q=185+Junction+Road+Virudhachalam" target="_blank" rel="noopener noreferrer" class="btn-primary">Get Directions</a>
-        <a href="tel:+919789182921" class="btn-secondary">Call Now</a>
+    <!-- Banner 2 -->
+    <div class="relative h-[600px] md:h-[750px] overflow-hidden group gsap-rv">
+      <img src="assets/images/banners/split_lighting.png" alt="Lighting Collection" class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105">
+      <div class="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors duration-500"></div>
+      <div class="absolute inset-0 p-10 md:p-16 flex flex-col justify-end">
+        <p class="text-white/80 text-[10px] font-bold tracking-[.25em] uppercase mb-4">Illuminate</p>
+        <h2 class="font-serif text-white text-4xl md:text-5xl font-medium mb-8">Modern Indian Lighting</h2>
+        <a href="product-listing.html?cat=lighting" class="inline-flex items-center gap-3 text-white text-[11px] font-bold tracking-[.15em] uppercase border-b border-white/30 pb-2 w-max hover:border-white transition-colors">
+          Explore Now <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+        </a>
       </div>
     </div>
   </div>
 </section>
 
+<!-- ══ VALUE PROPS ══════════════════════════════════════════ -->
+<section class="bg-surface py-24 border-b border-border">
+  <div class="max-w-[90rem] mx-auto px-5 md:px-12 text-center">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8">
+      <div class="gsap-vp">
+        <span class="material-symbols-outlined text-[36px] text-gold mb-6" style="font-variation-settings: 'wght' 200;">award_star</span>
+        <h3 class="font-serif text-2xl text-ink mb-3">Premium Quality</h3>
+        <p class="text-muted text-sm leading-relaxed px-4">Handcrafted materials and impeccable finish designed for modern Indian homes.</p>
+      </div>
+      <div class="gsap-vp">
+        <span class="material-symbols-outlined text-[36px] text-gold mb-6" style="font-variation-settings: 'wght' 200;">verified_user</span>
+        <h3 class="font-serif text-2xl text-ink mb-3">Secure Experience</h3>
+        <p class="text-muted text-sm leading-relaxed px-4">Safe payments, cash on delivery, and a trustworthy shopping environment.</p>
+      </div>
+      <div class="gsap-vp">
+        <span class="material-symbols-outlined text-[36px] text-gold mb-6" style="font-variation-settings: 'wght' 200;">sentiment_very_satisfied</span>
+        <h3 class="font-serif text-2xl text-ink mb-3">Happy Customers</h3>
+        <p class="text-muted text-sm leading-relaxed px-4">Rated 5.0★ on Google by over 200 families in Virudhachalam.</p>
+      </div>
+      <div class="gsap-vp">
+        <span class="material-symbols-outlined text-[36px] text-gold mb-6" style="font-variation-settings: 'wght' 200;">handshake</span>
+        <h3 class="font-serif text-2xl text-ink mb-3">Made in India</h3>
+        <p class="text-muted text-sm leading-relaxed px-4">Proudly sourcing and supporting local craftsmanship and manufacturing.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
+<!-- ══ TESTIMONIALS ═════════════════════════════════════════ -->
+<section class="bg-base py-24 md:py-32">
+  <div class="max-w-[90rem] mx-auto px-5 md:px-12">
+    <div class="text-center mb-16 gsap-rv">
+      <p class="text-[10px] font-bold tracking-[.25em] uppercase text-gold mb-4">Word of Mouth</p>
+      <h2 class="font-serif font-medium text-ink text-4xl md:text-5xl">Our Community</h2>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <!-- Card 1 -->
+      <div class="bg-surface p-10 border border-border gsap-rv">
+        <div class="flex text-gold mb-6 gap-1">
+          <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">star</span><span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">star</span><span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">star</span><span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">star</span><span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">star</span>
+        </div>
+        <p class="text-ink text-lg font-serif italic mb-8 leading-relaxed">"The quality of the teak sofa is exceptional. It completely changed the look of our living room. Delivery was seamless."</p>
+        <p class="text-[11px] font-bold tracking-[.15em] uppercase text-muted">— Priya S.</p>
+      </div>
+      <!-- Card 2 -->
+      <div class="bg-surface p-10 border border-border gsap-rv" style="transform: translateY(20px);">
+        <div class="flex text-gold mb-6 gap-1">
+          <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">star</span><span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">star</span><span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">star</span><span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">star</span><span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">star</span>
+        </div>
+        <p class="text-ink text-lg font-serif italic mb-8 leading-relaxed">"Found exactly the kind of modern brass lighting I was looking for. KGS has the best collection in Virudhachalam."</p>
+        <p class="text-[11px] font-bold tracking-[.15em] uppercase text-muted">— Ramesh K.</p>
+      </div>
+      <!-- Card 3 -->
+      <div class="bg-surface p-10 border border-border gsap-rv">
+        <div class="flex text-gold mb-6 gap-1">
+          <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">star</span><span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">star</span><span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">star</span><span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">star</span><span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">star</span>
+        </div>
+        <p class="text-ink text-lg font-serif italic mb-8 leading-relaxed">"Their customer service on WhatsApp is so convenient. Sent a picture of my space, and they recommended the perfect decor pieces."</p>
+        <p class="text-[11px] font-bold tracking-[.15em] uppercase text-muted">— Anjali V.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- ══ CLOSING CTA ════════════════════════════════ -->
-<section class="relative overflow-hidden border-t border-border" style="background:#1A1A1A;">
-  <div class="absolute inset-0 opacity-[0.04]" style="background-image:repeating-linear-gradient(0deg,transparent,transparent 40px,rgba(197,168,128,1) 40px,rgba(197,168,128,1) 41px),repeating-linear-gradient(90deg,transparent,transparent 40px,rgba(197,168,128,1) 40px,rgba(197,168,128,1) 41px);"></div>
-  <div class="relative z-10 max-w-3xl mx-auto px-5 md:px-10 py-20 md:py-28 text-center rv">
-    <p class="text-[11px] font-semibold tracking-[.22em] uppercase text-gold mb-6">Free Consultation</p>
-    <h2 class="font-serif font-medium text-white leading-[1.06] mb-6" style="font-size:clamp(2rem,4.5vw,3.6rem);">Let's Design Your Dream Space</h2>
-    <p class="text-white/50 mb-10 leading-[1.85]" style="font-size:15px;">Not sure what will work for your home? Chat with us on WhatsApp — we'll help you pick the perfect pieces for your space, budget, and style. No pressure, just honest advice.</p>
-    <div class="flex flex-col sm:flex-row gap-4 justify-center">
-      <a href="https://wa.me/919789182921?text=Hi%20KGS%2C%20I%20need%20a%20free%20consultation%20for%20my%20home%20decor" target="_blank" rel="noopener noreferrer"
-         style="display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:15px 36px;background:#25D366;color:#fff;font-family: 'Jost', sans-serif;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;border:1.5px solid #25D366;cursor:pointer;transition:background .22s,transform .22s,box-shadow .22s;"
-         onmouseover="this.style.background='#1db954';this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 24px rgba(37,211,102,0.35)'"
-         onmouseout="this.style.background='#25D366';this.style.transform='';this.style.boxShadow=''">
-        <svg viewBox="0 0 24 24" fill="white" width="16" height="16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-        Get Free Consultation
-      </a>
-      <a href="product-listing.html"
-         style="display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:15px 36px;background:transparent;color:#fff;font-family: 'Jost', sans-serif;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;border:1.5px solid rgba(255,255,255,.3);cursor:pointer;transition:border-color .22s;"
-         onmouseover="this.style.borderColor='rgba(255,255,255,.7)'"
-         onmouseout="this.style.borderColor='rgba(255,255,255,.3)'">
-        Explore Collection
-      </a>
-    </div>
-    <p class="text-white/25 text-[11px] tracking-[.12em] uppercase mt-8">Typically replies within 10 minutes &nbsp;·&nbsp; Open 10 AM – 10 PM</p>
+<section class="relative bg-ink py-24 md:py-32 text-center overflow-hidden border-t border-border">
+  <div class="absolute inset-0 opacity-[0.03]" style="background-image:radial-gradient(#C5A880 1px, transparent 1px); background-size: 32px 32px;"></div>
+  <div class="relative z-10 max-w-3xl mx-auto px-5 md:px-12 gsap-rv">
+    <p class="text-[11px] font-bold tracking-[.25em] uppercase text-gold mb-6">Expert Guidance</p>
+    <h2 class="font-serif font-medium text-white text-4xl md:text-5xl mb-8 leading-tight">Let's Build Your Dream Space</h2>
+    <p class="text-white/60 font-sans text-lg mb-12 leading-relaxed">Connect directly with our design consultants on WhatsApp. We'll help you select the perfect pieces for your aesthetic and budget.</p>
+    <a href="https://wa.me/919789182921?text=Hi%20KGS%2C%20I%20need%20a%20free%20consultation%20for%20my%20home%20decor" target="_blank" rel="noopener noreferrer" class="btn-primary inline-flex gap-3 px-10 py-5 bg-[#25D366] border-[#25D366] text-[12px]">
+      <svg viewBox="0 0 24 24" fill="white" width="18" height="18"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    Chat on WhatsApp
+    </a>
   </div>
 </section>
 
 <!-- ══ FOOTER ═══════════════════════════════════════════════ -->
-<footer class="bg-surface pt-12 md:pt-20 pb-8 border-t border-border">
-  <div class="max-w-7xl mx-auto px-5 md:px-10 grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-8 mb-10 md:mb-16">
+<footer class="bg-surface pt-16 md:pt-24 pb-8 border-t border-border">
+  <div class="max-w-[90rem] mx-auto px-5 md:px-12 grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-12 mb-16">
     <div class="md:col-span-1">
       <a href="index.html" class="font-serif font-medium tracking-[.35em] text-[1.4rem] text-ink block mb-6">KGS</a>
-      <p class="text-muted text-[13px] leading-[1.8] mb-6 pr-4">Your one-stop destination for premium home décor and furniture in Virudhachalam.</p>
+      <p class="text-muted text-[13px] leading-[1.8] mb-8 max-w-xs">Your one-stop destination for premium modern Indian home décor and furniture in Virudhachalam.</p>
       <div class="flex items-center gap-4">
-        <a href="https://www.instagram.com/kgshomedecors_virudhachalam" target="_blank" class="w-8 h-8 rounded-full border border-border flex items-center justify-center text-muted hover:border-ink hover:text-ink transition-colors">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-4 h-4"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.01" stroke-width="3"/></svg>
-        </a>
-        <a href="https://wa.me/919789182921" target="_blank" class="w-8 h-8 rounded-full border border-border flex items-center justify-center text-muted hover:border-[#25D366] hover:text-[#25D366] transition-colors">
-          <svg viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        <a href="https://wa.me/919789182921" target="_blank" class="w-10 h-10 rounded-full border border-border flex items-center justify-center text-muted hover:border-[#25D366] hover:text-[#25D366] transition-colors bg-white">
+          <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
         </a>
       </div>
     </div>
     <div>
-      <h4 class="text-ink text-[11px] tracking-[.18em] uppercase font-semibold mb-6">Shop</h4>
-      <ul class="space-y-4 text-[13px] text-muted">
-        <li><a href="product-listing.html" class="hover:text-ink transition-colors">All Products</a></li>
-        <li><a href="product-listing.html?cat=furniture" class="hover:text-ink transition-colors">Furniture</a></li>
-        <li><a href="product-listing.html?cat=accessories" class="hover:text-ink transition-colors">Decor & Accessories</a></li>
-        <li><a href="product-listing.html?cat=new" class="hover:text-ink transition-colors">New Arrivals</a></li>
+      <h4 class="text-ink text-[11px] tracking-[.18em] uppercase font-bold mb-6">Shop</h4>
+      <ul class="space-y-4 text-[13px] text-muted font-medium">
+        <li><a href="product-listing.html" class="hover:text-gold transition-colors">All Products</a></li>
+        <li><a href="product-listing.html?cat=sofas" class="hover:text-gold transition-colors">Sofas & Furniture</a></li>
+        <li><a href="product-listing.html?cat=decor" class="hover:text-gold transition-colors">Decor & Accessories</a></li>
+        <li><a href="product-listing.html?cat=new" class="hover:text-gold transition-colors">New Arrivals</a></li>
       </ul>
     </div>
     <div>
-      <h4 class="text-ink text-[11px] tracking-[.18em] uppercase font-semibold mb-6">Support</h4>
-      <ul class="space-y-4 text-[13px] text-muted">
-        <li><a href="contact.html" class="hover:text-ink transition-colors">Contact Us</a></li>
-        <li><a href="shipping-policy.html" class="hover:text-ink transition-colors">Shipping Info</a></li>
-        <li><a href="returns-policy.html" class="hover:text-ink transition-colors">Returns & Refunds</a></li>
-        <li><a href="order-tracking.html" class="hover:text-ink transition-colors">Track Order</a></li>
+      <h4 class="text-ink text-[11px] tracking-[.18em] uppercase font-bold mb-6">Support</h4>
+      <ul class="space-y-4 text-[13px] text-muted font-medium">
+        <li><a href="contact.html" class="hover:text-gold transition-colors">Contact Us</a></li>
+        <li><a href="shipping-policy.html" class="hover:text-gold transition-colors">Shipping Info</a></li>
+        <li><a href="returns-policy.html" class="hover:text-gold transition-colors">Returns & Refunds</a></li>
+        <li><a href="order-tracking.html" class="hover:text-gold transition-colors">Track Order</a></li>
       </ul>
     </div>
     <div>
-      <h4 class="text-ink text-[11px] tracking-[.18em] uppercase font-semibold mb-6">Company</h4>
-      <ul class="space-y-4 text-[13px] text-muted">
-        <li><a href="about.html" class="hover:text-ink transition-colors">Our Story</a></li>
-        <li><a href="privacy-policy.html" class="hover:text-ink transition-colors">Privacy Policy</a></li>
-        <li><a href="terms.html" class="hover:text-ink transition-colors">Terms of Service</a></li>
+      <h4 class="text-ink text-[11px] tracking-[.18em] uppercase font-bold mb-6">Company</h4>
+      <ul class="space-y-4 text-[13px] text-muted font-medium">
+        <li><a href="about.html" class="hover:text-gold transition-colors">Our Story</a></li>
+        <li><a href="privacy-policy.html" class="hover:text-gold transition-colors">Privacy Policy</a></li>
+        <li><a href="terms.html" class="hover:text-gold transition-colors">Terms of Service</a></li>
       </ul>
     </div>
   </div>
-  <div class="max-w-7xl mx-auto px-5 md:px-10 border-t border-border pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-    <p class="text-[11px] tracking-[.15em] text-muted uppercase">&copy; 2026 KGS Home Décors. All rights reserved.</p>
+  <div class="max-w-[90rem] mx-auto px-5 md:px-12 border-t border-border pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+    <p class="text-[11px] tracking-[.15em] text-muted uppercase font-medium">&copy; 2026 KGS Home Décors. All rights reserved.</p>
     <div class="flex items-center gap-3 opacity-60">
-      <span class="text-[10px] tracking-[.15em] font-semibold uppercase text-muted">Secure Delivery</span>
+      <span class="text-[10px] tracking-[.15em] font-bold uppercase text-muted">Virudhachalam's Premium Choice</span>
     </div>
   </div>
 </footer>
@@ -781,51 +529,51 @@ input:focus { border-color: rgba(26, 26, 26, 0.25) !important; box-shadow: 0 10p
 <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
 <script src="assets/js/store.js"></script>
 <script>
-/* ——— ANNOUNCEMENT ROTATOR JS ——————————————— */
-(function(){
-  const msgs = document.querySelectorAll('.ann-msg');
-  if (msgs.length === 0) return;
-  let cur = 0;
-  function showMsg(idx){
-    msgs.forEach((m,i)=>{ m.classList.toggle('active', i===idx); });
-    cur = idx;
+/* ——— GSAP ANIMATIONS & SCROLL —————————————— */
+gsap.registerPlugin(ScrollTrigger);
+
+// Hero Animation
+gsap.fromTo('.gsap-hero-el', 
+  { y: 30, opacity: 0, filter: 'blur(10px)' }, 
+  { y: 0, opacity: 1, filter: 'blur(0px)', duration: 1.2, stagger: 0.15, ease: 'power3.out', delay: 0.2 }
+);
+gsap.to('#hero-img', {
+  scale: 1,
+  duration: 1.5,
+  ease: 'power2.out'
+});
+
+// Trust Bar
+gsap.fromTo('.gsap-trust',
+  { opacity: 0, y: 20 },
+  { opacity: 1, y: 0, duration: 0.8, stagger: 0.1, ease: 'power2.out', scrollTrigger: { trigger: '.gsap-trust', start: 'top 90%' } }
+);
+
+// Generic Reveal
+gsap.utils.toArray('.gsap-rv').forEach(el => {
+  gsap.fromTo(el,
+    { opacity: 0, y: 40 },
+    { opacity: 1, y: 0, duration: 1, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 85%' } }
+  );
+});
+
+// Value Props
+gsap.fromTo('.gsap-vp',
+  { opacity: 0, y: 30 },
+  { opacity: 1, y: 0, duration: 0.8, stagger: 0.1, ease: 'power2.out', scrollTrigger: { trigger: '.gsap-vp', start: 'top 85%' } }
+);
+
+// Navbar Scroll Effect
+const nav = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 50) {
+    nav.classList.add('shadow-md');
+  } else {
+    nav.classList.remove('shadow-md');
   }
-  const autoPlay = setInterval(()=>showMsg((cur+1)%msgs.length), 3500);
-  const nextBtn = document.getElementById('ann-next');
-  const prevBtn = document.getElementById('ann-prev');
-  if (nextBtn) nextBtn.addEventListener('click',()=>{ clearInterval(autoPlay); showMsg((cur+1)%msgs.length); });
-  if (prevBtn) prevBtn.addEventListener('click',()=>{ clearInterval(autoPlay); showMsg((cur-1+msgs.length)%msgs.length); });
-})();
+});
 
-/* ——— HERO SLIDER JS ——————————————————————— */
-(function(){
-  const slides = document.querySelectorAll('.hero-slide');
-  const dots   = document.querySelectorAll('.hero-dot');
-  let cur = 0, timer;
-
-  function goTo(idx){
-    slides[cur].classList.remove('active');
-    dots[cur].classList.remove('active');
-    cur = (idx + slides.length) % slides.length;
-    slides[cur].classList.add('active');
-    dots[cur].classList.add('active');
-  }
-
-  function autoPlay(){ timer = setInterval(()=>goTo(cur+1), 5000); }
-  autoPlay();
-
-  dots.forEach(d=>d.addEventListener('click',()=>{ clearInterval(timer); goTo(+d.dataset.slide); autoPlay(); }));
-
-  // Touch swipe support
-  let sx = 0;
-  const slider = document.querySelector('.hero-slider');
-  slider.addEventListener('touchstart',e=>{ sx = e.changedTouches[0].screenX; },{passive:true});
-  slider.addEventListener('touchend',e=>{
-    const dx = e.changedTouches[0].screenX - sx;
-    if(Math.abs(dx)>50){ clearInterval(timer); goTo(dx<0?cur+1:cur-1); autoPlay(); }
-  },{passive:true});
-})();
-
+/* ——— MENU / SEARCH DRW UTILS ——————————————— */
 function openDrw(){
   document.getElementById('mobile-drawer').style.transform='translateX(0)';
   document.getElementById('drw-ov').classList.remove('hidden');
@@ -836,8 +584,6 @@ function closeDrw(){
   document.getElementById('drw-ov').classList.add('hidden');
   document.body.style.overflow='';
 }
-
-/* ——— SEARCH ———————————————————————————————— */
 function openSearch(){
   document.getElementById('search-overlay').style.display='flex';
   document.getElementById('search-input').focus();
@@ -847,116 +593,69 @@ function closeSearch(){
   document.getElementById('search-overlay').style.display='none';
   document.getElementById('search-input').value='';
   document.getElementById('search-results').innerHTML='';
-  const sh=document.getElementById('search-hint'); if(sh) sh.style.display='';
   document.body.style.overflow='';
 }
+
 async function doSearch(q){
   const res=document.getElementById('search-results');
-  const hint=document.getElementById('search-hint');
-  if(!q.trim()){res.innerHTML='';if(hint) hint.style.display='';return;}
-  if(hint) hint.style.display='none';
+  if(!q.trim()){res.innerHTML='';return;}
   if(!window.kgsFuse) {
     const products = await initStore();
     window.kgsFuse = new Fuse(products, {keys:['name','category'], threshold:0.3});
   }
   const matches = window.kgsFuse.search(q).map(r=>r.item);
   if(matches.length===0){
-    res.innerHTML='<p style="color:rgba(255,255,255,.4);font-size:13px;padding:12px 16px;">No results. <a href="product-listing.html" style="color:#C5A880;text-decoration:underline;">Browse all products &rarr;</a></p>';
+    res.innerHTML='<p style="color:rgba(255,255,255,.5);font-size:13px;padding:12px 0;">No results found.</p>';
   }else{
-    res.innerHTML=matches.map(p=>`
-      <a href="product-detail.html?handle=${p.handle}" class="search-result-item">
+    res.innerHTML=matches.slice(0,5).map(p=>`
+      <a href="product-detail.html?handle=${p.handle}" class="flex justify-between items-center bg-white/5 hover:bg-white/10 p-4 transition-colors">
         <div>
-          <p style="color:#fff;font-size:14.5px;font-family: 'Jost', sans-serif;font-weight:500;letter-spacing:-0.01em;">${p.name}</p>
-          <p style="color:rgba(255,255,255,.35);font-size:10px;letter-spacing:.14em;text-transform:uppercase;margin-top:3px;">${p.category || ''}</p>
+          <p style="color:#fff;font-size:15px;font-family: 'Jost', sans-serif;font-weight:500;">${p.name}</p>
+          <p style="color:rgba(255,255,255,.4);font-size:10px;letter-spacing:.15em;text-transform:uppercase;margin-top:4px;">${p.category || ''}</p>
         </div>
-        <p style="color:#C97840;font-size:13px;font-weight:600;font-family: 'Jost', sans-serif;">&#8377;${p.price.toLocaleString('en-IN')}</p>
+        <p style="color:#C97840;font-size:14px;font-weight:600;font-family: 'Jost', sans-serif;">&#8377;${p.price.toLocaleString('en-IN')}</p>
       </a>`).join('');
   }
 }
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSearch();});
 
-/* ——— REVEAL ON SCROLL ——————————————————————— */
-const io = new IntersectionObserver(es=>{
-  es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('on'); io.unobserve(e.target); } });
-},{threshold:.1});
-document.querySelectorAll('.rv').forEach(el=>io.observe(el));
-
-/* ——— RENDER DYNAMIC PRODUCTS FROM SHOPIFY ——— */
+/* ——— RENDER DYNAMIC PRODUCTS ——————————————— */
 async function loadDynamicHome() {
   const newArrContainer = document.getElementById('dynamic-new-arrivals');
-  const bestSelContainer = document.getElementById('dynamic-best-sellers');
-  
-  if (newArrContainer) newArrContainer.innerHTML = '';
-  if (bestSelContainer) bestSelContainer.innerHTML = '';
   const skelNew = document.getElementById('skel-new');
-  const skelBest = document.getElementById('skel-best');
 
   const products = await initStore();
   
   if(!products || products.length === 0) {
     if (skelNew) skelNew.style.display = 'none';
-    if (skelBest) skelBest.style.display = 'none';
     if (newArrContainer) { newArrContainer.innerHTML = ''; newArrContainer.style.display = ''; }
-    if (bestSelContainer) { bestSelContainer.innerHTML = ''; bestSelContainer.style.display = ''; }
     return;
   }
 
   if (newArrContainer) {
-    const newArrivals = products.slice(0, 5);
-        newArrContainer.innerHTML = newArrivals.map(p => `
-      <div class="new-card relative group">
-        <div class="new-img-wrap relative w-full overflow-hidden bg-white" style="padding-top:100%;">
+    const newArrivals = products.slice(0, 4); // Show 4 in bento grid
+    newArrContainer.innerHTML = newArrivals.map(p => `
+      <div class="new-card relative group flex flex-col h-full bg-surface border border-border">
+        <div class="new-img-wrap relative w-full overflow-hidden bg-white">
           <button onclick="toggleWishlist('${p.id}')" class="heart-btn opacity-0 group-hover:opacity-100 transition-opacity duration-200" title="Save">
-            <span class="material-symbols-outlined text-[15px]">favorite</span>
+            <span class="material-symbols-outlined text-[18px]">favorite</span>
           </button>
           <a href="product-detail.html?handle=${p.handle}" class="absolute inset-0 block">
-            <img src="${p.image}" alt="${p.name}" class="absolute inset-0 w-full h-full object-contain p-4 bg-white transition-transform duration-700 group-hover:scale-[1.04]">
+            <img src="${p.image}" alt="${p.name}">
           </a>
           <div class="card-overlay">
-            <button onclick="addToCart('${p.id}')" class="qa-btn"><span class="material-symbols-outlined text-[14px]">shopping_bag</span> Add to Cart</button>
+            <button onclick="addToCart('${p.id}')" class="qa-btn"><span class="material-symbols-outlined text-[16px]">shopping_bag</span> Add to Cart</button>
           </div>
         </div>
-        <div class="pt-4 pb-2 px-3">
-          <p class="text-[9.5px] font-medium tracking-[.2em] uppercase text-muted mb-2">${p.category}</p>
-          <h3 class="font-serif font-medium text-ink leading-snug mb-1" style="font-size:1.1rem;"><a href="product-detail.html?handle=${p.handle}">${p.name}</a></h3>
-          <p class="font-sans font-semibold text-warm" style="font-size:1rem;">&#8377;${p.price.toLocaleString('en-IN')}</p>
+        <div class="p-5 flex flex-col flex-grow">
+          <p class="text-[10px] font-bold tracking-[.2em] uppercase text-gold mb-2">${p.category}</p>
+          <h3 class="font-serif font-medium text-ink leading-snug mb-3 flex-grow" style="font-size:1.3rem;"><a href="product-detail.html?handle=${p.handle}">${p.name}</a></h3>
+          <p class="font-sans font-semibold text-ink" style="font-size:1.1rem;">&#8377;${p.price.toLocaleString('en-IN')}</p>
         </div>
       </div>
     `).join('');
     if (skelNew) skelNew.style.display = 'none';
-    newArrContainer.style.display = '';
-  }
-
-  if (bestSelContainer) {
-    // Use products 5-9 if enough, else reuse from start
-    let bestSellers = products.length > 5 ? products.slice(5, 9) : products.slice(0, Math.min(4, products.length));
-    if (bestSellers.length === 0) { if (skelBest) skelBest.style.display = 'none'; return; }
-        bestSelContainer.innerHTML = bestSellers.map(p => `
-      <div class="relative group rv">
-        <div class="relative w-full overflow-hidden bg-white mb-4" style="padding-top:100%;">
-          <button onclick="toggleWishlist('${p.id}')" class="heart-btn opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-10" title="Save">
-            <span class="material-symbols-outlined text-[15px]">favorite</span>
-          </button>
-          <a href="product-detail.html?handle=${p.handle}" class="absolute inset-0 block">
-            <img src="${p.image}" alt="${p.name}" class="absolute inset-0 w-full h-full object-contain p-4 bg-white transition-transform duration-700 group-hover:scale-[1.04]">
-          </a>
-          <div class="card-overlay"><button onclick="addToCart('${p.id}')" class="qa-btn">Add to Cart</button></div>
-        </div>
-        <div class="px-3 pb-2">
-          <p class="text-[9.5px] font-medium tracking-[.2em] uppercase text-muted mb-2">${p.category}</p>
-          <h3 class="font-serif font-medium text-ink leading-snug mb-2" style="font-size:1.1rem;"><a href="product-detail.html?handle=${p.handle}">${p.name}</a></h3>
-          <div class="flex items-center justify-between">
-            <p class="font-sans font-semibold text-warm" style="font-size:1rem;">&#8377;${p.price.toLocaleString('en-IN')}</p>
-            <button onclick="addToCart('${p.id}')" class="text-[9px] font-semibold tracking-[.15em] uppercase text-muted hover:text-ink border-b border-current pb-px transition-colors">Add to Cart</button>
-          </div>
-        </div>
-      </div>
-    `).join('');
-    if (skelBest) skelBest.style.display = 'none';
-    bestSelContainer.style.display = '';
-
-    // Re-bind intersection observer for new elements
-    document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+    newArrContainer.style.display = 'grid';
   }
 }
 loadDynamicHome();
@@ -968,28 +667,11 @@ requestAnimationFrame(raf);
 
 /* --- BADGES & HEARTS --- */
 document.addEventListener('DOMContentLoaded', () => {
-  updateCartBadge();
-  updateWishlistBadge();
-  updateHeartIcons();
+  if (typeof updateCartBadge === 'function') updateCartBadge();
+  if (typeof updateWishlistBadge === 'function') updateWishlistBadge();
+  if (typeof updateHeartIcons === 'function') updateHeartIcons();
 });
 </script>
 
-<!-- ══ STICKY WHATSAPP FLOAT ════════════════════════════════ -->
-<a href="https://wa.me/919789182921?text=Hi%20KGS%2C%20I%20need%20help%20choosing%20home%20decor"
-   target="_blank" rel="noopener noreferrer"
-   id="wa-float"
-   aria-label="Chat on WhatsApp"
-   style="position:fixed;bottom:28px;right:24px;z-index:999;width:56px;height:56px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,0.45);transition:transform .25s cubic-bezier(0.23,1,0.32,1),box-shadow .25s ease;text-decoration:none;">
-  <svg viewBox="0 0 24 24" fill="white" width="26" height="26"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-</a>
-<style>
-#wa-float:hover{transform:scale(1.1);box-shadow:0 6px 28px rgba(37,211,102,0.55);}
-#wa-float:active{transform:scale(0.95);}
-@keyframes wa-pulse{0%,100%{box-shadow:0 4px 20px rgba(37,211,102,0.45);}50%{box-shadow:0 4px 32px rgba(37,211,102,0.75),0 0 0 8px rgba(37,211,102,0.12);}}
-#wa-float{animation:wa-pulse 2.5s ease-in-out infinite;}
-#wa-float:hover{animation:none;}
-</style>
-
-<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catch(()=>{});}</script>
 </body>
 </html>
