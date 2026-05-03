@@ -206,18 +206,18 @@ html.lenis, html.lenis body { height: auto; }
 </div>
 
 <!-- ══ SEARCH OVERLAY ═══════════════════════════════════════ -->
-<div id="search-overlay" onclick="if(event.target===this)closeSearch()" class="fixed inset-0 z-[100] bg-surface/95 backdrop-blur-md hidden flex-col items-center pt-24 px-5">
-  <div class="w-full max-w-2xl relative">
-    <div class="flex items-center gap-4 border-b border-ink/10 pb-4 mb-8">
+<div id="search-overlay" onclick="if(event.target===this)closeSearch()" class="fixed inset-0 z-[100] bg-surface/98 backdrop-blur-xl hidden flex-col items-center pt-[100px] md:pt-[120px] px-5 transition-opacity duration-300">
+  <div class="w-full max-w-2xl relative animate-in fade-in slide-in-from-top-4 duration-500">
+    <div class="flex items-center gap-4 bg-white border border-ink/10 rounded-full px-6 py-4 shadow-sm mb-8 transition-shadow focus-within:border-gold focus-within:shadow-md">
       <span class="material-symbols-outlined text-[24px] text-ink/40">search</span>
-      <input id="search-input" type="text" placeholder="Search for products..."
-             class="flex-grow bg-transparent text-ink font-sans placeholder-ink/30 outline-none text-[20px] md:text-[24px]"
+      <input id="search-input" type="text" placeholder="Search for premium products..."
+             class="flex-grow bg-transparent text-ink font-sans placeholder-ink/30 outline-none text-[18px] md:text-[20px] font-medium"
              oninput="doSearch(this.value)" autocomplete="off">
       <button onclick="closeSearch()" class="text-ink/40 hover:text-ink transition-colors bg-transparent border-none cursor-pointer p-1 flex items-center" aria-label="Close search">
         <span class="material-symbols-outlined text-[24px]">close</span>
       </button>
     </div>
-    <div id="search-results" class="max-h-[60vh] overflow-y-auto pb-8 w-full flex flex-col gap-2"></div>
+    <div id="search-results" class="max-h-[60vh] overflow-y-auto pb-8 w-full flex flex-col gap-2 no-scrollbar"></div>
   </div>
 </div>
 

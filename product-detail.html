@@ -29,9 +29,40 @@ html.lenis,html.lenis body{height:auto;}
 body{-webkit-font-smoothing:antialiased;}
 ::selection{background:#C5A880;color:#fff;}
 .material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 200,'GRAD' 0,'opsz' 24;}
-.btn-primary{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px 32px;background:#C97840;color:#fff;font-family:"Jost",sans-serif;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;border:1.5px solid #C97840;cursor:pointer;transition:background .22s,transform .3s,box-shadow .3s;width:100%;}
+.btn-primary {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 15px 36px; background: #C97840; color: #fff;
+  font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 600;
+  letter-spacing: .14em; text-transform: uppercase; text-decoration: none;
+  border: 1px solid #C97840; cursor: pointer;
+  transition: all 400ms cubic-bezier(0.25, 1, 0.5, 1);
+  box-shadow: 0 4px 14px rgba(201,120,64,0.15);
+}
+@media (hover: hover) and (pointer: fine) {
+  .btn-primary:hover { 
+    background: #a8612d; border-color: #a8612d; 
+    transform: translateY(-2px) scale(1.02); 
+    box-shadow: 0 20px 40px -10px rgba(201,120,64,0.45);
+  }
+}
+.btn-primary:active { transform: scale(0.96) translateY(0); box-shadow: 0 2px 8px rgba(201,120,64,0.15); }
 .btn-primary:hover{background:#a8612d;transform:translateY(-2px);box-shadow:0 8px 24px rgba(201,120,64,.35);}
-.btn-secondary{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 28px;background:transparent;color:#1A1A1A;font-family:"Jost",sans-serif;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;border:1.5px solid #1A1A1A;cursor:pointer;transition:background .22s,color .22s;width:100%;}
+.btn-secondary {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 14px 34px; background: transparent; color: #1A1A1A;
+  font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 600;
+  letter-spacing: .14em; text-transform: uppercase; text-decoration: none;
+  border: 1px solid rgba(26,26,26,0.3); cursor: pointer;
+  transition: all 400ms cubic-bezier(0.25, 1, 0.5, 1);
+}
+@media (hover: hover) and (pointer: fine) {
+  .btn-secondary:hover { 
+    border-color: #1A1A1A; color: #1A1A1A;
+    transform: translateY(-2px); 
+    box-shadow: 0 20px 40px -10px rgba(26,26,26,0.1); 
+  }
+}
+.btn-secondary:active { transform: scale(0.96); }
 .btn-secondary:hover{background:#1A1A1A;color:#FAF8F4;}
 .btn-whatsapp{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 28px;background:#25D366;color:#fff;font-family:"Jost",sans-serif;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;border:1.5px solid #25D366;cursor:pointer;transition:background .22s;width:100%;}
 .btn-whatsapp:hover{background:#1db954;}
@@ -246,7 +277,7 @@ img {
 
       <!-- Premium Trust Hook -->
       <div class="border-t border-border pt-7">
-        <div class="grid grid-cols-2 gap-y-4 gap-x-2">
+        <div class="flex gap-6 overflow-x-auto whitespace-nowrap scrollbar-none pb-2" style="scrollbar-width:none;-webkit-overflow-scrolling:touch;">
           <div class="flex items-center gap-2">
             <span class="material-symbols-outlined text-[14px] text-gold">payments</span>
             <span class="text-[10px] sm:text-[10.5px] font-semibold tracking-[.14em] uppercase text-ink">Cash on Delivery</span>
@@ -322,6 +353,13 @@ img {
   </section>
 
 </main>
+
+<!-- MOBILE STICKY CTA -->
+<div class="md:hidden fixed bottom-0 left-0 right-0 bg-surface border-t border-border p-3 px-4 z-50 flex items-center gap-3 shadow-[0_-4px_20px_rgba(0,0,0,0.05)]">
+  <button id="pd-add-mobile" class="btn-secondary flex-1 py-3 text-[11px]">Add to Cart</button>
+  <a id="pd-wa-mobile" href="#" target="_blank" class="btn-primary flex-1 py-3 text-[11px] !bg-[#25D366] !border-[#25D366]">WhatsApp</a>
+</div>
+
 
 <!-- FOOTER -->
 
@@ -546,10 +584,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   if (p.images && p.images.length > 1) {
     const strip = document.getElementById('thumb-strip');
-    strip.style.cssText = 'display:flex!important';
+    strip.style.cssText = 'display:flex!important; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none; -webkit-overflow-scrolling:touch; padding-bottom:4px; gap:8px;';
     strip.innerHTML = p.images.map((src, i) => `
       <button onclick="document.getElementById('main-img').src='${src}';this.parentNode.querySelectorAll('button').forEach(b=>b.style.borderColor='transparent');this.style.borderColor='#C97840';"
-        style="width:64px;height:80px;overflow:hidden;border:2px solid ${i===0?'#C97840':'transparent'};padding:0;background:none;cursor:pointer;flex-shrink:0;">
+        style="width:64px;height:80px;overflow:hidden;border:2px solid ${i===0?'#C97840':'transparent'};padding:0;background:none;cursor:pointer;flex-shrink:0;scroll-snap-align:start;">
         <img src="${src}" style="width:100%;height:100%;object-fit:cover;">
       </button>`).join('');
   }
@@ -626,6 +664,15 @@ document.addEventListener('DOMContentLoaded', async () => {
       addBtn.innerText = "Adding...";
       await addToCart(p.id);
       addBtn.innerText = "Add to Cart";
+    };
+  }
+
+  const addMobBtn = document.getElementById('pd-add-mobile');
+  if (addMobBtn) {
+    addMobBtn.onclick = async () => {
+      addMobBtn.innerText = "Adding...";
+      await addToCart(p.id);
+      addMobBtn.innerText = "Add to Cart";
     };
   }
 
