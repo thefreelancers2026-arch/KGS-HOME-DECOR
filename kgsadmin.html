@@ -345,5 +345,39 @@ async function handleSignUp(e){
 </script>
 <script src="assets/js/admin.js"></script>
 
+
+<script>
+  // Custom Select Logic
+  document.addEventListener('click', e => {
+    if (!e.target.closest('.custom-select')) {
+      document.querySelectorAll('.custom-select').forEach(cs => cs.classList.remove('open'));
+    }
+  });
+  document.querySelectorAll('.custom-select').forEach(cs => {
+    cs.addEventListener('click', function() {
+      this.classList.toggle('open');
+    });
+    cs.querySelectorAll('.cs-opt').forEach(opt => {
+      opt.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const val = this.dataset.val;
+        const text = this.textContent;
+        cs.querySelector('.cs-value').textContent = text;
+        cs.classList.remove('open');
+        const nativeSelect = cs.previousElementSibling;
+        nativeSelect.value = val;
+        // Trigger native change event if needed
+        nativeSelect.dispatchEvent(new Event('change'));
+      });
+    });
+  });
+  function updateCustomSelect(selectEl) {
+    const cs = selectEl.nextElementSibling;
+    if(cs && cs.classList.contains('custom-select')) {
+      const text = selectEl.options[selectEl.selectedIndex].text;
+      cs.querySelector('.cs-value').textContent = text;
+    }
+  }
+</script>
 </body>
 </html>
