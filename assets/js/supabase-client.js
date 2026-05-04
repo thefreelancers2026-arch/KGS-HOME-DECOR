@@ -254,3 +254,55 @@ async function createOrder(orderData, items) {
 
   return order;
 }
+
+/* ─── STORE REVIEWS ────────────────────────────────────── */
+
+async function getStoreReviews() {
+  const sb = getSupabase();
+  const { data, error } = await sb.from('store_reviews')
+    .select('*')
+    .eq('is_approved', true)
+    .order('created_at', { ascending: false });
+  if (error) throw error;
+  return data || [];
+}
+
+async function submitStoreReview(reviewData) {
+  const sb = getSupabase();
+  const user = await getUser();
+  
+  if (user) {
+    reviewData.customer_id = user.id;
+  }
+  
+  const { data, error } = await sb.from('store_reviews').insert(reviewData).select().single();
+  if (error) throw error;
+  return data;
+}
+
+async function adminGetStoreReviews({ status = 'pending' } = {}) {
+  const sb = getSupabase();
+  let query = sb.from('store_reviews').select('*').order('created_at', { ascending: false });
+  
+  if (status === 'pending') {
+    query = query.eq('is_approved', false);
+  } else if (status === 'approved') {
+    query = query.eq('is_approved', true);
+  }
+  
+  const { data, error } = await query;
+  if (error) throw error;
+  return data || [];
+}
+
+async function adminApproveStoreReview(reviewId) {
+  const sb = getSupabase();
+  const { error } = await sb.from('store_reviews').update({ is_approved: true }).eq('id', reviewId);
+  if (error) throw error;
+}
+
+async function adminDeleteStoreReview(reviewId) {
+  const sb = getSupabase();
+  const { error } = await sb.from('store_reviews').delete().eq('id', reviewId);
+  if (error) throw error;
+}

@@ -511,51 +511,28 @@ html.lenis, html.lenis body { height: auto; }
 </section>
 
 <!-- ══ TESTIMONIALS ═════════════════════════════════════════ -->
-<section class="bg-base py-12 md:py-20 border-b border-border">
+<section class="bg-base py-12 md:py-20 border-b border-border" id="testimonials-section">
   <div class="max-w-[90rem] mx-auto px-5 md:px-12">
-    <div class="flex items-center justify-between mb-10 gsap-rv">
-      <div class="flex items-center gap-3">
+    <div class="flex flex-col md:flex-row items-start md:items-center justify-between mb-10 gap-4 gsap-rv">
+      <div class="flex flex-wrap items-center gap-3">
         <h2 class="font-serif font-medium text-ink text-2xl md:text-3xl">What Our Customers Say</h2>
         <div class="flex items-center gap-1 text-gold">
           <span class="material-symbols-outlined text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
           <span class="text-ink font-semibold text-sm">4.8/5</span>
-          <span class="text-muted text-[10px] font-normal ml-1 hidden md:inline">Based on 1200+ reviews</span>
+          <span class="text-muted text-[10px] font-normal ml-1 hidden md:inline">Based on Store reviews</span>
         </div>
       </div>
-      <a href="https://www.google.com/search?q=KGS+Home+Decors+Virudhachalam#lrd=0x0:0x0,1,,," target="_blank" class="text-[10px] font-bold tracking-[.15em] uppercase text-ink border-b border-ink/20 pb-1 hover:border-ink transition-colors hidden md:block">VIEW ALL REVIEWS</a>
+      <div class="flex flex-wrap items-center gap-4">
+        <button onclick="document.getElementById('review-modal').classList.remove('hidden')" class="btn-secondary text-[11px] py-2 px-4 whitespace-nowrap">Write a Review</button>
+        <a href="https://www.google.com/search?q=KGS+Home+Decors+Virudhachalam#lrd=0x0:0x0,1,,," target="_blank" class="text-[10px] font-bold tracking-[.15em] uppercase text-ink border-b border-ink/20 pb-1 hover:border-ink transition-colors hidden md:block whitespace-nowrap">Google Reviews</a>
+      </div>
     </div>
     
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <div class="bg-surface p-6 border border-border rounded-md gsap-rv flex flex-col">
-        <div class="flex items-center gap-3 mb-4">
-          <div class="w-10 h-10 rounded-full bg-tint flex items-center justify-center text-ink font-serif text-lg">A</div>
-          <div>
-            <p class="text-ink font-semibold text-[13px]">Aditiya R.</p>
-            <p class="text-muted text-[10px]">Chennai</p>
-          </div>
-        </div>
-        <p class="text-ink text-[13px] font-sans italic leading-relaxed">"Beautiful collection and excellent service. Highly recommend!"</p>
-      </div>
-      <div class="bg-surface p-6 border border-border rounded-md gsap-rv flex flex-col">
-        <div class="flex items-center gap-3 mb-4">
-          <div class="w-10 h-10 rounded-full bg-tint flex items-center justify-center text-ink font-serif text-lg">V</div>
-          <div>
-            <p class="text-ink font-semibold text-[13px]">Vikram S.</p>
-            <p class="text-muted text-[10px]">Coimbatore</p>
-          </div>
-        </div>
-        <p class="text-ink text-[13px] font-sans italic leading-relaxed">"Very good quality products. Delivery was on time."</p>
-      </div>
-      <div class="bg-surface p-6 border border-border rounded-md gsap-rv flex flex-col">
-        <div class="flex items-center gap-3 mb-4">
-          <div class="w-10 h-10 rounded-full bg-tint flex items-center justify-center text-ink font-serif text-lg">P</div>
-          <div>
-            <p class="text-ink font-semibold text-[13px]">Priya M.</p>
-            <p class="text-muted text-[10px]">Bangalore</p>
-          </div>
-        </div>
-        <p class="text-ink text-[13px] font-sans italic leading-relaxed">"The sofa set is just perfect for my living room!"</p>
-      </div>
+    <div id="reviews-container" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <!-- Fallback / Loading Skeletons -->
+      <div class="bg-surface p-6 border border-border rounded-md flex flex-col h-40 animate-pulse"></div>
+      <div class="bg-surface p-6 border border-border rounded-md flex flex-col h-40 animate-pulse hidden md:flex"></div>
+      <div class="bg-surface p-6 border border-border rounded-md flex flex-col h-40 animate-pulse hidden md:flex"></div>
     </div>
   </div>
 </section>
@@ -812,5 +789,149 @@ document.addEventListener('DOMContentLoaded', () => {
   <svg viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
 </a>
 
+<!-- Review Submission Modal -->
+<div id="review-modal" class="fixed inset-0 bg-ink/80 z-[100] hidden flex items-center justify-center backdrop-blur-sm p-4">
+  <div class="bg-surface w-full max-w-md rounded-md border border-border p-6 md:p-8 relative shadow-2xl">
+    <button onclick="document.getElementById('review-modal').classList.add('hidden')" class="absolute top-4 right-4 text-muted hover:text-ink transition-colors">
+      <span class="material-symbols-outlined">close</span>
+    </button>
+    <h3 class="font-serif font-medium text-xl text-ink mb-2">Write a Review</h3>
+    <p class="text-[13px] text-muted leading-relaxed mb-6">Share your experience with KGS Home Décors. Your feedback helps us improve!</p>
+    
+    <form id="review-form" onsubmit="handleReviewSubmit(event)" class="space-y-5">
+      <div>
+        <label class="block text-[11px] font-bold tracking-[.15em] uppercase text-ink mb-2">Rating</label>
+        <div class="flex items-center gap-1 text-muted cursor-pointer" id="star-selector">
+          <span class="material-symbols-outlined text-[28px] hover:text-gold transition-colors" data-val="1">star</span>
+          <span class="material-symbols-outlined text-[28px] hover:text-gold transition-colors" data-val="2">star</span>
+          <span class="material-symbols-outlined text-[28px] hover:text-gold transition-colors" data-val="3">star</span>
+          <span class="material-symbols-outlined text-[28px] hover:text-gold transition-colors" data-val="4">star</span>
+          <span class="material-symbols-outlined text-[28px] hover:text-gold transition-colors" data-val="5">star</span>
+        </div>
+        <input type="hidden" id="review-rating" value="0" required>
+      </div>
+
+      <div>
+        <label class="block text-[11px] font-bold tracking-[.15em] uppercase text-ink mb-2">Your Name *</label>
+        <input type="text" id="review-name" class="w-full border border-border bg-white p-3 text-[14px] outline-none focus:border-ink transition-colors" placeholder="John Doe" required>
+      </div>
+
+      <div>
+        <label class="block text-[11px] font-bold tracking-[.15em] uppercase text-ink mb-2">Your Review *</label>
+        <textarea id="review-text" rows="4" class="w-full border border-border bg-white p-3 text-[14px] outline-none focus:border-ink transition-colors resize-none" placeholder="I bought a vintage clock..." required></textarea>
+      </div>
+      
+      <button type="submit" id="submit-review-btn" class="btn-primary w-full mt-4">Submit Review</button>
+    </form>
+    
+    <div id="review-success" class="hidden flex flex-col items-center justify-center py-6 text-center">
+      <div class="w-12 h-12 rounded-full bg-[#f4fbf6] flex items-center justify-center mb-4 border border-[#25d366]">
+        <span class="material-symbols-outlined text-[#25d366]">check</span>
+      </div>
+      <h4 class="font-serif text-lg text-ink mb-2">Thank You!</h4>
+      <p class="text-[13px] text-muted">Your review has been submitted and is pending approval.</p>
+      <button onclick="document.getElementById('review-modal').classList.add('hidden'); document.getElementById('review-success').classList.add('hidden'); document.getElementById('review-form').classList.remove('hidden');" class="btn-secondary w-full mt-6">Close</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const stars = document.querySelectorAll('#star-selector span');
+  const ratingInput = document.getElementById('review-rating');
+  
+  stars.forEach(star => {
+    star.addEventListener('mouseover', function() {
+      const val = parseInt(this.getAttribute('data-val'));
+      stars.forEach(s => {
+        if(parseInt(s.getAttribute('data-val')) <= val) {
+          s.style.color = 'var(--color-gold)';
+          s.style.fontVariationSettings = "'FILL' 1";
+        } else {
+          s.style.color = '';
+          s.style.fontVariationSettings = "'FILL' 0";
+        }
+      });
+    });
+    
+    star.addEventListener('mouseout', function() {
+      const selected = parseInt(ratingInput.value);
+      stars.forEach(s => {
+        if(parseInt(s.getAttribute('data-val')) <= selected) {
+          s.style.color = 'var(--color-gold)';
+          s.style.fontVariationSettings = "'FILL' 1";
+        } else {
+          s.style.color = '';
+          s.style.fontVariationSettings = "'FILL' 0";
+        }
+      });
+    });
+    
+    star.addEventListener('click', function() {
+      ratingInput.value = parseInt(this.getAttribute('data-val'));
+    });
+  });
+
+  async function loadStoreReviews() {
+    try {
+      if (typeof getStoreReviews !== 'function') return;
+      const reviews = await getStoreReviews();
+      const container = document.getElementById('reviews-container');
+      
+      if (!reviews || reviews.length === 0) {
+        container.innerHTML = '<p class="text-muted text-[13px] italic col-span-1 md:col-span-3 text-center py-10">No reviews yet. Be the first to share your experience!</p>';
+        return;
+      }
+      
+      const displayReviews = reviews.slice(0, 3);
+      
+      container.innerHTML = displayReviews.map(r => `<div class="bg-surface p-6 border border-border rounded-md flex flex-col h-full hover:shadow-lg transition-shadow duration-300">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-full bg-tint flex items-center justify-center text-ink font-serif text-lg">${r.guest_name.charAt(0).toUpperCase()}</div>
+            <div>
+              <p class="text-ink font-semibold text-[13px]">${r.guest_name}</p>
+              <div class="flex text-gold text-[12px] mt-0.5">${Array(r.rating).fill('<span class="material-symbols-outlined text-[14px]" style="font-variation-settings:\'FILL\' 1;">star</span>').join('')}</div>
+            </div>
+          </div>
+          <p class="text-ink text-[13px] font-sans italic leading-relaxed flex-grow">\"${r.review_text}\"</p>
+          <p class="text-[10px] text-muted mt-4 uppercase tracking-widest">${new Date(r.created_at).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}</p>
+        </div>`).join('');
+    } catch (err) {
+      console.error('Failed to load reviews:', err);
+    }
+  }
+
+  async function handleReviewSubmit(e) {
+    e.preventDefault();
+    const rating = parseInt(document.getElementById('review-rating').value);
+    const name = document.getElementById('review-name').value.trim();
+    const text = document.getElementById('review-text').value.trim();
+    
+    if (rating === 0) {
+      alert('Please select a star rating');
+      return;
+    }
+    
+    const btn = document.getElementById('submit-review-btn');
+    btn.disabled = true;
+    btn.innerHTML = 'Submitting...';
+    
+    try {
+      await submitStoreReview({ guest_name: name, rating: rating, review_text: text });
+      document.getElementById('review-form').reset();
+      ratingInput.value = 0;
+      stars.forEach(s => { s.style.color = ''; s.style.fontVariationSettings = "'FILL' 0"; });
+      document.getElementById('review-form').classList.add('hidden');
+      document.getElementById('review-success').classList.remove('hidden');
+    } catch (err) {
+      alert('Error submitting review. Please try again.');
+      console.error(err);
+    } finally {
+      btn.disabled = false;
+      btn.innerHTML = 'Submit Review';
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', loadStoreReviews);
+</script>
 </body>
 </html>

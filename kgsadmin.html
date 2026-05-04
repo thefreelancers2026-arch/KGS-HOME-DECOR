@@ -59,6 +59,9 @@
       <a href="#" data-page="products" onclick="showPage('products')">
         <span class="material-symbols-outlined" style="font-size:20px">inventory_2</span> Products
       </a>
+      <a href="#" data-page="reviews" onclick="showPage('reviews')">
+        <span class="material-symbols-outlined" style="font-size:20px">rate_review</span> Reviews
+      </a>
       <a href="#" data-page="orders" onclick="showPage('orders')">
         <span class="material-symbols-outlined" style="font-size:20px">receipt_long</span> Orders
       </a>
@@ -119,6 +122,26 @@
           <button id="btn-next" class="btn btn-outline btn-sm" onclick="changePage(1)" disabled>Next</button>
         </div>
       </div>
+    </section>
+
+    
+    <!-- ── REVIEWS ────────────────────────────────────────── -->
+    <section id="page-reviews" class="page-section" style="display:none">
+      <div class="page-header">
+        <h1>Store Reviews</h1>
+        <div style="display:flex;gap:12px">
+          <select id="review-filter" onchange="loadAdminReviews()" style="padding:8px; border-radius:4px; border:1px solid var(--border)">
+            <option value="pending">Pending Approval</option>
+            <option value="approved">Approved</option>
+          </select>
+        </div>
+      </div>
+      <table class="data-table">
+        <thead>
+          <tr><th>Date</th><th>Name</th><th>Rating</th><th>Review Text</th><th>Actions</th></tr>
+        </thead>
+        <tbody id="reviews-tbody"></tbody>
+      </table>
     </section>
 
     <!-- ── ORDERS ─────────────────────────────────────────── -->
