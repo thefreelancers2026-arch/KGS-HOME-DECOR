@@ -287,7 +287,7 @@ input:focus { border-color: rgba(26, 26, 26, 0.25) !important; box-shadow: 0 10p
 </div>
 
 <!-- CATEGORY PILLS -->
-<div class="bg-surface border-b border-border py-4 overflow-x-auto no-scrollbar w-full" style="-webkit-overflow-scrolling: touch;">
+<div class="bg-surface border-b border-border py-4 overflow-x-auto no-scrollbar w-full" style="-webkit-overflow-scrolling: touch; overscroll-behavior-x: contain;">
     <div class="flex items-center gap-2 px-4 md:px-12 whitespace-nowrap w-max pr-8 md:pr-12">
     <button data-cat="all" class="filter-btn text-[11px] font-semibold tracking-wide uppercase px-4 py-2 border border-border text-muted hover:border-warm hover:text-ink transition-colors shrink-0">All</button>
     <button data-cat="furniture" class="filter-btn text-[11px] font-semibold tracking-wide uppercase px-4 py-2 border border-border text-muted hover:border-warm hover:text-ink transition-colors shrink-0">Furniture</button>
@@ -312,7 +312,7 @@ input:focus { border-color: rgba(26, 26, 26, 0.25) !important; box-shadow: 0 10p
 <!-- MAIN CONTENT -->
 <main class="max-w-[90rem] mx-auto px-5 md:px-12 py-12">
   <!-- Skeleton Grid (shown during load) -->
-  <div id="skeleton-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-5 w-full max-w-[100vw] px-4 md:w-auto md:max-w-none md:px-0">
+  <div id="skeleton-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-5 w-full max-w-full px-4 md:w-auto md:max-w-none md:px-0">
     <!-- Skeleton Card 1 -->
     <div class="prod-card border border-border bg-surface">
       <div class="skeleton aspect-square w-full"></div>
@@ -395,7 +395,7 @@ input:focus { border-color: rgba(26, 26, 26, 0.25) !important; box-shadow: 0 10p
     </div>
   </div>
 
-  <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-5 w-full max-w-[100vw] px-4 md:w-auto md:max-w-none md:px-0" style="display:none;"></div>
+  <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-5 w-full max-w-full px-4 md:w-auto md:max-w-none md:px-0" style="display:none;"></div>
   
   <div id="no-products" style="display:none; text-align:center; padding:3rem; color:#888;">No products in this category.</div>
 
