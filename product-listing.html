@@ -270,7 +270,7 @@ input:focus { border-color: rgba(26, 26, 26, 0.25) !important; box-shadow: 0 10p
     <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
       <div>
         <h1 class="font-serif font-medium text-ink" style="font-size:clamp(1.9rem,3.5vw,3rem);">All Products</h1>
-        <p class="text-muted text-[14px] mt-1">Furniture · Décor · Lighting · Lifestyle · Plants · Gifts</p>
+        <p class="text-muted text-[14px] mt-1">Furniture · Décor · Wall Décor · Lighting · Lifestyle & Accessories · Vases & Plants · Gifts</p>
       </div>
       <!-- Sort + Filter -->
       <div class="flex items-center gap-3">
@@ -291,9 +291,11 @@ input:focus { border-color: rgba(26, 26, 26, 0.25) !important; box-shadow: 0 10p
     <div class="flex items-center gap-2 px-5 md:px-12 w-max pr-8 md:pr-12">
     <button data-cat="all" class="filter-btn text-[11px] font-semibold tracking-wide uppercase px-4 py-2 border border-border text-muted hover:border-warm hover:text-ink transition-colors shrink-0">All</button>
     <button data-cat="furniture" class="filter-btn text-[11px] font-semibold tracking-wide uppercase px-4 py-2 border border-border text-muted hover:border-warm hover:text-ink transition-colors shrink-0">Furniture</button>
-    <button data-cat="lifestyle" class="filter-btn text-[11px] font-semibold tracking-wide uppercase px-4 py-2 border border-border text-muted hover:border-warm hover:text-ink transition-colors shrink-0">Lifestyle &amp; Accessories</button>
+    <button data-cat="decor" class="filter-btn text-[11px] font-semibold tracking-wide uppercase px-4 py-2 border border-border text-muted hover:border-warm hover:text-ink transition-colors shrink-0">Décor</button>
+    <button data-cat="wall-decor" class="filter-btn text-[11px] font-semibold tracking-wide uppercase px-4 py-2 border border-border text-muted hover:border-warm hover:text-ink transition-colors shrink-0">Wall Décor</button>
     <button data-cat="lighting" class="filter-btn text-[11px] font-semibold tracking-wide uppercase px-4 py-2 border border-border text-muted hover:border-warm hover:text-ink transition-colors shrink-0">Lighting</button>
-    <button data-cat="vases-plants" class="filter-btn text-[11px] font-semibold tracking-wide uppercase px-4 py-2 border border-border text-muted hover:border-warm hover:text-ink transition-colors shrink-0">Vases &amp; Plants</button>
+    <button data-cat="lifestyle" class="filter-btn text-[11px] font-semibold tracking-wide uppercase px-4 py-2 border border-border text-muted hover:border-warm hover:text-ink transition-colors shrink-0">Lifestyle &amp; Accessories</button>
+    <button data-cat="plants" class="filter-btn text-[11px] font-semibold tracking-wide uppercase px-4 py-2 border border-border text-muted hover:border-warm hover:text-ink transition-colors shrink-0">Vases &amp; Plants</button>
     <button data-cat="gifts" class="filter-btn text-[11px] font-semibold tracking-wide uppercase px-4 py-2 border border-border text-muted hover:border-warm hover:text-ink transition-colors shrink-0">Gifts</button>
   </div>
 <script>
@@ -423,10 +425,13 @@ input:focus { border-color: rgba(26, 26, 26, 0.25) !important; box-shadow: 0 10p
       <h4 class="text-ink text-[11px] tracking-[.18em] uppercase font-bold mb-6">Shop</h4>
       <ul class="space-y-4 text-[13px] text-muted font-medium">
         <li><a href="product-listing.html" class="hover:text-gold transition-colors">All Products</a></li>
-        <li><a href="product-listing.html?cat=furniture" class="hover:text-gold transition-colors">Sofas & Furniture</a></li>
+        <li><a href="product-listing.html?cat=furniture" class="hover:text-gold transition-colors">Furniture</a></li>
         <li><a href="product-listing.html?cat=decor" class="hover:text-gold transition-colors">Décor</a></li>
-          <li><a href="product-listing.html?cat=lifestyle" class="hover:text-gold transition-colors">Lifestyle & Accessories</a></li>
-        
+        <li><a href="product-listing.html?cat=wall-decor" class="hover:text-gold transition-colors">Wall Décor</a></li>
+        <li><a href="product-listing.html?cat=lighting" class="hover:text-gold transition-colors">Lighting</a></li>
+        <li><a href="product-listing.html?cat=lifestyle" class="hover:text-gold transition-colors">Lifestyle & Accessories</a></li>
+        <li><a href="product-listing.html?cat=plants" class="hover:text-gold transition-colors">Vases & Plants</a></li>
+        <li><a href="product-listing.html?cat=gifts" class="hover:text-gold transition-colors">Gifts</a></li>
       </ul>
     </div>
     <div>
