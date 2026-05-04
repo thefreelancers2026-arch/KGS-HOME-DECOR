@@ -5,7 +5,7 @@
 <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
 <link rel="icon" type="image/png" href="assets/images/favicon.png">
 <meta name="theme-color" content="#1A1A1A">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
 <title>Shop All Products — KGS Home Décors | Virudhachalam</title>
 <meta name="description" content="Browse KGS Home Décors full collection — sofas, wall clocks, fountains, wall art, photo frames, LED lights, artificial plants & gift items. 5.0 ★ Google. Secure Online Payments. Free delivery in Virudhachalam.">
 <link rel="canonical" href="https://kgshomedecors.in/product-listing.html">
@@ -26,7 +26,24 @@ tailwind.config = {
 }
 </script>
 <style>
-html, body { overflow-x: hidden; overscroll-behavior-x: none; max-width: 100%; width: 100%; position: relative; margin: 0; padding: 0; }
+/* ——— MOBILE SCROLL LOCK ————————————————————————— */
+html {
+  overflow-x: hidden;
+  overscroll-behavior-x: none;
+}
+body {
+  overflow-x: hidden;
+  overscroll-behavior-x: none;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+/* Hide ANY content that escapes viewport on mobile */
+@media (max-width: 768px) {
+  html, body {
+    overflow-x: clip; /* clip is stronger than hidden — no scroll propagation */
+  }
+}
 
 /* ——— EMIL DESIGN ENG VARIABLES ————————————————— */
 :root {
@@ -134,14 +151,7 @@ body{-webkit-font-smoothing:antialiased;}
 .pag-btn.active { background: #1A1A1A; border-color: #1A1A1A; color: #fff; }
 .pag-btn.disabled { opacity: .3; pointer-events: none; }
 
-/* ——— GLOBAL LAYOUT FIXES ————————————————————————— */
-html, body {
-  overflow-x: hidden;
-  width: 100%;
-  position: relative;
-  margin: 0;
-  padding: 0;
-}
+/* ——— GLOBAL LAYOUT FIXES (merged into top block) ——— */
 img {
   max-width: 100%;
 }
@@ -170,8 +180,7 @@ input:focus { border-color: rgba(26, 26, 26, 0.25) !important; box-shadow: 0 10p
 <link rel="canonical" href="https://kgshomedecors.com/product-listing">
 <link rel="manifest" href="/manifest.json">
 </head>
-<body class="bg-base text-ink font-sans overflow-x-hidden overflow-y-scroll">
-<div class="w-full overflow-x-hidden relative min-h-screen">
+<body class="bg-base text-ink font-sans">
 
 <!-- ANNOUNCEMENT BAR -->
 <div class="bg-ink text-white/50 text-[10px] font-medium tracking-[.25em] uppercase text-center py-2.5">
@@ -287,8 +296,8 @@ input:focus { border-color: rgba(26, 26, 26, 0.25) !important; box-shadow: 0 10p
 </div>
 
 <!-- CATEGORY PILLS -->
-<div class="bg-surface border-b border-border py-4 overflow-x-auto no-scrollbar w-full" style="-webkit-overflow-scrolling: touch; overscroll-behavior-x: contain;">
-    <div class="flex items-center gap-2 px-4 md:px-12 whitespace-nowrap w-max pr-8 md:pr-12">
+<div class="bg-surface border-b border-border py-4 w-full" style="overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; overscroll-behavior-x: contain;">
+    <div class="flex items-center gap-2 px-4 md:px-12 pr-8 md:pr-12" style="width: max-content; white-space: nowrap;">
     <button data-cat="all" class="filter-btn text-[11px] font-semibold tracking-wide uppercase px-4 py-2 border border-border text-muted hover:border-warm hover:text-ink transition-colors shrink-0">All</button>
     <button data-cat="furniture" class="filter-btn text-[11px] font-semibold tracking-wide uppercase px-4 py-2 border border-border text-muted hover:border-warm hover:text-ink transition-colors shrink-0">Furniture</button>
     <button data-cat="decor" class="filter-btn text-[11px] font-semibold tracking-wide uppercase px-4 py-2 border border-border text-muted hover:border-warm hover:text-ink transition-colors shrink-0">Décor</button>
