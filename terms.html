@@ -40,9 +40,7 @@ body{-webkit-font-smoothing:antialiased;}
 .step-card{border:1px solid #E4DDD4;background: #FDF9F3;padding:24px;text-align:center;transition:border-color .25s;}
 .step-card:hover{border-color:#C5A880;}
 #mobile-drawer{transition:transform .42s cubic-bezier(.77,0,.18,1);}
-#wa-float{animation:wa-pulse 2.5s ease-in-out infinite;}
-#wa-float:hover{animation:none;transform:scale(1.08);}
-@keyframes wa-pulse{0%,100%{box-shadow:0 4px 20px rgba(37,211,102,0.45);}50%{box-shadow:0 4px 32px rgba(37,211,102,0.75),0 0 0 8px rgba(37,211,102,0.10);}}
+
 img{max-width:100%;}
 
 /* --- PREMIUM OVERRIDES --- */
@@ -76,7 +74,6 @@ input:focus { border-color: rgba(26, 26, 26, 0.25) !important; box-shadow: 0 10p
   Free Delivery in Virudhachalam &nbsp;·&nbsp; Cash on Delivery &nbsp;·&nbsp; Open 10 AM – 10 PM, Every Day
 </div>
 
-
 <div id="drw-ov" class="fixed inset-0 bg-ink/40 z-50 hidden backdrop-blur-sm transition-opacity" onclick="closeDrw()"></div>
 <div id="mobile-drawer" class="fixed inset-y-0 right-0 z-50 w-[300px] bg-surface flex flex-col translate-x-full shadow-2xl transition-transform duration-300 ease-out">
   <div class="flex items-center justify-between px-6 py-6 border-b border-border">
@@ -86,23 +83,16 @@ input:focus { border-color: rgba(26, 26, 26, 0.25) !important; box-shadow: 0 10p
   <nav class="flex flex-col px-6 pt-8 gap-6 overflow-y-auto">
     <a href="index.html" class="nav-link text-[13px] normal-case font-medium tracking-normal text-ink text-left">Home</a>
     <a href="product-listing.html" class="nav-link text-[13px] normal-case font-medium tracking-normal text-ink text-left">Shop All</a>
-    <a href="product-listing.html?cat=new" class="nav-link text-[13px] normal-case font-medium tracking-normal text-ink text-left">New Arrivals</a>
     <a href="about.html" class="nav-link text-[13px] normal-case font-medium tracking-normal text-ink text-left">Our Story</a>
     <a href="contact.html" class="nav-link text-[13px] normal-case font-medium tracking-normal text-ink text-left">Showroom & Contact</a>
     <a href="order-tracking.html" class="nav-link text-[13px] normal-case font-medium tracking-normal text-ink text-left">Track Order</a>
+    <a href="account.html" class="nav-link text-[13px] normal-case font-medium tracking-normal text-ink text-left">My Account</a>
   </nav>
   <div class="mt-auto px-6 py-8 border-t border-border bg-tint space-y-5">
     <a href="tel:+919789182921" class="flex items-center gap-3 text-sm text-ink font-medium"><span class="material-symbols-outlined text-[20px] text-gold">call</span> +91 97891 82921</a>
     <a href="https://wa.me/919789182921" target="_blank" class="flex items-center gap-3 text-sm text-ink font-medium"><span class="material-symbols-outlined text-[20px] text-[#25D366]">chat</span> WhatsApp Us</a>
   </div>
 </div>
-
-
-<!-- ══ WHATSAPP FLOAT ═══════════════════════════════════════ -->
-<a href="https://wa.me/919789182921?text=Hi%20KGS%2C%20I%20need%20help"
-   target="_blank" rel="noopener noreferrer" class="fixed bottom-20 right-5 z-30 w-12 h-12 bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-[0_4px_20px_rgba(37,211,102,0.4)] hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(37,211,102,0.4)] transition-all duration-300" aria-label="Chat on WhatsApp">
-  <svg viewBox="0 0 24 24" fill="currentColor" class="w-7 h-7"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-</a>
 
 <!-- ══ SEARCH OVERLAY ═══════════════════════════════════════ -->
 <div id="search-overlay" onclick="if(event.target===this)closeSearch()" class="fixed inset-0 z-[100] bg-surface/95 backdrop-blur-md hidden flex-col items-center pt-24 px-5">
@@ -127,12 +117,11 @@ input:focus { border-color: rgba(26, 26, 26, 0.25) !important; box-shadow: 0 10p
     <div class="hidden md:flex items-center gap-10">
       <a href="index.html" class="nav-link">Home</a>
       <a href="product-listing.html" class="nav-link">Shop</a>
-      <a href="product-listing.html?cat=new" class="nav-link">New Arrivals</a>
       <a href="about.html" class="nav-link">Our Story</a>
     </div>
-    <div class="flex items-center gap-6 md:gap-7 text-ink">
+    <div class="flex items-center gap-4 md:gap-7 text-ink">
       <button onclick="openSearch()" aria-label="Search" class="hover:text-gold transition-colors bg-transparent border-none cursor-pointer p-0 flex items-center"><span class="material-symbols-outlined text-[22px]">search</span></button>
-      <a href="account-login.html" aria-label="Account" class="hidden md:flex hover:text-gold transition-colors items-center">
+      <a href="account.html" aria-label="Account" class="flex hover:text-gold transition-colors items-center">
         <span class="material-symbols-outlined text-[22px]">person</span>
       </a>
       <a href="wishlist.html" aria-label="Wishlist" class="relative hover:text-gold transition-colors flex items-center">
@@ -151,7 +140,7 @@ input:focus { border-color: rgba(26, 26, 26, 0.25) !important; box-shadow: 0 10p
 </nav>
 
 <!-- PAGE HEADER -->
-<div class="bg-tint border-b border-border py-14 px-5">
+<div class="bg-tint border-b border-border pt-[120px] pb-14 px-5">
   <div class="max-w-3xl mx-auto">
     <nav class="flex items-center gap-2 text-[11px] text-muted uppercase tracking-[.2em] font-medium mb-5">
       <a href="index.html" class="hover:text-ink transition-colors">Home</a>
@@ -301,7 +290,6 @@ input:focus { border-color: rgba(26, 26, 26, 0.25) !important; box-shadow: 0 10p
 
 </main>
 
-
 <!-- ══ FOOTER ═══════════════════════════════════════════════ -->
 
 <footer class="bg-surface pt-16 md:pt-24 pb-8 border-t border-border">
@@ -321,8 +309,7 @@ input:focus { border-color: rgba(26, 26, 26, 0.25) !important; box-shadow: 0 10p
         <li><a href="product-listing.html" class="hover:text-gold transition-colors">All Products</a></li>
         <li><a href="product-listing.html?cat=sofas" class="hover:text-gold transition-colors">Sofas & Furniture</a></li>
         <li><a href="product-listing.html?cat=decor" class="hover:text-gold transition-colors">Decor & Accessories</a></li>
-        <li><a href="product-listing.html?cat=new" class="hover:text-gold transition-colors">New Arrivals</a></li>
-      </ul>
+        </ul>
     </div>
     <div>
       <h4 class="text-ink text-[11px] tracking-[.18em] uppercase font-bold mb-6">Support</h4>
@@ -356,31 +343,13 @@ input:focus { border-color: rgba(26, 26, 26, 0.25) !important; box-shadow: 0 10p
 const lenis = new Lenis();
 function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
 requestAnimationFrame(raf);
-function openDrw(){ document.getElementById('mobile-drawer').style.transform='translateX(0)'; document.getElementById('drw-ov').classList.remove('hidden'); document.body.style.overflow='hidden'; }
-function closeDrw(){ document.getElementById('mobile-drawer').style.transform='translateX(100%)'; document.getElementById('drw-ov').classList.add('hidden'); document.body.style.overflow=''; }
+
 document.addEventListener('DOMContentLoaded', () => { if(typeof updateCartBadge==='function') updateCartBadge(); });
 </script>
 <script>
 
 /* ——— SEARCH ———————————————————————————————— */
-function openSearch(){
-  document.getElementById('search-overlay').style.display='flex';
-  document.getElementById('search-input').focus();
-  document.body.style.overflow='hidden';
-}
-function closeSearch(){
-  document.getElementById('search-overlay').style.display='none';
-  document.getElementById('search-input').value='';
-  document.getElementById('search-results').innerHTML='';
-  document.body.style.overflow='';
-}
-async function doSearch(q){
-  const res=document.getElementById('search-results');
-  if(!q.trim()){res.innerHTML='';return;}
-  if(!window.kgsFuse) {
-    const products = await initStore();
-    window.kgsFuse = new Fuse(products, {keys:['name','category'], threshold:0.3});
-  }
+
   const matches = window.kgsFuse.search(q).map(r=>r.item);
   if(matches.length===0){
     res.innerHTML='<p style="color:#767270;font-size:13px;padding:12px 16px;">No results found. <a href="product-listing.html" style="color:#C97840;text-decoration:underline;">Browse all products &rarr;</a></p>';
@@ -395,9 +364,15 @@ async function doSearch(q){
       </a>`).join('');
   }
 }
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSearch();});
 
 </script>
 <script>if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catch(()=>{});}</script>
+
+<!-- ══ WHATSAPP FLOAT ═══════════════════════════════════════ -->
+<a href="https://wa.me/919789182921?text=Hi%20KGS%2C%20I%20need%20help"
+   target="_blank" rel="noopener noreferrer" class="fixed bottom-6 right-6 z-50 w-14 h-14 bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-[0_4px_20px_rgba(37,211,102,0.4)] hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(37,211,102,0.6)] transition-all duration-300" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
 </body>
 </html>
