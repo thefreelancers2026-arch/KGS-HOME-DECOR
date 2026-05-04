@@ -222,13 +222,27 @@
       <div class="form-row">
         <div class="form-group">
           <label>Category *</label>
-          <select id="f-category" required>
+          <select id="f-category" required class="native-hidden" onchange="updateCustomSelect(this)">
             <option value="furniture">Furniture</option>
-            <option value="decor">Decor</option>
+            <option value="decor">Décor</option>
+            <option value="wall-decor">Wall Décor</option>
             <option value="lighting">Lighting</option>
-            <option value="vases-plants">Vases & Plants</option>
-            <option value="gifts">Gifts & More</option>
+            <option value="lifestyle">Lifestyle & Accessories</option>
+            <option value="plants">Vases & Plants</option>
+            <option value="gifts">Gifts</option>
           </select>
+          <div class="custom-select" id="custom-category" tabindex="0">
+            <div class="cs-value">Furniture</div>
+            <div class="cs-options">
+              <div class="cs-opt" data-val="furniture">Furniture</div>
+              <div class="cs-opt" data-val="decor">Décor</div>
+              <div class="cs-opt" data-val="wall-decor">Wall Décor</div>
+              <div class="cs-opt" data-val="lighting">Lighting</div>
+              <div class="cs-opt" data-val="lifestyle">Lifestyle & Accessories</div>
+              <div class="cs-opt" data-val="plants">Vases & Plants</div>
+              <div class="cs-opt" data-val="gifts">Gifts</div>
+            </div>
+          </div>
         </div>
         <div class="form-group">
           <label>Material</label>
