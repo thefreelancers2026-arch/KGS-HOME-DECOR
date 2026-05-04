@@ -277,8 +277,7 @@ input:focus { border-color: rgba(26, 26, 26, 0.25) !important; box-shadow: 0 10p
 <div><label class="form-label">Notes (optional)</label><textarea id="ship-notes" class="form-input" rows="2" placeholder="Special instructions..."></textarea></div>
 <h3 class="font-serif font-medium text-ink text-lg mt-6 mb-4">Payment Method</h3>
 <div class="space-y-3">
-<label class="pay-option selected" onclick="selectPay(this,'cod')"><input type="radio" name="pay" value="cod" checked style="display:none;"><span class="material-symbols-outlined text-warm">payments</span><div><p class="text-[14px] font-medium text-ink">Cash on Delivery</p><p class="text-[12px] text-muted">Pay when delivered</p></div></label>
-<label class="pay-option" onclick="selectPay(this,'upi')"><input type="radio" name="pay" value="upi" style="display:none;"><span class="material-symbols-outlined text-warm">qr_code_2</span><div><p class="text-[14px] font-medium text-ink">UPI Payment</p><p class="text-[12px] text-muted">GPay, PhonePe, Paytm</p></div></label>
+<label class="pay-option selected" onclick="selectPay(this,'upi')"><input type="radio" name="pay" value="upi" checked style="display:none;"><span class="material-symbols-outlined text-warm">qr_code_2</span><div><p class="text-[14px] font-medium text-ink">UPI Payment</p><p class="text-[12px] text-muted">GPay, PhonePe, Paytm</p></div></label>
 </div>
 <div class="flex gap-4 mt-8">
 <button type="button" onclick="backToCart()" class="btn-secondary flex-1">Back</button>
@@ -411,7 +410,7 @@ function showReview() {
     `<div class="flex justify-between text-[13.5px]"><span class="text-muted">${i.name} x ${i.quantity}</span><span class="font-medium">${formatINR(i.price * i.quantity)}</span></div>`
   ).join('');
   document.getElementById('review-total').textContent = formatINR(total);
-  document.getElementById('review-payment').textContent = payMethod === 'cod' ? 'Cash on Delivery' : 'UPI Payment';
+  document.getElementById('review-payment').textContent = 'UPI Payment';
 
   document.getElementById('shipping-step').style.display = 'none';
   document.getElementById('review-step').style.display = 'block';
@@ -481,7 +480,7 @@ async function placeOrder() {
     `NEW ORDER ${orderData.order_id}\n` +
     `Name: ${orderData.name}\nPhone: ${orderData.phone}\n` +
     `Address: ${orderData.address}, ${orderData.city} - ${orderData.pincode}\n` +
-    `Payment: ${orderData.payment === 'cod' ? 'COD' : 'UPI'}\n\n` +
+    `Payment: ${'UPI'}\n\n` +
     `Items:\n${cart.map(i => `${i.name} x${i.quantity} = ${formatINR(i.price*i.quantity)}`).join('\n')}\n\n` +
     `TOTAL: ${formatINR(total)}`
   );
