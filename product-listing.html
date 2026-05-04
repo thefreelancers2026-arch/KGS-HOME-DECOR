@@ -26,6 +26,8 @@ tailwind.config = {
 }
 </script>
 <style>
+html, body { overflow-x: hidden; overscroll-behavior-x: none; max-width: 100vw; width: 100%; position: relative; margin: 0; padding: 0; }
+
 /* ——— EMIL DESIGN ENG VARIABLES ————————————————— */
 :root {
   --ease-out-punch: cubic-bezier(0.23, 1, 0.32, 1);
@@ -285,7 +287,7 @@ input:focus { border-color: rgba(26, 26, 26, 0.25) !important; box-shadow: 0 10p
 </div>
 
 <!-- CATEGORY PILLS -->
-<div class="bg-surface border-b border-border py-4 overflow-x-auto no-scrollbar w-full max-w-full" style="-webkit-overflow-scrolling: touch; overscroll-behavior-x: contain;">
+<div class="bg-surface border-b border-border py-4 overflow-x-auto no-scrollbar w-full max-w-full" style="-webkit-overflow-scrolling: touch; overscroll-behavior-x: contain; touch-action: pan-x pan-y;">
     <div class="flex items-center gap-2 px-5 md:px-12 min-w-max pr-8 md:pr-12">
     <button data-cat="all" class="filter-btn text-[11px] font-semibold tracking-wide uppercase px-4 py-2 border border-border text-muted hover:border-warm hover:text-ink transition-colors shrink-0">All</button>
     <button data-cat="furniture" class="filter-btn text-[11px] font-semibold tracking-wide uppercase px-4 py-2 border border-border text-muted hover:border-warm hover:text-ink transition-colors shrink-0">Furniture</button>

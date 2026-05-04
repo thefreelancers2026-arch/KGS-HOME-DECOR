@@ -37,6 +37,8 @@ tailwind.config = {
 }
 </script>
 <style>
+html, body { overflow-x: hidden; overscroll-behavior-x: none; max-width: 100vw; width: 100%; position: relative; margin: 0; padding: 0; }
+
 /* ——— EMIL DESIGN ENG VARIABLES ————————————————— */
 :root {
   --ease-out-punch: cubic-bezier(0.23, 1, 0.32, 1);
@@ -308,7 +310,7 @@ html.lenis, html.lenis body { height: auto; }
       <a href="product-listing.html" class="text-[10px] font-bold tracking-[.15em] uppercase text-ink border-b border-ink/20 pb-1 hover:border-ink transition-colors">VIEW ALL CATEGORIES</a>
     </div>
     
-    <div class="flex overflow-x-auto md:flex-wrap md:justify-center gap-4 md:gap-8 gsap-rv pb-4 md:pb-0 no-scrollbar">
+    <div class="flex overflow-x-auto md:flex-wrap md:justify-center gap-4 md:gap-8 gsap-rv pb-4 md:pb-0 no-scrollbar w-full max-w-full" style="-webkit-overflow-scrolling: touch; overscroll-behavior-x: contain; touch-action: pan-x pan-y;">
       <a href="product-listing.html?cat=furniture" class="group flex flex-col items-center gap-4 text-center w-[140px] md:w-[160px] shrink-0">
         <div class="w-full aspect-square bg-base border border-border overflow-hidden rounded-md transition-all duration-300 group-hover:border-gold group-hover:shadow-lg">
           <img src="assets/images/categories/cat_sofas.png" alt="Furniture" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
