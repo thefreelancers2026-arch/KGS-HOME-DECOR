@@ -37,7 +37,21 @@ tailwind.config = {
 }
 </script>
 <style>
-html, body { overflow-x: hidden; overscroll-behavior-x: none; max-width: 100%; width: 100%; position: relative; margin: 0; padding: 0; }
+html, body { 
+  overflow-x: hidden; 
+  overscroll-behavior-x: none; 
+  max-width: 100%; 
+  width: 100%; 
+  position: relative; 
+  margin: 0; 
+  padding: 0; 
+}
+#page-wrap {
+  width: 100%;
+  overflow-x: hidden;
+  position: relative;
+  contain: paint;
+}
 
 /* ——— EMIL DESIGN ENG VARIABLES ————————————————— */
 :root {
@@ -179,6 +193,7 @@ html.lenis, html.lenis body { height: auto; }
 </style>
 </head>
 <body class="bg-base text-ink font-sans overflow-x-hidden overflow-y-scroll">
+<div id="page-wrap">
 
 <!-- ══ TOAST NOTIFICATION ═══════════════════════════════════ -->
 <div id="cart-toast" class="fixed bottom-[80px] left-1/2 -translate-x-1/2 bg-ink text-white px-7 py-3.5 z-[100] font-sans text-[13px] font-medium flex items-center gap-3 shadow-2xl opacity-0 pointer-events-none transition-all duration-300">
@@ -935,5 +950,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.addEventListener('DOMContentLoaded', loadStoreReviews);
 </script>
+</div><!-- /page-wrap -->
 </body>
 </html>

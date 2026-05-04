@@ -2,7 +2,7 @@
    KGS Home Décors — Service Worker
    Cache-first for static assets, network-first for API
 ═══════════════════════════════════════════════════════════ */
-const CACHE_NAME = 'kgs-v11';
+const CACHE_NAME = 'kgs-v13';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
