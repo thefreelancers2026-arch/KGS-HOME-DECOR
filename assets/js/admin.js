@@ -129,6 +129,12 @@ async function editProduct(id){
   document.getElementById('f-material').value=p.material||'';
   document.getElementById('f-desc').value=p.description||'';
   document.querySelectorAll('.f-tag').forEach(cb=>{cb.checked=(p.tags||[]).includes(cb.value);});
+  
+  // Extract custom specifications (tags with colons)
+  const specs = (p.tags||[]).filter(t => t.includes(':'));
+  const specsInput = document.getElementById('f-specs');
+  if (specsInput) specsInput.value = specs.join('\n');
+
   document.getElementById('f-instock').checked=p.in_stock;
   const prev=document.getElementById('img-preview');
   prev.innerHTML='';
@@ -160,6 +166,13 @@ async function saveProduct(e){
     }
   }
   const name=document.getElementById('f-name').value.trim();
+  
+  // Parse specifications
+  const specLines = document.getElementById('f-specs').value.split('\n')
+                      .filter(l => l.trim().includes(':'))
+                      .map(l => l.trim());
+  const checkboxTags = [...document.querySelectorAll('.f-tag:checked')].map(cb=>cb.value);
+
   const product={
     name,
     handle:document.getElementById('f-handle').value.trim()||name.toLowerCase().replace(/[^a-z0-9]+/g,'-'),
@@ -169,7 +182,7 @@ async function saveProduct(e){
     stock_quantity:parseInt(document.getElementById('f-stock').value)||0,
     material:document.getElementById('f-material').value.trim()||null,
     description:document.getElementById('f-desc').value.trim(),
-    tags:[...document.querySelectorAll('.f-tag:checked')].map(cb=>cb.value),
+    tags: [...checkboxTags, ...specLines],
     in_stock:document.getElementById('f-instock').checked,
     is_active:true,
   };
