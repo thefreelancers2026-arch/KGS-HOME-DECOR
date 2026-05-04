@@ -265,15 +265,156 @@ async function updateOrderStatus(id,status){
   else toast('Order status updated to: '+status);
 }
 
+
 // ─── DASHBOARD ────────────────────────────────────────────
 async function loadDashboard(){
-  const{count:productCount}=await sb.from('products').select('*',{count:'exact',head:true});
-  const{count:orderCount}=await sb.from('orders').select('*',{count:'exact',head:true});
-  const{data:orders}=await sb.from('orders').select('total');
-  const revenue=orders?orders.reduce((s,o)=>s+Number(o.total),0):0;
-  document.getElementById('stat-products').textContent=productCount||0;
-  document.getElementById('stat-orders').textContent=orderCount||0;
-  document.getElementById('stat-revenue').textContent='₹'+revenue.toLocaleString('en-IN');
+  try {
+    // Basic Counts
+    const {count:orderCount} = await sb.from('orders').select('*',{count:'exact',head:true});
+    const {count:pendingCount} = await sb.from('orders').select('*',{count:'exact',head:true}).in('status', ['placed', 'confirmed']);
+    
+    // Low Stock Products
+    const {data:lowStock} = await sb.from('products').select('id, name, stock_quantity').eq('is_active', true).eq('in_stock', false).limit(4);
+    
+    // Recent Orders
+    const {data:recentOrders} = await sb.from('orders').select('order_number, customer_name, shipping_name, total, created_at, status').order('created_at', {ascending:false}).limit(4);
+    
+    // Last 7 Days Revenue (Total)
+    // We fetch last 30 days upfront so we can render either 7 or 30
+    const thirtyDaysAgo = new Date();
+    thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 29);
+    thirtyDaysAgo.setHours(0,0,0,0);
+    
+    const {data:graphOrders} = await sb.from('orders').select('total, created_at, status').gte('created_at', thirtyDaysAgo.toISOString());
+    window.allGraphOrders = graphOrders || []; // cache for the toggle
+    
+    let totalRevenue7Days = 0;
+    
+    const sevenDaysAgo = new Date();
+    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 6);
+    sevenDaysAgo.setHours(0,0,0,0);
+
+    if(graphOrders) {
+      graphOrders.forEach(o => {
+        if(o.status !== 'cancelled' && new Date(o.created_at) >= sevenDaysAgo) {
+          totalRevenue7Days += Number(o.total);
+        }
+      });
+    }
+    
+    // Update DOM
+    document.getElementById('stat-orders').textContent = orderCount || 0;
+    document.getElementById('stat-pending').textContent = pendingCount || 0;
+    
+    // Animate Revenue counter
+    let currentRev = 0;
+    const revEl = document.getElementById('stat-revenue');
+    const interval = setInterval(() => {
+      currentRev += (totalRevenue7Days / 20);
+      if(currentRev >= totalRevenue7Days) {
+        currentRev = totalRevenue7Days;
+        clearInterval(interval);
+      }
+      revEl.textContent = '₹' + Math.floor(currentRev).toLocaleString('en-IN');
+    }, 20);
+
+    // Render Recent Orders
+    const recentUl = document.getElementById('dashboard-recent-orders');
+    if(recentOrders && recentOrders.length > 0) {
+      recentUl.innerHTML = recentOrders.map(o => `
+        <li>
+          <div>
+            <div class="title">KGS-${o.order_number}</div>
+            <div class="subtitle">${o.customer_name || o.shipping_name || 'Guest'} • ${new Date(o.created_at).toLocaleDateString()}</div>
+          </div>
+          <div style="text-align:right">
+            <div class="amount">₹${Number(o.total).toLocaleString('en-IN')}</div>
+            <span class="badge ${o.status === 'delivered' ? 'badge-green' : (o.status === 'cancelled' ? 'badge-red' : 'badge-gold')}" style="font-size:9px; padding:2px 6px; margin-top:4px;">${o.status}</span>
+          </div>
+        </li>
+      `).join('');
+    } else {
+      recentUl.innerHTML = '<li style="color:var(--muted); font-size:12px; font-style:italic;">No recent orders</li>';
+    }
+
+    // Render Low Stock
+    const stockUl = document.getElementById('dashboard-low-stock');
+    if(lowStock && lowStock.length > 0) {
+      stockUl.innerHTML = lowStock.map(p => `
+        <li>
+          <div>
+            <div class="title">${p.name}</div>
+            <div class="subtitle" style="color:var(--red)">Out of Stock</div>
+          </div>
+          <button class="btn btn-outline btn-sm" onclick="showPage('products'); setTimeout(()=>editProduct('${p.id}'), 100)">Restock</button>
+        </li>
+      `).join('');
+    } else {
+      stockUl.innerHTML = '<li><div><div class="title" style="color:var(--green)">All products in stock</div></div></li>';
+    }
+
+    // Initial Graph Render
+    renderSalesGraph(7);
+
+  } catch (err) {
+    console.error('Dashboard Load Error:', err);
+  }
+}
+
+function renderSalesGraph(numDays) {
+  const graphContainer = document.getElementById('sales-graph');
+  const revEl = document.getElementById('stat-revenue');
+  const graphOrders = window.allGraphOrders || [];
+  
+  const days = [];
+  for(let i = numDays - 1; i >= 0; i--) {
+    const d = new Date();
+    d.setDate(d.getDate() - i);
+    days.push({
+      date: d.toISOString().split('T')[0],
+      label: numDays <= 7 ? d.toLocaleDateString('en-US', {weekday:'short'}) : d.getDate(),
+      total: 0
+    });
+  }
+
+  let totalRevenue = 0;
+  graphOrders.forEach(o => {
+    if(o.status !== 'cancelled') {
+      const oDate = new Date(o.created_at).toISOString().split('T')[0];
+      const day = days.find(d => d.date === oDate);
+      if(day) {
+        day.total += Number(o.total);
+        totalRevenue += Number(o.total);
+      }
+    }
+  });
+
+  // Update total revenue immediately if switching timeframe
+  revEl.textContent = '₹' + Math.floor(totalRevenue).toLocaleString('en-IN');
+
+  const maxSales = Math.max(...days.map(d => d.total), 1);
+  
+  // For 30 days, make bars thinner
+  const barMaxWidth = numDays > 7 ? '12px' : '32px';
+
+  graphContainer.innerHTML = days.map((d, index) => {
+    const heightPercent = Math.max((d.total / maxSales) * 100, 2);
+    // Show label every 3 days if 30 days, or all if 7 days
+    const showLabel = numDays <= 7 || index % 3 === 0;
+    return `
+      <div class="graph-bar-wrapper">
+        <div class="graph-tooltip">₹${d.total.toLocaleString('en-IN')}</div>
+        <div class="graph-bar" style="height: 0%; max-width: ${barMaxWidth}" data-target-height="${heightPercent}%"></div>
+        <div class="graph-label">${showLabel ? d.label : ''}</div>
+      </div>
+    `;
+  }).join('');
+
+  setTimeout(() => {
+    document.querySelectorAll('.graph-bar').forEach(bar => {
+      bar.style.height = bar.getAttribute('data-target-height');
+    });
+  }, 50);
 }
 
 // ─── INIT ─────────────────────────────────────────────────
