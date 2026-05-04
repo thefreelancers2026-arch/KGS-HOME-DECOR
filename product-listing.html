@@ -611,19 +611,53 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
- }
- document.body.style.overflow=''; }
-function liveSearch(q){
+ 
+
+function openDrw(){
+  const m=document.getElementById('mobile-drawer');
+  const o=document.getElementById('drw-ov');
+  if(m)m.style.transform='translateX(0)';
+  if(o)o.classList.remove('hidden');
+  document.body.style.overflow='hidden';
+}
+function closeDrw(){
+  const m=document.getElementById('mobile-drawer');
+  const o=document.getElementById('drw-ov');
+  if(m)m.style.transform='translateX(100%)';
+  if(o)o.classList.add('hidden');
+  document.body.style.overflow='';
+}
+function openSearch(){
+  const o=document.getElementById('search-overlay');
+  const i=document.getElementById('search-input');
+  if(o)o.style.display='flex';
+  if(i)i.focus();
+  document.body.style.overflow='hidden';
+}
+function closeSearch(){
+  const o=document.getElementById('search-overlay');
+  const i=document.getElementById('search-input');
+  const r=document.getElementById('search-results');
+  if(o)o.style.display='none';
+  if(i)i.value='';
+  if(r)r.innerHTML='';
+  document.body.style.overflow='';
+}
+function doSearch(q){
   const res=document.getElementById('search-results'); if(!res) return;
   if(!q||q.length<2){res.innerHTML='';return;}
-  const fuse=new Fuse(ALL_PRODUCTS,{keys:['name','category'],threshold:0.4});
-  const hits=fuse.search(q).slice(0,6);
-  if(!hits.length){res.innerHTML='<p style="padding:16px;font-family:DM Sans,sans-serif;color:#767270;font-size:13px;">No results found.</p>';return;}
-  res.innerHTML=hits.map(h=>`<a href="product-detail.html?handle=${h.item.handle}" style="display:flex;align-items:center;gap:12px;padding:12px 16px;text-decoration:none;border-bottom:1px solid #E4DDD4;" onclick="closeSearch()">
-    <img src="${h.item.image}" style="width:48px;height:48px;object-fit:cover;flex-shrink:0;">
-    <span style="font-family: "Jost", sans-serif;font-size:13px;color:#1A1A1A;">${h.item.name}<br><span style="color:#767270;font-size:11px;">₹${h.item.price.toLocaleString('en-IN')}</span></span>
-  </a>`).join('');
+  if(typeof window.ALL_PRODUCTS !== 'undefined' && typeof window.Fuse !== 'undefined'){
+    const fuse=new window.Fuse(window.ALL_PRODUCTS,{keys:['name','category'],threshold:0.4});
+    const hits=fuse.search(q).slice(0,6);
+    if(!hits.length){res.innerHTML='<p style="padding:16px;color:#767270;font-size:13px;">No results found.</p>';return;}
+    res.innerHTML=hits.map(h=>`<a href="product-detail.html?handle=${h.item.handle}" style="display:flex;align-items:center;gap:12px;padding:12px 16px;text-decoration:none;border-bottom:1px solid #E4DDD4;" onclick="closeSearch()">
+      <img src="${h.item.image}" style="width:48px;height:48px;object-fit:cover;flex-shrink:0;">
+      <span style="font-family: 'Jost', sans-serif;font-size:13px;color:#1A1A1A;">${h.item.name}<br><span style="color:#767270;font-size:11px;">₹${h.item.price.toLocaleString('en-IN')}</span></span>
+    </a>`).join('');
+  }
 }
+window.liveSearch = doSearch;
+
 
 const lenis = new Lenis();
 function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
